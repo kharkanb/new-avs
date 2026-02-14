@@ -1,0 +1,142 @@
+﻿============================================================
+ فایل: ChecklistTemplate.php (پوشه: app\Models)
+============================================================
+
+تعداد نسخه‌ها: 6
+
+----------------------------------------
+ نسخه 1 : ChecklistTemplate (2).php
+----------------------------------------
+<?php
+namespace App\Models;
+use Illuminate\Database\Eloquent\Model;
+class ChecklistTemplate extends Model{
+ protected \=['name','equipment_type'];
+ public function items(){return \->hasMany(ChecklistItem::class);}
+}
+
+
+----------------------------------------
+ نسخه 2 : ChecklistTemplate (3).php
+----------------------------------------
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class ChecklistTemplate extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        "equipment_type_id",
+        "item_index",
+        "item_text"
+    ];
+
+    public function equipmentType(): BelongsTo
+    {
+        return $this->belongsTo(EquipmentType::class);
+    }
+}
+
+
+----------------------------------------
+ نسخه 3 : ChecklistTemplate (4).php
+----------------------------------------
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class ChecklistTemplate extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        "equipment_type_id",
+        "item_index",
+        "item_text"
+    ];
+
+    public function equipmentType(): BelongsTo
+    {
+        return $this->belongsTo(EquipmentType::class);
+    }
+}
+
+
+----------------------------------------
+ نسخه 4 : ChecklistTemplate (5).php
+----------------------------------------
+<?php
+namespace App\Models;
+use Illuminate\Database\Eloquent\Model;
+class ChecklistTemplate extends Model{
+ protected \=['name','equipment_type'];
+ public function items(){return \->hasMany(ChecklistItem::class);}
+}
+
+
+----------------------------------------
+ نسخه 5 : ChecklistTemplate (6).php
+----------------------------------------
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class ChecklistTemplate extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        "equipment_type_id",
+        "item_index",
+        "item_text"
+    ];
+
+    public function equipmentType(): BelongsTo
+    {
+        return $this->belongsTo(EquipmentType::class);
+    }
+}
+
+
+----------------------------------------
+ نسخه 6 : ChecklistTemplate.php
+----------------------------------------
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class ChecklistTemplate extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        "equipment_type_id",
+        "item_index",
+        "item_text"
+    ];
+
+    public function equipmentType(): BelongsTo
+    {
+        return $this->belongsTo(EquipmentType::class);
+    }
+}
+
+

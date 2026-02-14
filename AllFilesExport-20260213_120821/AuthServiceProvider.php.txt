@@ -1,0 +1,49 @@
+﻿================================================================================
+                            AuthServiceProvider.php
+================================================================================
+تعداد فایل‌ها: 2
+تاریخ ایجاد: 2026/02/13 12:08:25
+مسیر پایه: C:\Users\dear-user\Desktop\complete-avs
+================================================================================
+
+--------------------------------------------------------------------------------
+【فایل 1】: AuthServiceProvider (2).php
+📁 مسیر: app\Providers\AuthServiceProvider (2).php
+📅 تاریخ آخرین تغییر: 02/13/2026 06:15:39
+📏 حجم: 265 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Providers;
+
+use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+
+class AuthServiceProvider extends ServiceProvider
+{
+    protected $policies = [];
+    public function boot(): void { $this->registerPolicies(); }
+}
+
+--------------------------------------------------------------------------------
+【فایل 2】: AuthServiceProvider.php
+📁 مسیر: app\Providers\AuthServiceProvider.php
+📅 تاریخ آخرین تغییر: 02/13/2026 06:15:39
+📏 حجم: 265 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Providers;
+
+use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+
+class AuthServiceProvider extends ServiceProvider
+{
+    protected $policies = [];
+    public function boot(): void { $this->registerPolicies(); }
+}
+
+================================================================================
+                        پایان فایل AuthServiceProvider.php
+================================================================================

@@ -1,0 +1,38 @@
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+
+class ConsumableSeeder extends Seeder
+{
+    public function run(): void
+    {
+        $consumables = [
+            ["name" => "مودم", "unit" => "عدد"],
+            ["name" => "RTU", "unit" => "عدد"],
+            ["name" => "آنتن", "unit" => "عدد"],
+            ["name" => "باتری", "unit" => "عدد"],
+            ["name" => "فیوز مینیاتوری", "unit" => "عدد"],
+            ["name" => "فیوز فشنگی", "unit" => "عدد"],
+            ["name" => "کابل ارتباطی", "unit" => "متر"],
+            ["name" => "کابل تغذیه", "unit" => "متر"],
+            ["name" => "کانکتور", "unit" => "عدد"],
+            ["name" => "سیم کارت", "unit" => "عدد"],
+            ["name" => "پاور", "unit" => "عدد"],
+            ["name" => "رله", "unit" => "عدد"],
+            ["name" => "سکسیونر", "unit" => "عدد"],
+            ["name" => "دژنکتور", "unit" => "عدد"],
+            ["name" => "کابل آنتن", "unit" => "متر"],
+            ["name" => "سایر اقلام", "unit" => "عدد"]
+        ];
+
+        foreach ($consumables as $item) {
+            DB::table("consumables")->updateOrInsert(
+                ["name" => $item["name"]],
+                $item
+            );
+        }
+    }
+}

@@ -1,0 +1,176 @@
+﻿================================================================================
+                            2026_02_10_064941_create_feeders_table.php
+================================================================================
+تعداد فایل‌ها: 5
+تاریخ ایجاد: 2026/02/13 12:08:23
+مسیر پایه: C:\Users\dear-user\Desktop\complete-avs
+================================================================================
+
+--------------------------------------------------------------------------------
+【فایل 1】: 2026_02_10_064941_create_feeders_table (2).php
+📁 مسیر: database\migrations\2026_02_10_064941_create_feeders_table (2).php
+📅 تاریخ آخرین تغییر: 02/12/2026 23:08:14
+📏 حجم: 636 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create("feeders", function (Blueprint $table) {
+            $table->id();
+            $table->foreignId("post_id")->constrained()->cascadeOnDelete();
+            $table->string("name");
+            $table->timestamps();
+            
+            $table->unique(["post_id", "name"], "post_feeder_unique");
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists("feeders");
+    }
+};
+
+--------------------------------------------------------------------------------
+【فایل 2】: 2026_02_10_064941_create_feeders_table (3).php
+📁 مسیر: database\migrations\2026_02_10_064941_create_feeders_table (3).php
+📅 تاریخ آخرین تغییر: 02/13/2026 00:41:25
+📏 حجم: 678 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create("feeders", function (Blueprint $table) {
+            $table$table->id();
+            $table$table->foreignId("post_id")$table->constrained()$table->cascadeOnDelete();
+            $table$table->string("name");
+            $table$table->timestamps();
+            
+            $table$table->unique(["post_id", "name"], "post_feeder_unique");
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists("feeders");
+    }
+};
+
+--------------------------------------------------------------------------------
+【فایل 3】: 2026_02_10_064941_create_feeders_table.php
+📁 مسیر: database\migrations\2026_02_10_064941_create_feeders_table.php
+📅 تاریخ آخرین تغییر: 02/12/2026 23:08:14
+📏 حجم: 636 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create("feeders", function (Blueprint $table) {
+            $table->id();
+            $table->foreignId("post_id")->constrained()->cascadeOnDelete();
+            $table->string("name");
+            $table->timestamps();
+            
+            $table->unique(["post_id", "name"], "post_feeder_unique");
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists("feeders");
+    }
+};
+
+--------------------------------------------------------------------------------
+【فایل 4】: 2026_02_10_064941_create_feeders_table.php (2).bak
+📁 مسیر: database\migrations\2026_02_10_064941_create_feeders_table.php (2).bak
+📅 تاریخ آخرین تغییر: 02/12/2026 23:17:19
+📏 حجم: 636 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create("feeders", function (Blueprint $table) {
+            $table->id();
+            $table->foreignId("post_id")->constrained()->cascadeOnDelete();
+            $table->string("name");
+            $table->timestamps();
+            
+            $table->unique(["post_id", "name"], "post_feeder_unique");
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists("feeders");
+    }
+};
+
+--------------------------------------------------------------------------------
+【فایل 5】: 2026_02_10_064941_create_feeders_table.php.bak
+📁 مسیر: database\migrations\2026_02_10_064941_create_feeders_table.php.bak
+📅 تاریخ آخرین تغییر: 02/12/2026 23:17:19
+📏 حجم: 636 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create("feeders", function (Blueprint $table) {
+            $table->id();
+            $table->foreignId("post_id")->constrained()->cascadeOnDelete();
+            $table->string("name");
+            $table->timestamps();
+            
+            $table->unique(["post_id", "name"], "post_feeder_unique");
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists("feeders");
+    }
+};
+
+================================================================================
+                        پایان فایل 2026_02_10_064941_create_feeders_table.php
+================================================================================

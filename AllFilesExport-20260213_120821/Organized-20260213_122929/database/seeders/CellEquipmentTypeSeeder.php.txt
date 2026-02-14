@@ -1,0 +1,174 @@
+﻿============================================================
+ فایل: CellEquipmentTypeSeeder.php (پوشه: database\seeders)
+============================================================
+
+تعداد نسخه‌ها: 4
+
+----------------------------------------
+ نسخه 1 : CellEquipmentTypeSeeder (2).php
+----------------------------------------
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+
+class CellEquipmentTypeSeeder extends Seeder
+{
+    public function run(): void
+    {
+        $types = [
+            "Ø¯Ú˜Ù†Ú©ØªÙˆØ±",
+            "Ú©Ù„ÛŒØ¯ Ø¨Ø§Ø±",
+            "Ø±Ù„Ù‡ Ø­ÙØ§Ø¸ØªÛŒ",
+            "Ú©Ù†ØªØ±Ù„ Ù¾Ù†Ù„",
+            "Ù…ÙˆØ¯Ù…",
+            "RTU",
+            "Ø¨Ø§ØªØ±ÛŒ",
+            "Ø´Ø§Ø±Ú˜Ø± Ø¨Ø§ØªØ±ÛŒ",
+            "CT",
+            "PT",
+            "ÙÛŒÙˆØ²",
+            "Ø³Ú©Ø³ÛŒÙˆÙ†Ø± Ø¯Ø§Ø®Ù„ÛŒ",
+            "ØªØ±Ø§Ù†Ø³ Ø¬Ø±ÛŒØ§Ù†",
+            "ØªØ±Ø§Ù†Ø³ ÙˆÙ„ØªØ§Ú˜",
+            "Ø¨Ø±Ø¯ Ù…Ø®Ø§Ø¨Ø±Ø§ØªÛŒ",
+        ];
+
+        foreach ($types as $type) {
+            DB::table("cell_equipment_types")->updateOrInsert(
+                ["name" => $type],
+                ["created_at" => now(), "updated_at" => now()]
+            );
+        }
+    }
+}
+
+
+----------------------------------------
+ نسخه 2 : CellEquipmentTypeSeeder (3).php
+----------------------------------------
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+
+class CellEquipmentTypeSeeder extends Seeder
+{
+    public function run(): void
+    {
+        $types = [
+            "Ø¯Ú˜Ù†Ú©ØªÙˆØ±",
+            "Ú©Ù„ÛŒØ¯ Ø¨Ø§Ø±",
+            "Ø±Ù„Ù‡ Ø­ÙØ§Ø¸ØªÛŒ",
+            "Ú©Ù†ØªØ±Ù„ Ù¾Ù†Ù„",
+            "Ù…ÙˆØ¯Ù…",
+            "RTU",
+            "Ø¨Ø§ØªØ±ÛŒ",
+            "Ø´Ø§Ø±Ú˜Ø± Ø¨Ø§ØªØ±ÛŒ",
+            "CT",
+            "PT",
+            "ÙÛŒÙˆØ²",
+            "Ø³Ú©Ø³ÛŒÙˆÙ†Ø± Ø¯Ø§Ø®Ù„ÛŒ",
+            "ØªØ±Ø§Ù†Ø³ Ø¬Ø±ÛŒØ§Ù†",
+            "ØªØ±Ø§Ù†Ø³ ÙˆÙ„ØªØ§Ú˜",
+            "Ø¨Ø±Ø¯ Ù…Ø®Ø§Ø¨Ø±Ø§ØªÛŒ",
+        ];
+
+        foreach ($types as $type) {
+            DB::table("cell_equipment_types")->updateOrInsert(
+                ["name" => $type],
+                ["created_at" => now(), "updated_at" => now()]
+            );
+        }
+    }
+}
+
+
+----------------------------------------
+ نسخه 3 : CellEquipmentTypeSeeder (4).php
+----------------------------------------
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+
+class CellEquipmentTypeSeeder extends Seeder
+{
+    public function run(): void
+    {
+        $types = [
+            "Ø¯Ú˜Ù†Ú©ØªÙˆØ±",
+            "Ú©Ù„ÛŒØ¯ Ø¨Ø§Ø±",
+            "Ø±Ù„Ù‡ Ø­ÙØ§Ø¸ØªÛŒ",
+            "Ú©Ù†ØªØ±Ù„ Ù¾Ù†Ù„",
+            "Ù…ÙˆØ¯Ù…",
+            "RTU",
+            "Ø¨Ø§ØªØ±ÛŒ",
+            "Ø´Ø§Ø±Ú˜Ø± Ø¨Ø§ØªØ±ÛŒ",
+            "CT",
+            "PT",
+            "ÙÛŒÙˆØ²",
+            "Ø³Ú©Ø³ÛŒÙˆÙ†Ø± Ø¯Ø§Ø®Ù„ÛŒ",
+            "ØªØ±Ø§Ù†Ø³ Ø¬Ø±ÛŒØ§Ù†",
+            "ØªØ±Ø§Ù†Ø³ ÙˆÙ„ØªØ§Ú˜",
+            "Ø¨Ø±Ø¯ Ù…Ø®Ø§Ø¨Ø±Ø§ØªÛŒ",
+        ];
+
+        foreach ($types as $type) {
+            DB::table("cell_equipment_types")->updateOrInsert(
+                ["name" => $type],
+                ["created_at" => now(), "updated_at" => now()]
+            );
+        }
+    }
+}
+
+
+----------------------------------------
+ نسخه 4 : CellEquipmentTypeSeeder.php
+----------------------------------------
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+
+class CellEquipmentTypeSeeder extends Seeder
+{
+    public function run(): void
+    {
+        $types = [
+            "Ã˜Â¯ÃšËœÃ™â€ ÃšÂ©Ã˜ÂªÃ™Ë†Ã˜Â±",
+            "ÃšÂ©Ã™â€žÃ›Å’Ã˜Â¯ Ã˜Â¨Ã˜Â§Ã˜Â±",
+            "Ã˜Â±Ã™â€žÃ™â€¡ Ã˜Â­Ã™ÂÃ˜Â§Ã˜Â¸Ã˜ÂªÃ›Å’",
+            "ÃšÂ©Ã™â€ Ã˜ÂªÃ˜Â±Ã™â€ž Ã™Â¾Ã™â€ Ã™â€ž",
+            "Ã™â€¦Ã™Ë†Ã˜Â¯Ã™â€¦",
+            "RTU",
+            "Ã˜Â¨Ã˜Â§Ã˜ÂªÃ˜Â±Ã›Å’",
+            "Ã˜Â´Ã˜Â§Ã˜Â±ÃšËœÃ˜Â± Ã˜Â¨Ã˜Â§Ã˜ÂªÃ˜Â±Ã›Å’",
+            "CT",
+            "PT",
+            "Ã™ÂÃ›Å’Ã™Ë†Ã˜Â²",
+            "Ã˜Â³ÃšÂ©Ã˜Â³Ã›Å’Ã™Ë†Ã™â€ Ã˜Â± Ã˜Â¯Ã˜Â§Ã˜Â®Ã™â€žÃ›Å’",
+            "Ã˜ÂªÃ˜Â±Ã˜Â§Ã™â€ Ã˜Â³ Ã˜Â¬Ã˜Â±Ã›Å’Ã˜Â§Ã™â€ ",
+            "Ã˜ÂªÃ˜Â±Ã˜Â§Ã™â€ Ã˜Â³ Ã™Ë†Ã™â€žÃ˜ÂªÃ˜Â§ÃšËœ",
+            "Ã˜Â¨Ã˜Â±Ã˜Â¯ Ã™â€¦Ã˜Â®Ã˜Â§Ã˜Â¨Ã˜Â±Ã˜Â§Ã˜ÂªÃ›Å’",
+        ];
+
+        foreach ($types as $type) {
+            DB::table("cell_equipment_types")->updateOrInsert(
+                ["name" => $type],
+                ["created_at" => now(), "updated_at" => now()]
+            );
+        }
+    }
+}
+
+

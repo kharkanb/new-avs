@@ -1,0 +1,102 @@
+﻿============================================================
+ فایل: BrandController.php (پوشه: app\Http\Controllers\Api)
+============================================================
+
+تعداد نسخه‌ها: 3
+
+----------------------------------------
+ نسخه 1 : BrandController (2).php
+----------------------------------------
+<?php
+namespace App\Http\Controllers\Api;
+use App\Http\Controllers\Controller;
+use App\Models\Brand;
+use Illuminate\Http\Request;
+
+class BrandController extends Controller
+{
+ public function index(){ return Brand::all(); }
+
+ public function store(Request \){
+  \=\->validate(['name'=>'required']);
+  return Brand::create(\);
+ }
+
+ public function show(Brand \){ return \; }
+
+ public function update(Request \,Brand \){
+  \->update(\->all());
+  return \;
+ }
+
+ public function destroy(Brand \){
+  \->delete();
+  return response()->json(['deleted']);
+ }
+}
+
+
+----------------------------------------
+ نسخه 2 : BrandController (3).php
+----------------------------------------
+<?php
+namespace App\Http\Controllers\Api;
+use App\Http\Controllers\Controller;
+use App\Models\Brand;
+use Illuminate\Http\Request;
+
+class BrandController extends Controller
+{
+ public function index(){ return Brand::all(); }
+
+ public function store(Request \){
+  \=\->validate(['name'=>'required']);
+  return Brand::create(\);
+ }
+
+ public function show(Brand \){ return \; }
+
+ public function update(Request \,Brand \){
+  \->update(\->all());
+  return \;
+ }
+
+ public function destroy(Brand \){
+  \->delete();
+  return response()->json(['deleted']);
+ }
+}
+
+
+----------------------------------------
+ نسخه 3 : BrandController.php
+----------------------------------------
+<?php
+namespace App\Http\Controllers\Api;
+use App\Http\Controllers\Controller;
+use App\Models\Brand;
+use Illuminate\Http\Request;
+
+class BrandController extends Controller
+{
+ public function index(){ return Brand::all(); }
+
+ public function store(Request \){
+  \=\->validate(['name'=>'required']);
+  return Brand::create(\);
+ }
+
+ public function show(Brand \){ return \; }
+
+ public function update(Request \,Brand \){
+  \->update(\->all());
+  return \;
+ }
+
+ public function destroy(Brand \){
+  \->delete();
+  return response()->json(['deleted']);
+ }
+}
+
+

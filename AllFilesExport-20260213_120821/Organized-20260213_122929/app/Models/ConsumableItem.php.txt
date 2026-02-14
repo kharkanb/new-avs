@@ -1,0 +1,130 @@
+﻿============================================================
+ فایل: ConsumableItem.php (پوشه: app\Models)
+============================================================
+
+تعداد نسخه‌ها: 6
+
+----------------------------------------
+ نسخه 1 : ConsumableItem (2).php
+----------------------------------------
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class ConsumableItem extends Model
+{
+    //
+}
+
+
+
+----------------------------------------
+ نسخه 2 : ConsumableItem (3).php
+----------------------------------------
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class ConsumableItem extends Model
+{
+    use HasFactory;
+
+    protected $table = "consumable_items";
+
+    protected $fillable = [
+        "name",
+        "unit"
+    ];
+}
+
+
+----------------------------------------
+ نسخه 3 : ConsumableItem (4).php
+----------------------------------------
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class ConsumableItem extends Model
+{
+    use HasFactory;
+
+    protected $table = "consumable_items";
+
+    protected $fillable = [
+        "name",
+        "unit"
+    ];
+}
+
+
+----------------------------------------
+ نسخه 4 : ConsumableItem (5).php
+----------------------------------------
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class ConsumableItem extends Model
+{
+    //
+}
+
+
+
+----------------------------------------
+ نسخه 5 : ConsumableItem (6).php
+----------------------------------------
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class ConsumableItem extends Model
+{
+    use HasFactory;
+
+    protected $table = "consumable_items";
+
+    protected $fillable = [
+        "name",
+        "unit"
+    ];
+}
+
+
+----------------------------------------
+ نسخه 6 : ConsumableItem.php
+----------------------------------------
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class ConsumableItem extends Model
+{
+    use HasFactory;
+
+    protected $table = "consumable_items";
+
+    protected $fillable = [
+        "name",
+        "unit"
+    ];
+}
+
+

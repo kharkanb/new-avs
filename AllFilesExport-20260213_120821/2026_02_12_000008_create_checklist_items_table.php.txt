@@ -1,0 +1,186 @@
+﻿================================================================================
+                            2026_02_12_000008_create_checklist_items_table.php
+================================================================================
+تعداد فایل‌ها: 5
+تاریخ ایجاد: 2026/02/13 12:08:24
+مسیر پایه: C:\Users\dear-user\Desktop\complete-avs
+================================================================================
+
+--------------------------------------------------------------------------------
+【فایل 1】: 2026_02_12_000008_create_checklist_items_table (2).php
+📁 مسیر: database\migrations\2026_02_12_000008_create_checklist_items_table (2).php
+📅 تاریخ آخرین تغییر: 02/12/2026 23:08:13
+📏 حجم: 859 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create("checklist_items", function (Blueprint $table) {
+            $table->id();
+            $table->foreignId("checklist_template_id")->constrained()->cascadeOnDelete();
+            $table->string("title");
+            $table->integer("sort_order")->default(0);
+            $table->enum("required_level", ["mandatory", "optional", "conditional"])->default("mandatory");
+            $table->timestamps();
+            
+            $table->unique(["checklist_template_id", "sort_order"], "checklist_item_order_unique");
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists("checklist_items");
+    }
+};
+
+--------------------------------------------------------------------------------
+【فایل 2】: 2026_02_12_000008_create_checklist_items_table (3).php
+📁 مسیر: database\migrations\2026_02_12_000008_create_checklist_items_table (3).php
+📅 تاریخ آخرین تغییر: 02/13/2026 00:41:25
+📏 حجم: 925 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create("checklist_items", function (Blueprint $table) {
+            $table$table->id();
+            $table$table->foreignId("checklist_template_id")$table->constrained()$table->cascadeOnDelete();
+            $table$table->string("title");
+            $table$table->integer("sort_order")$table->default(0);
+            $table$table->enum("required_level", ["mandatory", "optional", "conditional"])$table->default("mandatory");
+            $table$table->timestamps();
+            
+            $table$table->unique(["checklist_template_id", "sort_order"], "checklist_item_order_unique");
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists("checklist_items");
+    }
+};
+
+--------------------------------------------------------------------------------
+【فایل 3】: 2026_02_12_000008_create_checklist_items_table.php
+📁 مسیر: database\migrations\2026_02_12_000008_create_checklist_items_table.php
+📅 تاریخ آخرین تغییر: 02/12/2026 23:08:13
+📏 حجم: 859 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create("checklist_items", function (Blueprint $table) {
+            $table->id();
+            $table->foreignId("checklist_template_id")->constrained()->cascadeOnDelete();
+            $table->string("title");
+            $table->integer("sort_order")->default(0);
+            $table->enum("required_level", ["mandatory", "optional", "conditional"])->default("mandatory");
+            $table->timestamps();
+            
+            $table->unique(["checklist_template_id", "sort_order"], "checklist_item_order_unique");
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists("checklist_items");
+    }
+};
+
+--------------------------------------------------------------------------------
+【فایل 4】: 2026_02_12_000008_create_checklist_items_table.php (2).bak
+📁 مسیر: database\migrations\2026_02_12_000008_create_checklist_items_table.php (2).bak
+📅 تاریخ آخرین تغییر: 02/12/2026 23:17:20
+📏 حجم: 859 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create("checklist_items", function (Blueprint $table) {
+            $table->id();
+            $table->foreignId("checklist_template_id")->constrained()->cascadeOnDelete();
+            $table->string("title");
+            $table->integer("sort_order")->default(0);
+            $table->enum("required_level", ["mandatory", "optional", "conditional"])->default("mandatory");
+            $table->timestamps();
+            
+            $table->unique(["checklist_template_id", "sort_order"], "checklist_item_order_unique");
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists("checklist_items");
+    }
+};
+
+--------------------------------------------------------------------------------
+【فایل 5】: 2026_02_12_000008_create_checklist_items_table.php.bak
+📁 مسیر: database\migrations\2026_02_12_000008_create_checklist_items_table.php.bak
+📅 تاریخ آخرین تغییر: 02/12/2026 23:17:20
+📏 حجم: 859 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create("checklist_items", function (Blueprint $table) {
+            $table->id();
+            $table->foreignId("checklist_template_id")->constrained()->cascadeOnDelete();
+            $table->string("title");
+            $table->integer("sort_order")->default(0);
+            $table->enum("required_level", ["mandatory", "optional", "conditional"])->default("mandatory");
+            $table->timestamps();
+            
+            $table->unique(["checklist_template_id", "sort_order"], "checklist_item_order_unique");
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists("checklist_items");
+    }
+};
+
+================================================================================
+                        پایان فایل 2026_02_12_000008_create_checklist_items_table.php
+================================================================================

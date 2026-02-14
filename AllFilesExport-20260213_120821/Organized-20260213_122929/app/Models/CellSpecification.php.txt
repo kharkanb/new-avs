@@ -1,0 +1,154 @@
+﻿============================================================
+ فایل: CellSpecification.php (پوشه: app\Models)
+============================================================
+
+تعداد نسخه‌ها: 4
+
+----------------------------------------
+ نسخه 1 : CellSpecification (2).php
+----------------------------------------
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class CellSpecification extends Model
+{
+    use HasFactory;
+
+    protected $table = "cell_specifications";
+
+    protected $fillable = [
+        "equipment_id",
+        "cell_type",
+        "cell_number",
+        "cell_notes"
+    ];
+
+    public function equipment(): BelongsTo
+    {
+        return $this->belongsTo(Equipment::class);
+    }
+
+    public function cellEquipments(): HasMany
+    {
+        return $this->hasMany(CellEquipment::class, "cell_id");
+    }
+}
+
+
+----------------------------------------
+ نسخه 2 : CellSpecification (3).php
+----------------------------------------
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class CellSpecification extends Model
+{
+    use HasFactory;
+
+    protected $table = "cell_specifications";
+
+    protected $fillable = [
+        "equipment_id",
+        "cell_type",
+        "cell_number",
+        "cell_notes"
+    ];
+
+    public function equipment(): BelongsTo
+    {
+        return $this->belongsTo(Equipment::class);
+    }
+
+    public function cellEquipments(): HasMany
+    {
+        return $this->hasMany(CellEquipment::class, "cell_id");
+    }
+}
+
+
+----------------------------------------
+ نسخه 3 : CellSpecification (4).php
+----------------------------------------
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class CellSpecification extends Model
+{
+    use HasFactory;
+
+    protected $table = "cell_specifications";
+
+    protected $fillable = [
+        "equipment_id",
+        "cell_type",
+        "cell_number",
+        "cell_notes"
+    ];
+
+    public function equipment(): BelongsTo
+    {
+        return $this->belongsTo(Equipment::class);
+    }
+
+    public function cellEquipments(): HasMany
+    {
+        return $this->hasMany(CellEquipment::class, "cell_id");
+    }
+}
+
+
+----------------------------------------
+ نسخه 4 : CellSpecification.php
+----------------------------------------
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class CellSpecification extends Model
+{
+    use HasFactory;
+
+    protected $table = "cell_specifications";
+
+    protected $fillable = [
+        "equipment_id",
+        "cell_type",
+        "cell_number",
+        "cell_notes"
+    ];
+
+    public function equipment(): BelongsTo
+    {
+        return $this->belongsTo(Equipment::class);
+    }
+
+    public function cellEquipments(): HasMany
+    {
+        return $this->hasMany(CellEquipment::class, "cell_id");
+    }
+}
+
+

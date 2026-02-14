@@ -1,0 +1,102 @@
+﻿============================================================
+ فایل: DepartmentController.php (پوشه: app\Http\Controllers\Api)
+============================================================
+
+تعداد نسخه‌ها: 3
+
+----------------------------------------
+ نسخه 1 : DepartmentController (2).php
+----------------------------------------
+<?php
+namespace App\Http\Controllers\Api;
+use App\Http\Controllers\Controller;
+use App\Models\Department;
+use Illuminate\Http\Request;
+
+class DepartmentController extends Controller
+{
+ public function index(){ return Department::all(); }
+
+ public function store(Request \){
+  \=\->validate(['name'=>'required']);
+  return Department::create(\);
+ }
+
+ public function show(Department \){ return \; }
+
+ public function update(Request \,Department \){
+  \->update(\->all());
+  return \;
+ }
+
+ public function destroy(Department \){
+  \->delete();
+  return response()->json(['deleted']);
+ }
+}
+
+
+----------------------------------------
+ نسخه 2 : DepartmentController (3).php
+----------------------------------------
+<?php
+namespace App\Http\Controllers\Api;
+use App\Http\Controllers\Controller;
+use App\Models\Department;
+use Illuminate\Http\Request;
+
+class DepartmentController extends Controller
+{
+ public function index(){ return Department::all(); }
+
+ public function store(Request \){
+  \=\->validate(['name'=>'required']);
+  return Department::create(\);
+ }
+
+ public function show(Department \){ return \; }
+
+ public function update(Request \,Department \){
+  \->update(\->all());
+  return \;
+ }
+
+ public function destroy(Department \){
+  \->delete();
+  return response()->json(['deleted']);
+ }
+}
+
+
+----------------------------------------
+ نسخه 3 : DepartmentController.php
+----------------------------------------
+<?php
+namespace App\Http\Controllers\Api;
+use App\Http\Controllers\Controller;
+use App\Models\Department;
+use Illuminate\Http\Request;
+
+class DepartmentController extends Controller
+{
+ public function index(){ return Department::all(); }
+
+ public function store(Request \){
+  \=\->validate(['name'=>'required']);
+  return Department::create(\);
+ }
+
+ public function show(Department \){ return \; }
+
+ public function update(Request \,Department \){
+  \->update(\->all());
+  return \;
+ }
+
+ public function destroy(Department \){
+  \->delete();
+  return response()->json(['deleted']);
+ }
+}
+
+

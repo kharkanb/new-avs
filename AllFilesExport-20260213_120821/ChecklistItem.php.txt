@@ -1,0 +1,189 @@
+﻿================================================================================
+                            ChecklistItem.php
+================================================================================
+تعداد فایل‌ها: 6
+تاریخ ایجاد: 2026/02/13 12:08:26
+مسیر پایه: C:\Users\dear-user\Desktop\complete-avs
+================================================================================
+
+--------------------------------------------------------------------------------
+【فایل 1】: ChecklistItem (2).php
+📁 مسیر: app\Models\ChecklistItem (2).php
+📅 تاریخ آخرین تغییر: 02/12/2026 22:38:23
+📏 حجم: 241 بایت
+--------------------------------------------------------------------------------
+
+<?php
+namespace App\Models;
+use Illuminate\Database\Eloquent\Model;
+class ChecklistItem extends Model{
+ protected \=['checklist_template_id','title','sort_order'];
+ public function template(){return \->belongsTo(ChecklistTemplate::class);}
+}
+
+--------------------------------------------------------------------------------
+【فایل 2】: ChecklistItem (3).php
+📁 مسیر: app\Models\ChecklistItem (3).php
+📅 تاریخ آخرین تغییر: 02/12/2026 23:48:55
+📏 حجم: 549 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class ChecklistItem extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        "equipment_id",
+        "item_index",
+        "item_text",
+        "status",
+        "description"
+    ];
+
+    protected $casts = [
+        "status" => "string"
+    ];
+
+    public function equipment(): BelongsTo
+    {
+        return $this->belongsTo(Equipment::class);
+    }
+}
+
+--------------------------------------------------------------------------------
+【فایل 3】: ChecklistItem (4).php
+📁 مسیر: app\Models\ChecklistItem (4).php
+📅 تاریخ آخرین تغییر: 02/12/2026 23:48:55
+📏 حجم: 549 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class ChecklistItem extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        "equipment_id",
+        "item_index",
+        "item_text",
+        "status",
+        "description"
+    ];
+
+    protected $casts = [
+        "status" => "string"
+    ];
+
+    public function equipment(): BelongsTo
+    {
+        return $this->belongsTo(Equipment::class);
+    }
+}
+
+--------------------------------------------------------------------------------
+【فایل 4】: ChecklistItem (5).php
+📁 مسیر: app\Models\ChecklistItem (5).php
+📅 تاریخ آخرین تغییر: 02/12/2026 22:38:23
+📏 حجم: 241 بایت
+--------------------------------------------------------------------------------
+
+<?php
+namespace App\Models;
+use Illuminate\Database\Eloquent\Model;
+class ChecklistItem extends Model{
+ protected \=['checklist_template_id','title','sort_order'];
+ public function template(){return \->belongsTo(ChecklistTemplate::class);}
+}
+
+--------------------------------------------------------------------------------
+【فایل 5】: ChecklistItem (6).php
+📁 مسیر: app\Models\ChecklistItem (6).php
+📅 تاریخ آخرین تغییر: 02/12/2026 23:48:55
+📏 حجم: 549 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class ChecklistItem extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        "equipment_id",
+        "item_index",
+        "item_text",
+        "status",
+        "description"
+    ];
+
+    protected $casts = [
+        "status" => "string"
+    ];
+
+    public function equipment(): BelongsTo
+    {
+        return $this->belongsTo(Equipment::class);
+    }
+}
+
+--------------------------------------------------------------------------------
+【فایل 6】: ChecklistItem.php
+📁 مسیر: app\Models\ChecklistItem.php
+📅 تاریخ آخرین تغییر: 02/13/2026 10:37:21
+📏 حجم: 549 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class ChecklistItem extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        "equipment_id",
+        "item_index",
+        "item_text",
+        "status",
+        "description"
+    ];
+
+    protected $casts = [
+        "status" => "string"
+    ];
+
+    public function equipment(): BelongsTo
+    {
+        return $this->belongsTo(Equipment::class);
+    }
+}
+
+================================================================================
+                        پایان فایل ChecklistItem.php
+================================================================================

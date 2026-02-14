@@ -1,0 +1,190 @@
+﻿============================================================
+ فایل: EquipmentType.php (پوشه: app\Models)
+============================================================
+
+تعداد نسخه‌ها: 6
+
+----------------------------------------
+ نسخه 1 : EquipmentType (2).php
+----------------------------------------
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class EquipmentType extends Model
+{
+    protected \ = 'equipment_types';
+    protected \ = [];
+}
+
+
+----------------------------------------
+ نسخه 2 : EquipmentType (3).php
+----------------------------------------
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class EquipmentType extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        "name",
+        "has_height",
+        "has_brand"
+    ];
+
+    protected $casts = [
+        "has_height" => "boolean",
+        "has_brand" => "boolean"
+    ];
+
+    public function equipments(): HasMany
+    {
+        return $this->hasMany(Equipment::class);
+    }
+
+    public function checklistTemplates(): HasMany
+    {
+        return $this->hasMany(ChecklistTemplate::class);
+    }
+}
+
+
+----------------------------------------
+ نسخه 3 : EquipmentType (4).php
+----------------------------------------
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class EquipmentType extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        "name",
+        "has_height",
+        "has_brand"
+    ];
+
+    protected $casts = [
+        "has_height" => "boolean",
+        "has_brand" => "boolean"
+    ];
+
+    public function equipments(): HasMany
+    {
+        return $this->hasMany(Equipment::class);
+    }
+
+    public function checklistTemplates(): HasMany
+    {
+        return $this->hasMany(ChecklistTemplate::class);
+    }
+}
+
+
+----------------------------------------
+ نسخه 4 : EquipmentType (5).php
+----------------------------------------
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class EquipmentType extends Model
+{
+    protected \ = 'equipment_types';
+    protected \ = [];
+}
+
+
+----------------------------------------
+ نسخه 5 : EquipmentType (6).php
+----------------------------------------
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class EquipmentType extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        "name",
+        "has_height",
+        "has_brand"
+    ];
+
+    protected $casts = [
+        "has_height" => "boolean",
+        "has_brand" => "boolean"
+    ];
+
+    public function equipments(): HasMany
+    {
+        return $this->hasMany(Equipment::class);
+    }
+
+    public function checklistTemplates(): HasMany
+    {
+        return $this->hasMany(ChecklistTemplate::class);
+    }
+}
+
+
+----------------------------------------
+ نسخه 6 : EquipmentType.php
+----------------------------------------
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class EquipmentType extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        "name",
+        "has_height",
+        "has_brand"
+    ];
+
+    protected $casts = [
+        "has_height" => "boolean",
+        "has_brand" => "boolean"
+    ];
+
+    public function equipments(): HasMany
+    {
+        return $this->hasMany(Equipment::class);
+    }
+
+    public function checklistTemplates(): HasMany
+    {
+        return $this->hasMany(ChecklistTemplate::class);
+    }
+}
+
+

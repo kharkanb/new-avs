@@ -1,0 +1,151 @@
+﻿================================================================================
+                            Post.php
+================================================================================
+تعداد فایل‌ها: 6
+تاریخ ایجاد: 2026/02/13 12:08:28
+مسیر پایه: C:\Users\dear-user\Desktop\complete-avs
+================================================================================
+
+--------------------------------------------------------------------------------
+【فایل 1】: Post (2).php
+📁 مسیر: app\Models\Post (2).php
+📅 تاریخ آخرین تغییر: 02/12/2026 22:38:23
+📏 حجم: 256 بایت
+--------------------------------------------------------------------------------
+
+<?php
+namespace App\Models;
+use Illuminate\Database\Eloquent\Model;
+class Post extends Model{
+ protected \=['name'];
+ public function feeders(){return \->hasMany(Feeder::class);}
+ public function mainEquipments(){return \->hasMany(MainEquipment::class);}
+}
+
+--------------------------------------------------------------------------------
+【فایل 2】: Post (3).php
+📁 مسیر: app\Models\Post (3).php
+📅 تاریخ آخرین تغییر: 02/12/2026 23:48:54
+📏 حجم: 361 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class Post extends Model
+{
+    use HasFactory;
+
+    protected $fillable = ["name"];
+
+    public function feeders(): HasMany
+    {
+        return $this->hasMany(Feeder::class);
+    }
+}
+
+--------------------------------------------------------------------------------
+【فایل 3】: Post (4).php
+📁 مسیر: app\Models\Post (4).php
+📅 تاریخ آخرین تغییر: 02/12/2026 23:48:54
+📏 حجم: 361 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class Post extends Model
+{
+    use HasFactory;
+
+    protected $fillable = ["name"];
+
+    public function feeders(): HasMany
+    {
+        return $this->hasMany(Feeder::class);
+    }
+}
+
+--------------------------------------------------------------------------------
+【فایل 4】: Post (5).php
+📁 مسیر: app\Models\Post (5).php
+📅 تاریخ آخرین تغییر: 02/12/2026 22:38:23
+📏 حجم: 256 بایت
+--------------------------------------------------------------------------------
+
+<?php
+namespace App\Models;
+use Illuminate\Database\Eloquent\Model;
+class Post extends Model{
+ protected \=['name'];
+ public function feeders(){return \->hasMany(Feeder::class);}
+ public function mainEquipments(){return \->hasMany(MainEquipment::class);}
+}
+
+--------------------------------------------------------------------------------
+【فایل 5】: Post (6).php
+📁 مسیر: app\Models\Post (6).php
+📅 تاریخ آخرین تغییر: 02/12/2026 23:48:54
+📏 حجم: 361 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class Post extends Model
+{
+    use HasFactory;
+
+    protected $fillable = ["name"];
+
+    public function feeders(): HasMany
+    {
+        return $this->hasMany(Feeder::class);
+    }
+}
+
+--------------------------------------------------------------------------------
+【فایل 6】: Post.php
+📁 مسیر: app\Models\Post.php
+📅 تاریخ آخرین تغییر: 02/13/2026 10:37:21
+📏 حجم: 361 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class Post extends Model
+{
+    use HasFactory;
+
+    protected $fillable = ["name"];
+
+    public function feeders(): HasMany
+    {
+        return $this->hasMany(Feeder::class);
+    }
+}
+
+================================================================================
+                        پایان فایل Post.php
+================================================================================

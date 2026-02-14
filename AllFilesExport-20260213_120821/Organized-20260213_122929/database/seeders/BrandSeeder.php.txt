@@ -1,0 +1,312 @@
+﻿============================================================
+ فایل: BrandSeeder.php (پوشه: database\seeders)
+============================================================
+
+تعداد نسخه‌ها: 6
+
+----------------------------------------
+ نسخه 1 : BrandSeeder (2).php
+----------------------------------------
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+
+class BrandSeeder extends Seeder
+{
+    public function run(): void
+    {
+        // Ø¨Ø±Ù†Ø¯Ù‡Ø§ÛŒ Ú©Ù„ÛŒØ¯ Ùˆ Ø³ÙˆÛŒÛŒÚ†
+        $brands = [
+            ["name" => "NOJA", "category" => "switch", "equipment_type" => "main"],
+            ["name" => "ABB", "category" => "switch", "equipment_type" => "both"],
+            ["name" => "SIEMENS", "category" => "switch", "equipment_type" => "both"],
+            ["name" => "EATON", "category" => "switch", "equipment_type" => "both"],
+            ["name" => "TAVRIDA", "category" => "switch", "equipment_type" => "main"],
+            ["name" => "Schneider", "category" => "switch", "equipment_type" => "both"],
+            ["name" => "LS", "category" => "switch", "equipment_type" => "both"],
+            ["name" => "Hyundai", "category" => "switch", "equipment_type" => "both"],
+            
+            // Ø¨Ø±Ù†Ø¯Ù‡Ø§ÛŒ Ù…ÙˆØ¯Ù…
+            ["name" => "TELTONIKA", "category" => "modem", "equipment_type" => "main"],
+            ["name" => "HUAWEI", "category" => "modem", "equipment_type" => "both"],
+            ["name" => "D-LINK", "category" => "modem", "equipment_type" => "cell"],
+            ["name" => "Mikrotik", "category" => "modem", "equipment_type" => "cell"],
+            ["name" => "Fortak", "category" => "modem", "equipment_type" => "main"],
+            ["name" => "FSK", "category" => "modem", "equipment_type" => "main"],
+            
+            // Ø¨Ø±Ù†Ø¯Ù‡Ø§ÛŒ RTU
+            ["name" => "SICAM", "category" => "rtu", "equipment_type" => "main"],
+            ["name" => "FARAB", "category" => "rtu", "equipment_type" => "main"],
+            ["name" => "ARVAND", "category" => "rtu", "equipment_type" => "main"],
+            
+            // Ø¨Ø±Ù†Ø¯Ù‡Ø§ÛŒ Ø¨Ø§ØªØ±ÛŒ
+            ["name" => "Yuasa", "category" => "battery", "equipment_type" => "cell"],
+            ["name" => "CSB", "category" => "battery", "equipment_type" => "cell"],
+            ["name" => "Vision", "category" => "battery", "equipment_type" => "cell"],
+            ["name" => "Rocket", "category" => "battery", "equipment_type" => "cell"],
+        ];
+
+        foreach ($brands as $brand) {
+            DB::table("brands")->updateOrInsert(
+                ["name" => $brand["name"], "category" => $brand["category"]],
+                [
+                    "equipment_type" => $brand["equipment_type"],
+                    "created_at" => now(),
+                    "updated_at" => now()
+                ]
+            );
+        }
+    }
+}
+
+
+----------------------------------------
+ نسخه 2 : BrandSeeder (3).php
+----------------------------------------
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+
+class BrandSeeder extends Seeder
+{
+    public function run(): void
+    {
+        $brands = [
+            ["name" => "ABB", "category" => "switch", "equipment_type" => "both"],
+            ["name" => "Schneider", "category" => "switch", "equipment_type" => "both"],
+            ["name" => "Siemens", "category" => "switch", "equipment_type" => "both"],
+            ["name" => "Fortak", "category" => "modem", "equipment_type" => "main"],
+            ["name" => "FSK", "category" => "modem", "equipment_type" => "main"],
+            ["name" => "PNC", "category" => "rtu", "equipment_type" => "main"],
+            ["name" => "Yuasa", "category" => "battery", "equipment_type" => "cell"],
+            ["name" => "CSB", "category" => "battery", "equipment_type" => "cell"],
+        ];
+
+        foreach ($brands as $brand) {
+            DB::table("brands")->updateOrInsert(
+                ["name" => $brand["name"]],
+                $brand
+            );
+        }
+    }
+}
+
+
+----------------------------------------
+ نسخه 3 : BrandSeeder (4).php
+----------------------------------------
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+
+class BrandSeeder extends Seeder
+{
+    public function run(): void
+    {
+        // Ø¨Ø±Ù†Ø¯Ù‡Ø§ÛŒ Ú©Ù„ÛŒØ¯ Ùˆ Ø³ÙˆÛŒÛŒÚ†
+        $brands = [
+            ["name" => "NOJA", "category" => "switch", "equipment_type" => "main"],
+            ["name" => "ABB", "category" => "switch", "equipment_type" => "both"],
+            ["name" => "SIEMENS", "category" => "switch", "equipment_type" => "both"],
+            ["name" => "EATON", "category" => "switch", "equipment_type" => "both"],
+            ["name" => "TAVRIDA", "category" => "switch", "equipment_type" => "main"],
+            ["name" => "Schneider", "category" => "switch", "equipment_type" => "both"],
+            ["name" => "LS", "category" => "switch", "equipment_type" => "both"],
+            ["name" => "Hyundai", "category" => "switch", "equipment_type" => "both"],
+            
+            // Ø¨Ø±Ù†Ø¯Ù‡Ø§ÛŒ Ù…ÙˆØ¯Ù…
+            ["name" => "TELTONIKA", "category" => "modem", "equipment_type" => "main"],
+            ["name" => "HUAWEI", "category" => "modem", "equipment_type" => "both"],
+            ["name" => "D-LINK", "category" => "modem", "equipment_type" => "cell"],
+            ["name" => "Mikrotik", "category" => "modem", "equipment_type" => "cell"],
+            ["name" => "Fortak", "category" => "modem", "equipment_type" => "main"],
+            ["name" => "FSK", "category" => "modem", "equipment_type" => "main"],
+            
+            // Ø¨Ø±Ù†Ø¯Ù‡Ø§ÛŒ RTU
+            ["name" => "SICAM", "category" => "rtu", "equipment_type" => "main"],
+            ["name" => "FARAB", "category" => "rtu", "equipment_type" => "main"],
+            ["name" => "ARVAND", "category" => "rtu", "equipment_type" => "main"],
+            
+            // Ø¨Ø±Ù†Ø¯Ù‡Ø§ÛŒ Ø¨Ø§ØªØ±ÛŒ
+            ["name" => "Yuasa", "category" => "battery", "equipment_type" => "cell"],
+            ["name" => "CSB", "category" => "battery", "equipment_type" => "cell"],
+            ["name" => "Vision", "category" => "battery", "equipment_type" => "cell"],
+            ["name" => "Rocket", "category" => "battery", "equipment_type" => "cell"],
+        ];
+
+        foreach ($brands as $brand) {
+            DB::table("brands")->updateOrInsert(
+                ["name" => $brand["name"], "category" => $brand["category"]],
+                [
+                    "equipment_type" => $brand["equipment_type"],
+                    "created_at" => now(),
+                    "updated_at" => now()
+                ]
+            );
+        }
+    }
+}
+
+
+----------------------------------------
+ نسخه 4 : BrandSeeder (5).php
+----------------------------------------
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+
+class BrandSeeder extends Seeder
+{
+    public function run(): void
+    {
+        $brands = [
+            ["name" => "ABB", "category" => "switch", "equipment_type" => "both"],
+            ["name" => "Schneider", "category" => "switch", "equipment_type" => "both"],
+            ["name" => "Siemens", "category" => "switch", "equipment_type" => "both"],
+            ["name" => "Fortak", "category" => "modem", "equipment_type" => "main"],
+            ["name" => "FSK", "category" => "modem", "equipment_type" => "main"],
+            ["name" => "PNC", "category" => "rtu", "equipment_type" => "main"],
+            ["name" => "Yuasa", "category" => "battery", "equipment_type" => "cell"],
+            ["name" => "CSB", "category" => "battery", "equipment_type" => "cell"],
+        ];
+
+        foreach ($brands as $brand) {
+            DB::table("brands")->updateOrInsert(
+                ["name" => $brand["name"]],
+                $brand
+            );
+        }
+    }
+}
+
+
+----------------------------------------
+ نسخه 5 : BrandSeeder (6).php
+----------------------------------------
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+
+class BrandSeeder extends Seeder
+{
+    public function run(): void
+    {
+        // Ø¨Ø±Ù†Ø¯Ù‡Ø§ÛŒ Ú©Ù„ÛŒØ¯ Ùˆ Ø³ÙˆÛŒÛŒÚ†
+        $brands = [
+            ["name" => "NOJA", "category" => "switch", "equipment_type" => "main"],
+            ["name" => "ABB", "category" => "switch", "equipment_type" => "both"],
+            ["name" => "SIEMENS", "category" => "switch", "equipment_type" => "both"],
+            ["name" => "EATON", "category" => "switch", "equipment_type" => "both"],
+            ["name" => "TAVRIDA", "category" => "switch", "equipment_type" => "main"],
+            ["name" => "Schneider", "category" => "switch", "equipment_type" => "both"],
+            ["name" => "LS", "category" => "switch", "equipment_type" => "both"],
+            ["name" => "Hyundai", "category" => "switch", "equipment_type" => "both"],
+            
+            // Ø¨Ø±Ù†Ø¯Ù‡Ø§ÛŒ Ù…ÙˆØ¯Ù…
+            ["name" => "TELTONIKA", "category" => "modem", "equipment_type" => "main"],
+            ["name" => "HUAWEI", "category" => "modem", "equipment_type" => "both"],
+            ["name" => "D-LINK", "category" => "modem", "equipment_type" => "cell"],
+            ["name" => "Mikrotik", "category" => "modem", "equipment_type" => "cell"],
+            ["name" => "Fortak", "category" => "modem", "equipment_type" => "main"],
+            ["name" => "FSK", "category" => "modem", "equipment_type" => "main"],
+            
+            // Ø¨Ø±Ù†Ø¯Ù‡Ø§ÛŒ RTU
+            ["name" => "SICAM", "category" => "rtu", "equipment_type" => "main"],
+            ["name" => "FARAB", "category" => "rtu", "equipment_type" => "main"],
+            ["name" => "ARVAND", "category" => "rtu", "equipment_type" => "main"],
+            
+            // Ø¨Ø±Ù†Ø¯Ù‡Ø§ÛŒ Ø¨Ø§ØªØ±ÛŒ
+            ["name" => "Yuasa", "category" => "battery", "equipment_type" => "cell"],
+            ["name" => "CSB", "category" => "battery", "equipment_type" => "cell"],
+            ["name" => "Vision", "category" => "battery", "equipment_type" => "cell"],
+            ["name" => "Rocket", "category" => "battery", "equipment_type" => "cell"],
+        ];
+
+        foreach ($brands as $brand) {
+            DB::table("brands")->updateOrInsert(
+                ["name" => $brand["name"], "category" => $brand["category"]],
+                [
+                    "equipment_type" => $brand["equipment_type"],
+                    "created_at" => now(),
+                    "updated_at" => now()
+                ]
+            );
+        }
+    }
+}
+
+
+----------------------------------------
+ نسخه 6 : BrandSeeder.php
+----------------------------------------
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+
+class BrandSeeder extends Seeder
+{
+    public function run(): void
+    {
+        // Ã˜Â¨Ã˜Â±Ã™â€ Ã˜Â¯Ã™â€¡Ã˜Â§Ã›Å’ ÃšÂ©Ã™â€žÃ›Å’Ã˜Â¯ Ã™Ë† Ã˜Â³Ã™Ë†Ã›Å’Ã›Å’Ãšâ€ 
+        $brands = [
+            ["name" => "NOJA", "category" => "switch", "equipment_type" => "main"],
+            ["name" => "ABB", "category" => "switch", "equipment_type" => "both"],
+            ["name" => "SIEMENS", "category" => "switch", "equipment_type" => "both"],
+            ["name" => "EATON", "category" => "switch", "equipment_type" => "both"],
+            ["name" => "TAVRIDA", "category" => "switch", "equipment_type" => "main"],
+            ["name" => "Schneider", "category" => "switch", "equipment_type" => "both"],
+            ["name" => "LS", "category" => "switch", "equipment_type" => "both"],
+            ["name" => "Hyundai", "category" => "switch", "equipment_type" => "both"],
+            
+            // Ã˜Â¨Ã˜Â±Ã™â€ Ã˜Â¯Ã™â€¡Ã˜Â§Ã›Å’ Ã™â€¦Ã™Ë†Ã˜Â¯Ã™â€¦
+            ["name" => "TELTONIKA", "category" => "modem", "equipment_type" => "main"],
+            ["name" => "HUAWEI", "category" => "modem", "equipment_type" => "both"],
+            ["name" => "D-LINK", "category" => "modem", "equipment_type" => "cell"],
+            ["name" => "Mikrotik", "category" => "modem", "equipment_type" => "cell"],
+            ["name" => "Fortak", "category" => "modem", "equipment_type" => "main"],
+            ["name" => "FSK", "category" => "modem", "equipment_type" => "main"],
+            
+            // Ã˜Â¨Ã˜Â±Ã™â€ Ã˜Â¯Ã™â€¡Ã˜Â§Ã›Å’ RTU
+            ["name" => "SICAM", "category" => "rtu", "equipment_type" => "main"],
+            ["name" => "FARAB", "category" => "rtu", "equipment_type" => "main"],
+            ["name" => "ARVAND", "category" => "rtu", "equipment_type" => "main"],
+            
+            // Ã˜Â¨Ã˜Â±Ã™â€ Ã˜Â¯Ã™â€¡Ã˜Â§Ã›Å’ Ã˜Â¨Ã˜Â§Ã˜ÂªÃ˜Â±Ã›Å’
+            ["name" => "Yuasa", "category" => "battery", "equipment_type" => "cell"],
+            ["name" => "CSB", "category" => "battery", "equipment_type" => "cell"],
+            ["name" => "Vision", "category" => "battery", "equipment_type" => "cell"],
+            ["name" => "Rocket", "category" => "battery", "equipment_type" => "cell"],
+        ];
+
+        foreach ($brands as $brand) {
+            DB::table("brands")->updateOrInsert(
+                ["name" => $brand["name"], "category" => $brand["category"]],
+                [
+                    "equipment_type" => $brand["equipment_type"],
+                    "created_at" => now(),
+                    "updated_at" => now()
+                ]
+            );
+        }
+    }
+}
+
+

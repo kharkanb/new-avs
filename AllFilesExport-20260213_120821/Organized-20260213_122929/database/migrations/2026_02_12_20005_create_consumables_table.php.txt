@@ -1,0 +1,50 @@
+﻿============================================================
+ فایل: 2026_02_12_20005_create_consumables_table.php (پوشه: database\migrations)
+============================================================
+
+تعداد نسخه‌ها: 2
+
+----------------------------------------
+ نسخه 1 : 2026_02_12_20005_create_consumables_table (2).php
+----------------------------------------
+<?php
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+return new class extends Migration {
+ public function up(): void {
+  Schema::create('consumables', function (Blueprint \) {
+   \->id();
+   \->string('name');
+   $table->decimal('price',10,2);
+   \->timestamps();
+  });
+ }
+ public function down(): void {
+  Schema::dropIfExists('consumables');
+ }
+};
+
+
+----------------------------------------
+ نسخه 2 : 2026_02_12_20005_create_consumables_table.php
+----------------------------------------
+<?php
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+return new class extends Migration {
+ public function up(): void {
+  Schema::create('consumables', function (Blueprint \) {
+   \->id();
+   \->string('name');
+   $table->decimal('price',10,2);
+   \->timestamps();
+  });
+ }
+ public function down(): void {
+  Schema::dropIfExists('consumables');
+ }
+};
+
+

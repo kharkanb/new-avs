@@ -1,0 +1,166 @@
+﻿============================================================
+ فایل: 2026_02_12_000004_create_main_equipments_table.php (پوشه: database\migrations)
+============================================================
+
+تعداد نسخه‌ها: 5
+
+----------------------------------------
+ نسخه 1 : 2026_02_12_000004_create_main_equipments_table (2).php
+----------------------------------------
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create("main_equipments", function (Blueprint $table) {
+            $table->id();
+            $table->foreignId("type_id")->constrained("main_equipment_types")->cascadeOnDelete();
+            $table->string("scada_code", 4)->nullable()->unique();
+            $table->integer("height")->nullable();
+            $table->foreignId("brand_id")->nullable()->constrained("brands")->nullOnDelete();
+            $table->decimal("latitude", 10, 7)->nullable();
+            $table->decimal("longitude", 10, 7)->nullable();
+            $table->timestamps();
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists("main_equipments");
+    }
+};
+
+
+----------------------------------------
+ نسخه 2 : 2026_02_12_000004_create_main_equipments_table (3).php
+----------------------------------------
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create("main_equipments", function (Blueprint $table) {
+            $table$table->id();
+            $table$table->foreignId("type_id")$table->constrained("main_equipment_types")$table->cascadeOnDelete();
+            $table$table->string("scada_code", 4)$table->nullable()$table->unique();
+            $table$table->integer("height")$table->nullable();
+            $table$table->foreignId("brand_id")$table->nullable()$table->constrained("brands")$table->nullOnDelete();
+            $table$table->decimal("latitude", 10, 7)$table->nullable();
+            $table$table->decimal("longitude", 10, 7)$table->nullable();
+            $table$table->timestamps();
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists("main_equipments");
+    }
+};
+
+
+----------------------------------------
+ نسخه 3 : 2026_02_12_000004_create_main_equipments_table.php
+----------------------------------------
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create("main_equipments", function (Blueprint $table) {
+            $table->id();
+            $table->foreignId("type_id")->constrained("main_equipment_types")->cascadeOnDelete();
+            $table->string("scada_code", 4)->nullable()->unique();
+            $table->integer("height")->nullable();
+            $table->foreignId("brand_id")->nullable()->constrained("brands")->nullOnDelete();
+            $table->decimal("latitude", 10, 7)->nullable();
+            $table->decimal("longitude", 10, 7)->nullable();
+            $table->timestamps();
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists("main_equipments");
+    }
+};
+
+
+----------------------------------------
+ نسخه 4 : 2026_02_12_000004_create_main_equipments_table.php (2).bak
+----------------------------------------
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create("main_equipments", function (Blueprint $table) {
+            $table->id();
+            $table->foreignId("type_id")->constrained("main_equipment_types")->cascadeOnDelete();
+            $table->string("scada_code", 4)->nullable()->unique();
+            $table->integer("height")->nullable();
+            $table->foreignId("brand_id")->nullable()->constrained("brands")->nullOnDelete();
+            $table->decimal("latitude", 10, 7)->nullable();
+            $table->decimal("longitude", 10, 7)->nullable();
+            $table->timestamps();
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists("main_equipments");
+    }
+};
+
+
+----------------------------------------
+ نسخه 5 : 2026_02_12_000004_create_main_equipments_table.php.bak
+----------------------------------------
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create("main_equipments", function (Blueprint $table) {
+            $table->id();
+            $table->foreignId("type_id")->constrained("main_equipment_types")->cascadeOnDelete();
+            $table->string("scada_code", 4)->nullable()->unique();
+            $table->integer("height")->nullable();
+            $table->foreignId("brand_id")->nullable()->constrained("brands")->nullOnDelete();
+            $table->decimal("latitude", 10, 7)->nullable();
+            $table->decimal("longitude", 10, 7)->nullable();
+            $table->timestamps();
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists("main_equipments");
+    }
+};
+
+

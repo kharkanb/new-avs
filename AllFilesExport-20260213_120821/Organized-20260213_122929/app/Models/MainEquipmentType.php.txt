@@ -1,0 +1,28 @@
+﻿============================================================
+ فایل: MainEquipmentType.php (پوشه: app\Models)
+============================================================
+
+تعداد نسخه‌ها: 2
+
+----------------------------------------
+ نسخه 1 : MainEquipmentType (2).php
+----------------------------------------
+<?php
+namespace App\Models;
+use Illuminate\Database\Eloquent\Model;
+class MainEquipmentType extends Model{
+ protected \=['name'];
+}
+
+
+----------------------------------------
+ نسخه 2 : MainEquipmentType.php
+----------------------------------------
+<?php
+namespace App\Models;
+use Illuminate\Database\Eloquent\Model;
+class MainEquipmentType extends Model{
+ protected \=['name'];
+}
+
+

@@ -1,0 +1,179 @@
+﻿================================================================================
+                            Feeder.php
+================================================================================
+تعداد فایل‌ها: 6
+تاریخ ایجاد: 2026/02/13 12:08:27
+مسیر پایه: C:\Users\dear-user\Desktop\complete-avs
+================================================================================
+
+--------------------------------------------------------------------------------
+【فایل 1】: Feeder (2).php
+📁 مسیر: app\Models\Feeder (2).php
+📅 تاریخ آخرین تغییر: 02/12/2026 22:38:23
+📏 حجم: 265 بایت
+--------------------------------------------------------------------------------
+
+<?php
+namespace App\Models;
+use Illuminate\Database\Eloquent\Model;
+class Feeder extends Model{
+ protected \=['name','post_id'];
+ public function post(){return \->belongsTo(Post::class);}
+ public function mainEquipments(){return \->hasMany(MainEquipment::class);}
+}
+
+--------------------------------------------------------------------------------
+【فایل 2】: Feeder (3).php
+📁 مسیر: app\Models\Feeder (3).php
+📅 تاریخ آخرین تغییر: 02/12/2026 23:48:54
+📏 حجم: 609 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+
+class Feeder extends Model
+{
+    use HasFactory;
+
+    protected $fillable = ["name", "post_id"];
+
+    public function post(): BelongsTo
+    {
+        return $this->belongsTo(Post::class);
+    }
+
+    public function equipments(): BelongsToMany
+    {
+        return $this->belongsToMany(Equipment::class, "equipment_feeders")
+                    ->withTimestamps();
+    }
+}
+
+--------------------------------------------------------------------------------
+【فایل 3】: Feeder (4).php
+📁 مسیر: app\Models\Feeder (4).php
+📅 تاریخ آخرین تغییر: 02/12/2026 23:48:54
+📏 حجم: 609 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+
+class Feeder extends Model
+{
+    use HasFactory;
+
+    protected $fillable = ["name", "post_id"];
+
+    public function post(): BelongsTo
+    {
+        return $this->belongsTo(Post::class);
+    }
+
+    public function equipments(): BelongsToMany
+    {
+        return $this->belongsToMany(Equipment::class, "equipment_feeders")
+                    ->withTimestamps();
+    }
+}
+
+--------------------------------------------------------------------------------
+【فایل 4】: Feeder (5).php
+📁 مسیر: app\Models\Feeder (5).php
+📅 تاریخ آخرین تغییر: 02/12/2026 22:38:23
+📏 حجم: 265 بایت
+--------------------------------------------------------------------------------
+
+<?php
+namespace App\Models;
+use Illuminate\Database\Eloquent\Model;
+class Feeder extends Model{
+ protected \=['name','post_id'];
+ public function post(){return \->belongsTo(Post::class);}
+ public function mainEquipments(){return \->hasMany(MainEquipment::class);}
+}
+
+--------------------------------------------------------------------------------
+【فایل 5】: Feeder (6).php
+📁 مسیر: app\Models\Feeder (6).php
+📅 تاریخ آخرین تغییر: 02/12/2026 23:48:54
+📏 حجم: 609 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+
+class Feeder extends Model
+{
+    use HasFactory;
+
+    protected $fillable = ["name", "post_id"];
+
+    public function post(): BelongsTo
+    {
+        return $this->belongsTo(Post::class);
+    }
+
+    public function equipments(): BelongsToMany
+    {
+        return $this->belongsToMany(Equipment::class, "equipment_feeders")
+                    ->withTimestamps();
+    }
+}
+
+--------------------------------------------------------------------------------
+【فایل 6】: Feeder.php
+📁 مسیر: app\Models\Feeder.php
+📅 تاریخ آخرین تغییر: 02/13/2026 10:37:21
+📏 حجم: 609 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+
+class Feeder extends Model
+{
+    use HasFactory;
+
+    protected $fillable = ["name", "post_id"];
+
+    public function post(): BelongsTo
+    {
+        return $this->belongsTo(Post::class);
+    }
+
+    public function equipments(): BelongsToMany
+    {
+        return $this->belongsToMany(Equipment::class, "equipment_feeders")
+                    ->withTimestamps();
+    }
+}
+
+================================================================================
+                        پایان فایل Feeder.php
+================================================================================

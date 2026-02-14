@@ -1,0 +1,50 @@
+﻿============================================================
+ فایل: 2026_02_12_20002_create_posts_table.php (پوشه: database\migrations)
+============================================================
+
+تعداد نسخه‌ها: 2
+
+----------------------------------------
+ نسخه 1 : 2026_02_12_20002_create_posts_table (2).php
+----------------------------------------
+<?php
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+return new class extends Migration {
+ public function up(): void {
+  Schema::create('posts', function (Blueprint \) {
+   \->id();
+   \->string('name');
+   
+   \->timestamps();
+  });
+ }
+ public function down(): void {
+  Schema::dropIfExists('posts');
+ }
+};
+
+
+----------------------------------------
+ نسخه 2 : 2026_02_12_20002_create_posts_table.php
+----------------------------------------
+<?php
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+return new class extends Migration {
+ public function up(): void {
+  Schema::create('posts', function (Blueprint \) {
+   \->id();
+   \->string('name');
+   
+   \->timestamps();
+  });
+ }
+ public function down(): void {
+  Schema::dropIfExists('posts');
+ }
+};
+
+

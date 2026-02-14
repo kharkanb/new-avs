@@ -1,0 +1,1087 @@
+﻿================================================================================
+                    گزارش کامل تمام فایل‌های پروژه
+================================================================================
+
+پروژه: complete-avs
+تاریخ گزارش: 2026/02/13 12:08:28
+مسیر پروژه: C:\Users\dear-user\Desktop\complete-avs
+مسیر خروجی: C:\Users\dear-user\Desktop\complete-avs\AllFilesExport-20260213_120821
+
+--------------------------------------------------------------------------------
+آمار کلی
+--------------------------------------------------------------------------------
+
+📊 تعداد کل فایل‌های بررسی شده: 598
+📊 تعداد گروه‌های نام مشابه: 143
+📊 تعداد فایل‌های خروجی ایجاد شده: 143
+
+--------------------------------------------------------------------------------
+لیست کامل گروه‌های نام مشابه
+--------------------------------------------------------------------------------
+
+📁 0001_01_01_000000_create_users_table.php (6 فایل)
+   - 0001_01_01_000000_create_users_table (2).php [database\migrations]
+   - 0001_01_01_000000_create_users_table (3).php [database\migrations]
+   - 0001_01_01_000000_create_users_table (4).php [database\migrations]
+   - 0001_01_01_000000_create_users_table.php [database\migrations]
+   - 0001_01_01_000000_create_users_table.php (2).bak [database\migrations]
+   - 0001_01_01_000000_create_users_table.php.bak [database\migrations]
+
+📁 0001_01_01_000001_create_cache_table.php (6 فایل)
+   - 0001_01_01_000001_create_cache_table (2).php [database\migrations]
+   - 0001_01_01_000001_create_cache_table (3).php [database\migrations]
+   - 0001_01_01_000001_create_cache_table (4).php [database\migrations]
+   - 0001_01_01_000001_create_cache_table.php [database\migrations]
+   - 0001_01_01_000001_create_cache_table.php (2).bak [database\migrations]
+   - 0001_01_01_000001_create_cache_table.php.bak [database\migrations]
+
+📁 0001_01_01_000002_create_jobs_table.php (6 فایل)
+   - 0001_01_01_000002_create_jobs_table (2).php [database\migrations]
+   - 0001_01_01_000002_create_jobs_table (3).php [database\migrations]
+   - 0001_01_01_000002_create_jobs_table (4).php [database\migrations]
+   - 0001_01_01_000002_create_jobs_table.php [database\migrations]
+   - 0001_01_01_000002_create_jobs_table.php (2).bak [database\migrations]
+   - 0001_01_01_000002_create_jobs_table.php.bak [database\migrations]
+
+📁 2026_01_01_100000_create_equipment_types_table.php (5 فایل)
+   - 2026_01_01_100000_create_equipment_types_table (2).php [database\migrations]
+   - 2026_01_01_100000_create_equipment_types_table (3).php [database\migrations]
+   - 2026_01_01_100000_create_equipment_types_table.php [database\migrations]
+   - 2026_01_01_100000_create_equipment_types_table.php (2).bak [database\migrations]
+   - 2026_01_01_100000_create_equipment_types_table.php.bak [database\migrations]
+
+📁 2026_01_01_100001_create_brands_table.php (3 فایل)
+   - 2026_01_01_100001_create_brands_table.php [database\migrations]
+   - 2026_01_01_100001_create_brands_table.php (2).bak [database\migrations]
+   - 2026_01_01_100001_create_brands_table.php.bak [database\migrations]
+
+📁 2026_01_01_100002_create_departments_table.php (3 فایل)
+   - 2026_01_01_100002_create_departments_table.php [database\migrations]
+   - 2026_01_01_100002_create_departments_table.php (2).bak [database\migrations]
+   - 2026_01_01_100002_create_departments_table.php.bak [database\migrations]
+
+📁 2026_01_01_100003_create_posts_table.php (3 فایل)
+   - 2026_01_01_100003_create_posts_table.php [database\migrations]
+   - 2026_01_01_100003_create_posts_table.php (2).bak [database\migrations]
+   - 2026_01_01_100003_create_posts_table.php.bak [database\migrations]
+
+📁 2026_01_01_100004_create_feeders_table.php (3 فایل)
+   - 2026_01_01_100004_create_feeders_table.php [database\migrations]
+   - 2026_01_01_100004_create_feeders_table.php (2).bak [database\migrations]
+   - 2026_01_01_100004_create_feeders_table.php.bak [database\migrations]
+
+📁 2026_01_01_100005_create_cell_equipment_types_table.php (3 فایل)
+   - 2026_01_01_100005_create_cell_equipment_types_table.php [database\migrations]
+   - 2026_01_01_100005_create_cell_equipment_types_table.php (2).bak [database\migrations]
+   - 2026_01_01_100005_create_cell_equipment_types_table.php.bak [database\migrations]
+
+📁 2026_01_01_100006_create_activity_price_list_table.php (3 فایل)
+   - 2026_01_01_100006_create_activity_price_list_table.php [database\migrations]
+   - 2026_01_01_100006_create_activity_price_list_table.php (2).bak [database\migrations]
+   - 2026_01_01_100006_create_activity_price_list_table.php.bak [database\migrations]
+
+📁 2026_01_01_100007_create_consumable_items_table.php (3 فایل)
+   - 2026_01_01_100007_create_consumable_items_table.php [database\migrations]
+   - 2026_01_01_100007_create_consumable_items_table.php (2).bak [database\migrations]
+   - 2026_01_01_100007_create_consumable_items_table.php.bak [database\migrations]
+
+📁 2026_01_01_100008_create_checklist_templates_table.php (3 فایل)
+   - 2026_01_01_100008_create_checklist_templates_table.php [database\migrations]
+   - 2026_01_01_100008_create_checklist_templates_table.php (2).bak [database\migrations]
+   - 2026_01_01_100008_create_checklist_templates_table.php.bak [database\migrations]
+
+📁 2026_01_01_100009_create_inspections_table.php (3 فایل)
+   - 2026_01_01_100009_create_inspections_table.php [database\migrations]
+   - 2026_01_01_100009_create_inspections_table.php (2).bak [database\migrations]
+   - 2026_01_01_100009_create_inspections_table.php.bak [database\migrations]
+
+📁 2026_01_01_100010_create_equipments_table.php (3 فایل)
+   - 2026_01_01_100010_create_equipments_table.php [database\migrations]
+   - 2026_01_01_100010_create_equipments_table.php (2).bak [database\migrations]
+   - 2026_01_01_100010_create_equipments_table.php.bak [database\migrations]
+
+📁 2026_01_01_100011_create_equipment_feeders_table.php (3 فایل)
+   - 2026_01_01_100011_create_equipment_feeders_table.php [database\migrations]
+   - 2026_01_01_100011_create_equipment_feeders_table.php (2).bak [database\migrations]
+   - 2026_01_01_100011_create_equipment_feeders_table.php.bak [database\migrations]
+
+📁 2026_01_01_100012_create_equipment_location_table.php (3 فایل)
+   - 2026_01_01_100012_create_equipment_location_table.php [database\migrations]
+   - 2026_01_01_100012_create_equipment_location_table.php (2).bak [database\migrations]
+   - 2026_01_01_100012_create_equipment_location_table.php.bak [database\migrations]
+
+📁 2026_01_01_100013_create_equipment_communication_table.php (3 فایل)
+   - 2026_01_01_100013_create_equipment_communication_table.php [database\migrations]
+   - 2026_01_01_100013_create_equipment_communication_table.php (2).bak [database\migrations]
+   - 2026_01_01_100013_create_equipment_communication_table.php.bak [database\migrations]
+
+📁 2026_01_01_100014_create_checklist_items_table.php (3 فایل)
+   - 2026_01_01_100014_create_checklist_items_table.php [database\migrations]
+   - 2026_01_01_100014_create_checklist_items_table.php (2).bak [database\migrations]
+   - 2026_01_01_100014_create_checklist_items_table.php.bak [database\migrations]
+
+📁 2026_01_01_100015_create_activities_table.php (3 فایل)
+   - 2026_01_01_100015_create_activities_table.php [database\migrations]
+   - 2026_01_01_100015_create_activities_table.php (2).bak [database\migrations]
+   - 2026_01_01_100015_create_activities_table.php.bak [database\migrations]
+
+📁 2026_01_01_100016_create_consumables_table.php (3 فایل)
+   - 2026_01_01_100016_create_consumables_table.php [database\migrations]
+   - 2026_01_01_100016_create_consumables_table.php (2).bak [database\migrations]
+   - 2026_01_01_100016_create_consumables_table.php.bak [database\migrations]
+
+📁 2026_01_01_100017_create_cell_specifications_table.php (3 فایل)
+   - 2026_01_01_100017_create_cell_specifications_table.php [database\migrations]
+   - 2026_01_01_100017_create_cell_specifications_table.php (2).bak [database\migrations]
+   - 2026_01_01_100017_create_cell_specifications_table.php.bak [database\migrations]
+
+📁 2026_01_01_100018_create_cell_equipments_table.php (3 فایل)
+   - 2026_01_01_100018_create_cell_equipments_table.php [database\migrations]
+   - 2026_01_01_100018_create_cell_equipments_table.php (2).bak [database\migrations]
+   - 2026_01_01_100018_create_cell_equipments_table.php.bak [database\migrations]
+
+📁 2026_01_01_100019_create_photos_table.php (3 فایل)
+   - 2026_01_01_100019_create_photos_table.php [database\migrations]
+   - 2026_01_01_100019_create_photos_table.php (2).bak [database\migrations]
+   - 2026_01_01_100019_create_photos_table.php.bak [database\migrations]
+
+📁 2026_01_01_100020_create_inspection_logs_table.php (3 فایل)
+   - 2026_01_01_100020_create_inspection_logs_table.php [database\migrations]
+   - 2026_01_01_100020_create_inspection_logs_table.php (2).bak [database\migrations]
+   - 2026_01_01_100020_create_inspection_logs_table.php.bak [database\migrations]
+
+📁 2026_01_01_100021_create_view_inspection_summary.php (1 فایل)
+   - 2026_01_01_100021_create_view_inspection_summary.php [database\migrations]
+
+📁 2026_02_10_064926_create_posts_table.php (5 فایل)
+   - 2026_02_10_064926_create_posts_table (2).php [database\migrations]
+   - 2026_02_10_064926_create_posts_table (3).php [database\migrations]
+   - 2026_02_10_064926_create_posts_table.php [database\migrations]
+   - 2026_02_10_064926_create_posts_table.php (2).bak [database\migrations]
+   - 2026_02_10_064926_create_posts_table.php.bak [database\migrations]
+
+📁 2026_02_10_064941_create_feeders_table.php (5 فایل)
+   - 2026_02_10_064941_create_feeders_table (2).php [database\migrations]
+   - 2026_02_10_064941_create_feeders_table (3).php [database\migrations]
+   - 2026_02_10_064941_create_feeders_table.php [database\migrations]
+   - 2026_02_10_064941_create_feeders_table.php (2).bak [database\migrations]
+   - 2026_02_10_064941_create_feeders_table.php.bak [database\migrations]
+
+📁 2026_02_10_161747_create_activity_prices_table.php (5 فایل)
+   - 2026_02_10_161747_create_activity_prices_table (2).php [database\migrations]
+   - 2026_02_10_161747_create_activity_prices_table (3).php [database\migrations]
+   - 2026_02_10_161747_create_activity_prices_table.php [database\migrations]
+   - 2026_02_10_161747_create_activity_prices_table.php (2).bak [database\migrations]
+   - 2026_02_10_161747_create_activity_prices_table.php.bak [database\migrations]
+
+📁 2026_02_10_161747_create_consumables_table.php (5 فایل)
+   - 2026_02_10_161747_create_consumables_table (2).php [database\migrations]
+   - 2026_02_10_161747_create_consumables_table (3).php [database\migrations]
+   - 2026_02_10_161747_create_consumables_table.php [database\migrations]
+   - 2026_02_10_161747_create_consumables_table.php (2).bak [database\migrations]
+   - 2026_02_10_161747_create_consumables_table.php.bak [database\migrations]
+
+📁 2026_02_10_170704_create_departments_table.php (5 فایل)
+   - 2026_02_10_170704_create_departments_table (2).php [database\migrations]
+   - 2026_02_10_170704_create_departments_table (3).php [database\migrations]
+   - 2026_02_10_170704_create_departments_table.php [database\migrations]
+   - 2026_02_10_170704_create_departments_table.php (2).bak [database\migrations]
+   - 2026_02_10_170704_create_departments_table.php.bak [database\migrations]
+
+📁 2026_02_12_000003_create_main_equipment_types_table.php (5 فایل)
+   - 2026_02_12_000003_create_main_equipment_types_table (2).php [database\migrations]
+   - 2026_02_12_000003_create_main_equipment_types_table (3).php [database\migrations]
+   - 2026_02_12_000003_create_main_equipment_types_table.php [database\migrations]
+   - 2026_02_12_000003_create_main_equipment_types_table.php (2).bak [database\migrations]
+   - 2026_02_12_000003_create_main_equipment_types_table.php.bak [database\migrations]
+
+📁 2026_02_12_000004_create_main_equipments_table.php (5 فایل)
+   - 2026_02_12_000004_create_main_equipments_table (2).php [database\migrations]
+   - 2026_02_12_000004_create_main_equipments_table (3).php [database\migrations]
+   - 2026_02_12_000004_create_main_equipments_table.php [database\migrations]
+   - 2026_02_12_000004_create_main_equipments_table.php (2).bak [database\migrations]
+   - 2026_02_12_000004_create_main_equipments_table.php.bak [database\migrations]
+
+📁 2026_02_12_000005_create_main_equipment_feeder_table.php (2 فایل)
+   - 2026_02_12_000005_create_main_equipment_feeder_table (2).php [database\migrations]
+   - 2026_02_12_000005_create_main_equipment_feeder_table.php [database\migrations]
+
+📁 2026_02_12_000006_create_brands_table.php (5 فایل)
+   - 2026_02_12_000006_create_brands_table (2).php [database\migrations]
+   - 2026_02_12_000006_create_brands_table (3).php [database\migrations]
+   - 2026_02_12_000006_create_brands_table.php [database\migrations]
+   - 2026_02_12_000006_create_brands_table.php (2).bak [database\migrations]
+   - 2026_02_12_000006_create_brands_table.php.bak [database\migrations]
+
+📁 2026_02_12_000007_create_checklist_templates_table.php (5 فایل)
+   - 2026_02_12_000007_create_checklist_templates_table (2).php [database\migrations]
+   - 2026_02_12_000007_create_checklist_templates_table (3).php [database\migrations]
+   - 2026_02_12_000007_create_checklist_templates_table.php [database\migrations]
+   - 2026_02_12_000007_create_checklist_templates_table.php (2).bak [database\migrations]
+   - 2026_02_12_000007_create_checklist_templates_table.php.bak [database\migrations]
+
+📁 2026_02_12_000008_create_checklist_items_table.php (5 فایل)
+   - 2026_02_12_000008_create_checklist_items_table (2).php [database\migrations]
+   - 2026_02_12_000008_create_checklist_items_table (3).php [database\migrations]
+   - 2026_02_12_000008_create_checklist_items_table.php [database\migrations]
+   - 2026_02_12_000008_create_checklist_items_table.php (2).bak [database\migrations]
+   - 2026_02_12_000008_create_checklist_items_table.php.bak [database\migrations]
+
+📁 2026_02_12_000009_create_cell_equipment_types_table.php (3 فایل)
+   - 2026_02_12_000009_create_cell_equipment_types_table.php [database\migrations]
+   - 2026_02_12_000009_create_cell_equipment_types_table.php (2).bak [database\migrations]
+   - 2026_02_12_000009_create_cell_equipment_types_table.php.bak [database\migrations]
+
+📁 2026_02_12_000010_create_cell_equipments_table.php (3 فایل)
+   - 2026_02_12_000010_create_cell_equipments_table.php [database\migrations]
+   - 2026_02_12_000010_create_cell_equipments_table.php (2).bak [database\migrations]
+   - 2026_02_12_000010_create_cell_equipments_table.php.bak [database\migrations]
+
+📁 2026_02_12_183401_create_personal_access_tokens_table.php (2 فایل)
+   - 2026_02_12_183401_create_personal_access_tokens_table (2).php [database\migrations]
+   - 2026_02_12_183401_create_personal_access_tokens_table.php [database\migrations]
+
+📁 2026_02_12_20001_create_departments_table.php (2 فایل)
+   - 2026_02_12_20001_create_departments_table (2).php [database\migrations]
+   - 2026_02_12_20001_create_departments_table.php [database\migrations]
+
+📁 2026_02_12_200010_create_feeders_table.php (4 فایل)
+   - 2026_02_12_200010_create_feeders_table (2).php [database\migrations]
+   - 2026_02_12_200010_create_feeders_table.php [database\migrations]
+   - 2026_02_12_200010_create_feeders_table.php (2).bak [database\migrations]
+   - 2026_02_12_200010_create_feeders_table.php.bak [database\migrations]
+
+📁 2026_02_12_200011_create_brands_table.php (3 فایل)
+   - 2026_02_12_200011_create_brands_table (2).php [database\migrations]
+   - 2026_02_12_200011_create_brands_table (3).php [database\migrations]
+   - 2026_02_12_200011_create_brands_table.php [database\migrations]
+
+📁 2026_02_12_200012_create_main_equipments_table.php (2 فایل)
+   - 2026_02_12_200012_create_main_equipments_table (2).php [database\migrations]
+   - 2026_02_12_200012_create_main_equipments_table.php [database\migrations]
+
+📁 2026_02_12_200013_create_cell_equipments_table.php (2 فایل)
+   - 2026_02_12_200013_create_cell_equipments_table (2).php [database\migrations]
+   - 2026_02_12_200013_create_cell_equipments_table.php [database\migrations]
+
+📁 2026_02_12_200014_create_checklist_templates_table.php (2 فایل)
+   - 2026_02_12_200014_create_checklist_templates_table (2).php [database\migrations]
+   - 2026_02_12_200014_create_checklist_templates_table.php [database\migrations]
+
+📁 2026_02_12_200015_create_checklist_items_table.php (2 فایل)
+   - 2026_02_12_200015_create_checklist_items_table (2).php [database\migrations]
+   - 2026_02_12_200015_create_checklist_items_table.php [database\migrations]
+
+📁 2026_02_12_200016_create_checklists_table.php (2 فایل)
+   - 2026_02_12_200016_create_checklists_table (2).php [database\migrations]
+   - 2026_02_12_200016_create_checklists_table.php [database\migrations]
+
+📁 2026_02_12_200017_create_checklist_results_table.php (2 فایل)
+   - 2026_02_12_200017_create_checklist_results_table (2).php [database\migrations]
+   - 2026_02_12_200017_create_checklist_results_table.php [database\migrations]
+
+📁 2026_02_12_20002_create_posts_table.php (2 فایل)
+   - 2026_02_12_20002_create_posts_table (2).php [database\migrations]
+   - 2026_02_12_20002_create_posts_table.php [database\migrations]
+
+📁 2026_02_12_20003_create_main_equipment_types_table.php (2 فایل)
+   - 2026_02_12_20003_create_main_equipment_types_table (2).php [database\migrations]
+   - 2026_02_12_20003_create_main_equipment_types_table.php [database\migrations]
+
+📁 2026_02_12_20004_create_cell_equipment_types_table.php (2 فایل)
+   - 2026_02_12_20004_create_cell_equipment_types_table (2).php [database\migrations]
+   - 2026_02_12_20004_create_cell_equipment_types_table.php [database\migrations]
+
+📁 2026_02_12_20005_create_consumables_table.php (2 فایل)
+   - 2026_02_12_20005_create_consumables_table (2).php [database\migrations]
+   - 2026_02_12_20005_create_consumables_table.php [database\migrations]
+
+📁 2026_02_12_20006_create_activity_prices_table.php (2 فایل)
+   - 2026_02_12_20006_create_activity_prices_table (2).php [database\migrations]
+   - 2026_02_12_20006_create_activity_prices_table.php [database\migrations]
+
+📁 2026_02_12_300001_add_role_to_users.php (2 فایل)
+   - 2026_02_12_300001_add_role_to_users (2).php [database\migrations]
+   - 2026_02_12_300001_add_role_to_users.php [database\migrations]
+
+📁 2026_02_12_300002_create_checklist_costs_table.php (2 فایل)
+   - 2026_02_12_300002_create_checklist_costs_table (2).php [database\migrations]
+   - 2026_02_12_300002_create_checklist_costs_table.php [database\migrations]
+
+📁 Activity.php (6 فایل)
+   - Activity (2).php [app\Models]
+   - Activity (3).php [app\Models]
+   - Activity (4).php [app\Models]
+   - Activity (5).php [app\Models]
+   - Activity (6).php [app\Models]
+   - Activity.php [app\Models]
+
+📁 activity_prices.php (2 فایل)
+   - activity_prices (2).php [config]
+   - activity_prices.php [config]
+
+📁 ActivityPrice.php (6 فایل)
+   - ActivityPrice (2).php [app\Models]
+   - ActivityPrice (3).php [app\Models]
+   - ActivityPrice (4).php [app\Models]
+   - ActivityPrice (5).php [app\Models]
+   - ActivityPrice (6).php [app\Models]
+   - ActivityPrice.php [app\Models]
+
+📁 ActivityPriceController.php (9 فایل)
+   - ActivityPriceController (2).php [app\Http\Controllers\Api]
+   - ActivityPriceController (2).php [app\Http\Controllers]
+   - ActivityPriceController (3).php [app\Http\Controllers]
+   - ActivityPriceController (3).php [app\Http\Controllers\Api]
+   - ActivityPriceController.php [app\Http\Controllers\Api]
+   - ActivityPriceController.php [app\Http\Controllers]
+   - ActivityPriceController.php (2).backup [app\Http\Controllers]
+   - ActivityPriceController.php (3).backup [app\Http\Controllers]
+   - ActivityPriceController.php.backup [app\Http\Controllers]
+
+📁 ActivityPriceSeeder.php (6 فایل)
+   - ActivityPriceSeeder (2).php [database\seeders]
+   - ActivityPriceSeeder (3).php [database\seeders]
+   - ActivityPriceSeeder (4).php [database\seeders]
+   - ActivityPriceSeeder (5).php [database\seeders]
+   - ActivityPriceSeeder (6).php [database\seeders]
+   - ActivityPriceSeeder.php [database\seeders]
+
+📁 AdminMiddleware.php (3 فایل)
+   - AdminMiddleware (2).php [app\Http\Middleware]
+   - AdminMiddleware (3).php [app\Http\Middleware]
+   - AdminMiddleware.php [app\Http\Middleware]
+
+📁 api.php (6 فایل)
+   - api (2).php [routes]
+   - api (3).php [routes]
+   - api (4).php [routes]
+   - api (5).php [routes]
+   - api (6).php [routes]
+   - api.php [routes]
+
+📁 app.php (4 فایل)
+   - app (2).php [config]
+   - app (3).php [config]
+   - app (4).php [config]
+   - app.php [config]
+
+📁 AppServiceProvider.php (6 فایل)
+   - AppServiceProvider (2).php [app\Providers]
+   - AppServiceProvider (3).php [app\Providers]
+   - AppServiceProvider (4).php [app\Providers]
+   - AppServiceProvider (5).php [app\Providers]
+   - AppServiceProvider (6).php [app\Providers]
+   - AppServiceProvider.php [app\Providers]
+
+📁 auth.php (3 فایل)
+   - auth (2).php [config]
+   - auth (3).php [config]
+   - auth.php [config]
+
+📁 AuthController.php (7 فایل)
+   - AuthController (2).php [app\Http\Controllers\Api]
+   - AuthController (3).php [app\Http\Controllers\Api]
+   - AuthController (4).php [app\Http\Controllers\Api]
+   - AuthController (5).php [app\Http\Controllers\Api]
+   - AuthController (6).php [app\Http\Controllers\Api]
+   - AuthController (7).php [app\Http\Controllers\Api]
+   - AuthController.php [app\Http\Controllers\Api]
+
+📁 AuthServiceProvider.php (2 فایل)
+   - AuthServiceProvider (2).php [app\Providers]
+   - AuthServiceProvider.php [app\Providers]
+
+📁 BaseDataSeeder.php (4 فایل)
+   - BaseDataSeeder (2).php [database\seeders]
+   - BaseDataSeeder (3).php [database\seeders]
+   - BaseDataSeeder (4).php [database\seeders]
+   - BaseDataSeeder.php [database\seeders]
+
+📁 Brand.php (6 فایل)
+   - Brand (2).php [app\Models]
+   - Brand (3).php [app\Models]
+   - Brand (4).php [app\Models]
+   - Brand (5).php [app\Models]
+   - Brand (6).php [app\Models]
+   - Brand.php [app\Models]
+
+📁 BrandController.php (9 فایل)
+   - BrandController (2).php [app\Http\Controllers\Api]
+   - BrandController (2).php [app\Http\Controllers]
+   - BrandController (3).php [app\Http\Controllers]
+   - BrandController (3).php [app\Http\Controllers\Api]
+   - BrandController.php [app\Http\Controllers\Api]
+   - BrandController.php [app\Http\Controllers]
+   - BrandController.php (2).backup [app\Http\Controllers]
+   - BrandController.php (3).backup [app\Http\Controllers]
+   - BrandController.php.backup [app\Http\Controllers]
+
+📁 brands.php (2 فایل)
+   - brands (2).php [config]
+   - brands.php [config]
+
+📁 BrandSeeder.php (6 فایل)
+   - BrandSeeder (2).php [database\seeders]
+   - BrandSeeder (3).php [database\seeders]
+   - BrandSeeder (4).php [database\seeders]
+   - BrandSeeder (5).php [database\seeders]
+   - BrandSeeder (6).php [database\seeders]
+   - BrandSeeder.php [database\seeders]
+
+📁 cache.php (3 فایل)
+   - cache (2).php [config]
+   - cache (3).php [config]
+   - cache.php [config]
+
+📁 CellEquipment.php (6 فایل)
+   - CellEquipment (2).php [app\Models]
+   - CellEquipment (3).php [app\Models]
+   - CellEquipment (4).php [app\Models]
+   - CellEquipment (5).php [app\Models]
+   - CellEquipment (6).php [app\Models]
+   - CellEquipment.php [app\Models]
+
+📁 CellEquipmentSeeder.php (4 فایل)
+   - CellEquipmentSeeder (2).php [database\seeders]
+   - CellEquipmentSeeder (3).php [database\seeders]
+   - CellEquipmentSeeder (4).php [database\seeders]
+   - CellEquipmentSeeder.php [database\seeders]
+
+📁 CellEquipmentType.php (6 فایل)
+   - CellEquipmentType (2).php [app\Models]
+   - CellEquipmentType (3).php [app\Models]
+   - CellEquipmentType (4).php [app\Models]
+   - CellEquipmentType (5).php [app\Models]
+   - CellEquipmentType (6).php [app\Models]
+   - CellEquipmentType.php [app\Models]
+
+📁 CellEquipmentTypeController.php (3 فایل)
+   - CellEquipmentTypeController (2).php [app\Http\Controllers\Api]
+   - CellEquipmentTypeController (3).php [app\Http\Controllers\Api]
+   - CellEquipmentTypeController.php [app\Http\Controllers\Api]
+
+📁 CellEquipmentTypeSeeder.php (4 فایل)
+   - CellEquipmentTypeSeeder (2).php [database\seeders]
+   - CellEquipmentTypeSeeder (3).php [database\seeders]
+   - CellEquipmentTypeSeeder (4).php [database\seeders]
+   - CellEquipmentTypeSeeder.php [database\seeders]
+
+📁 CellSpecification.php (4 فایل)
+   - CellSpecification (2).php [app\Models]
+   - CellSpecification (3).php [app\Models]
+   - CellSpecification (4).php [app\Models]
+   - CellSpecification.php [app\Models]
+
+📁 Checklist.php (2 فایل)
+   - Checklist (2).php [app\Models]
+   - Checklist.php [app\Models]
+
+📁 ChecklistController.php (3 فایل)
+   - ChecklistController (2).php [app\Http\Controllers\Api]
+   - ChecklistController (3).php [app\Http\Controllers\Api]
+   - ChecklistController.php [app\Http\Controllers\Api]
+
+📁 ChecklistItem.php (6 فایل)
+   - ChecklistItem (2).php [app\Models]
+   - ChecklistItem (3).php [app\Models]
+   - ChecklistItem (4).php [app\Models]
+   - ChecklistItem (5).php [app\Models]
+   - ChecklistItem (6).php [app\Models]
+   - ChecklistItem.php [app\Models]
+
+📁 ChecklistResult.php (2 فایل)
+   - ChecklistResult (2).php [app\Models]
+   - ChecklistResult.php [app\Models]
+
+📁 ChecklistTemplate.php (6 فایل)
+   - ChecklistTemplate (2).php [app\Models]
+   - ChecklistTemplate (3).php [app\Models]
+   - ChecklistTemplate (4).php [app\Models]
+   - ChecklistTemplate (5).php [app\Models]
+   - ChecklistTemplate (6).php [app\Models]
+   - ChecklistTemplate.php [app\Models]
+
+📁 ChecklistTemplateController.php (9 فایل)
+   - ChecklistTemplateController (2).php [app\Http\Controllers\Api]
+   - ChecklistTemplateController (2).php [app\Http\Controllers]
+   - ChecklistTemplateController (3).php [app\Http\Controllers]
+   - ChecklistTemplateController (3).php [app\Http\Controllers\Api]
+   - ChecklistTemplateController.php [app\Http\Controllers\Api]
+   - ChecklistTemplateController.php [app\Http\Controllers]
+   - ChecklistTemplateController.php (2).backup [app\Http\Controllers]
+   - ChecklistTemplateController.php (3).backup [app\Http\Controllers]
+   - ChecklistTemplateController.php.backup [app\Http\Controllers]
+
+📁 ChecklistTemplateSeeder.php (6 فایل)
+   - ChecklistTemplateSeeder (2).php [database\seeders]
+   - ChecklistTemplateSeeder (3).php [database\seeders]
+   - ChecklistTemplateSeeder (4).php [database\seeders]
+   - ChecklistTemplateSeeder (5).php [database\seeders]
+   - ChecklistTemplateSeeder (6).php [database\seeders]
+   - ChecklistTemplateSeeder.php [database\seeders]
+
+📁 console.php (4 فایل)
+   - console (2).php [routes]
+   - console (3).php [routes]
+   - console (4).php [routes]
+   - console.php [routes]
+
+📁 Consumable.php (6 فایل)
+   - Consumable (2).php [app\Models]
+   - Consumable (3).php [app\Models]
+   - Consumable (4).php [app\Models]
+   - Consumable (5).php [app\Models]
+   - Consumable (6).php [app\Models]
+   - Consumable.php [app\Models]
+
+📁 ConsumableController.php (9 فایل)
+   - ConsumableController (2).php [app\Http\Controllers\Api]
+   - ConsumableController (2).php [app\Http\Controllers]
+   - ConsumableController (3).php [app\Http\Controllers]
+   - ConsumableController (3).php [app\Http\Controllers\Api]
+   - ConsumableController.php [app\Http\Controllers\Api]
+   - ConsumableController.php [app\Http\Controllers]
+   - ConsumableController.php (2).backup [app\Http\Controllers]
+   - ConsumableController.php (3).backup [app\Http\Controllers]
+   - ConsumableController.php.backup [app\Http\Controllers]
+
+📁 ConsumableItem.php (6 فایل)
+   - ConsumableItem (2).php [app\Models]
+   - ConsumableItem (3).php [app\Models]
+   - ConsumableItem (4).php [app\Models]
+   - ConsumableItem (5).php [app\Models]
+   - ConsumableItem (6).php [app\Models]
+   - ConsumableItem.php [app\Models]
+
+📁 ConsumableItemSeeder.php (4 فایل)
+   - ConsumableItemSeeder (2).php [database\seeders]
+   - ConsumableItemSeeder (3).php [database\seeders]
+   - ConsumableItemSeeder (4).php [database\seeders]
+   - ConsumableItemSeeder.php [database\seeders]
+
+📁 consumables.php (2 فایل)
+   - consumables (2).php [config]
+   - consumables.php [config]
+
+📁 ConsumableSeeder.php (6 فایل)
+   - ConsumableSeeder (2).php [database\seeders]
+   - ConsumableSeeder (3).php [database\seeders]
+   - ConsumableSeeder (4).php [database\seeders]
+   - ConsumableSeeder (5).php [database\seeders]
+   - ConsumableSeeder (6).php [database\seeders]
+   - ConsumableSeeder.php [database\seeders]
+
+📁 Controller.php (11 فایل)
+   - Controller (2).php [app\Http\Controllers\Api]
+   - Controller (2).php [app\Http\Controllers]
+   - Controller (3).php [app\Http\Controllers\Api]
+   - Controller (3).php [app\Http\Controllers]
+   - Controller (4).php [app\Http\Controllers]
+   - Controller (5).php [app\Http\Controllers]
+   - Controller.php [app\Http\Controllers]
+   - Controller.php [app\Http\Controllers\Api]
+   - Controller.php (2).backup [app\Http\Controllers]
+   - Controller.php (3).backup [app\Http\Controllers]
+   - Controller.php.backup [app\Http\Controllers]
+
+📁 DashboardController.php (7 فایل)
+   - DashboardController (2).php [app\Http\Controllers\Api]
+   - DashboardController (3).php [app\Http\Controllers\Api]
+   - DashboardController (4).php [app\Http\Controllers\Api]
+   - DashboardController (5).php [app\Http\Controllers\Api]
+   - DashboardController (6).php [app\Http\Controllers\Api]
+   - DashboardController (7).php [app\Http\Controllers\Api]
+   - DashboardController.php [app\Http\Controllers\Api]
+
+📁 database.php (4 فایل)
+   - database (2).php [config]
+   - database (3).php [config]
+   - database (4).php [config]
+   - database.php [config]
+
+📁 DatabaseSeeder.php (6 فایل)
+   - DatabaseSeeder (2).php [database\seeders]
+   - DatabaseSeeder (3).php [database\seeders]
+   - DatabaseSeeder (4).php [database\seeders]
+   - DatabaseSeeder (5).php [database\seeders]
+   - DatabaseSeeder (6).php [database\seeders]
+   - DatabaseSeeder.php [database\seeders]
+
+📁 Department.php (6 فایل)
+   - Department (2).php [app\Models]
+   - Department (3).php [app\Models]
+   - Department (4).php [app\Models]
+   - Department (5).php [app\Models]
+   - Department (6).php [app\Models]
+   - Department.php [app\Models]
+
+📁 DepartmentController.php (3 فایل)
+   - DepartmentController (2).php [app\Http\Controllers\Api]
+   - DepartmentController (3).php [app\Http\Controllers\Api]
+   - DepartmentController.php [app\Http\Controllers\Api]
+
+📁 departments.php (2 فایل)
+   - departments (2).php [config]
+   - departments.php [config]
+
+📁 DepartmentSeeder.php (6 فایل)
+   - DepartmentSeeder (2).php [database\seeders]
+   - DepartmentSeeder (3).php [database\seeders]
+   - DepartmentSeeder (4).php [database\seeders]
+   - DepartmentSeeder (5).php [database\seeders]
+   - DepartmentSeeder (6).php [database\seeders]
+   - DepartmentSeeder.php [database\seeders]
+
+📁 EnsureTokenIsValid.php (3 فایل)
+   - EnsureTokenIsValid (2).php [app\Http\Middleware]
+   - EnsureTokenIsValid (3).php [app\Http\Middleware]
+   - EnsureTokenIsValid.php [app\Http\Middleware]
+
+📁 Equipment.php (8 فایل)
+   - Equipment (2).php [app\Models]
+   - Equipment (3).php [app\Models]
+   - Equipment (4).php [app\Models]
+   - Equipment (5).php [app\Models]
+   - Equipment (6).php [app\Models]
+   - Equipment.php [app\Models]
+   - Equipment.php (2).backup [app\Models]
+   - Equipment.php.backup [app\Models]
+
+📁 equipment_checklists.php (2 فایل)
+   - equipment_checklists (2).php [config]
+   - equipment_checklists.php [config]
+
+📁 equipment_types.php (1 فایل)
+   - equipment_types.php [config]
+
+📁 EquipmentCommunication.php (4 فایل)
+   - EquipmentCommunication (2).php [app\Models]
+   - EquipmentCommunication (3).php [app\Models]
+   - EquipmentCommunication (4).php [app\Models]
+   - EquipmentCommunication.php [app\Models]
+
+📁 EquipmentController.php (10 فایل)
+   - EquipmentController (2).php [app\Http\Controllers\Api]
+   - EquipmentController (3).php [app\Http\Controllers\Api]
+   - EquipmentController (4).php [app\Http\Controllers\Api]
+   - EquipmentController (5).php [app\Http\Controllers\Api]
+   - EquipmentController (6).php [app\Http\Controllers\Api]
+   - EquipmentController (7).php [app\Http\Controllers\Api]
+   - EquipmentController.php [app\Http\Controllers\Api]
+   - EquipmentController.php (2).backup [app\Http\Controllers]
+   - EquipmentController.php (3).backup [app\Http\Controllers]
+   - EquipmentController.php.backup [app\Http\Controllers]
+
+📁 EquipmentLocation.php (4 فایل)
+   - EquipmentLocation (2).php [app\Models]
+   - EquipmentLocation (3).php [app\Models]
+   - EquipmentLocation (4).php [app\Models]
+   - EquipmentLocation.php [app\Models]
+
+📁 EquipmentType.php (6 فایل)
+   - EquipmentType (2).php [app\Models]
+   - EquipmentType (3).php [app\Models]
+   - EquipmentType (4).php [app\Models]
+   - EquipmentType (5).php [app\Models]
+   - EquipmentType (6).php [app\Models]
+   - EquipmentType.php [app\Models]
+
+📁 EquipmentTypeController.php (9 فایل)
+   - EquipmentTypeController (2).php [app\Http\Controllers\Api]
+   - EquipmentTypeController (2).php [app\Http\Controllers]
+   - EquipmentTypeController (3).php [app\Http\Controllers]
+   - EquipmentTypeController (3).php [app\Http\Controllers\Api]
+   - EquipmentTypeController.php [app\Http\Controllers\Api]
+   - EquipmentTypeController.php [app\Http\Controllers]
+   - EquipmentTypeController.php (2).backup [app\Http\Controllers]
+   - EquipmentTypeController.php (3).backup [app\Http\Controllers]
+   - EquipmentTypeController.php.backup [app\Http\Controllers]
+
+📁 EquipmentTypeSeeder.php (1 فایل)
+   - EquipmentTypeSeeder.php [database\seeders]
+
+📁 EventServiceProvider.php (2 فایل)
+   - EventServiceProvider (2).php [app\Providers]
+   - EventServiceProvider.php [app\Providers]
+
+📁 Feeder.php (6 فایل)
+   - Feeder (2).php [app\Models]
+   - Feeder (3).php [app\Models]
+   - Feeder (4).php [app\Models]
+   - Feeder (5).php [app\Models]
+   - Feeder (6).php [app\Models]
+   - Feeder.php [app\Models]
+
+📁 FeederController.php (9 فایل)
+   - FeederController (2).php [app\Http\Controllers\Api]
+   - FeederController (2).php [app\Http\Controllers]
+   - FeederController (3).php [app\Http\Controllers]
+   - FeederController (3).php [app\Http\Controllers\Api]
+   - FeederController.php [app\Http\Controllers\Api]
+   - FeederController.php [app\Http\Controllers]
+   - FeederController.php (2).backup [app\Http\Controllers]
+   - FeederController.php (3).backup [app\Http\Controllers]
+   - FeederController.php.backup [app\Http\Controllers]
+
+📁 FeederSeeder.php (6 فایل)
+   - FeederSeeder (2).php [database\seeders]
+   - FeederSeeder (3).php [database\seeders]
+   - FeederSeeder (4).php [database\seeders]
+   - FeederSeeder (5).php [database\seeders]
+   - FeederSeeder (6).php [database\seeders]
+   - FeederSeeder.php [database\seeders]
+
+📁 filesystems.php (3 فایل)
+   - filesystems (2).php [config]
+   - filesystems (3).php [config]
+   - filesystems.php [config]
+
+📁 Inspection.php (4 فایل)
+   - Inspection (2).php [app\Models]
+   - Inspection (3).php [app\Models]
+   - Inspection (4).php [app\Models]
+   - Inspection.php [app\Models]
+
+📁 InspectionController.php (7 فایل)
+   - InspectionController (2).php [app\Http\Controllers\Api]
+   - InspectionController (3).php [app\Http\Controllers\Api]
+   - InspectionController (4).php [app\Http\Controllers\Api]
+   - InspectionController (5).php [app\Http\Controllers\Api]
+   - InspectionController (6).php [app\Http\Controllers\Api]
+   - InspectionController (7).php [app\Http\Controllers\Api]
+   - InspectionController.php [app\Http\Controllers\Api]
+
+📁 InspectionLog.php (4 فایل)
+   - InspectionLog (2).php [app\Models]
+   - InspectionLog (3).php [app\Models]
+   - InspectionLog (4).php [app\Models]
+   - InspectionLog.php [app\Models]
+
+📁 logging.php (3 فایل)
+   - logging (2).php [config]
+   - logging (3).php [config]
+   - logging.php [config]
+
+📁 mail.php (3 فایل)
+   - mail (2).php [config]
+   - mail (3).php [config]
+   - mail.php [config]
+
+📁 MainEquipment.php (2 فایل)
+   - MainEquipment (2).php [app\Models]
+   - MainEquipment.php [app\Models]
+
+📁 MainEquipmentSeeder.php (6 فایل)
+   - MainEquipmentSeeder (2).php [database\seeders]
+   - MainEquipmentSeeder (3).php [database\seeders]
+   - MainEquipmentSeeder (4).php [database\seeders]
+   - MainEquipmentSeeder (5).php [database\seeders]
+   - MainEquipmentSeeder (6).php [database\seeders]
+   - MainEquipmentSeeder.php [database\seeders]
+
+📁 MainEquipmentType.php (2 فایل)
+   - MainEquipmentType (2).php [app\Models]
+   - MainEquipmentType.php [app\Models]
+
+📁 MainEquipmentTypeController.php (3 فایل)
+   - MainEquipmentTypeController (2).php [app\Http\Controllers\Api]
+   - MainEquipmentTypeController (3).php [app\Http\Controllers\Api]
+   - MainEquipmentTypeController.php [app\Http\Controllers\Api]
+
+📁 MainEquipmentTypeSeeder.php (6 فایل)
+   - MainEquipmentTypeSeeder (2).php [database\seeders]
+   - MainEquipmentTypeSeeder (3).php [database\seeders]
+   - MainEquipmentTypeSeeder (4).php [database\seeders]
+   - MainEquipmentTypeSeeder (5).php [database\seeders]
+   - MainEquipmentTypeSeeder (6).php [database\seeders]
+   - MainEquipmentTypeSeeder.php [database\seeders]
+
+📁 Photo.php (4 فایل)
+   - Photo (2).php [app\Models]
+   - Photo (3).php [app\Models]
+   - Photo (4).php [app\Models]
+   - Photo.php [app\Models]
+
+📁 Post.php (6 فایل)
+   - Post (2).php [app\Models]
+   - Post (3).php [app\Models]
+   - Post (4).php [app\Models]
+   - Post (5).php [app\Models]
+   - Post (6).php [app\Models]
+   - Post.php [app\Models]
+
+📁 PostController.php (9 فایل)
+   - PostController (2).php [app\Http\Controllers\Api]
+   - PostController (2).php [app\Http\Controllers]
+   - PostController (3).php [app\Http\Controllers]
+   - PostController (3).php [app\Http\Controllers\Api]
+   - PostController.php [app\Http\Controllers\Api]
+   - PostController.php [app\Http\Controllers]
+   - PostController.php (2).backup [app\Http\Controllers]
+   - PostController.php (3).backup [app\Http\Controllers]
+   - PostController.php.backup [app\Http\Controllers]
+
+📁 posts_data.php (2 فایل)
+   - posts_data (2).php [config]
+   - posts_data.php [config]
+
+📁 PostSeeder.php (6 فایل)
+   - PostSeeder (2).php [database\seeders]
+   - PostSeeder (3).php [database\seeders]
+   - PostSeeder (4).php [database\seeders]
+   - PostSeeder (5).php [database\seeders]
+   - PostSeeder (6).php [database\seeders]
+   - PostSeeder.php [database\seeders]
+
+📁 queue.php (3 فایل)
+   - queue (2).php [config]
+   - queue (3).php [config]
+   - queue.php [config]
+
+📁 ReferenceController.php (7 فایل)
+   - ReferenceController (2).php [app\Http\Controllers\Api]
+   - ReferenceController (3).php [app\Http\Controllers\Api]
+   - ReferenceController (4).php [app\Http\Controllers\Api]
+   - ReferenceController (5).php [app\Http\Controllers\Api]
+   - ReferenceController (6).php [app\Http\Controllers\Api]
+   - ReferenceController (7).php [app\Http\Controllers\Api]
+   - ReferenceController.php [app\Http\Controllers\Api]
+
+📁 RoleMiddleware.php (5 فایل)
+   - RoleMiddleware (2).php [app\Http\Middleware]
+   - RoleMiddleware (3).php [app\Http\Middleware]
+   - RoleMiddleware (4).php [app\Http\Middleware]
+   - RoleMiddleware (5).php [app\Http\Middleware]
+   - RoleMiddleware.php [app\Http\Middleware]
+
+📁 RouteServiceProvider.php (2 فایل)
+   - RouteServiceProvider (2).php [app\Providers]
+   - RouteServiceProvider.php [app\Providers]
+
+📁 sanctum.php (1 فایل)
+   - sanctum.php [config]
+
+📁 services.php (3 فایل)
+   - services (2).php [config]
+   - services (3).php [config]
+   - services.php [config]
+
+📁 session.php (3 فایل)
+   - session (2).php [config]
+   - session (3).php [config]
+   - session.php [config]
+
+📁 TechnicianMiddleware.php (3 فایل)
+   - TechnicianMiddleware (2).php [app\Http\Middleware]
+   - TechnicianMiddleware (3).php [app\Http\Middleware]
+   - TechnicianMiddleware.php [app\Http\Middleware]
+
+📁 User.php (3 فایل)
+   - User (2).php [app\Models]
+   - User (3).php [app\Models]
+   - User.php [app\Models]
+
+📁 UserFactory.php (3 فایل)
+   - UserFactory (2).php [database\factories]
+   - UserFactory (3).php [database\factories]
+   - UserFactory.php [database\factories]
+
+📁 UserSeeder.php (6 فایل)
+   - UserSeeder (2).php [database\seeders]
+   - UserSeeder (3).php [database\seeders]
+   - UserSeeder (4).php [database\seeders]
+   - UserSeeder (5).php [database\seeders]
+   - UserSeeder (6).php [database\seeders]
+   - UserSeeder.php [database\seeders]
+
+📁 web.php (6 فایل)
+   - web (2).php [routes]
+   - web (3).php [routes]
+   - web (4).php [routes]
+   - web (5).php [routes]
+   - web (6).php [routes]
+   - web.php [routes]
+
+================================================================================
+                        لیست پوشه‌های بررسی شده
+================================================================================
+
+📁 database\migrations
+   📄 179 فایل
+   🔄 0001_01_01_000000_create_users_table.php (6 نسخه)
+   🔄 0001_01_01_000001_create_cache_table.php (6 نسخه)
+   🔄 0001_01_01_000002_create_jobs_table.php (6 نسخه)
+   🔄 2026_01_01_100000_create_equipment_types_table.php (5 نسخه)
+   🔄 2026_01_01_100001_create_brands_table.php (3 نسخه)
+   🔄 2026_01_01_100002_create_departments_table.php (3 نسخه)
+   🔄 2026_01_01_100003_create_posts_table.php (3 نسخه)
+   🔄 2026_01_01_100004_create_feeders_table.php (3 نسخه)
+   🔄 2026_01_01_100005_create_cell_equipment_types_table.php (3 نسخه)
+   🔄 2026_01_01_100006_create_activity_price_list_table.php (3 نسخه)
+   🔄 2026_01_01_100007_create_consumable_items_table.php (3 نسخه)
+   🔄 2026_01_01_100008_create_checklist_templates_table.php (3 نسخه)
+   🔄 2026_01_01_100009_create_inspections_table.php (3 نسخه)
+   🔄 2026_01_01_100010_create_equipments_table.php (3 نسخه)
+   🔄 2026_01_01_100011_create_equipment_feeders_table.php (3 نسخه)
+   🔄 2026_01_01_100012_create_equipment_location_table.php (3 نسخه)
+   🔄 2026_01_01_100013_create_equipment_communication_table.php (3 نسخه)
+   🔄 2026_01_01_100014_create_checklist_items_table.php (3 نسخه)
+   🔄 2026_01_01_100015_create_activities_table.php (3 نسخه)
+   🔄 2026_01_01_100016_create_consumables_table.php (3 نسخه)
+   🔄 2026_01_01_100017_create_cell_specifications_table.php (3 نسخه)
+   🔄 2026_01_01_100018_create_cell_equipments_table.php (3 نسخه)
+   🔄 2026_01_01_100019_create_photos_table.php (3 نسخه)
+   🔄 2026_01_01_100020_create_inspection_logs_table.php (3 نسخه)
+   🔄 2026_02_10_064926_create_posts_table.php (5 نسخه)
+   🔄 2026_02_10_064941_create_feeders_table.php (5 نسخه)
+   🔄 2026_02_10_161747_create_activity_prices_table.php (5 نسخه)
+   🔄 2026_02_10_161747_create_consumables_table.php (5 نسخه)
+   🔄 2026_02_10_170704_create_departments_table.php (5 نسخه)
+   🔄 2026_02_12_000003_create_main_equipment_types_table.php (5 نسخه)
+   🔄 2026_02_12_000004_create_main_equipments_table.php (5 نسخه)
+   🔄 2026_02_12_000005_create_main_equipment_feeder_table.php (2 نسخه)
+   🔄 2026_02_12_000006_create_brands_table.php (5 نسخه)
+   🔄 2026_02_12_000007_create_checklist_templates_table.php (5 نسخه)
+   🔄 2026_02_12_000008_create_checklist_items_table.php (5 نسخه)
+   🔄 2026_02_12_000009_create_cell_equipment_types_table.php (3 نسخه)
+   🔄 2026_02_12_000010_create_cell_equipments_table.php (3 نسخه)
+   🔄 2026_02_12_183401_create_personal_access_tokens_table.php (2 نسخه)
+   🔄 2026_02_12_20001_create_departments_table.php (2 نسخه)
+   🔄 2026_02_12_200010_create_feeders_table.php (4 نسخه)
+   🔄 2026_02_12_200011_create_brands_table.php (3 نسخه)
+   🔄 2026_02_12_200012_create_main_equipments_table.php (2 نسخه)
+   🔄 2026_02_12_200013_create_cell_equipments_table.php (2 نسخه)
+   🔄 2026_02_12_200014_create_checklist_templates_table.php (2 نسخه)
+   🔄 2026_02_12_200015_create_checklist_items_table.php (2 نسخه)
+   🔄 2026_02_12_200016_create_checklists_table.php (2 نسخه)
+   🔄 2026_02_12_200017_create_checklist_results_table.php (2 نسخه)
+   🔄 2026_02_12_20002_create_posts_table.php (2 نسخه)
+   🔄 2026_02_12_20003_create_main_equipment_types_table.php (2 نسخه)
+   🔄 2026_02_12_20004_create_cell_equipment_types_table.php (2 نسخه)
+   🔄 2026_02_12_20005_create_consumables_table.php (2 نسخه)
+   🔄 2026_02_12_20006_create_activity_prices_table.php (2 نسخه)
+   🔄 2026_02_12_300001_add_role_to_users.php (2 نسخه)
+   🔄 2026_02_12_300002_create_checklist_costs_table.php (2 نسخه)
+
+📁 database\seeders
+   📄 83 فایل
+   🔄 ActivityPriceSeeder.php (6 نسخه)
+   🔄 BaseDataSeeder.php (4 نسخه)
+   🔄 BrandSeeder.php (6 نسخه)
+   🔄 CellEquipmentSeeder.php (4 نسخه)
+   🔄 CellEquipmentTypeSeeder.php (4 نسخه)
+   🔄 ChecklistTemplateSeeder.php (6 نسخه)
+   🔄 ConsumableItemSeeder.php (4 نسخه)
+   🔄 ConsumableSeeder.php (6 نسخه)
+   🔄 DatabaseSeeder.php (6 نسخه)
+   🔄 DepartmentSeeder.php (6 نسخه)
+   🔄 FeederSeeder.php (6 نسخه)
+   🔄 MainEquipmentSeeder.php (6 نسخه)
+   🔄 MainEquipmentTypeSeeder.php (6 نسخه)
+   🔄 PostSeeder.php (6 نسخه)
+   🔄 UserSeeder.php (6 نسخه)
+
+📁 app\Http\Controllers
+   📄 53 فایل
+   🔄 ActivityPriceController.php (6 نسخه)
+   🔄 BrandController.php (6 نسخه)
+   🔄 ChecklistTemplateController.php (6 نسخه)
+   🔄 ConsumableController.php (6 نسخه)
+   🔄 Controller.php (8 نسخه)
+   🔄 EquipmentController.php (3 نسخه)
+   🔄 EquipmentTypeController.php (6 نسخه)
+   🔄 FeederController.php (6 نسخه)
+   🔄 PostController.php (6 نسخه)
+
+📁 app\Http\Controllers\Api
+   📄 71 فایل
+   🔄 ActivityPriceController.php (3 نسخه)
+   🔄 AuthController.php (7 نسخه)
+   🔄 BrandController.php (3 نسخه)
+   🔄 CellEquipmentTypeController.php (3 نسخه)
+   🔄 ChecklistController.php (3 نسخه)
+   🔄 ChecklistTemplateController.php (3 نسخه)
+   🔄 ConsumableController.php (3 نسخه)
+   🔄 Controller.php (3 نسخه)
+   🔄 DashboardController.php (7 نسخه)
+   🔄 DepartmentController.php (3 نسخه)
+   🔄 EquipmentController.php (7 نسخه)
+   🔄 EquipmentTypeController.php (3 نسخه)
+   🔄 FeederController.php (3 نسخه)
+   🔄 InspectionController.php (7 نسخه)
+   🔄 MainEquipmentTypeController.php (3 نسخه)
+   🔄 PostController.php (3 نسخه)
+   🔄 ReferenceController.php (7 نسخه)
+
+📁 app\Models
+   📄 121 فایل
+   🔄 Activity.php (6 نسخه)
+   🔄 ActivityPrice.php (6 نسخه)
+   🔄 Brand.php (6 نسخه)
+   🔄 CellEquipment.php (6 نسخه)
+   🔄 CellEquipmentType.php (6 نسخه)
+   🔄 CellSpecification.php (4 نسخه)
+   🔄 Checklist.php (2 نسخه)
+   🔄 ChecklistItem.php (6 نسخه)
+   🔄 ChecklistResult.php (2 نسخه)
+   🔄 ChecklistTemplate.php (6 نسخه)
+   🔄 Consumable.php (6 نسخه)
+   🔄 ConsumableItem.php (6 نسخه)
+   🔄 Department.php (6 نسخه)
+   🔄 Equipment.php (8 نسخه)
+   🔄 EquipmentCommunication.php (4 نسخه)
+   🔄 EquipmentLocation.php (4 نسخه)
+   🔄 EquipmentType.php (6 نسخه)
+   🔄 Feeder.php (6 نسخه)
+   🔄 Inspection.php (4 نسخه)
+   🔄 InspectionLog.php (4 نسخه)
+   🔄 MainEquipment.php (2 نسخه)
+   🔄 MainEquipmentType.php (2 نسخه)
+   🔄 Photo.php (4 نسخه)
+   🔄 Post.php (6 نسخه)
+   🔄 User.php (3 نسخه)
+
+📁 app\Http\Middleware
+   📄 14 فایل
+   🔄 AdminMiddleware.php (3 نسخه)
+   🔄 EnsureTokenIsValid.php (3 نسخه)
+   🔄 RoleMiddleware.php (5 نسخه)
+   🔄 TechnicianMiddleware.php (3 نسخه)
+
+📁 app\Providers
+   📄 12 فایل
+   🔄 AppServiceProvider.php (6 نسخه)
+   🔄 AuthServiceProvider.php (2 نسخه)
+   🔄 EventServiceProvider.php (2 نسخه)
+   🔄 RouteServiceProvider.php (2 نسخه)
+
+📁 routes
+   📄 16 فایل
+   🔄 api.php (6 نسخه)
+   🔄 console.php (4 نسخه)
+   🔄 web.php (6 نسخه)
+
+📁 config
+   📄 46 فایل
+   🔄 activity_prices.php (2 نسخه)
+   🔄 app.php (4 نسخه)
+   🔄 auth.php (3 نسخه)
+   🔄 brands.php (2 نسخه)
+   🔄 cache.php (3 نسخه)
+   🔄 consumables.php (2 نسخه)
+   🔄 database.php (4 نسخه)
+   🔄 departments.php (2 نسخه)
+   🔄 equipment_checklists.php (2 نسخه)
+   🔄 filesystems.php (3 نسخه)
+   🔄 logging.php (3 نسخه)
+   🔄 mail.php (3 نسخه)
+   🔄 posts_data.php (2 نسخه)
+   🔄 queue.php (3 نسخه)
+   🔄 services.php (3 نسخه)
+   🔄 session.php (3 نسخه)
+
+📁 database\factories
+   📄 3 فایل
+   🔄 UserFactory.php (3 نسخه)
+

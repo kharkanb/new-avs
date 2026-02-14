@@ -1,0 +1,192 @@
+﻿============================================================
+ فایل: EquipmentTypeController.php (پوشه: app\Http\Controllers\Api)
+============================================================
+
+تعداد نسخه‌ها: 3
+
+----------------------------------------
+ نسخه 1 : EquipmentTypeController (2).php
+----------------------------------------
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Models\EquipmentType;
+use Illuminate\Http\Request;
+
+class EquipmentTypeController extends Controller
+{
+    public function index()
+    {
+        return response()->json(EquipmentType::all());
+    }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255|unique:equipment_types,name',
+            'has_height' => 'boolean',
+            'has_brand' => 'boolean'
+        ]);
+
+        return response()->json(EquipmentType::create($validated), 201);
+    }
+
+    public function show($id)
+    {
+        $item = EquipmentType::find($id);
+        if (!$item) return response()->json(['message' => 'Not found'], 404);
+        return response()->json($item);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $item = EquipmentType::find($id);
+        if (!$item) return response()->json(['message' => 'Not found'], 404);
+
+        $validated = $request->validate([
+            'name' => 'sometimes|string|max:255|unique:equipment_types,name,' . $id,
+            'has_height' => 'boolean',
+            'has_brand' => 'boolean'
+        ]);
+
+        $item->update($validated);
+        return response()->json($item);
+    }
+
+    public function destroy($id)
+    {
+        $item = EquipmentType::find($id);
+        if (!$item) return response()->json(['message' => 'Not found'], 404);
+        $item->delete();
+        return response()->json(['message' => 'Deleted']);
+    }
+}
+
+
+
+----------------------------------------
+ نسخه 2 : EquipmentTypeController (3).php
+----------------------------------------
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Models\EquipmentType;
+use Illuminate\Http\Request;
+
+class EquipmentTypeController extends Controller
+{
+    public function index()
+    {
+        return response()->json(EquipmentType::all());
+    }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255|unique:equipment_types,name',
+            'has_height' => 'boolean',
+            'has_brand' => 'boolean'
+        ]);
+
+        return response()->json(EquipmentType::create($validated), 201);
+    }
+
+    public function show($id)
+    {
+        $item = EquipmentType::find($id);
+        if (!$item) return response()->json(['message' => 'Not found'], 404);
+        return response()->json($item);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $item = EquipmentType::find($id);
+        if (!$item) return response()->json(['message' => 'Not found'], 404);
+
+        $validated = $request->validate([
+            'name' => 'sometimes|string|max:255|unique:equipment_types,name,' . $id,
+            'has_height' => 'boolean',
+            'has_brand' => 'boolean'
+        ]);
+
+        $item->update($validated);
+        return response()->json($item);
+    }
+
+    public function destroy($id)
+    {
+        $item = EquipmentType::find($id);
+        if (!$item) return response()->json(['message' => 'Not found'], 404);
+        $item->delete();
+        return response()->json(['message' => 'Deleted']);
+    }
+}
+
+
+
+----------------------------------------
+ نسخه 3 : EquipmentTypeController.php
+----------------------------------------
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Models\EquipmentType;
+use Illuminate\Http\Request;
+
+class EquipmentTypeController extends Controller
+{
+    public function index()
+    {
+        return response()->json(EquipmentType::all());
+    }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255|unique:equipment_types,name',
+            'has_height' => 'boolean',
+            'has_brand' => 'boolean'
+        ]);
+
+        return response()->json(EquipmentType::create($validated), 201);
+    }
+
+    public function show($id)
+    {
+        $item = EquipmentType::find($id);
+        if (!$item) return response()->json(['message' => 'Not found'], 404);
+        return response()->json($item);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $item = EquipmentType::find($id);
+        if (!$item) return response()->json(['message' => 'Not found'], 404);
+
+        $validated = $request->validate([
+            'name' => 'sometimes|string|max:255|unique:equipment_types,name,' . $id,
+            'has_height' => 'boolean',
+            'has_brand' => 'boolean'
+        ]);
+
+        $item->update($validated);
+        return response()->json($item);
+    }
+
+    public function destroy($id)
+    {
+        $item = EquipmentType::find($id);
+        if (!$item) return response()->json(['message' => 'Not found'], 404);
+        $item->delete();
+        return response()->json(['message' => 'Deleted']);
+    }
+}
+
+
+

@@ -1,0 +1,25 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create('main_equipment_feeder', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('main_equipment_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('feeder_id')->constrained()->cascadeOnDelete();
+            $table->timestamps();
+            
+            $table->unique(['main_equipment_id', 'feeder_id'], 'equipment_feeder_unique');
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists('main_equipment_feeder');
+    }
+};

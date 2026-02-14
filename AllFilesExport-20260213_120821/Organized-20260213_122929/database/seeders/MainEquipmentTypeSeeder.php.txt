@@ -1,0 +1,420 @@
+﻿============================================================
+ فایل: MainEquipmentTypeSeeder.php (پوشه: database\seeders)
+============================================================
+
+تعداد نسخه‌ها: 6
+
+----------------------------------------
+ نسخه 1 : MainEquipmentTypeSeeder (2).php
+----------------------------------------
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+
+class MainEquipmentTypeSeeder extends Seeder
+{
+    public function run(): void
+    {
+        $types = [
+            [
+                "name" => "Ø±ÛŒÚ©Ù„ÙˆØ²Ø±",
+                "feeder_mode" => "single",
+                "has_height" => true,
+                "has_brand" => true
+            ],
+            [
+                "name" => "Ø³Ú©Ø³ÛŒÙˆÙ†Ø±",
+                "feeder_mode" => "dual",
+                "has_height" => true,
+                "has_brand" => true
+            ],
+            [
+                "name" => "Ø³Ú©Ø´Ù†Ø§Ù„Ø§ÛŒØ²Ø±",
+                "feeder_mode" => "dual",
+                "has_height" => true,
+                "has_brand" => true
+            ],
+            [
+                "name" => "ÙØ§Ù„Øª Ø¯ØªÚ©ØªÙˆØ±",
+                "feeder_mode" => "single",
+                "has_height" => false,
+                "has_brand" => true
+            ],
+            [
+                "name" => "Ù¾Ø³Øª Ø¯Ùˆ Ø³Ùˆ ØªØºØ°ÛŒÙ‡ (Ù…Ø´ØªØ±Ú© Ø­Ø³Ø§Ø³)",
+                "feeder_mode" => "dual",
+                "has_height" => false,
+                "has_brand" => false
+            ],
+            [
+                "name" => "Ù¾Ø³Øª Ø¯Ùˆ Ø³Ùˆ ØªØºØ°ÛŒÙ‡ (Ø¨ÛŒÙ…Ø§Ø±Ø³ØªØ§Ù†ÛŒ)",
+                "feeder_mode" => "dual",
+                "has_height" => false,
+                "has_brand" => false
+            ],
+            [
+                "name" => "Ù…Ø´ØªØ±Ú© ÙˆÙ„ØªØ§Ú˜ Ø§ÙˆÙ„ÛŒÙ‡",
+                "feeder_mode" => "single",
+                "has_height" => false,
+                "has_brand" => false
+            ]
+        ];
+
+        foreach ($types as $type) {
+            DB::table("main_equipment_types")->updateOrInsert(
+                ["name" => $type["name"]],
+                $type
+            );
+        }
+    }
+}
+
+
+----------------------------------------
+ نسخه 2 : MainEquipmentTypeSeeder (3).php
+----------------------------------------
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+
+class MainEquipmentTypeSeeder extends Seeder
+{
+    public function run(): void
+    {
+        $types = [
+            [
+                "name" => "Ø±ÛŒÚ©Ù„ÙˆØ²Ø±",
+                "feeder_mode" => "single",
+                "has_height" => true,
+                "has_brand" => true
+            ],
+            [
+                "name" => "Ø³Ú©Ø³ÛŒÙˆÙ†Ø±",
+                "feeder_mode" => "dual",
+                "has_height" => true,
+                "has_brand" => true
+            ],
+            [
+                "name" => "Ø³Ú©Ø´Ù†Ø§Ù„Ø§ÛŒØ²Ø±",
+                "feeder_mode" => "dual",
+                "has_height" => true,
+                "has_brand" => true
+            ],
+            [
+                "name" => "ÙØ§Ù„Øª Ø¯ØªÚ©ØªÙˆØ±",
+                "feeder_mode" => "single",
+                "has_height" => false,
+                "has_brand" => true
+            ],
+            [
+                "name" => "Ù¾Ø³Øª Ø¯Ùˆ Ø³Ùˆ ØªØºØ°ÛŒÙ‡ (Ù…Ø´ØªØ±Ú© Ø­Ø³Ø§Ø³)",
+                "feeder_mode" => "dual",
+                "has_height" => false,
+                "has_brand" => false
+            ],
+            [
+                "name" => "Ù¾Ø³Øª Ø¯Ùˆ Ø³Ùˆ ØªØºØ°ÛŒÙ‡ (Ø¨ÛŒÙ…Ø§Ø±Ø³ØªØ§Ù†ÛŒ)",
+                "feeder_mode" => "dual",
+                "has_height" => false,
+                "has_brand" => false
+            ],
+            [
+                "name" => "Ù…Ø´ØªØ±Ú© ÙˆÙ„ØªØ§Ú˜ Ø§ÙˆÙ„ÛŒÙ‡",
+                "feeder_mode" => "single",
+                "has_height" => false,
+                "has_brand" => false
+            ]
+        ];
+
+        foreach ($types as $type) {
+            DB::table("main_equipment_types")->updateOrInsert(
+                ["name" => $type["name"]],
+                $type
+            );
+        }
+    }
+}
+
+
+----------------------------------------
+ نسخه 3 : MainEquipmentTypeSeeder (4).php
+----------------------------------------
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+
+class MainEquipmentTypeSeeder extends Seeder
+{
+    public function run(): void
+    {
+        $types = [
+            [
+                "name" => "Ø±ÛŒÚ©Ù„ÙˆØ²Ø±",
+                "feeder_mode" => "single",
+                "has_height" => true,
+                "has_brand" => true
+            ],
+            [
+                "name" => "Ø³Ú©Ø³ÛŒÙˆÙ†Ø±",
+                "feeder_mode" => "dual",
+                "has_height" => true,
+                "has_brand" => true
+            ],
+            [
+                "name" => "Ø³Ú©Ø´Ù†Ø§Ù„Ø§ÛŒØ²Ø±",
+                "feeder_mode" => "dual",
+                "has_height" => true,
+                "has_brand" => true
+            ],
+            [
+                "name" => "ÙØ§Ù„Øª Ø¯ØªÚ©ØªÙˆØ±",
+                "feeder_mode" => "single",
+                "has_height" => false,
+                "has_brand" => true
+            ],
+            [
+                "name" => "Ù¾Ø³Øª Ø¯Ùˆ Ø³Ùˆ ØªØºØ°ÛŒÙ‡ (Ù…Ø´ØªØ±Ú© Ø­Ø³Ø§Ø³)",
+                "feeder_mode" => "dual",
+                "has_height" => false,
+                "has_brand" => false
+            ],
+            [
+                "name" => "Ù¾Ø³Øª Ø¯Ùˆ Ø³Ùˆ ØªØºØ°ÛŒÙ‡ (Ø¨ÛŒÙ…Ø§Ø±Ø³ØªØ§Ù†ÛŒ)",
+                "feeder_mode" => "dual",
+                "has_height" => false,
+                "has_brand" => false
+            ],
+            [
+                "name" => "Ù…Ø´ØªØ±Ú© ÙˆÙ„ØªØ§Ú˜ Ø§ÙˆÙ„ÛŒÙ‡",
+                "feeder_mode" => "single",
+                "has_height" => false,
+                "has_brand" => false
+            ]
+        ];
+
+        foreach ($types as $type) {
+            DB::table("main_equipment_types")->updateOrInsert(
+                ["name" => $type["name"]],
+                $type
+            );
+        }
+    }
+}
+
+
+----------------------------------------
+ نسخه 4 : MainEquipmentTypeSeeder (5).php
+----------------------------------------
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+
+class MainEquipmentTypeSeeder extends Seeder
+{
+    public function run(): void
+    {
+        $types = [
+            [
+                "name" => "Ø±ÛŒÚ©Ù„ÙˆØ²Ø±",
+                "feeder_mode" => "single",
+                "has_height" => true,
+                "has_brand" => true
+            ],
+            [
+                "name" => "Ø³Ú©Ø³ÛŒÙˆÙ†Ø±",
+                "feeder_mode" => "dual",
+                "has_height" => true,
+                "has_brand" => true
+            ],
+            [
+                "name" => "Ø³Ú©Ø´Ù†Ø§Ù„Ø§ÛŒØ²Ø±",
+                "feeder_mode" => "dual",
+                "has_height" => true,
+                "has_brand" => true
+            ],
+            [
+                "name" => "ÙØ§Ù„Øª Ø¯ØªÚ©ØªÙˆØ±",
+                "feeder_mode" => "single",
+                "has_height" => false,
+                "has_brand" => true
+            ],
+            [
+                "name" => "Ù¾Ø³Øª Ø¯Ùˆ Ø³Ùˆ ØªØºØ°ÛŒÙ‡ (Ù…Ø´ØªØ±Ú© Ø­Ø³Ø§Ø³)",
+                "feeder_mode" => "dual",
+                "has_height" => false,
+                "has_brand" => false
+            ],
+            [
+                "name" => "Ù¾Ø³Øª Ø¯Ùˆ Ø³Ùˆ ØªØºØ°ÛŒÙ‡ (Ø¨ÛŒÙ…Ø§Ø±Ø³ØªØ§Ù†ÛŒ)",
+                "feeder_mode" => "dual",
+                "has_height" => false,
+                "has_brand" => false
+            ],
+            [
+                "name" => "Ù…Ø´ØªØ±Ú© ÙˆÙ„ØªØ§Ú˜ Ø§ÙˆÙ„ÛŒÙ‡",
+                "feeder_mode" => "single",
+                "has_height" => false,
+                "has_brand" => false
+            ]
+        ];
+
+        foreach ($types as $type) {
+            DB::table("main_equipment_types")->updateOrInsert(
+                ["name" => $type["name"]],
+                $type
+            );
+        }
+    }
+}
+
+
+----------------------------------------
+ نسخه 5 : MainEquipmentTypeSeeder (6).php
+----------------------------------------
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+
+class MainEquipmentTypeSeeder extends Seeder
+{
+    public function run(): void
+    {
+        $types = [
+            [
+                "name" => "Ø±ÛŒÚ©Ù„ÙˆØ²Ø±",
+                "feeder_mode" => "single",
+                "has_height" => true,
+                "has_brand" => true
+            ],
+            [
+                "name" => "Ø³Ú©Ø³ÛŒÙˆÙ†Ø±",
+                "feeder_mode" => "dual",
+                "has_height" => true,
+                "has_brand" => true
+            ],
+            [
+                "name" => "Ø³Ú©Ø´Ù†Ø§Ù„Ø§ÛŒØ²Ø±",
+                "feeder_mode" => "dual",
+                "has_height" => true,
+                "has_brand" => true
+            ],
+            [
+                "name" => "ÙØ§Ù„Øª Ø¯ØªÚ©ØªÙˆØ±",
+                "feeder_mode" => "single",
+                "has_height" => false,
+                "has_brand" => true
+            ],
+            [
+                "name" => "Ù¾Ø³Øª Ø¯Ùˆ Ø³Ùˆ ØªØºØ°ÛŒÙ‡ (Ù…Ø´ØªØ±Ú© Ø­Ø³Ø§Ø³)",
+                "feeder_mode" => "dual",
+                "has_height" => false,
+                "has_brand" => false
+            ],
+            [
+                "name" => "Ù¾Ø³Øª Ø¯Ùˆ Ø³Ùˆ ØªØºØ°ÛŒÙ‡ (Ø¨ÛŒÙ…Ø§Ø±Ø³ØªØ§Ù†ÛŒ)",
+                "feeder_mode" => "dual",
+                "has_height" => false,
+                "has_brand" => false
+            ],
+            [
+                "name" => "Ù…Ø´ØªØ±Ú© ÙˆÙ„ØªØ§Ú˜ Ø§ÙˆÙ„ÛŒÙ‡",
+                "feeder_mode" => "single",
+                "has_height" => false,
+                "has_brand" => false
+            ]
+        ];
+
+        foreach ($types as $type) {
+            DB::table("main_equipment_types")->updateOrInsert(
+                ["name" => $type["name"]],
+                $type
+            );
+        }
+    }
+}
+
+
+----------------------------------------
+ نسخه 6 : MainEquipmentTypeSeeder.php
+----------------------------------------
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+
+class MainEquipmentTypeSeeder extends Seeder
+{
+    public function run(): void
+    {
+        $types = [
+            [
+                "name" => "Ã˜Â±Ã›Å’ÃšÂ©Ã™â€žÃ™Ë†Ã˜Â²Ã˜Â±",
+                "feeder_mode" => "single",
+                "has_height" => true,
+                "has_brand" => true
+            ],
+            [
+                "name" => "Ã˜Â³ÃšÂ©Ã˜Â³Ã›Å’Ã™Ë†Ã™â€ Ã˜Â±",
+                "feeder_mode" => "dual",
+                "has_height" => true,
+                "has_brand" => true
+            ],
+            [
+                "name" => "Ã˜Â³ÃšÂ©Ã˜Â´Ã™â€ Ã˜Â§Ã™â€žÃ˜Â§Ã›Å’Ã˜Â²Ã˜Â±",
+                "feeder_mode" => "dual",
+                "has_height" => true,
+                "has_brand" => true
+            ],
+            [
+                "name" => "Ã™ÂÃ˜Â§Ã™â€žÃ˜Âª Ã˜Â¯Ã˜ÂªÃšÂ©Ã˜ÂªÃ™Ë†Ã˜Â±",
+                "feeder_mode" => "single",
+                "has_height" => false,
+                "has_brand" => true
+            ],
+            [
+                "name" => "Ã™Â¾Ã˜Â³Ã˜Âª Ã˜Â¯Ã™Ë† Ã˜Â³Ã™Ë† Ã˜ÂªÃ˜ÂºÃ˜Â°Ã›Å’Ã™â€¡ (Ã™â€¦Ã˜Â´Ã˜ÂªÃ˜Â±ÃšÂ© Ã˜Â­Ã˜Â³Ã˜Â§Ã˜Â³)",
+                "feeder_mode" => "dual",
+                "has_height" => false,
+                "has_brand" => false
+            ],
+            [
+                "name" => "Ã™Â¾Ã˜Â³Ã˜Âª Ã˜Â¯Ã™Ë† Ã˜Â³Ã™Ë† Ã˜ÂªÃ˜ÂºÃ˜Â°Ã›Å’Ã™â€¡ (Ã˜Â¨Ã›Å’Ã™â€¦Ã˜Â§Ã˜Â±Ã˜Â³Ã˜ÂªÃ˜Â§Ã™â€ Ã›Å’)",
+                "feeder_mode" => "dual",
+                "has_height" => false,
+                "has_brand" => false
+            ],
+            [
+                "name" => "Ã™â€¦Ã˜Â´Ã˜ÂªÃ˜Â±ÃšÂ© Ã™Ë†Ã™â€žÃ˜ÂªÃ˜Â§ÃšËœ Ã˜Â§Ã™Ë†Ã™â€žÃ›Å’Ã™â€¡",
+                "feeder_mode" => "single",
+                "has_height" => false,
+                "has_brand" => false
+            ]
+        ];
+
+        foreach ($types as $type) {
+            DB::table("main_equipment_types")->updateOrInsert(
+                ["name" => $type["name"]],
+                $type
+            );
+        }
+    }
+}
+
+

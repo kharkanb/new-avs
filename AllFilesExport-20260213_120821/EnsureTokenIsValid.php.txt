@@ -1,0 +1,89 @@
+﻿================================================================================
+                            EnsureTokenIsValid.php
+================================================================================
+تعداد فایل‌ها: 3
+تاریخ ایجاد: 2026/02/13 12:08:27
+مسیر پایه: C:\Users\dear-user\Desktop\complete-avs
+================================================================================
+
+--------------------------------------------------------------------------------
+【فایل 1】: EnsureTokenIsValid (2).php
+📁 مسیر: app\Http\Middleware\EnsureTokenIsValid (2).php
+📅 تاریخ آخرین تغییر: 02/13/2026 05:49:27
+📏 حجم: 333 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Http\Middleware;
+
+use Closure;
+use Illuminate\Http\Request;
+
+class EnsureTokenIsValid
+{
+    public function handle(Request $request, Closure $next)
+    {
+        if (!auth()->check()) {
+            return response()->json(["message" => "Unauthenticated"], 401);
+        }
+
+        return $next($request);
+    }
+}
+
+--------------------------------------------------------------------------------
+【فایل 2】: EnsureTokenIsValid (3).php
+📁 مسیر: app\Http\Middleware\EnsureTokenIsValid (3).php
+📅 تاریخ آخرین تغییر: 02/13/2026 05:49:27
+📏 حجم: 333 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Http\Middleware;
+
+use Closure;
+use Illuminate\Http\Request;
+
+class EnsureTokenIsValid
+{
+    public function handle(Request $request, Closure $next)
+    {
+        if (!auth()->check()) {
+            return response()->json(["message" => "Unauthenticated"], 401);
+        }
+
+        return $next($request);
+    }
+}
+
+--------------------------------------------------------------------------------
+【فایل 3】: EnsureTokenIsValid.php
+📁 مسیر: app\Http\Middleware\EnsureTokenIsValid.php
+📅 تاریخ آخرین تغییر: 02/13/2026 05:49:27
+📏 حجم: 333 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Http\Middleware;
+
+use Closure;
+use Illuminate\Http\Request;
+
+class EnsureTokenIsValid
+{
+    public function handle(Request $request, Closure $next)
+    {
+        if (!auth()->check()) {
+            return response()->json(["message" => "Unauthenticated"], 401);
+        }
+
+        return $next($request);
+    }
+}
+
+================================================================================
+                        پایان فایل EnsureTokenIsValid.php
+================================================================================

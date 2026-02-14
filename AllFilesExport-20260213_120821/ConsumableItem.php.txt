@@ -1,0 +1,153 @@
+﻿================================================================================
+                            ConsumableItem.php
+================================================================================
+تعداد فایل‌ها: 6
+تاریخ ایجاد: 2026/02/13 12:08:26
+مسیر پایه: C:\Users\dear-user\Desktop\complete-avs
+================================================================================
+
+--------------------------------------------------------------------------------
+【فایل 1】: ConsumableItem (2).php
+📁 مسیر: app\Models\ConsumableItem (2).php
+📅 تاریخ آخرین تغییر: 02/12/2026 15:51:23
+📏 حجم: 117 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class ConsumableItem extends Model
+{
+    //
+}
+
+
+--------------------------------------------------------------------------------
+【فایل 2】: ConsumableItem (3).php
+📁 مسیر: app\Models\ConsumableItem (3).php
+📅 تاریخ آخرین تغییر: 02/12/2026 23:48:54
+📏 حجم: 295 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class ConsumableItem extends Model
+{
+    use HasFactory;
+
+    protected $table = "consumable_items";
+
+    protected $fillable = [
+        "name",
+        "unit"
+    ];
+}
+
+--------------------------------------------------------------------------------
+【فایل 3】: ConsumableItem (4).php
+📁 مسیر: app\Models\ConsumableItem (4).php
+📅 تاریخ آخرین تغییر: 02/12/2026 23:48:54
+📏 حجم: 295 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class ConsumableItem extends Model
+{
+    use HasFactory;
+
+    protected $table = "consumable_items";
+
+    protected $fillable = [
+        "name",
+        "unit"
+    ];
+}
+
+--------------------------------------------------------------------------------
+【فایل 4】: ConsumableItem (5).php
+📁 مسیر: app\Models\ConsumableItem (5).php
+📅 تاریخ آخرین تغییر: 02/12/2026 15:51:23
+📏 حجم: 117 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class ConsumableItem extends Model
+{
+    //
+}
+
+
+--------------------------------------------------------------------------------
+【فایل 5】: ConsumableItem (6).php
+📁 مسیر: app\Models\ConsumableItem (6).php
+📅 تاریخ آخرین تغییر: 02/12/2026 23:48:54
+📏 حجم: 295 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class ConsumableItem extends Model
+{
+    use HasFactory;
+
+    protected $table = "consumable_items";
+
+    protected $fillable = [
+        "name",
+        "unit"
+    ];
+}
+
+--------------------------------------------------------------------------------
+【فایل 6】: ConsumableItem.php
+📁 مسیر: app\Models\ConsumableItem.php
+📅 تاریخ آخرین تغییر: 02/13/2026 10:37:21
+📏 حجم: 295 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class ConsumableItem extends Model
+{
+    use HasFactory;
+
+    protected $table = "consumable_items";
+
+    protected $fillable = [
+        "name",
+        "unit"
+    ];
+}
+
+================================================================================
+                        پایان فایل ConsumableItem.php
+================================================================================

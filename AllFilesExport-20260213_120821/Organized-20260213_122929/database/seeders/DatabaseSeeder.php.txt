@@ -1,0 +1,188 @@
+﻿============================================================
+ فایل: DatabaseSeeder.php (پوشه: database\seeders)
+============================================================
+
+تعداد نسخه‌ها: 6
+
+----------------------------------------
+ نسخه 1 : DatabaseSeeder (2).php
+----------------------------------------
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+
+class DatabaseSeeder extends Seeder
+{
+    public function run(): void
+    {
+        $this->call([
+            EquipmentTypeSeeder::class,
+            CellEquipmentTypeSeeder::class,
+            BrandSeeder::class,
+            DepartmentSeeder::class,
+            PostSeeder::class,
+            FeederSeeder::class,
+            ActivityPriceSeeder::class,
+            ConsumableItemSeeder::class,
+            ChecklistTemplateSeeder::class,
+            UserSeeder::class,
+        ]);
+    }
+}
+
+
+----------------------------------------
+ نسخه 2 : DatabaseSeeder (3).php
+----------------------------------------
+<?php
+
+namespace Database\Seeders;
+
+use App\Models\User;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
+
+class DatabaseSeeder extends Seeder
+{
+    use WithoutModelEvents;
+
+    public function run(): void
+    {
+        $this->call([
+            MainEquipmentTypeSeeder::class,
+            BrandSeeder::class,
+            DepartmentSeeder::class,
+            PostSeeder::class,
+            FeederSeeder::class,
+            ActivityPriceSeeder::class,
+            ConsumableSeeder::class,
+            ChecklistTemplateSeeder::class,
+            MainEquipmentSeeder::class,
+            UserSeeder::class,
+        ]);
+    }
+}
+
+
+----------------------------------------
+ نسخه 3 : DatabaseSeeder (4).php
+----------------------------------------
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+
+class DatabaseSeeder extends Seeder
+{
+    public function run(): void
+    {
+        $this->call([
+            EquipmentTypeSeeder::class,
+            CellEquipmentTypeSeeder::class,
+            BrandSeeder::class,
+            DepartmentSeeder::class,
+            PostSeeder::class,
+            FeederSeeder::class,
+            ActivityPriceSeeder::class,
+            ConsumableItemSeeder::class,
+            ChecklistTemplateSeeder::class,
+            UserSeeder::class,
+        ]);
+    }
+}
+
+
+----------------------------------------
+ نسخه 4 : DatabaseSeeder (5).php
+----------------------------------------
+<?php
+
+namespace Database\Seeders;
+
+use App\Models\User;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
+
+class DatabaseSeeder extends Seeder
+{
+    use WithoutModelEvents;
+
+    public function run(): void
+    {
+        $this->call([
+            MainEquipmentTypeSeeder::class,
+            BrandSeeder::class,
+            DepartmentSeeder::class,
+            PostSeeder::class,
+            FeederSeeder::class,
+            ActivityPriceSeeder::class,
+            ConsumableSeeder::class,
+            ChecklistTemplateSeeder::class,
+            MainEquipmentSeeder::class,
+            UserSeeder::class,
+        ]);
+    }
+}
+
+
+----------------------------------------
+ نسخه 5 : DatabaseSeeder (6).php
+----------------------------------------
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+
+class DatabaseSeeder extends Seeder
+{
+    public function run(): void
+    {
+        $this->call([
+            EquipmentTypeSeeder::class,
+            CellEquipmentTypeSeeder::class,
+            BrandSeeder::class,
+            DepartmentSeeder::class,
+            PostSeeder::class,
+            FeederSeeder::class,
+            ActivityPriceSeeder::class,
+            ConsumableItemSeeder::class,
+            ChecklistTemplateSeeder::class,
+            UserSeeder::class,
+        ]);
+    }
+}
+
+
+----------------------------------------
+ نسخه 6 : DatabaseSeeder.php
+----------------------------------------
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+
+class DatabaseSeeder extends Seeder
+{
+    public function run(): void
+    {
+        $this->call([
+            EquipmentTypeSeeder::class,
+            CellEquipmentTypeSeeder::class,
+            BrandSeeder::class,
+            DepartmentSeeder::class,
+            PostSeeder::class,
+            FeederSeeder::class,
+            ActivityPriceSeeder::class,
+            ConsumableItemSeeder::class,
+            ChecklistTemplateSeeder::class,
+            UserSeeder::class,
+        ]);
+    }
+}
+
+

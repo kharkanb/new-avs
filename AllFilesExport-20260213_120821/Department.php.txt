@@ -1,0 +1,123 @@
+﻿================================================================================
+                            Department.php
+================================================================================
+تعداد فایل‌ها: 6
+تاریخ ایجاد: 2026/02/13 12:08:26
+مسیر پایه: C:\Users\dear-user\Desktop\complete-avs
+================================================================================
+
+--------------------------------------------------------------------------------
+【فایل 1】: Department (2).php
+📁 مسیر: app\Models\Department (2).php
+📅 تاریخ آخرین تغییر: 02/12/2026 22:38:23
+📏 حجم: 124 بایت
+--------------------------------------------------------------------------------
+
+<?php
+namespace App\Models;
+use Illuminate\Database\Eloquent\Model;
+class Department extends Model{
+ protected \=['name'];
+}
+
+--------------------------------------------------------------------------------
+【فایل 2】: Department (3).php
+📁 مسیر: app\Models\Department (3).php
+📅 تاریخ آخرین تغییر: 02/12/2026 23:48:54
+📏 حجم: 217 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Department extends Model
+{
+    use HasFactory;
+
+    protected $fillable = ["name"];
+}
+
+--------------------------------------------------------------------------------
+【فایل 3】: Department (4).php
+📁 مسیر: app\Models\Department (4).php
+📅 تاریخ آخرین تغییر: 02/12/2026 23:48:54
+📏 حجم: 217 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Department extends Model
+{
+    use HasFactory;
+
+    protected $fillable = ["name"];
+}
+
+--------------------------------------------------------------------------------
+【فایل 4】: Department (5).php
+📁 مسیر: app\Models\Department (5).php
+📅 تاریخ آخرین تغییر: 02/12/2026 22:38:23
+📏 حجم: 124 بایت
+--------------------------------------------------------------------------------
+
+<?php
+namespace App\Models;
+use Illuminate\Database\Eloquent\Model;
+class Department extends Model{
+ protected \=['name'];
+}
+
+--------------------------------------------------------------------------------
+【فایل 5】: Department (6).php
+📁 مسیر: app\Models\Department (6).php
+📅 تاریخ آخرین تغییر: 02/12/2026 23:48:54
+📏 حجم: 217 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Department extends Model
+{
+    use HasFactory;
+
+    protected $fillable = ["name"];
+}
+
+--------------------------------------------------------------------------------
+【فایل 6】: Department.php
+📁 مسیر: app\Models\Department.php
+📅 تاریخ آخرین تغییر: 02/13/2026 10:37:21
+📏 حجم: 217 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Department extends Model
+{
+    use HasFactory;
+
+    protected $fillable = ["name"];
+}
+
+================================================================================
+                        پایان فایل Department.php
+================================================================================

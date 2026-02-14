@@ -1,0 +1,166 @@
+﻿================================================================================
+                            2026_02_10_161747_create_consumables_table.php
+================================================================================
+تعداد فایل‌ها: 5
+تاریخ ایجاد: 2026/02/13 12:08:24
+مسیر پایه: C:\Users\dear-user\Desktop\complete-avs
+================================================================================
+
+--------------------------------------------------------------------------------
+【فایل 1】: 2026_02_10_161747_create_consumables_table (2).php
+📁 مسیر: database\migrations\2026_02_10_161747_create_consumables_table (2).php
+📅 تاریخ آخرین تغییر: 02/12/2026 23:08:14
+📏 حجم: 542 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create("consumables", function (Blueprint $table) {
+            $table->id();
+            $table->string("name")->unique();
+            $table->string("unit")->nullable();
+            $table->timestamps();
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists("consumables");
+    }
+};
+
+--------------------------------------------------------------------------------
+【فایل 2】: 2026_02_10_161747_create_consumables_table (3).php
+📁 مسیر: database\migrations\2026_02_10_161747_create_consumables_table (3).php
+📅 تاریخ آخرین تغییر: 02/13/2026 00:41:25
+📏 حجم: 578 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create("consumables", function (Blueprint $table) {
+            $table$table->id();
+            $table$table->string("name")$table->unique();
+            $table$table->string("unit")$table->nullable();
+            $table$table->timestamps();
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists("consumables");
+    }
+};
+
+--------------------------------------------------------------------------------
+【فایل 3】: 2026_02_10_161747_create_consumables_table.php
+📁 مسیر: database\migrations\2026_02_10_161747_create_consumables_table.php
+📅 تاریخ آخرین تغییر: 02/12/2026 23:08:14
+📏 حجم: 542 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create("consumables", function (Blueprint $table) {
+            $table->id();
+            $table->string("name")->unique();
+            $table->string("unit")->nullable();
+            $table->timestamps();
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists("consumables");
+    }
+};
+
+--------------------------------------------------------------------------------
+【فایل 4】: 2026_02_10_161747_create_consumables_table.php (2).bak
+📁 مسیر: database\migrations\2026_02_10_161747_create_consumables_table.php (2).bak
+📅 تاریخ آخرین تغییر: 02/12/2026 23:17:20
+📏 حجم: 542 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create("consumables", function (Blueprint $table) {
+            $table->id();
+            $table->string("name")->unique();
+            $table->string("unit")->nullable();
+            $table->timestamps();
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists("consumables");
+    }
+};
+
+--------------------------------------------------------------------------------
+【فایل 5】: 2026_02_10_161747_create_consumables_table.php.bak
+📁 مسیر: database\migrations\2026_02_10_161747_create_consumables_table.php.bak
+📅 تاریخ آخرین تغییر: 02/12/2026 23:17:20
+📏 حجم: 542 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create("consumables", function (Blueprint $table) {
+            $table->id();
+            $table->string("name")->unique();
+            $table->string("unit")->nullable();
+            $table->timestamps();
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists("consumables");
+    }
+};
+
+================================================================================
+                        پایان فایل 2026_02_10_161747_create_consumables_table.php
+================================================================================

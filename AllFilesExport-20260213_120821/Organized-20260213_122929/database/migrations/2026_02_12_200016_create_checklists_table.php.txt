@@ -1,0 +1,52 @@
+﻿============================================================
+ فایل: 2026_02_12_200016_create_checklists_table.php (پوشه: database\migrations)
+============================================================
+
+تعداد نسخه‌ها: 2
+
+----------------------------------------
+ نسخه 1 : 2026_02_12_200016_create_checklists_table (2).php
+----------------------------------------
+<?php
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+return new class extends Migration {
+ public function up(): void {
+  Schema::create('checklists', function (Blueprint \) {
+   \->id();
+   \->foreignId('main_equipment_id')->nullable()->constrained()->cascadeOnDelete();
+   \->foreignId('cell_equipment_id')->nullable()->constrained()->cascadeOnDelete();
+   \->foreignId('user_id')->constrained();
+   \->date('visit_date');
+   \->text('notes')->nullable();
+   \->timestamps();
+  });
+ }
+ public function down(): void { Schema::dropIfExists('checklists'); }
+};
+
+
+----------------------------------------
+ نسخه 2 : 2026_02_12_200016_create_checklists_table.php
+----------------------------------------
+<?php
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+return new class extends Migration {
+ public function up(): void {
+  Schema::create('checklists', function (Blueprint \) {
+   \->id();
+   \->foreignId('main_equipment_id')->nullable()->constrained()->cascadeOnDelete();
+   \->foreignId('cell_equipment_id')->nullable()->constrained()->cascadeOnDelete();
+   \->foreignId('user_id')->constrained();
+   \->date('visit_date');
+   \->text('notes')->nullable();
+   \->timestamps();
+  });
+ }
+ public function down(): void { Schema::dropIfExists('checklists'); }
+};
+
+

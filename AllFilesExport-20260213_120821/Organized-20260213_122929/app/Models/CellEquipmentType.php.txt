@@ -1,0 +1,124 @@
+﻿============================================================
+ فایل: CellEquipmentType.php (پوشه: app\Models)
+============================================================
+
+تعداد نسخه‌ها: 6
+
+----------------------------------------
+ نسخه 1 : CellEquipmentType (2).php
+----------------------------------------
+<?php
+namespace App\Models;
+use Illuminate\Database\Eloquent\Model;
+class CellEquipmentType extends Model{
+ protected \=['name'];
+}
+
+
+----------------------------------------
+ نسخه 2 : CellEquipmentType (3).php
+----------------------------------------
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class CellEquipmentType extends Model
+{
+    use HasFactory;
+
+    protected $fillable = ["name"];
+
+    public function cellEquipments(): HasMany
+    {
+        return $this->hasMany(CellEquipment::class);
+    }
+}
+
+
+----------------------------------------
+ نسخه 3 : CellEquipmentType (4).php
+----------------------------------------
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class CellEquipmentType extends Model
+{
+    use HasFactory;
+
+    protected $fillable = ["name"];
+
+    public function cellEquipments(): HasMany
+    {
+        return $this->hasMany(CellEquipment::class);
+    }
+}
+
+
+----------------------------------------
+ نسخه 4 : CellEquipmentType (5).php
+----------------------------------------
+<?php
+namespace App\Models;
+use Illuminate\Database\Eloquent\Model;
+class CellEquipmentType extends Model{
+ protected \=['name'];
+}
+
+
+----------------------------------------
+ نسخه 5 : CellEquipmentType (6).php
+----------------------------------------
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class CellEquipmentType extends Model
+{
+    use HasFactory;
+
+    protected $fillable = ["name"];
+
+    public function cellEquipments(): HasMany
+    {
+        return $this->hasMany(CellEquipment::class);
+    }
+}
+
+
+----------------------------------------
+ نسخه 6 : CellEquipmentType.php
+----------------------------------------
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class CellEquipmentType extends Model
+{
+    use HasFactory;
+
+    protected $fillable = ["name"];
+
+    public function cellEquipments(): HasMany
+    {
+        return $this->hasMany(CellEquipment::class);
+    }
+}
+
+

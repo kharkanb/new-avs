@@ -1,0 +1,209 @@
+﻿================================================================================
+                            Activity.php
+================================================================================
+تعداد فایل‌ها: 6
+تاریخ ایجاد: 2026/02/13 12:08:24
+مسیر پایه: C:\Users\dear-user\Desktop\complete-avs
+================================================================================
+
+--------------------------------------------------------------------------------
+【فایل 1】: Activity (2).php
+📁 مسیر: app\Models\Activity (2).php
+📅 تاریخ آخرین تغییر: 02/12/2026 15:51:23
+📏 حجم: 111 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Activity extends Model
+{
+    //
+}
+
+
+--------------------------------------------------------------------------------
+【فایل 2】: Activity (3).php
+📁 مسیر: app\Models\Activity (3).php
+📅 تاریخ آخرین تغییر: 02/12/2026 23:48:55
+📏 حجم: 637 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class Activity extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        "equipment_id",
+        "activity_code",
+        "activity_title",
+        "unit",
+        "unit_price",
+        "quantity",
+        "total_price"
+    ];
+
+    protected $casts = [
+        "unit_price" => "decimal:2",
+        "total_price" => "decimal:2"
+    ];
+
+    public function equipment(): BelongsTo
+    {
+        return $this->belongsTo(Equipment::class);
+    }
+}
+
+--------------------------------------------------------------------------------
+【فایل 3】: Activity (4).php
+📁 مسیر: app\Models\Activity (4).php
+📅 تاریخ آخرین تغییر: 02/12/2026 23:48:55
+📏 حجم: 637 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class Activity extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        "equipment_id",
+        "activity_code",
+        "activity_title",
+        "unit",
+        "unit_price",
+        "quantity",
+        "total_price"
+    ];
+
+    protected $casts = [
+        "unit_price" => "decimal:2",
+        "total_price" => "decimal:2"
+    ];
+
+    public function equipment(): BelongsTo
+    {
+        return $this->belongsTo(Equipment::class);
+    }
+}
+
+--------------------------------------------------------------------------------
+【فایل 4】: Activity (5).php
+📁 مسیر: app\Models\Activity (5).php
+📅 تاریخ آخرین تغییر: 02/12/2026 15:51:23
+📏 حجم: 111 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Activity extends Model
+{
+    //
+}
+
+
+--------------------------------------------------------------------------------
+【فایل 5】: Activity (6).php
+📁 مسیر: app\Models\Activity (6).php
+📅 تاریخ آخرین تغییر: 02/12/2026 23:48:55
+📏 حجم: 637 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class Activity extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        "equipment_id",
+        "activity_code",
+        "activity_title",
+        "unit",
+        "unit_price",
+        "quantity",
+        "total_price"
+    ];
+
+    protected $casts = [
+        "unit_price" => "decimal:2",
+        "total_price" => "decimal:2"
+    ];
+
+    public function equipment(): BelongsTo
+    {
+        return $this->belongsTo(Equipment::class);
+    }
+}
+
+--------------------------------------------------------------------------------
+【فایل 6】: Activity.php
+📁 مسیر: app\Models\Activity.php
+📅 تاریخ آخرین تغییر: 02/13/2026 10:37:21
+📏 حجم: 637 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class Activity extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        "equipment_id",
+        "activity_code",
+        "activity_title",
+        "unit",
+        "unit_price",
+        "quantity",
+        "total_price"
+    ];
+
+    protected $casts = [
+        "unit_price" => "decimal:2",
+        "total_price" => "decimal:2"
+    ];
+
+    public function equipment(): BelongsTo
+    {
+        return $this->belongsTo(Equipment::class);
+    }
+}
+
+================================================================================
+                        پایان فایل Activity.php
+================================================================================

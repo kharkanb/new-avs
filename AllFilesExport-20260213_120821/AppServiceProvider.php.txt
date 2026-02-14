@@ -1,0 +1,181 @@
+﻿================================================================================
+                            AppServiceProvider.php
+================================================================================
+تعداد فایل‌ها: 6
+تاریخ ایجاد: 2026/02/13 12:08:25
+مسیر پایه: C:\Users\dear-user\Desktop\complete-avs
+================================================================================
+
+--------------------------------------------------------------------------------
+【فایل 1】: AppServiceProvider (2).php
+📁 مسیر: app\Providers\AppServiceProvider (2).php
+📅 تاریخ آخرین تغییر: 01/19/2026 09:57:24
+📏 حجم: 361 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Providers;
+
+use Illuminate\Support\ServiceProvider;
+
+class AppServiceProvider extends ServiceProvider
+{
+    /**
+     * Register any application services.
+     */
+    public function register(): void
+    {
+        //
+    }
+
+    /**
+     * Bootstrap any application services.
+     */
+    public function boot(): void
+    {
+        //
+    }
+}
+
+
+--------------------------------------------------------------------------------
+【فایل 2】: AppServiceProvider (3).php
+📁 مسیر: app\Providers\AppServiceProvider (3).php
+📅 تاریخ آخرین تغییر: 02/13/2026 06:15:39
+📏 حجم: 202 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Providers;
+
+use Illuminate\Support\ServiceProvider;
+
+class AppServiceProvider extends ServiceProvider
+{
+    public function register(): void {}
+    public function boot(): void {}
+}
+
+--------------------------------------------------------------------------------
+【فایل 3】: AppServiceProvider (4).php
+📁 مسیر: app\Providers\AppServiceProvider (4).php
+📅 تاریخ آخرین تغییر: 02/13/2026 06:15:39
+📏 حجم: 202 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Providers;
+
+use Illuminate\Support\ServiceProvider;
+
+class AppServiceProvider extends ServiceProvider
+{
+    public function register(): void {}
+    public function boot(): void {}
+}
+
+--------------------------------------------------------------------------------
+【فایل 4】: AppServiceProvider (5).php
+📁 مسیر: app\Providers\AppServiceProvider (5).php
+📅 تاریخ آخرین تغییر: 01/19/2026 09:57:24
+📏 حجم: 361 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Providers;
+
+use Illuminate\Support\ServiceProvider;
+
+class AppServiceProvider extends ServiceProvider
+{
+    /**
+     * Register any application services.
+     */
+    public function register(): void
+    {
+        //
+    }
+
+    /**
+     * Bootstrap any application services.
+     */
+    public function boot(): void
+    {
+        //
+    }
+}
+
+
+--------------------------------------------------------------------------------
+【فایل 5】: AppServiceProvider (6).php
+📁 مسیر: app\Providers\AppServiceProvider (6).php
+📅 تاریخ آخرین تغییر: 01/19/2026 21:27:25
+📏 حجم: 361 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Providers;
+
+use Illuminate\Support\ServiceProvider;
+
+class AppServiceProvider extends ServiceProvider
+{
+    /**
+     * Register any application services.
+     */
+    public function register(): void
+    {
+        //
+    }
+
+    /**
+     * Bootstrap any application services.
+     */
+    public function boot(): void
+    {
+        //
+    }
+}
+
+
+--------------------------------------------------------------------------------
+【فایل 6】: AppServiceProvider.php
+📁 مسیر: app\Providers\AppServiceProvider.php
+📅 تاریخ آخرین تغییر: 01/19/2026 21:27:25
+📏 حجم: 361 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Providers;
+
+use Illuminate\Support\ServiceProvider;
+
+class AppServiceProvider extends ServiceProvider
+{
+    /**
+     * Register any application services.
+     */
+    public function register(): void
+    {
+        //
+    }
+
+    /**
+     * Bootstrap any application services.
+     */
+    public function boot(): void
+    {
+        //
+    }
+}
+
+
+================================================================================
+                        پایان فایل AppServiceProvider.php
+================================================================================

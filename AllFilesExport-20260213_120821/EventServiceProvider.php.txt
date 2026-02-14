@@ -1,0 +1,49 @@
+﻿================================================================================
+                            EventServiceProvider.php
+================================================================================
+تعداد فایل‌ها: 2
+تاریخ ایجاد: 2026/02/13 12:08:27
+مسیر پایه: C:\Users\dear-user\Desktop\complete-avs
+================================================================================
+
+--------------------------------------------------------------------------------
+【فایل 1】: EventServiceProvider (2).php
+📁 مسیر: app\Providers\EventServiceProvider (2).php
+📅 تاریخ آخرین تغییر: 02/13/2026 06:15:39
+📏 حجم: 237 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Providers;
+
+use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+
+class EventServiceProvider extends ServiceProvider
+{
+    protected $listen = [];
+    public function boot(): void {}
+}
+
+--------------------------------------------------------------------------------
+【فایل 2】: EventServiceProvider.php
+📁 مسیر: app\Providers\EventServiceProvider.php
+📅 تاریخ آخرین تغییر: 02/13/2026 06:15:39
+📏 حجم: 237 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Providers;
+
+use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+
+class EventServiceProvider extends ServiceProvider
+{
+    protected $listen = [];
+    public function boot(): void {}
+}
+
+================================================================================
+                        پایان فایل EventServiceProvider.php
+================================================================================

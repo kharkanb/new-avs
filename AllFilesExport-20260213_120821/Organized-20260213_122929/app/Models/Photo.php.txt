@@ -1,0 +1,150 @@
+﻿============================================================
+ فایل: Photo.php (پوشه: app\Models)
+============================================================
+
+تعداد نسخه‌ها: 4
+
+----------------------------------------
+ نسخه 1 : Photo (2).php
+----------------------------------------
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class Photo extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        "equipment_id",
+        "photo_data",
+        "photo_type",
+        "photo_path",
+        "scan_code",
+        "description",
+        "uploaded_at"
+    ];
+
+    protected $casts = [
+        "uploaded_at" => "datetime"
+    ];
+
+    public function equipment(): BelongsTo
+    {
+        return $this->belongsTo(Equipment::class);
+    }
+}
+
+
+----------------------------------------
+ نسخه 2 : Photo (3).php
+----------------------------------------
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class Photo extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        "equipment_id",
+        "photo_data",
+        "photo_type",
+        "photo_path",
+        "scan_code",
+        "description",
+        "uploaded_at"
+    ];
+
+    protected $casts = [
+        "uploaded_at" => "datetime"
+    ];
+
+    public function equipment(): BelongsTo
+    {
+        return $this->belongsTo(Equipment::class);
+    }
+}
+
+
+----------------------------------------
+ نسخه 3 : Photo (4).php
+----------------------------------------
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class Photo extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        "equipment_id",
+        "photo_data",
+        "photo_type",
+        "photo_path",
+        "scan_code",
+        "description",
+        "uploaded_at"
+    ];
+
+    protected $casts = [
+        "uploaded_at" => "datetime"
+    ];
+
+    public function equipment(): BelongsTo
+    {
+        return $this->belongsTo(Equipment::class);
+    }
+}
+
+
+----------------------------------------
+ نسخه 4 : Photo.php
+----------------------------------------
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class Photo extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        "equipment_id",
+        "photo_data",
+        "photo_type",
+        "photo_path",
+        "scan_code",
+        "description",
+        "uploaded_at"
+    ];
+
+    protected $casts = [
+        "uploaded_at" => "datetime"
+    ];
+
+    public function equipment(): BelongsTo
+    {
+        return $this->belongsTo(Equipment::class);
+    }
+}
+
+

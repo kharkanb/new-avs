@@ -1,0 +1,259 @@
+﻿================================================================================
+                            ChecklistTemplateSeeder.php
+================================================================================
+تعداد فایل‌ها: 6
+تاریخ ایجاد: 2026/02/13 12:08:26
+مسیر پایه: C:\Users\dear-user\Desktop\complete-avs
+================================================================================
+
+--------------------------------------------------------------------------------
+【فایل 1】: ChecklistTemplateSeeder (2).php
+📁 مسیر: database\seeders\ChecklistTemplateSeeder (2).php
+📅 تاریخ آخرین تغییر: 02/12/2026 23:48:54
+📏 حجم: 1047 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+
+class ChecklistTemplateSeeder extends Seeder
+{
+    public function run(): void
+    {
+        $checklists = config("equipment_checklists", []);
+        
+        foreach ($checklists as $typeName => $items) {
+            $type = DB::table("equipment_types")->where("name", $typeName)->first();
+            
+            if ($type) {
+                $index = 1;
+                foreach ($items as $item) {
+                    DB::table("checklist_templates")->updateOrInsert(
+                        [
+                            "equipment_type_id" => $type->id,
+                            "item_index" => $index
+                        ],
+                        [
+                            "item_text" => $item,
+                            "created_at" => now(),
+                            "updated_at" => now()
+                        ]
+                    );
+                    $index++;
+                }
+            }
+        }
+    }
+}
+
+--------------------------------------------------------------------------------
+【فایل 2】: ChecklistTemplateSeeder (3).php
+📁 مسیر: database\seeders\ChecklistTemplateSeeder (3).php
+📅 تاریخ آخرین تغییر: 02/12/2026 23:08:13
+📏 حجم: 780 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+
+class ChecklistTemplateSeeder extends Seeder
+{
+    public function run(): void
+    {
+        $types = DB::table("main_equipment_types")->get();
+        
+        foreach ($types as $type) {
+            DB::table("checklist_templates")->updateOrInsert(
+                [
+                    "equipment_type_id" => $type->id,
+                    "title" => "Ú†Ú©â€ŒÙ„ÛŒØ³Øª Ø¨Ø§Ø²Ø¯ÛŒØ¯ " . $type->name
+                ],
+                [
+                    "description" => "Ú†Ú©â€ŒÙ„ÛŒØ³Øª Ø§Ø³ØªØ§Ù†Ø¯Ø§Ø±Ø¯ Ø¨Ø§Ø²Ø¯ÛŒØ¯ Ø¯ÙˆØ±Ù‡â€ŒØ§ÛŒ",
+                    "created_at" => now(),
+                    "updated_at" => now()
+                ]
+            );
+        }
+    }
+}
+
+--------------------------------------------------------------------------------
+【فایل 3】: ChecklistTemplateSeeder (4).php
+📁 مسیر: database\seeders\ChecklistTemplateSeeder (4).php
+📅 تاریخ آخرین تغییر: 02/12/2026 23:48:54
+📏 حجم: 1047 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+
+class ChecklistTemplateSeeder extends Seeder
+{
+    public function run(): void
+    {
+        $checklists = config("equipment_checklists", []);
+        
+        foreach ($checklists as $typeName => $items) {
+            $type = DB::table("equipment_types")->where("name", $typeName)->first();
+            
+            if ($type) {
+                $index = 1;
+                foreach ($items as $item) {
+                    DB::table("checklist_templates")->updateOrInsert(
+                        [
+                            "equipment_type_id" => $type->id,
+                            "item_index" => $index
+                        ],
+                        [
+                            "item_text" => $item,
+                            "created_at" => now(),
+                            "updated_at" => now()
+                        ]
+                    );
+                    $index++;
+                }
+            }
+        }
+    }
+}
+
+--------------------------------------------------------------------------------
+【فایل 4】: ChecklistTemplateSeeder (5).php
+📁 مسیر: database\seeders\ChecklistTemplateSeeder (5).php
+📅 تاریخ آخرین تغییر: 02/12/2026 23:08:13
+📏 حجم: 780 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+
+class ChecklistTemplateSeeder extends Seeder
+{
+    public function run(): void
+    {
+        $types = DB::table("main_equipment_types")->get();
+        
+        foreach ($types as $type) {
+            DB::table("checklist_templates")->updateOrInsert(
+                [
+                    "equipment_type_id" => $type->id,
+                    "title" => "Ú†Ú©â€ŒÙ„ÛŒØ³Øª Ø¨Ø§Ø²Ø¯ÛŒØ¯ " . $type->name
+                ],
+                [
+                    "description" => "Ú†Ú©â€ŒÙ„ÛŒØ³Øª Ø§Ø³ØªØ§Ù†Ø¯Ø§Ø±Ø¯ Ø¨Ø§Ø²Ø¯ÛŒØ¯ Ø¯ÙˆØ±Ù‡â€ŒØ§ÛŒ",
+                    "created_at" => now(),
+                    "updated_at" => now()
+                ]
+            );
+        }
+    }
+}
+
+--------------------------------------------------------------------------------
+【فایل 5】: ChecklistTemplateSeeder (6).php
+📁 مسیر: database\seeders\ChecklistTemplateSeeder (6).php
+📅 تاریخ آخرین تغییر: 02/12/2026 23:48:54
+📏 حجم: 1047 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+
+class ChecklistTemplateSeeder extends Seeder
+{
+    public function run(): void
+    {
+        $checklists = config("equipment_checklists", []);
+        
+        foreach ($checklists as $typeName => $items) {
+            $type = DB::table("equipment_types")->where("name", $typeName)->first();
+            
+            if ($type) {
+                $index = 1;
+                foreach ($items as $item) {
+                    DB::table("checklist_templates")->updateOrInsert(
+                        [
+                            "equipment_type_id" => $type->id,
+                            "item_index" => $index
+                        ],
+                        [
+                            "item_text" => $item,
+                            "created_at" => now(),
+                            "updated_at" => now()
+                        ]
+                    );
+                    $index++;
+                }
+            }
+        }
+    }
+}
+
+--------------------------------------------------------------------------------
+【فایل 6】: ChecklistTemplateSeeder.php
+📁 مسیر: database\seeders\ChecklistTemplateSeeder.php
+📅 تاریخ آخرین تغییر: 02/13/2026 10:37:20
+📏 حجم: 1047 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+
+class ChecklistTemplateSeeder extends Seeder
+{
+    public function run(): void
+    {
+        $checklists = config("equipment_checklists", []);
+        
+        foreach ($checklists as $typeName => $items) {
+            $type = DB::table("equipment_types")->where("name", $typeName)->first();
+            
+            if ($type) {
+                $index = 1;
+                foreach ($items as $item) {
+                    DB::table("checklist_templates")->updateOrInsert(
+                        [
+                            "equipment_type_id" => $type->id,
+                            "item_index" => $index
+                        ],
+                        [
+                            "item_text" => $item,
+                            "created_at" => now(),
+                            "updated_at" => now()
+                        ]
+                    );
+                    $index++;
+                }
+            }
+        }
+    }
+}
+
+================================================================================
+                        پایان فایل ChecklistTemplateSeeder.php
+================================================================================

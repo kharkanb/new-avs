@@ -1,0 +1,96 @@
+﻿============================================================
+ فایل: 2026_01_01_100006_create_activity_price_list_table.php (پوشه: database\migrations)
+============================================================
+
+تعداد نسخه‌ها: 3
+
+----------------------------------------
+ نسخه 1 : 2026_01_01_100006_create_activity_price_list_table.php
+----------------------------------------
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create("activity_price_list", function (Blueprint $table) {
+            $table$table->id();
+            $table$table->string("code", 50)$table->unique();
+            $table$table->text("title");
+            $table$table->string("unit", 50)$table->nullable();
+            $table$table->decimal("price", 12, 2);
+            $table$table->timestamps();
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists("activity_price_list");
+    }
+};
+
+
+----------------------------------------
+ نسخه 2 : 2026_01_01_100006_create_activity_price_list_table.php (2).bak
+----------------------------------------
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create("activity_price_list", function (Blueprint $table) {
+            $table->id();
+            $table->string("code", 50)->unique();
+            $table->text("title");
+            $table->string("unit", 50)->nullable();
+            $table->decimal("price", 12, 2);
+            $table->timestamps();
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists("activity_price_list");
+    }
+};
+
+
+----------------------------------------
+ نسخه 3 : 2026_01_01_100006_create_activity_price_list_table.php.bak
+----------------------------------------
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create("activity_price_list", function (Blueprint $table) {
+            $table->id();
+            $table->string("code", 50)->unique();
+            $table->text("title");
+            $table->string("unit", 50)->nullable();
+            $table->decimal("price", 12, 2);
+            $table->timestamps();
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists("activity_price_list");
+    }
+};
+
+

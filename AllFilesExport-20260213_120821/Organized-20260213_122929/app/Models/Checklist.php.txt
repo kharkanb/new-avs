@@ -1,0 +1,36 @@
+﻿============================================================
+ فایل: Checklist.php (پوشه: app\Models)
+============================================================
+
+تعداد نسخه‌ها: 2
+
+----------------------------------------
+ نسخه 1 : Checklist (2).php
+----------------------------------------
+<?php
+namespace App\Models;
+use Illuminate\Database\Eloquent\Model;
+class Checklist extends Model{
+ protected \=[
+ 'main_equipment_id','cell_equipment_id',
+ 'user_id','visit_date','notes'
+ ];
+ public function results(){return \->hasMany(ChecklistResult::class);}
+}
+
+
+----------------------------------------
+ نسخه 2 : Checklist.php
+----------------------------------------
+<?php
+namespace App\Models;
+use Illuminate\Database\Eloquent\Model;
+class Checklist extends Model{
+ protected \=[
+ 'main_equipment_id','cell_equipment_id',
+ 'user_id','visit_date','notes'
+ ];
+ public function results(){return \->hasMany(ChecklistResult::class);}
+}
+
+

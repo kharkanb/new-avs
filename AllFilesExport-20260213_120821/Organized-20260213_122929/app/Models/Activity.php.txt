@@ -1,0 +1,186 @@
+﻿============================================================
+ فایل: Activity.php (پوشه: app\Models)
+============================================================
+
+تعداد نسخه‌ها: 6
+
+----------------------------------------
+ نسخه 1 : Activity (2).php
+----------------------------------------
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Activity extends Model
+{
+    //
+}
+
+
+
+----------------------------------------
+ نسخه 2 : Activity (3).php
+----------------------------------------
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class Activity extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        "equipment_id",
+        "activity_code",
+        "activity_title",
+        "unit",
+        "unit_price",
+        "quantity",
+        "total_price"
+    ];
+
+    protected $casts = [
+        "unit_price" => "decimal:2",
+        "total_price" => "decimal:2"
+    ];
+
+    public function equipment(): BelongsTo
+    {
+        return $this->belongsTo(Equipment::class);
+    }
+}
+
+
+----------------------------------------
+ نسخه 3 : Activity (4).php
+----------------------------------------
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class Activity extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        "equipment_id",
+        "activity_code",
+        "activity_title",
+        "unit",
+        "unit_price",
+        "quantity",
+        "total_price"
+    ];
+
+    protected $casts = [
+        "unit_price" => "decimal:2",
+        "total_price" => "decimal:2"
+    ];
+
+    public function equipment(): BelongsTo
+    {
+        return $this->belongsTo(Equipment::class);
+    }
+}
+
+
+----------------------------------------
+ نسخه 4 : Activity (5).php
+----------------------------------------
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Activity extends Model
+{
+    //
+}
+
+
+
+----------------------------------------
+ نسخه 5 : Activity (6).php
+----------------------------------------
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class Activity extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        "equipment_id",
+        "activity_code",
+        "activity_title",
+        "unit",
+        "unit_price",
+        "quantity",
+        "total_price"
+    ];
+
+    protected $casts = [
+        "unit_price" => "decimal:2",
+        "total_price" => "decimal:2"
+    ];
+
+    public function equipment(): BelongsTo
+    {
+        return $this->belongsTo(Equipment::class);
+    }
+}
+
+
+----------------------------------------
+ نسخه 6 : Activity.php
+----------------------------------------
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class Activity extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        "equipment_id",
+        "activity_code",
+        "activity_title",
+        "unit",
+        "unit_price",
+        "quantity",
+        "total_price"
+    ];
+
+    protected $casts = [
+        "unit_price" => "decimal:2",
+        "total_price" => "decimal:2"
+    ];
+
+    public function equipment(): BelongsTo
+    {
+        return $this->belongsTo(Equipment::class);
+    }
+}
+
+

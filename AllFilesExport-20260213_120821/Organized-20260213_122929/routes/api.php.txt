@@ -1,0 +1,194 @@
+﻿============================================================
+ فایل: api.php (پوشه: routes)
+============================================================
+
+تعداد نسخه‌ها: 6
+
+----------------------------------------
+ نسخه 1 : api (2).php
+----------------------------------------
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\ReferenceController;
+use App\Http\Controllers\Api\InspectionController;
+use App\Http\Controllers\Api\EquipmentController;
+
+Route::prefix("v1")->group(function () {
+    Route::get("/equipment-types", [ReferenceController::class, "equipmentTypes"]);
+    Route::get("/posts/{post}/feeders", [ReferenceController::class, "feedersByPost"]);
+    Route::get("/checklist-template/{equipmentType}", [ReferenceController::class, "checklistTemplate"]);
+    Route::get("/activity-price-list", [ReferenceController::class, "activityPriceList"]);
+    Route::apiResource("inspections", InspectionController::class);
+    Route::post("/equipment", [EquipmentController::class, "store"]);
+    Route::get("/equipment/{id}", [EquipmentController::class, "show"]);
+    Route::delete("/equipment/{id}", [EquipmentController::class, "destroy"]);
+});
+
+
+----------------------------------------
+ نسخه 2 : api (3).php
+----------------------------------------
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\ReferenceController;
+use App\Http\Controllers\Api\InspectionController;
+use App\Http\Controllers\Api\EquipmentController;
+
+// ===========================================
+// API Version 1
+// ===========================================
+Route::prefix('v1')->group(function () {
+    
+    // ========== Reference Data ==========
+    Route::get('/equipment-types', [ReferenceController::class, 'equipmentTypes']);
+    Route::get('/posts/{post}/feeders', [ReferenceController::class, 'feedersByPost']);
+    Route::get('/checklist-template/{equipmentType}', [ReferenceController::class, 'checklistTemplate']);
+    Route::get('/activity-price-list', [ReferenceController::class, 'activityPriceList']);
+    
+    // ========== Inspections ==========
+    Route::apiResource('inspections', InspectionController::class);
+    
+    // ========== Equipment ==========
+    Route::post('/equipment', [EquipmentController::class, 'store']);
+    Route::get('/equipment/{id}', [EquipmentController::class, 'show']);
+    Route::delete('/equipment/{id}', [EquipmentController::class, 'destroy']);
+});
+
+
+
+----------------------------------------
+ نسخه 3 : api (4).php
+----------------------------------------
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\ReferenceController;
+use App\Http\Controllers\Api\InspectionController;
+use App\Http\Controllers\Api\EquipmentController;
+
+Route::prefix("v1")->group(function () {
+    Route::get("/equipment-types", [ReferenceController::class, "equipmentTypes"]);
+    Route::get("/posts/{post}/feeders", [ReferenceController::class, "feedersByPost"]);
+    Route::get("/checklist-template/{equipmentType}", [ReferenceController::class, "checklistTemplate"]);
+    Route::get("/activity-price-list", [ReferenceController::class, "activityPriceList"]);
+    Route::apiResource("inspections", InspectionController::class);
+    Route::post("/equipment", [EquipmentController::class, "store"]);
+    Route::get("/equipment/{id}", [EquipmentController::class, "show"]);
+    Route::delete("/equipment/{id}", [EquipmentController::class, "destroy"]);
+});
+
+
+----------------------------------------
+ نسخه 4 : api (5).php
+----------------------------------------
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\ReferenceController;
+use App\Http\Controllers\Api\InspectionController;
+use App\Http\Controllers\Api\EquipmentController;
+
+// ===========================================
+// API Version 1
+// ===========================================
+Route::prefix('v1')->group(function () {
+    
+    // ========== Reference Data ==========
+    Route::get('/equipment-types', [ReferenceController::class, 'equipmentTypes']);
+    Route::get('/posts/{post}/feeders', [ReferenceController::class, 'feedersByPost']);
+    Route::get('/checklist-template/{equipmentType}', [ReferenceController::class, 'checklistTemplate']);
+    Route::get('/activity-price-list', [ReferenceController::class, 'activityPriceList']);
+    
+    // ========== Inspections ==========
+    Route::apiResource('inspections', InspectionController::class);
+    
+    // ========== Equipment ==========
+    Route::post('/equipment', [EquipmentController::class, 'store']);
+    Route::get('/equipment/{id}', [EquipmentController::class, 'show']);
+    Route::delete('/equipment/{id}', [EquipmentController::class, 'destroy']);
+});
+
+
+
+----------------------------------------
+ نسخه 5 : api (6).php
+----------------------------------------
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\ReferenceController;
+use App\Http\Controllers\Api\InspectionController;
+use App\Http\Controllers\Api\EquipmentController;
+
+// ===========================================
+// API Version 1 - ØªÙ…Ø§Ù… Ø±ÙˆØªâ€ŒÙ‡Ø§ Ø¨Ø§ Ù¾ÛŒØ´ÙˆÙ†Ø¯ v1
+// ===========================================
+Route::prefix('v1')->group(function () {
+    
+    // ========== 1. Ø¯Ø§Ø¯Ù‡â€ŒÙ‡Ø§ÛŒ Ù…Ø±Ø¬Ø¹ (Reference Data) ==========
+    // ðŸ“Œ GET /api/v1/equipment-types - Ø¯Ø±ÛŒØ§ÙØª Ù„ÛŒØ³Øª Ø§Ù†ÙˆØ§Ø¹ ØªØ¬Ù‡ÛŒØ²Ø§Øª
+    Route::get('/equipment-types', [ReferenceController::class, 'equipmentTypes']);
+    
+    // ðŸ“Œ GET /api/v1/posts/{post}/feeders - Ø¯Ø±ÛŒØ§ÙØª ÙÛŒØ¯Ø±Ù‡Ø§ÛŒ ÛŒÚ© Ù¾Ø³Øª
+    Route::get('/posts/{post}/feeders', [ReferenceController::class, 'feedersByPost']);
+    
+    // ðŸ“Œ GET /api/v1/checklist-template/{equipmentType} - Ø¯Ø±ÛŒØ§ÙØª Ú†Ú©â€ŒÙ„ÛŒØ³Øª Ø¨Ø± Ø§Ø³Ø§Ø³ Ù†ÙˆØ¹ ØªØ¬Ù‡ÛŒØ²
+    Route::get('/checklist-template/{equipmentType}', [ReferenceController::class, 'checklistTemplate']);
+    
+    // ðŸ“Œ GET /api/v1/activity-price-list - Ø¯Ø±ÛŒØ§ÙØª Ù„ÛŒØ³Øª Ù‚ÛŒÙ…Øª ÙØ¹Ø§Ù„ÛŒØªâ€ŒÙ‡Ø§
+    Route::get('/activity-price-list', [ReferenceController::class, 'activityPriceList']);
+    
+    // ========== 2. Ù…Ø¯ÛŒØ±ÛŒØª Ø¨Ø§Ø²Ø¯ÛŒØ¯Ù‡Ø§ (Inspections) ==========
+    // ðŸ“Œ GET    /api/v1/inspections     - Ù„ÛŒØ³Øª Ù‡Ù…Ù‡ Ø¨Ø§Ø²Ø¯ÛŒØ¯Ù‡Ø§
+    // ðŸ“Œ POST   /api/v1/inspections     - Ø§ÛŒØ¬Ø§Ø¯ Ø¨Ø§Ø²Ø¯ÛŒØ¯ Ø¬Ø¯ÛŒØ¯
+    // ðŸ“Œ GET    /api/v1/inspections/{id} - Ù†Ù…Ø§ÛŒØ´ ÛŒÚ© Ø¨Ø§Ø²Ø¯ÛŒØ¯
+    // ðŸ“Œ PUT    /api/v1/inspections/{id} - ÙˆÛŒØ±Ø§ÛŒØ´ Ø¨Ø§Ø²Ø¯ÛŒØ¯
+    // ðŸ“Œ DELETE /api/v1/inspections/{id} - Ø­Ø°Ù Ø¨Ø§Ø²Ø¯ÛŒØ¯
+    Route::apiResource('inspections', InspectionController::class);
+    
+    // ========== 3. Ù…Ø¯ÛŒØ±ÛŒØª ØªØ¬Ù‡ÛŒØ²Ø§Øª (Equipment) ==========
+    // ðŸ“Œ POST   /api/v1/equipment      - Ø§ÛŒØ¬Ø§Ø¯ ØªØ¬Ù‡ÛŒØ² Ø¬Ø¯ÛŒØ¯ Ø¨Ø§ ØªÙ…Ø§Ù… Ø§Ø·Ù„Ø§Ø¹Ø§Øª
+    Route::post('/equipment', [EquipmentController::class, 'store']);
+    
+    // ðŸ“Œ GET    /api/v1/equipment/{id} - Ù†Ù…Ø§ÛŒØ´ ØªØ¬Ù‡ÛŒØ² Ø¨Ø§ ØªÙ…Ø§Ù… Ø±ÙˆØ§Ø¨Ø·
+    Route::get('/equipment/{id}', [EquipmentController::class, 'show']);
+    
+    // ðŸ“Œ DELETE /api/v1/equipment/{id} - Ø­Ø°Ù ØªØ¬Ù‡ÛŒØ²
+    Route::delete('/equipment/{id}', [EquipmentController::class, 'destroy']);
+});
+
+
+----------------------------------------
+ نسخه 6 : api.php
+----------------------------------------
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\ReferenceController;
+use App\Http\Controllers\Api\InspectionController;
+use App\Http\Controllers\Api\EquipmentController;
+
+// ===========================================
+// API Version 1
+// ===========================================
+Route::prefix('v1')->group(function () {
+    
+    // ========== Reference Data ==========
+    Route::get('/equipment-types', [ReferenceController::class, 'equipmentTypes']);
+    Route::get('/posts/{post}/feeders', [ReferenceController::class, 'feedersByPost']);
+    Route::get('/checklist-template/{equipmentType}', [ReferenceController::class, 'checklistTemplate']);
+    Route::get('/activity-price-list', [ReferenceController::class, 'activityPriceList']);
+    
+    // ========== Inspections ==========
+    Route::apiResource('inspections', InspectionController::class);
+    
+    // ========== Equipment ==========
+    Route::post('/equipment', [EquipmentController::class, 'store']);
+    Route::get('/equipment/{id}', [EquipmentController::class, 'show']);
+    Route::delete('/equipment/{id}', [EquipmentController::class, 'destroy']);
+});
+
+
+

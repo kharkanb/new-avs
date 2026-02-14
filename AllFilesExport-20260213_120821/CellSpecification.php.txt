@@ -1,0 +1,171 @@
+﻿================================================================================
+                            CellSpecification.php
+================================================================================
+تعداد فایل‌ها: 4
+تاریخ ایجاد: 2026/02/13 12:08:26
+مسیر پایه: C:\Users\dear-user\Desktop\complete-avs
+================================================================================
+
+--------------------------------------------------------------------------------
+【فایل 1】: CellSpecification (2).php
+📁 مسیر: app\Models\CellSpecification (2).php
+📅 تاریخ آخرین تغییر: 02/12/2026 23:48:55
+📏 حجم: 695 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class CellSpecification extends Model
+{
+    use HasFactory;
+
+    protected $table = "cell_specifications";
+
+    protected $fillable = [
+        "equipment_id",
+        "cell_type",
+        "cell_number",
+        "cell_notes"
+    ];
+
+    public function equipment(): BelongsTo
+    {
+        return $this->belongsTo(Equipment::class);
+    }
+
+    public function cellEquipments(): HasMany
+    {
+        return $this->hasMany(CellEquipment::class, "cell_id");
+    }
+}
+
+--------------------------------------------------------------------------------
+【فایل 2】: CellSpecification (3).php
+📁 مسیر: app\Models\CellSpecification (3).php
+📅 تاریخ آخرین تغییر: 02/12/2026 23:48:55
+📏 حجم: 695 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class CellSpecification extends Model
+{
+    use HasFactory;
+
+    protected $table = "cell_specifications";
+
+    protected $fillable = [
+        "equipment_id",
+        "cell_type",
+        "cell_number",
+        "cell_notes"
+    ];
+
+    public function equipment(): BelongsTo
+    {
+        return $this->belongsTo(Equipment::class);
+    }
+
+    public function cellEquipments(): HasMany
+    {
+        return $this->hasMany(CellEquipment::class, "cell_id");
+    }
+}
+
+--------------------------------------------------------------------------------
+【فایل 3】: CellSpecification (4).php
+📁 مسیر: app\Models\CellSpecification (4).php
+📅 تاریخ آخرین تغییر: 02/12/2026 23:48:55
+📏 حجم: 695 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class CellSpecification extends Model
+{
+    use HasFactory;
+
+    protected $table = "cell_specifications";
+
+    protected $fillable = [
+        "equipment_id",
+        "cell_type",
+        "cell_number",
+        "cell_notes"
+    ];
+
+    public function equipment(): BelongsTo
+    {
+        return $this->belongsTo(Equipment::class);
+    }
+
+    public function cellEquipments(): HasMany
+    {
+        return $this->hasMany(CellEquipment::class, "cell_id");
+    }
+}
+
+--------------------------------------------------------------------------------
+【فایل 4】: CellSpecification.php
+📁 مسیر: app\Models\CellSpecification.php
+📅 تاریخ آخرین تغییر: 02/13/2026 10:37:21
+📏 حجم: 695 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class CellSpecification extends Model
+{
+    use HasFactory;
+
+    protected $table = "cell_specifications";
+
+    protected $fillable = [
+        "equipment_id",
+        "cell_type",
+        "cell_number",
+        "cell_notes"
+    ];
+
+    public function equipment(): BelongsTo
+    {
+        return $this->belongsTo(Equipment::class);
+    }
+
+    public function cellEquipments(): HasMany
+    {
+        return $this->hasMany(CellEquipment::class, "cell_id");
+    }
+}
+
+================================================================================
+                        پایان فایل CellSpecification.php
+================================================================================

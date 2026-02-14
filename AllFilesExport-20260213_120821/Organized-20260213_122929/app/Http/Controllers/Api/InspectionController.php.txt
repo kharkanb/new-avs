@@ -1,0 +1,561 @@
+﻿============================================================
+ فایل: InspectionController.php (پوشه: app\Http\Controllers\Api)
+============================================================
+
+تعداد نسخه‌ها: 7
+
+----------------------------------------
+ نسخه 1 : InspectionController (2).php
+----------------------------------------
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Models\Inspection;
+use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+
+class InspectionController extends Controller
+{
+    public function index(): JsonResponse
+    {
+        $inspections = Inspection::withCount('equipments')
+            ->orderBy('inspection_date', 'desc')
+            ->paginate(15);
+        return response()->json($inspections);
+    }
+
+    public function store(Request $request): JsonResponse
+    {
+        $validated = $request->validate([
+            'inspection_date' => 'required|date',
+            'daily_start_time' => 'nullable',
+            'daily_end_time' => 'nullable',
+            'contractor' => 'nullable|string|max:255',
+            'contract_coefficient' => 'nullable|numeric|min:1',
+            'contract_number' => 'nullable|string|max:255',
+            'whatsapp_number' => 'nullable|string|max:20',
+        ]);
+
+        $inspection = Inspection::create($validated);
+        return response()->json($inspection, 201);
+    }
+
+    public function show(int $id): JsonResponse
+    {
+        $inspection = Inspection::with('equipments')->findOrFail($id);
+        return response()->json($inspection);
+    }
+
+    public function update(Request $request, int $id): JsonResponse
+    {
+        $inspection = Inspection::findOrFail($id);
+        
+        $validated = $request->validate([
+            'inspection_date' => 'sometimes|date',
+            'daily_start_time' => 'nullable',
+            'daily_end_time' => 'nullable',
+            'contractor' => 'nullable|string|max:255',
+            'contract_coefficient' => 'nullable|numeric|min:1',
+            'contract_number' => 'nullable|string|max:255',
+            'whatsapp_number' => 'nullable|string|max:20',
+            'status' => 'sometimes|in:draft,completed,archived'
+        ]);
+
+        $inspection->update($validated);
+        return response()->json($inspection);
+    }
+
+    public function destroy(int $id): JsonResponse
+    {
+        $inspection = Inspection::findOrFail($id);
+        $inspection->delete();
+        return response()->json(['message' => 'Ø¨Ø§Ø²Ø¯ÛŒØ¯ Ø¨Ø§ Ù…ÙˆÙÙ‚ÛŒØª Ø­Ø°Ù Ø´Ø¯']);
+    }
+}
+
+
+
+----------------------------------------
+ نسخه 2 : InspectionController (3).php
+----------------------------------------
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Models\Inspection;
+use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+
+class InspectionController extends Controller
+{
+    public function index(): JsonResponse
+    {
+        $inspections = Inspection::withCount("equipments")
+                                 ->orderBy("inspection_date", "desc")
+                                 ->paginate(15);
+        return response()->json($inspections);
+    }
+
+    public function store(Request $request): JsonResponse
+    {
+        $validated = $request->validate([
+            "inspection_date" => "required|date",
+            "daily_start_time" => "nullable|date_format:H:i",
+            "daily_end_time" => "nullable|date_format:H:i",
+            "contractor" => "nullable|string|max:255",
+            "contract_coefficient" => "nullable|numeric|min:1",
+            "contract_number" => "nullable|string|max:255",
+            "whatsapp_number" => "nullable|string|max:20",
+        ]);
+
+        $inspection = Inspection::create($validated);
+        
+        return response()->json($inspection, 201);
+    }
+
+    public function show(int $id): JsonResponse
+    {
+        $inspection = Inspection::with([
+            "equipments.feeders",
+            "equipments.location",
+            "equipments.communication",
+            "equipments.checklistItems",
+            "equipments.activities",
+            "equipments.consumables",
+            "equipments.cellSpecifications.cellEquipments"
+        ])->findOrFail($id);
+        
+        return response()->json($inspection);
+    }
+
+    public function update(Request $request, int $id): JsonResponse
+    {
+        $inspection = Inspection::findOrFail($id);
+        
+        $validated = $request->validate([
+            "inspection_date" => "sometimes|date",
+            "daily_start_time" => "nullable|date_format:H:i",
+            "daily_end_time" => "nullable|date_format:H:i",
+            "contractor" => "nullable|string|max:255",
+            "contract_coefficient" => "nullable|numeric|min:1",
+            "contract_number" => "nullable|string|max:255",
+            "whatsapp_number" => "nullable|string|max:20",
+            "status" => "sometimes|in:draft,completed,archived"
+        ]);
+
+        $inspection->update($validated);
+        
+        return response()->json($inspection);
+    }
+
+    public function destroy(int $id): JsonResponse
+    {
+        $inspection = Inspection::findOrFail($id);
+        $inspection->delete();
+        
+        return response()->json(["message" => "Ø¨Ø§Ø²Ø¯ÛŒØ¯ Ø¨Ø§ Ù…ÙˆÙÙ‚ÛŒØª Ø­Ø°Ù Ø´Ø¯"]);
+    }
+}
+
+
+----------------------------------------
+ نسخه 3 : InspectionController (4).php
+----------------------------------------
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Models\Inspection;
+use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+
+class InspectionController extends Controller
+{
+    public function index(): JsonResponse
+    {
+        $inspections = Inspection::withCount('equipments')
+            ->orderBy('inspection_date', 'desc')
+            ->paginate(15);
+        return response()->json($inspections);
+    }
+
+    public function store(Request $request): JsonResponse
+    {
+        $validated = $request->validate([
+            'inspection_date' => 'required|date',
+            'daily_start_time' => 'nullable',
+            'daily_end_time' => 'nullable',
+            'contractor' => 'nullable|string|max:255',
+            'contract_coefficient' => 'nullable|numeric|min:1',
+            'contract_number' => 'nullable|string|max:255',
+            'whatsapp_number' => 'nullable|string|max:20',
+        ]);
+
+        $inspection = Inspection::create($validated);
+        return response()->json($inspection, 201);
+    }
+
+    public function show(int $id): JsonResponse
+    {
+        $inspection = Inspection::with('equipments')->findOrFail($id);
+        return response()->json($inspection);
+    }
+
+    public function update(Request $request, int $id): JsonResponse
+    {
+        $inspection = Inspection::findOrFail($id);
+        
+        $validated = $request->validate([
+            'inspection_date' => 'sometimes|date',
+            'daily_start_time' => 'nullable',
+            'daily_end_time' => 'nullable',
+            'contractor' => 'nullable|string|max:255',
+            'contract_coefficient' => 'nullable|numeric|min:1',
+            'contract_number' => 'nullable|string|max:255',
+            'whatsapp_number' => 'nullable|string|max:20',
+            'status' => 'sometimes|in:draft,completed,archived'
+        ]);
+
+        $inspection->update($validated);
+        return response()->json($inspection);
+    }
+
+    public function destroy(int $id): JsonResponse
+    {
+        $inspection = Inspection::findOrFail($id);
+        $inspection->delete();
+        return response()->json(['message' => 'Ø¨Ø§Ø²Ø¯ÛŒØ¯ Ø¨Ø§ Ù…ÙˆÙÙ‚ÛŒØª Ø­Ø°Ù Ø´Ø¯']);
+    }
+}
+
+
+
+----------------------------------------
+ نسخه 4 : InspectionController (5).php
+----------------------------------------
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Models\Inspection;
+use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+
+class InspectionController extends Controller
+{
+    public function index(): JsonResponse
+    {
+        $inspections = Inspection::withCount("equipments")
+                                 ->orderBy("inspection_date", "desc")
+                                 ->paginate(15);
+        return response()->json($inspections);
+    }
+
+    public function store(Request $request): JsonResponse
+    {
+        $validated = $request->validate([
+            "inspection_date" => "required|date",
+            "daily_start_time" => "nullable|date_format:H:i",
+            "daily_end_time" => "nullable|date_format:H:i",
+            "contractor" => "nullable|string|max:255",
+            "contract_coefficient" => "nullable|numeric|min:1",
+            "contract_number" => "nullable|string|max:255",
+            "whatsapp_number" => "nullable|string|max:20",
+        ]);
+
+        $inspection = Inspection::create($validated);
+        
+        return response()->json($inspection, 201);
+    }
+
+    public function show(int $id): JsonResponse
+    {
+        $inspection = Inspection::with([
+            "equipments.feeders",
+            "equipments.location",
+            "equipments.communication",
+            "equipments.checklistItems",
+            "equipments.activities",
+            "equipments.consumables",
+            "equipments.cellSpecifications.cellEquipments"
+        ])->findOrFail($id);
+        
+        return response()->json($inspection);
+    }
+
+    public function update(Request $request, int $id): JsonResponse
+    {
+        $inspection = Inspection::findOrFail($id);
+        
+        $validated = $request->validate([
+            "inspection_date" => "sometimes|date",
+            "daily_start_time" => "nullable|date_format:H:i",
+            "daily_end_time" => "nullable|date_format:H:i",
+            "contractor" => "nullable|string|max:255",
+            "contract_coefficient" => "nullable|numeric|min:1",
+            "contract_number" => "nullable|string|max:255",
+            "whatsapp_number" => "nullable|string|max:20",
+            "status" => "sometimes|in:draft,completed,archived"
+        ]);
+
+        $inspection->update($validated);
+        
+        return response()->json($inspection);
+    }
+
+    public function destroy(int $id): JsonResponse
+    {
+        $inspection = Inspection::findOrFail($id);
+        $inspection->delete();
+        
+        return response()->json(["message" => "Ø¨Ø§Ø²Ø¯ÛŒØ¯ Ø¨Ø§ Ù…ÙˆÙÙ‚ÛŒØª Ø­Ø°Ù Ø´Ø¯"]);
+    }
+}
+
+
+----------------------------------------
+ نسخه 5 : InspectionController (6).php
+----------------------------------------
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Models\Inspection;
+use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+
+class InspectionController extends Controller
+{
+    public function index(): JsonResponse
+    {
+        $inspections = Inspection::withCount('equipments')
+            ->orderBy('inspection_date', 'desc')
+            ->paginate(15);
+        return response()->json($inspections);
+    }
+
+    public function store(Request $request): JsonResponse
+    {
+        $validated = $request->validate([
+            'inspection_date' => 'required|date',
+            'daily_start_time' => 'nullable',
+            'daily_end_time' => 'nullable',
+            'contractor' => 'nullable|string|max:255',
+            'contract_coefficient' => 'nullable|numeric|min:1',
+            'contract_number' => 'nullable|string|max:255',
+            'whatsapp_number' => 'nullable|string|max:20',
+        ]);
+
+        $inspection = Inspection::create($validated);
+        return response()->json($inspection, 201);
+    }
+
+    public function show(int $id): JsonResponse
+    {
+        $inspection = Inspection::with('equipments')->findOrFail($id);
+        return response()->json($inspection);
+    }
+
+    public function update(Request $request, int $id): JsonResponse
+    {
+        $inspection = Inspection::findOrFail($id);
+        
+        $validated = $request->validate([
+            'inspection_date' => 'sometimes|date',
+            'daily_start_time' => 'nullable',
+            'daily_end_time' => 'nullable',
+            'contractor' => 'nullable|string|max:255',
+            'contract_coefficient' => 'nullable|numeric|min:1',
+            'contract_number' => 'nullable|string|max:255',
+            'whatsapp_number' => 'nullable|string|max:20',
+            'status' => 'sometimes|in:draft,completed,archived'
+        ]);
+
+        $inspection->update($validated);
+        return response()->json($inspection);
+    }
+
+    public function destroy(int $id): JsonResponse
+    {
+        $inspection = Inspection::findOrFail($id);
+        $inspection->delete();
+        return response()->json(['message' => 'Ø¨Ø§Ø²Ø¯ÛŒØ¯ Ø¨Ø§ Ù…ÙˆÙÙ‚ÛŒØª Ø­Ø°Ù Ø´Ø¯']);
+    }
+}
+
+
+
+----------------------------------------
+ نسخه 6 : InspectionController (7).php
+----------------------------------------
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Models\Inspection;
+use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+
+class InspectionController extends Controller
+{
+    public function index(): JsonResponse
+    {
+        $inspections = Inspection::withCount("equipments")
+                                 ->orderBy("inspection_date", "desc")
+                                 ->paginate(15);
+        return response()->json($inspections);
+    }
+
+    public function store(Request $request): JsonResponse
+    {
+        $validated = $request->validate([
+            "inspection_date" => "required|date",
+            "daily_start_time" => "nullable|date_format:H:i",
+            "daily_end_time" => "nullable|date_format:H:i",
+            "contractor" => "nullable|string|max:255",
+            "contract_coefficient" => "nullable|numeric|min:1",
+            "contract_number" => "nullable|string|max:255",
+            "whatsapp_number" => "nullable|string|max:20",
+        ]);
+
+        $inspection = Inspection::create($validated);
+        
+        return response()->json($inspection, 201);
+    }
+
+    public function show(int $id): JsonResponse
+    {
+        $inspection = Inspection::with([
+            "equipments.feeders",
+            "equipments.location",
+            "equipments.communication",
+            "equipments.checklistItems",
+            "equipments.activities",
+            "equipments.consumables",
+            "equipments.cellSpecifications.cellEquipments"
+        ])->findOrFail($id);
+        
+        return response()->json($inspection);
+    }
+
+    public function update(Request $request, int $id): JsonResponse
+    {
+        $inspection = Inspection::findOrFail($id);
+        
+        $validated = $request->validate([
+            "inspection_date" => "sometimes|date",
+            "daily_start_time" => "nullable|date_format:H:i",
+            "daily_end_time" => "nullable|date_format:H:i",
+            "contractor" => "nullable|string|max:255",
+            "contract_coefficient" => "nullable|numeric|min:1",
+            "contract_number" => "nullable|string|max:255",
+            "whatsapp_number" => "nullable|string|max:20",
+            "status" => "sometimes|in:draft,completed,archived"
+        ]);
+
+        $inspection->update($validated);
+        
+        return response()->json($inspection);
+    }
+
+    public function destroy(int $id): JsonResponse
+    {
+        $inspection = Inspection::findOrFail($id);
+        $inspection->delete();
+        
+        return response()->json(["message" => "Ø¨Ø§Ø²Ø¯ÛŒØ¯ Ø¨Ø§ Ù…ÙˆÙÙ‚ÛŒØª Ø­Ø°Ù Ø´Ø¯"]);
+    }
+}
+
+
+----------------------------------------
+ نسخه 7 : InspectionController.php
+----------------------------------------
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Models\Inspection;
+use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+
+class InspectionController extends Controller
+{
+    public function index(): JsonResponse
+    {
+        $inspections = Inspection::withCount("equipments")
+                                 ->orderBy("inspection_date", "desc")
+                                 ->paginate(15);
+        return response()->json($inspections);
+    }
+
+    public function store(Request $request): JsonResponse
+    {
+        $validated = $request->validate([
+            "inspection_date" => "required|date",
+            "daily_start_time" => "nullable|date_format:H:i",
+            "daily_end_time" => "nullable|date_format:H:i",
+            "contractor" => "nullable|string|max:255",
+            "contract_coefficient" => "nullable|numeric|min:1",
+            "contract_number" => "nullable|string|max:255",
+            "whatsapp_number" => "nullable|string|max:20",
+        ]);
+
+        $inspection = Inspection::create($validated);
+        
+        return response()->json($inspection, 201);
+    }
+
+    public function show(int $id): JsonResponse
+    {
+        $inspection = Inspection::with([
+            "equipments.feeders",
+            "equipments.location",
+            "equipments.communication",
+            "equipments.checklistItems",
+            "equipments.activities",
+            "equipments.consumables",
+            "equipments.cellSpecifications.cellEquipments"
+        ])->findOrFail($id);
+        
+        return response()->json($inspection);
+    }
+
+    public function update(Request $request, int $id): JsonResponse
+    {
+        $inspection = Inspection::findOrFail($id);
+        
+        $validated = $request->validate([
+            "inspection_date" => "sometimes|date",
+            "daily_start_time" => "nullable|date_format:H:i",
+            "daily_end_time" => "nullable|date_format:H:i",
+            "contractor" => "nullable|string|max:255",
+            "contract_coefficient" => "nullable|numeric|min:1",
+            "contract_number" => "nullable|string|max:255",
+            "whatsapp_number" => "nullable|string|max:20",
+            "status" => "sometimes|in:draft,completed,archived"
+        ]);
+
+        $inspection->update($validated);
+        
+        return response()->json($inspection);
+    }
+
+    public function destroy(int $id): JsonResponse
+    {
+        $inspection = Inspection::findOrFail($id);
+        $inspection->delete();
+        
+        return response()->json(["message" => "Ã˜Â¨Ã˜Â§Ã˜Â²Ã˜Â¯Ã›Å’Ã˜Â¯ Ã˜Â¨Ã˜Â§ Ã™â€¦Ã™Ë†Ã™ÂÃ™â€šÃ›Å’Ã˜Âª Ã˜Â­Ã˜Â°Ã™Â Ã˜Â´Ã˜Â¯"]);
+    }
+}
+
+

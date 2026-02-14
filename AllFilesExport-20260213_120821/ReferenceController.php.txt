@@ -1,0 +1,391 @@
+﻿================================================================================
+                            ReferenceController.php
+================================================================================
+تعداد فایل‌ها: 7
+تاریخ ایجاد: 2026/02/13 12:08:28
+مسیر پایه: C:\Users\dear-user\Desktop\complete-avs
+================================================================================
+
+--------------------------------------------------------------------------------
+【فایل 1】: ReferenceController (2).php
+📁 مسیر: app\Http\Controllers\Api\ReferenceController (2).php
+📅 تاریخ آخرین تغییر: 02/13/2026 00:26:44
+📏 حجم: 1345 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Http\JsonResponse;
+
+class ReferenceController extends Controller
+{
+    public function equipmentTypes(): JsonResponse
+    {
+        $types = DB::table('equipment_types')
+            ->select('id', 'name', 'has_height', 'has_brand')
+            ->get();
+        return response()->json($types);
+    }
+
+    public function feedersByPost(int $postId): JsonResponse
+    {
+        $feeders = DB::table('feeders')
+            ->where('post_id', $postId)
+            ->select('id', 'name')
+            ->orderBy('name')
+            ->get();
+        return response()->json($feeders);
+    }
+
+    public function checklistTemplate(int $equipmentTypeId): JsonResponse
+    {
+        $items = DB::table('checklist_templates')
+            ->where('equipment_type_id', $equipmentTypeId)
+            ->orderBy('item_index')
+            ->select('id', 'item_text', 'item_index')
+            ->get();
+        return response()->json($items);
+    }
+
+    public function activityPriceList(): JsonResponse
+    {
+        $activities = DB::table('activity_price_list')
+            ->orderBy('code')
+            ->select('id', 'code', 'title', 'unit', 'price')
+            ->get();
+        return response()->json($activities);
+    }
+}
+
+
+--------------------------------------------------------------------------------
+【فایل 2】: ReferenceController (3).php
+📁 مسیر: app\Http\Controllers\Api\ReferenceController (3).php
+📅 تاریخ آخرین تغییر: 02/12/2026 23:48:55
+📏 حجم: 1448 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Models\EquipmentType;
+use App\Models\Feeder;
+use App\Models\ChecklistTemplate;
+use App\Models\ActivityPrice;
+use Illuminate\Http\JsonResponse;
+
+class ReferenceController extends Controller
+{
+    public function equipmentTypes(): JsonResponse
+    {
+        $types = EquipmentType::select("id", "name", "has_height", "has_brand")->get();
+        return response()->json($types);
+    }
+
+    public function feedersByPost(int $postId): JsonResponse
+    {
+        $feeders = Feeder::where("post_id", $postId)
+                         ->select("id", "name")
+                         ->orderBy("name")
+                         ->get();
+        return response()->json($feeders);
+    }
+
+    public function checklistTemplate(int $equipmentTypeId): JsonResponse
+    {
+        $items = ChecklistTemplate::where("equipment_type_id", $equipmentTypeId)
+                                  ->orderBy("item_index")
+                                  ->select("id", "item_text", "item_index")
+                                  ->get();
+        return response()->json($items);
+    }
+
+    public function activityPriceList(): JsonResponse
+    {
+        $activities = ActivityPrice::orderBy("code")
+                                   ->select("id", "code", "title", "unit", "price")
+                                   ->get();
+        return response()->json($activities);
+    }
+}
+
+--------------------------------------------------------------------------------
+【فایل 3】: ReferenceController (4).php
+📁 مسیر: app\Http\Controllers\Api\ReferenceController (4).php
+📅 تاریخ آخرین تغییر: 02/13/2026 00:26:44
+📏 حجم: 1345 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Http\JsonResponse;
+
+class ReferenceController extends Controller
+{
+    public function equipmentTypes(): JsonResponse
+    {
+        $types = DB::table('equipment_types')
+            ->select('id', 'name', 'has_height', 'has_brand')
+            ->get();
+        return response()->json($types);
+    }
+
+    public function feedersByPost(int $postId): JsonResponse
+    {
+        $feeders = DB::table('feeders')
+            ->where('post_id', $postId)
+            ->select('id', 'name')
+            ->orderBy('name')
+            ->get();
+        return response()->json($feeders);
+    }
+
+    public function checklistTemplate(int $equipmentTypeId): JsonResponse
+    {
+        $items = DB::table('checklist_templates')
+            ->where('equipment_type_id', $equipmentTypeId)
+            ->orderBy('item_index')
+            ->select('id', 'item_text', 'item_index')
+            ->get();
+        return response()->json($items);
+    }
+
+    public function activityPriceList(): JsonResponse
+    {
+        $activities = DB::table('activity_price_list')
+            ->orderBy('code')
+            ->select('id', 'code', 'title', 'unit', 'price')
+            ->get();
+        return response()->json($activities);
+    }
+}
+
+
+--------------------------------------------------------------------------------
+【فایل 4】: ReferenceController (5).php
+📁 مسیر: app\Http\Controllers\Api\ReferenceController (5).php
+📅 تاریخ آخرین تغییر: 02/12/2026 23:48:55
+📏 حجم: 1448 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Models\EquipmentType;
+use App\Models\Feeder;
+use App\Models\ChecklistTemplate;
+use App\Models\ActivityPrice;
+use Illuminate\Http\JsonResponse;
+
+class ReferenceController extends Controller
+{
+    public function equipmentTypes(): JsonResponse
+    {
+        $types = EquipmentType::select("id", "name", "has_height", "has_brand")->get();
+        return response()->json($types);
+    }
+
+    public function feedersByPost(int $postId): JsonResponse
+    {
+        $feeders = Feeder::where("post_id", $postId)
+                         ->select("id", "name")
+                         ->orderBy("name")
+                         ->get();
+        return response()->json($feeders);
+    }
+
+    public function checklistTemplate(int $equipmentTypeId): JsonResponse
+    {
+        $items = ChecklistTemplate::where("equipment_type_id", $equipmentTypeId)
+                                  ->orderBy("item_index")
+                                  ->select("id", "item_text", "item_index")
+                                  ->get();
+        return response()->json($items);
+    }
+
+    public function activityPriceList(): JsonResponse
+    {
+        $activities = ActivityPrice::orderBy("code")
+                                   ->select("id", "code", "title", "unit", "price")
+                                   ->get();
+        return response()->json($activities);
+    }
+}
+
+--------------------------------------------------------------------------------
+【فایل 5】: ReferenceController (6).php
+📁 مسیر: app\Http\Controllers\Api\ReferenceController (6).php
+📅 تاریخ آخرین تغییر: 02/13/2026 00:26:44
+📏 حجم: 1345 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Http\JsonResponse;
+
+class ReferenceController extends Controller
+{
+    public function equipmentTypes(): JsonResponse
+    {
+        $types = DB::table('equipment_types')
+            ->select('id', 'name', 'has_height', 'has_brand')
+            ->get();
+        return response()->json($types);
+    }
+
+    public function feedersByPost(int $postId): JsonResponse
+    {
+        $feeders = DB::table('feeders')
+            ->where('post_id', $postId)
+            ->select('id', 'name')
+            ->orderBy('name')
+            ->get();
+        return response()->json($feeders);
+    }
+
+    public function checklistTemplate(int $equipmentTypeId): JsonResponse
+    {
+        $items = DB::table('checklist_templates')
+            ->where('equipment_type_id', $equipmentTypeId)
+            ->orderBy('item_index')
+            ->select('id', 'item_text', 'item_index')
+            ->get();
+        return response()->json($items);
+    }
+
+    public function activityPriceList(): JsonResponse
+    {
+        $activities = DB::table('activity_price_list')
+            ->orderBy('code')
+            ->select('id', 'code', 'title', 'unit', 'price')
+            ->get();
+        return response()->json($activities);
+    }
+}
+
+
+--------------------------------------------------------------------------------
+【فایل 6】: ReferenceController (7).php
+📁 مسیر: app\Http\Controllers\Api\ReferenceController (7).php
+📅 تاریخ آخرین تغییر: 02/12/2026 23:48:55
+📏 حجم: 1448 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Models\EquipmentType;
+use App\Models\Feeder;
+use App\Models\ChecklistTemplate;
+use App\Models\ActivityPrice;
+use Illuminate\Http\JsonResponse;
+
+class ReferenceController extends Controller
+{
+    public function equipmentTypes(): JsonResponse
+    {
+        $types = EquipmentType::select("id", "name", "has_height", "has_brand")->get();
+        return response()->json($types);
+    }
+
+    public function feedersByPost(int $postId): JsonResponse
+    {
+        $feeders = Feeder::where("post_id", $postId)
+                         ->select("id", "name")
+                         ->orderBy("name")
+                         ->get();
+        return response()->json($feeders);
+    }
+
+    public function checklistTemplate(int $equipmentTypeId): JsonResponse
+    {
+        $items = ChecklistTemplate::where("equipment_type_id", $equipmentTypeId)
+                                  ->orderBy("item_index")
+                                  ->select("id", "item_text", "item_index")
+                                  ->get();
+        return response()->json($items);
+    }
+
+    public function activityPriceList(): JsonResponse
+    {
+        $activities = ActivityPrice::orderBy("code")
+                                   ->select("id", "code", "title", "unit", "price")
+                                   ->get();
+        return response()->json($activities);
+    }
+}
+
+--------------------------------------------------------------------------------
+【فایل 7】: ReferenceController.php
+📁 مسیر: app\Http\Controllers\Api\ReferenceController.php
+📅 تاریخ آخرین تغییر: 02/13/2026 10:37:22
+📏 حجم: 1448 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Models\EquipmentType;
+use App\Models\Feeder;
+use App\Models\ChecklistTemplate;
+use App\Models\ActivityPrice;
+use Illuminate\Http\JsonResponse;
+
+class ReferenceController extends Controller
+{
+    public function equipmentTypes(): JsonResponse
+    {
+        $types = EquipmentType::select("id", "name", "has_height", "has_brand")->get();
+        return response()->json($types);
+    }
+
+    public function feedersByPost(int $postId): JsonResponse
+    {
+        $feeders = Feeder::where("post_id", $postId)
+                         ->select("id", "name")
+                         ->orderBy("name")
+                         ->get();
+        return response()->json($feeders);
+    }
+
+    public function checklistTemplate(int $equipmentTypeId): JsonResponse
+    {
+        $items = ChecklistTemplate::where("equipment_type_id", $equipmentTypeId)
+                                  ->orderBy("item_index")
+                                  ->select("id", "item_text", "item_index")
+                                  ->get();
+        return response()->json($items);
+    }
+
+    public function activityPriceList(): JsonResponse
+    {
+        $activities = ActivityPrice::orderBy("code")
+                                   ->select("id", "code", "title", "unit", "price")
+                                   ->get();
+        return response()->json($activities);
+    }
+}
+
+================================================================================
+                        پایان فایل ReferenceController.php
+================================================================================

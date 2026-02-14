@@ -1,0 +1,324 @@
+﻿================================================================================
+                            DashboardController.php
+================================================================================
+تعداد فایل‌ها: 7
+تاریخ ایجاد: 2026/02/13 12:08:26
+مسیر پایه: C:\Users\dear-user\Desktop\complete-avs
+================================================================================
+
+--------------------------------------------------------------------------------
+【فایل 1】: DashboardController (2).php
+📁 مسیر: app\Http\Controllers\Api\DashboardController (2).php
+📅 تاریخ آخرین تغییر: 02/12/2026 21:54:45
+📏 حجم: 424 بایت
+--------------------------------------------------------------------------------
+
+<?php
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Models\MainEquipment;
+use App\Models\Checklist;
+
+class DashboardController extends Controller
+{
+ public function index()
+ {
+  return [
+   'equipments'=>MainEquipment::count(),
+   'visits'=>Checklist::count(),
+   'total_cost'=>Checklist::sum('total_cost'),
+   'today_visits'=>Checklist::whereDate('created_at',today())->count()
+  ];
+ }
+}
+
+--------------------------------------------------------------------------------
+【فایل 2】: DashboardController (3).php
+📁 مسیر: app\Http\Controllers\Api\DashboardController (3).php
+📅 تاریخ آخرین تغییر: 02/13/2026 05:49:27
+📏 حجم: 1495 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Models\Inspection;
+use App\Models\Equipment;
+use App\Models\Activity;
+use Illuminate\Http\Request;
+
+class DashboardController extends Controller
+{
+    public function index()
+    {
+        $totalInspections = Inspection::count();
+        $totalEquipments = Equipment::count();
+        $totalActivities = Activity::count();
+        
+        $totalCost = Activity::sum("total_price");
+        $coefficient = Inspection::avg("contract_coefficient") ?? 2.35;
+        $finalCost = $totalCost * $coefficient;
+        
+        $recentInspections = Inspection::withCount("equipments")
+            ->orderBy("inspection_date", "desc")
+            ->limit(5)
+            ->get();
+        
+        return response()->json([
+            "stats" => [
+                "total_inspections" => $totalInspections,
+                "total_equipments" => $totalEquipments,
+                "total_activities" => $totalActivities,
+                "total_cost" => $totalCost,
+                "final_cost" => $finalCost,
+                "coefficient" => $coefficient
+            ],
+            "recent_inspections" => $recentInspections
+        ]);
+    }
+
+    public function equipmentStats()
+    {
+        $stats = Equipment::selectRaw("equipment_type, count(*) as count")
+            ->groupBy("equipment_type")
+            ->orderBy("count", "desc")
+            ->get();
+        
+        return response()->json($stats);
+    }
+}
+
+--------------------------------------------------------------------------------
+【فایل 3】: DashboardController (4).php
+📁 مسیر: app\Http\Controllers\Api\DashboardController (4).php
+📅 تاریخ آخرین تغییر: 02/12/2026 21:54:45
+📏 حجم: 424 بایت
+--------------------------------------------------------------------------------
+
+<?php
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Models\MainEquipment;
+use App\Models\Checklist;
+
+class DashboardController extends Controller
+{
+ public function index()
+ {
+  return [
+   'equipments'=>MainEquipment::count(),
+   'visits'=>Checklist::count(),
+   'total_cost'=>Checklist::sum('total_cost'),
+   'today_visits'=>Checklist::whereDate('created_at',today())->count()
+  ];
+ }
+}
+
+--------------------------------------------------------------------------------
+【فایل 4】: DashboardController (5).php
+📁 مسیر: app\Http\Controllers\Api\DashboardController (5).php
+📅 تاریخ آخرین تغییر: 02/13/2026 05:49:27
+📏 حجم: 1495 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Models\Inspection;
+use App\Models\Equipment;
+use App\Models\Activity;
+use Illuminate\Http\Request;
+
+class DashboardController extends Controller
+{
+    public function index()
+    {
+        $totalInspections = Inspection::count();
+        $totalEquipments = Equipment::count();
+        $totalActivities = Activity::count();
+        
+        $totalCost = Activity::sum("total_price");
+        $coefficient = Inspection::avg("contract_coefficient") ?? 2.35;
+        $finalCost = $totalCost * $coefficient;
+        
+        $recentInspections = Inspection::withCount("equipments")
+            ->orderBy("inspection_date", "desc")
+            ->limit(5)
+            ->get();
+        
+        return response()->json([
+            "stats" => [
+                "total_inspections" => $totalInspections,
+                "total_equipments" => $totalEquipments,
+                "total_activities" => $totalActivities,
+                "total_cost" => $totalCost,
+                "final_cost" => $finalCost,
+                "coefficient" => $coefficient
+            ],
+            "recent_inspections" => $recentInspections
+        ]);
+    }
+
+    public function equipmentStats()
+    {
+        $stats = Equipment::selectRaw("equipment_type, count(*) as count")
+            ->groupBy("equipment_type")
+            ->orderBy("count", "desc")
+            ->get();
+        
+        return response()->json($stats);
+    }
+}
+
+--------------------------------------------------------------------------------
+【فایل 5】: DashboardController (6).php
+📁 مسیر: app\Http\Controllers\Api\DashboardController (6).php
+📅 تاریخ آخرین تغییر: 02/12/2026 21:54:45
+📏 حجم: 424 بایت
+--------------------------------------------------------------------------------
+
+<?php
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Models\MainEquipment;
+use App\Models\Checklist;
+
+class DashboardController extends Controller
+{
+ public function index()
+ {
+  return [
+   'equipments'=>MainEquipment::count(),
+   'visits'=>Checklist::count(),
+   'total_cost'=>Checklist::sum('total_cost'),
+   'today_visits'=>Checklist::whereDate('created_at',today())->count()
+  ];
+ }
+}
+
+--------------------------------------------------------------------------------
+【فایل 6】: DashboardController (7).php
+📁 مسیر: app\Http\Controllers\Api\DashboardController (7).php
+📅 تاریخ آخرین تغییر: 02/13/2026 05:49:27
+📏 حجم: 1495 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Models\Inspection;
+use App\Models\Equipment;
+use App\Models\Activity;
+use Illuminate\Http\Request;
+
+class DashboardController extends Controller
+{
+    public function index()
+    {
+        $totalInspections = Inspection::count();
+        $totalEquipments = Equipment::count();
+        $totalActivities = Activity::count();
+        
+        $totalCost = Activity::sum("total_price");
+        $coefficient = Inspection::avg("contract_coefficient") ?? 2.35;
+        $finalCost = $totalCost * $coefficient;
+        
+        $recentInspections = Inspection::withCount("equipments")
+            ->orderBy("inspection_date", "desc")
+            ->limit(5)
+            ->get();
+        
+        return response()->json([
+            "stats" => [
+                "total_inspections" => $totalInspections,
+                "total_equipments" => $totalEquipments,
+                "total_activities" => $totalActivities,
+                "total_cost" => $totalCost,
+                "final_cost" => $finalCost,
+                "coefficient" => $coefficient
+            ],
+            "recent_inspections" => $recentInspections
+        ]);
+    }
+
+    public function equipmentStats()
+    {
+        $stats = Equipment::selectRaw("equipment_type, count(*) as count")
+            ->groupBy("equipment_type")
+            ->orderBy("count", "desc")
+            ->get();
+        
+        return response()->json($stats);
+    }
+}
+
+--------------------------------------------------------------------------------
+【فایل 7】: DashboardController.php
+📁 مسیر: app\Http\Controllers\Api\DashboardController.php
+📅 تاریخ آخرین تغییر: 02/13/2026 10:37:22
+📏 حجم: 1495 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Models\Inspection;
+use App\Models\Equipment;
+use App\Models\Activity;
+use Illuminate\Http\Request;
+
+class DashboardController extends Controller
+{
+    public function index()
+    {
+        $totalInspections = Inspection::count();
+        $totalEquipments = Equipment::count();
+        $totalActivities = Activity::count();
+        
+        $totalCost = Activity::sum("total_price");
+        $coefficient = Inspection::avg("contract_coefficient") ?? 2.35;
+        $finalCost = $totalCost * $coefficient;
+        
+        $recentInspections = Inspection::withCount("equipments")
+            ->orderBy("inspection_date", "desc")
+            ->limit(5)
+            ->get();
+        
+        return response()->json([
+            "stats" => [
+                "total_inspections" => $totalInspections,
+                "total_equipments" => $totalEquipments,
+                "total_activities" => $totalActivities,
+                "total_cost" => $totalCost,
+                "final_cost" => $finalCost,
+                "coefficient" => $coefficient
+            ],
+            "recent_inspections" => $recentInspections
+        ]);
+    }
+
+    public function equipmentStats()
+    {
+        $stats = Equipment::selectRaw("equipment_type, count(*) as count")
+            ->groupBy("equipment_type")
+            ->orderBy("count", "desc")
+            ->get();
+        
+        return response()->json($stats);
+    }
+}
+
+================================================================================
+                        پایان فایل DashboardController.php
+================================================================================

@@ -1,0 +1,167 @@
+﻿================================================================================
+                            Photo.php
+================================================================================
+تعداد فایل‌ها: 4
+تاریخ ایجاد: 2026/02/13 12:08:28
+مسیر پایه: C:\Users\dear-user\Desktop\complete-avs
+================================================================================
+
+--------------------------------------------------------------------------------
+【فایل 1】: Photo (2).php
+📁 مسیر: app\Models\Photo (2).php
+📅 تاریخ آخرین تغییر: 02/12/2026 23:48:55
+📏 حجم: 597 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class Photo extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        "equipment_id",
+        "photo_data",
+        "photo_type",
+        "photo_path",
+        "scan_code",
+        "description",
+        "uploaded_at"
+    ];
+
+    protected $casts = [
+        "uploaded_at" => "datetime"
+    ];
+
+    public function equipment(): BelongsTo
+    {
+        return $this->belongsTo(Equipment::class);
+    }
+}
+
+--------------------------------------------------------------------------------
+【فایل 2】: Photo (3).php
+📁 مسیر: app\Models\Photo (3).php
+📅 تاریخ آخرین تغییر: 02/12/2026 23:48:55
+📏 حجم: 597 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class Photo extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        "equipment_id",
+        "photo_data",
+        "photo_type",
+        "photo_path",
+        "scan_code",
+        "description",
+        "uploaded_at"
+    ];
+
+    protected $casts = [
+        "uploaded_at" => "datetime"
+    ];
+
+    public function equipment(): BelongsTo
+    {
+        return $this->belongsTo(Equipment::class);
+    }
+}
+
+--------------------------------------------------------------------------------
+【فایل 3】: Photo (4).php
+📁 مسیر: app\Models\Photo (4).php
+📅 تاریخ آخرین تغییر: 02/12/2026 23:48:55
+📏 حجم: 597 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class Photo extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        "equipment_id",
+        "photo_data",
+        "photo_type",
+        "photo_path",
+        "scan_code",
+        "description",
+        "uploaded_at"
+    ];
+
+    protected $casts = [
+        "uploaded_at" => "datetime"
+    ];
+
+    public function equipment(): BelongsTo
+    {
+        return $this->belongsTo(Equipment::class);
+    }
+}
+
+--------------------------------------------------------------------------------
+【فایل 4】: Photo.php
+📁 مسیر: app\Models\Photo.php
+📅 تاریخ آخرین تغییر: 02/13/2026 10:37:21
+📏 حجم: 597 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class Photo extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        "equipment_id",
+        "photo_data",
+        "photo_type",
+        "photo_path",
+        "scan_code",
+        "description",
+        "uploaded_at"
+    ];
+
+    protected $casts = [
+        "uploaded_at" => "datetime"
+    ];
+
+    public function equipment(): BelongsTo
+    {
+        return $this->belongsTo(Equipment::class);
+    }
+}
+
+================================================================================
+                        پایان فایل Photo.php
+================================================================================

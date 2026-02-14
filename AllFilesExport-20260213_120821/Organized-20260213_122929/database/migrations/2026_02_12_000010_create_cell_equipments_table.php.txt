@@ -1,0 +1,108 @@
+﻿============================================================
+ فایل: 2026_02_12_000010_create_cell_equipments_table.php (پوشه: database\migrations)
+============================================================
+
+تعداد نسخه‌ها: 3
+
+----------------------------------------
+ نسخه 1 : 2026_02_12_000010_create_cell_equipments_table.php
+----------------------------------------
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create("cell_equipments", function (Blueprint $table) {
+            $table$table->id();
+            $table$table->foreignId("main_equipment_id")$table->constrained()$table->cascadeOnDelete();
+            $table$table->foreignId("type_id")$table->constrained("cell_equipment_types")$table->cascadeOnDelete();
+            $table$table->foreignId("brand_id")$table->nullable()$table->constrained("brands")$table->nullOnDelete();
+            $table$table->string("serial_number")$table->nullable();
+            $table$table->string("model")$table->nullable();
+            $table$table->year("manufacture_year")$table->nullable();
+            $table$table->timestamps();
+            
+            $table$table->unique(["main_equipment_id", "type_id"], "equipment_cell_unique");
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists("cell_equipments");
+    }
+};
+
+
+----------------------------------------
+ نسخه 2 : 2026_02_12_000010_create_cell_equipments_table.php (2).bak
+----------------------------------------
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create("cell_equipments", function (Blueprint $table) {
+            $table->id();
+            $table->foreignId("main_equipment_id")->constrained()->cascadeOnDelete();
+            $table->foreignId("type_id")->constrained("cell_equipment_types")->cascadeOnDelete();
+            $table->foreignId("brand_id")->nullable()->constrained("brands")->nullOnDelete();
+            $table->string("serial_number")->nullable();
+            $table->string("model")->nullable();
+            $table->year("manufacture_year")->nullable();
+            $table->timestamps();
+            
+            $table->unique(["main_equipment_id", "type_id"], "equipment_cell_unique");
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists("cell_equipments");
+    }
+};
+
+
+----------------------------------------
+ نسخه 3 : 2026_02_12_000010_create_cell_equipments_table.php.bak
+----------------------------------------
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create("cell_equipments", function (Blueprint $table) {
+            $table->id();
+            $table->foreignId("main_equipment_id")->constrained()->cascadeOnDelete();
+            $table->foreignId("type_id")->constrained("cell_equipment_types")->cascadeOnDelete();
+            $table->foreignId("brand_id")->nullable()->constrained("brands")->nullOnDelete();
+            $table->string("serial_number")->nullable();
+            $table->string("model")->nullable();
+            $table->year("manufacture_year")->nullable();
+            $table->timestamps();
+            
+            $table->unique(["main_equipment_id", "type_id"], "equipment_cell_unique");
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists("cell_equipments");
+    }
+};
+
+

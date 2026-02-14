@@ -1,0 +1,264 @@
+﻿============================================================
+ فایل: ConsumableSeeder.php (پوشه: database\seeders)
+============================================================
+
+تعداد نسخه‌ها: 6
+
+----------------------------------------
+ نسخه 1 : ConsumableSeeder (2).php
+----------------------------------------
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+
+class ConsumableSeeder extends Seeder
+{
+    public function run(): void
+    {
+        $consumables = [
+            ["name" => "Ù…ÙˆØ¯Ù…", "unit" => "Ø¹Ø¯Ø¯"],
+            ["name" => "RTU", "unit" => "Ø¹Ø¯Ø¯"],
+            ["name" => "Ø¢Ù†ØªÙ†", "unit" => "Ø¹Ø¯Ø¯"],
+            ["name" => "Ø¨Ø§ØªØ±ÛŒ", "unit" => "Ø¹Ø¯Ø¯"],
+            ["name" => "ÙÛŒÙˆØ² Ù…ÛŒÙ†ÛŒØ§ØªÙˆØ±ÛŒ", "unit" => "Ø¹Ø¯Ø¯"],
+            ["name" => "ÙÛŒÙˆØ² ÙØ´Ù†Ú¯ÛŒ", "unit" => "Ø¹Ø¯Ø¯"],
+            ["name" => "Ú©Ø§Ø¨Ù„ Ø§Ø±ØªØ¨Ø§Ø·ÛŒ", "unit" => "Ù…ØªØ±"],
+            ["name" => "Ú©Ø§Ø¨Ù„ ØªØºØ°ÛŒÙ‡", "unit" => "Ù…ØªØ±"],
+            ["name" => "Ú©Ø§Ù†Ú©ØªÙˆØ±", "unit" => "Ø¹Ø¯Ø¯"],
+            ["name" => "Ø³ÛŒÙ… Ú©Ø§Ø±Øª", "unit" => "Ø¹Ø¯Ø¯"],
+            ["name" => "Ù¾Ø§ÙˆØ±", "unit" => "Ø¹Ø¯Ø¯"],
+            ["name" => "Ø±Ù„Ù‡", "unit" => "Ø¹Ø¯Ø¯"],
+            ["name" => "Ø³Ú©Ø³ÛŒÙˆÙ†Ø±", "unit" => "Ø¹Ø¯Ø¯"],
+            ["name" => "Ø¯Ú˜Ù†Ú©ØªÙˆØ±", "unit" => "Ø¹Ø¯Ø¯"],
+            ["name" => "Ú©Ø§Ø¨Ù„ Ø¢Ù†ØªÙ†", "unit" => "Ù…ØªØ±"],
+            ["name" => "Ø³Ø§ÛŒØ± Ø§Ù‚Ù„Ø§Ù…", "unit" => "Ø¹Ø¯Ø¯"]
+        ];
+
+        foreach ($consumables as $item) {
+            DB::table("consumables")->updateOrInsert(
+                ["name" => $item["name"]],
+                $item
+            );
+        }
+    }
+}
+
+
+----------------------------------------
+ نسخه 2 : ConsumableSeeder (3).php
+----------------------------------------
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+
+class ConsumableSeeder extends Seeder
+{
+    public function run(): void
+    {
+        $consumables = [
+            ["name" => "Ù…ÙˆØ¯Ù…", "unit" => "Ø¹Ø¯Ø¯"],
+            ["name" => "RTU", "unit" => "Ø¹Ø¯Ø¯"],
+            ["name" => "Ø¢Ù†ØªÙ†", "unit" => "Ø¹Ø¯Ø¯"],
+            ["name" => "Ø¨Ø§ØªØ±ÛŒ", "unit" => "Ø¹Ø¯Ø¯"],
+            ["name" => "ÙÛŒÙˆØ² Ù…ÛŒÙ†ÛŒØ§ØªÙˆØ±ÛŒ", "unit" => "Ø¹Ø¯Ø¯"],
+            ["name" => "ÙÛŒÙˆØ² ÙØ´Ù†Ú¯ÛŒ", "unit" => "Ø¹Ø¯Ø¯"],
+            ["name" => "Ú©Ø§Ø¨Ù„ Ø§Ø±ØªØ¨Ø§Ø·ÛŒ", "unit" => "Ù…ØªØ±"],
+            ["name" => "Ú©Ø§Ø¨Ù„ ØªØºØ°ÛŒÙ‡", "unit" => "Ù…ØªØ±"],
+            ["name" => "Ú©Ø§Ù†Ú©ØªÙˆØ±", "unit" => "Ø¹Ø¯Ø¯"],
+            ["name" => "Ø³ÛŒÙ… Ú©Ø§Ø±Øª", "unit" => "Ø¹Ø¯Ø¯"],
+            ["name" => "Ù¾Ø§ÙˆØ±", "unit" => "Ø¹Ø¯Ø¯"],
+            ["name" => "Ø±Ù„Ù‡", "unit" => "Ø¹Ø¯Ø¯"],
+            ["name" => "Ø³Ú©Ø³ÛŒÙˆÙ†Ø±", "unit" => "Ø¹Ø¯Ø¯"],
+            ["name" => "Ø¯Ú˜Ù†Ú©ØªÙˆØ±", "unit" => "Ø¹Ø¯Ø¯"],
+            ["name" => "Ú©Ø§Ø¨Ù„ Ø¢Ù†ØªÙ†", "unit" => "Ù…ØªØ±"],
+            ["name" => "Ø³Ø§ÛŒØ± Ø§Ù‚Ù„Ø§Ù…", "unit" => "Ø¹Ø¯Ø¯"]
+        ];
+
+        foreach ($consumables as $item) {
+            DB::table("consumables")->updateOrInsert(
+                ["name" => $item["name"]],
+                $item
+            );
+        }
+    }
+}
+
+
+----------------------------------------
+ نسخه 3 : ConsumableSeeder (4).php
+----------------------------------------
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+
+class ConsumableSeeder extends Seeder
+{
+    public function run(): void
+    {
+        $consumables = [
+            ["name" => "Ù…ÙˆØ¯Ù…", "unit" => "Ø¹Ø¯Ø¯"],
+            ["name" => "RTU", "unit" => "Ø¹Ø¯Ø¯"],
+            ["name" => "Ø¢Ù†ØªÙ†", "unit" => "Ø¹Ø¯Ø¯"],
+            ["name" => "Ø¨Ø§ØªØ±ÛŒ", "unit" => "Ø¹Ø¯Ø¯"],
+            ["name" => "ÙÛŒÙˆØ² Ù…ÛŒÙ†ÛŒØ§ØªÙˆØ±ÛŒ", "unit" => "Ø¹Ø¯Ø¯"],
+            ["name" => "ÙÛŒÙˆØ² ÙØ´Ù†Ú¯ÛŒ", "unit" => "Ø¹Ø¯Ø¯"],
+            ["name" => "Ú©Ø§Ø¨Ù„ Ø§Ø±ØªØ¨Ø§Ø·ÛŒ", "unit" => "Ù…ØªØ±"],
+            ["name" => "Ú©Ø§Ø¨Ù„ ØªØºØ°ÛŒÙ‡", "unit" => "Ù…ØªØ±"],
+            ["name" => "Ú©Ø§Ù†Ú©ØªÙˆØ±", "unit" => "Ø¹Ø¯Ø¯"],
+            ["name" => "Ø³ÛŒÙ… Ú©Ø§Ø±Øª", "unit" => "Ø¹Ø¯Ø¯"],
+            ["name" => "Ù¾Ø§ÙˆØ±", "unit" => "Ø¹Ø¯Ø¯"],
+            ["name" => "Ø±Ù„Ù‡", "unit" => "Ø¹Ø¯Ø¯"],
+            ["name" => "Ø³Ú©Ø³ÛŒÙˆÙ†Ø±", "unit" => "Ø¹Ø¯Ø¯"],
+            ["name" => "Ø¯Ú˜Ù†Ú©ØªÙˆØ±", "unit" => "Ø¹Ø¯Ø¯"],
+            ["name" => "Ú©Ø§Ø¨Ù„ Ø¢Ù†ØªÙ†", "unit" => "Ù…ØªØ±"],
+            ["name" => "Ø³Ø§ÛŒØ± Ø§Ù‚Ù„Ø§Ù…", "unit" => "Ø¹Ø¯Ø¯"]
+        ];
+
+        foreach ($consumables as $item) {
+            DB::table("consumables")->updateOrInsert(
+                ["name" => $item["name"]],
+                $item
+            );
+        }
+    }
+}
+
+
+----------------------------------------
+ نسخه 4 : ConsumableSeeder (5).php
+----------------------------------------
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+
+class ConsumableSeeder extends Seeder
+{
+    public function run(): void
+    {
+        $consumables = [
+            ["name" => "Ù…ÙˆØ¯Ù…", "unit" => "Ø¹Ø¯Ø¯"],
+            ["name" => "RTU", "unit" => "Ø¹Ø¯Ø¯"],
+            ["name" => "Ø¢Ù†ØªÙ†", "unit" => "Ø¹Ø¯Ø¯"],
+            ["name" => "Ø¨Ø§ØªØ±ÛŒ", "unit" => "Ø¹Ø¯Ø¯"],
+            ["name" => "ÙÛŒÙˆØ² Ù…ÛŒÙ†ÛŒØ§ØªÙˆØ±ÛŒ", "unit" => "Ø¹Ø¯Ø¯"],
+            ["name" => "ÙÛŒÙˆØ² ÙØ´Ù†Ú¯ÛŒ", "unit" => "Ø¹Ø¯Ø¯"],
+            ["name" => "Ú©Ø§Ø¨Ù„ Ø§Ø±ØªØ¨Ø§Ø·ÛŒ", "unit" => "Ù…ØªØ±"],
+            ["name" => "Ú©Ø§Ø¨Ù„ ØªØºØ°ÛŒÙ‡", "unit" => "Ù…ØªØ±"],
+            ["name" => "Ú©Ø§Ù†Ú©ØªÙˆØ±", "unit" => "Ø¹Ø¯Ø¯"],
+            ["name" => "Ø³ÛŒÙ… Ú©Ø§Ø±Øª", "unit" => "Ø¹Ø¯Ø¯"],
+            ["name" => "Ù¾Ø§ÙˆØ±", "unit" => "Ø¹Ø¯Ø¯"],
+            ["name" => "Ø±Ù„Ù‡", "unit" => "Ø¹Ø¯Ø¯"],
+            ["name" => "Ø³Ú©Ø³ÛŒÙˆÙ†Ø±", "unit" => "Ø¹Ø¯Ø¯"],
+            ["name" => "Ø¯Ú˜Ù†Ú©ØªÙˆØ±", "unit" => "Ø¹Ø¯Ø¯"],
+            ["name" => "Ú©Ø§Ø¨Ù„ Ø¢Ù†ØªÙ†", "unit" => "Ù…ØªØ±"],
+            ["name" => "Ø³Ø§ÛŒØ± Ø§Ù‚Ù„Ø§Ù…", "unit" => "Ø¹Ø¯Ø¯"]
+        ];
+
+        foreach ($consumables as $item) {
+            DB::table("consumables")->updateOrInsert(
+                ["name" => $item["name"]],
+                $item
+            );
+        }
+    }
+}
+
+
+----------------------------------------
+ نسخه 5 : ConsumableSeeder (6).php
+----------------------------------------
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+
+class ConsumableSeeder extends Seeder
+{
+    public function run(): void
+    {
+        $consumables = [
+            ["name" => "Ù…ÙˆØ¯Ù…", "unit" => "Ø¹Ø¯Ø¯"],
+            ["name" => "RTU", "unit" => "Ø¹Ø¯Ø¯"],
+            ["name" => "Ø¢Ù†ØªÙ†", "unit" => "Ø¹Ø¯Ø¯"],
+            ["name" => "Ø¨Ø§ØªØ±ÛŒ", "unit" => "Ø¹Ø¯Ø¯"],
+            ["name" => "ÙÛŒÙˆØ² Ù…ÛŒÙ†ÛŒØ§ØªÙˆØ±ÛŒ", "unit" => "Ø¹Ø¯Ø¯"],
+            ["name" => "ÙÛŒÙˆØ² ÙØ´Ù†Ú¯ÛŒ", "unit" => "Ø¹Ø¯Ø¯"],
+            ["name" => "Ú©Ø§Ø¨Ù„ Ø§Ø±ØªØ¨Ø§Ø·ÛŒ", "unit" => "Ù…ØªØ±"],
+            ["name" => "Ú©Ø§Ø¨Ù„ ØªØºØ°ÛŒÙ‡", "unit" => "Ù…ØªØ±"],
+            ["name" => "Ú©Ø§Ù†Ú©ØªÙˆØ±", "unit" => "Ø¹Ø¯Ø¯"],
+            ["name" => "Ø³ÛŒÙ… Ú©Ø§Ø±Øª", "unit" => "Ø¹Ø¯Ø¯"],
+            ["name" => "Ù¾Ø§ÙˆØ±", "unit" => "Ø¹Ø¯Ø¯"],
+            ["name" => "Ø±Ù„Ù‡", "unit" => "Ø¹Ø¯Ø¯"],
+            ["name" => "Ø³Ú©Ø³ÛŒÙˆÙ†Ø±", "unit" => "Ø¹Ø¯Ø¯"],
+            ["name" => "Ø¯Ú˜Ù†Ú©ØªÙˆØ±", "unit" => "Ø¹Ø¯Ø¯"],
+            ["name" => "Ú©Ø§Ø¨Ù„ Ø¢Ù†ØªÙ†", "unit" => "Ù…ØªØ±"],
+            ["name" => "Ø³Ø§ÛŒØ± Ø§Ù‚Ù„Ø§Ù…", "unit" => "Ø¹Ø¯Ø¯"]
+        ];
+
+        foreach ($consumables as $item) {
+            DB::table("consumables")->updateOrInsert(
+                ["name" => $item["name"]],
+                $item
+            );
+        }
+    }
+}
+
+
+----------------------------------------
+ نسخه 6 : ConsumableSeeder.php
+----------------------------------------
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+
+class ConsumableSeeder extends Seeder
+{
+    public function run(): void
+    {
+        $consumables = [
+            ["name" => "Ã™â€¦Ã™Ë†Ã˜Â¯Ã™â€¦", "unit" => "Ã˜Â¹Ã˜Â¯Ã˜Â¯"],
+            ["name" => "RTU", "unit" => "Ã˜Â¹Ã˜Â¯Ã˜Â¯"],
+            ["name" => "Ã˜Â¢Ã™â€ Ã˜ÂªÃ™â€ ", "unit" => "Ã˜Â¹Ã˜Â¯Ã˜Â¯"],
+            ["name" => "Ã˜Â¨Ã˜Â§Ã˜ÂªÃ˜Â±Ã›Å’", "unit" => "Ã˜Â¹Ã˜Â¯Ã˜Â¯"],
+            ["name" => "Ã™ÂÃ›Å’Ã™Ë†Ã˜Â² Ã™â€¦Ã›Å’Ã™â€ Ã›Å’Ã˜Â§Ã˜ÂªÃ™Ë†Ã˜Â±Ã›Å’", "unit" => "Ã˜Â¹Ã˜Â¯Ã˜Â¯"],
+            ["name" => "Ã™ÂÃ›Å’Ã™Ë†Ã˜Â² Ã™ÂÃ˜Â´Ã™â€ ÃšÂ¯Ã›Å’", "unit" => "Ã˜Â¹Ã˜Â¯Ã˜Â¯"],
+            ["name" => "ÃšÂ©Ã˜Â§Ã˜Â¨Ã™â€ž Ã˜Â§Ã˜Â±Ã˜ÂªÃ˜Â¨Ã˜Â§Ã˜Â·Ã›Å’", "unit" => "Ã™â€¦Ã˜ÂªÃ˜Â±"],
+            ["name" => "ÃšÂ©Ã˜Â§Ã˜Â¨Ã™â€ž Ã˜ÂªÃ˜ÂºÃ˜Â°Ã›Å’Ã™â€¡", "unit" => "Ã™â€¦Ã˜ÂªÃ˜Â±"],
+            ["name" => "ÃšÂ©Ã˜Â§Ã™â€ ÃšÂ©Ã˜ÂªÃ™Ë†Ã˜Â±", "unit" => "Ã˜Â¹Ã˜Â¯Ã˜Â¯"],
+            ["name" => "Ã˜Â³Ã›Å’Ã™â€¦ ÃšÂ©Ã˜Â§Ã˜Â±Ã˜Âª", "unit" => "Ã˜Â¹Ã˜Â¯Ã˜Â¯"],
+            ["name" => "Ã™Â¾Ã˜Â§Ã™Ë†Ã˜Â±", "unit" => "Ã˜Â¹Ã˜Â¯Ã˜Â¯"],
+            ["name" => "Ã˜Â±Ã™â€žÃ™â€¡", "unit" => "Ã˜Â¹Ã˜Â¯Ã˜Â¯"],
+            ["name" => "Ã˜Â³ÃšÂ©Ã˜Â³Ã›Å’Ã™Ë†Ã™â€ Ã˜Â±", "unit" => "Ã˜Â¹Ã˜Â¯Ã˜Â¯"],
+            ["name" => "Ã˜Â¯ÃšËœÃ™â€ ÃšÂ©Ã˜ÂªÃ™Ë†Ã˜Â±", "unit" => "Ã˜Â¹Ã˜Â¯Ã˜Â¯"],
+            ["name" => "ÃšÂ©Ã˜Â§Ã˜Â¨Ã™â€ž Ã˜Â¢Ã™â€ Ã˜ÂªÃ™â€ ", "unit" => "Ã™â€¦Ã˜ÂªÃ˜Â±"],
+            ["name" => "Ã˜Â³Ã˜Â§Ã›Å’Ã˜Â± Ã˜Â§Ã™â€šÃ™â€žÃ˜Â§Ã™â€¦", "unit" => "Ã˜Â¹Ã˜Â¯Ã˜Â¯"]
+        ];
+
+        foreach ($consumables as $item) {
+            DB::table("consumables")->updateOrInsert(
+                ["name" => $item["name"]],
+                $item
+            );
+        }
+    }
+}
+
+

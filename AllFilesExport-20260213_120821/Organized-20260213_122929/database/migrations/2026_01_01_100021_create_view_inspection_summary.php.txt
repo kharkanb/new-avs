@@ -1,0 +1,43 @@
+﻿============================================================
+ فایل: 2026_01_01_100021_create_view_inspection_summary.php (پوشه: database\migrations)
+============================================================
+
+تعداد نسخه‌ها: 1
+
+----------------------------------------
+ نسخه 1 : 2026_01_01_100021_create_view_inspection_summary.php
+----------------------------------------
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\DB;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        DB::statement("
+            CREATE OR REPLACE VIEW v_inspection_summary AS
+            SELECT 
+                i.id,
+                i.inspection_date,
+                i.contractor,
+                i.status,
+                COUNT(DISTINCT e.id) as equipment_count,
+                COUNT(DISTINCT a.id) as activity_count,
+                COALESCE(SUM(a.total_price), 0) as total_cost,
+                COALESCE(SUM(a.total_price * i.contract_coefficient), 0) as final_cost
+            FROM inspections i
+            LEFT JOIN equipments e ON i.id = e.inspection_id
+            LEFT JOIN activities a ON e.id = a.equipment_id
+            GROUP BY i.id, i.inspection_date, i.contractor, i.status
+        ");
+    }
+
+    public function down(): void
+    {
+        DB::statement("DROP VIEW IF EXISTS v_inspection_summary");
+    }
+};
+
+

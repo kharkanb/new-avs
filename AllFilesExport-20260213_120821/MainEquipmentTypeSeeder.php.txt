@@ -1,0 +1,443 @@
+﻿================================================================================
+                            MainEquipmentTypeSeeder.php
+================================================================================
+تعداد فایل‌ها: 6
+تاریخ ایجاد: 2026/02/13 12:08:28
+مسیر پایه: C:\Users\dear-user\Desktop\complete-avs
+================================================================================
+
+--------------------------------------------------------------------------------
+【فایل 1】: MainEquipmentTypeSeeder (2).php
+📁 مسیر: database\seeders\MainEquipmentTypeSeeder (2).php
+📅 تاریخ آخرین تغییر: 02/12/2026 23:12:50
+📏 حجم: 1846 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+
+class MainEquipmentTypeSeeder extends Seeder
+{
+    public function run(): void
+    {
+        $types = [
+            [
+                "name" => "Ø±ÛŒÚ©Ù„ÙˆØ²Ø±",
+                "feeder_mode" => "single",
+                "has_height" => true,
+                "has_brand" => true
+            ],
+            [
+                "name" => "Ø³Ú©Ø³ÛŒÙˆÙ†Ø±",
+                "feeder_mode" => "dual",
+                "has_height" => true,
+                "has_brand" => true
+            ],
+            [
+                "name" => "Ø³Ú©Ø´Ù†Ø§Ù„Ø§ÛŒØ²Ø±",
+                "feeder_mode" => "dual",
+                "has_height" => true,
+                "has_brand" => true
+            ],
+            [
+                "name" => "ÙØ§Ù„Øª Ø¯ØªÚ©ØªÙˆØ±",
+                "feeder_mode" => "single",
+                "has_height" => false,
+                "has_brand" => true
+            ],
+            [
+                "name" => "Ù¾Ø³Øª Ø¯Ùˆ Ø³Ùˆ ØªØºØ°ÛŒÙ‡ (Ù…Ø´ØªØ±Ú© Ø­Ø³Ø§Ø³)",
+                "feeder_mode" => "dual",
+                "has_height" => false,
+                "has_brand" => false
+            ],
+            [
+                "name" => "Ù¾Ø³Øª Ø¯Ùˆ Ø³Ùˆ ØªØºØ°ÛŒÙ‡ (Ø¨ÛŒÙ…Ø§Ø±Ø³ØªØ§Ù†ÛŒ)",
+                "feeder_mode" => "dual",
+                "has_height" => false,
+                "has_brand" => false
+            ],
+            [
+                "name" => "Ù…Ø´ØªØ±Ú© ÙˆÙ„ØªØ§Ú˜ Ø§ÙˆÙ„ÛŒÙ‡",
+                "feeder_mode" => "single",
+                "has_height" => false,
+                "has_brand" => false
+            ]
+        ];
+
+        foreach ($types as $type) {
+            DB::table("main_equipment_types")->updateOrInsert(
+                ["name" => $type["name"]],
+                $type
+            );
+        }
+    }
+}
+
+--------------------------------------------------------------------------------
+【فایل 2】: MainEquipmentTypeSeeder (3).php
+📁 مسیر: database\seeders\MainEquipmentTypeSeeder (3).php
+📅 تاریخ آخرین تغییر: 02/12/2026 23:08:13
+📏 حجم: 1846 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+
+class MainEquipmentTypeSeeder extends Seeder
+{
+    public function run(): void
+    {
+        $types = [
+            [
+                "name" => "Ø±ÛŒÚ©Ù„ÙˆØ²Ø±",
+                "feeder_mode" => "single",
+                "has_height" => true,
+                "has_brand" => true
+            ],
+            [
+                "name" => "Ø³Ú©Ø³ÛŒÙˆÙ†Ø±",
+                "feeder_mode" => "dual",
+                "has_height" => true,
+                "has_brand" => true
+            ],
+            [
+                "name" => "Ø³Ú©Ø´Ù†Ø§Ù„Ø§ÛŒØ²Ø±",
+                "feeder_mode" => "dual",
+                "has_height" => true,
+                "has_brand" => true
+            ],
+            [
+                "name" => "ÙØ§Ù„Øª Ø¯ØªÚ©ØªÙˆØ±",
+                "feeder_mode" => "single",
+                "has_height" => false,
+                "has_brand" => true
+            ],
+            [
+                "name" => "Ù¾Ø³Øª Ø¯Ùˆ Ø³Ùˆ ØªØºØ°ÛŒÙ‡ (Ù…Ø´ØªØ±Ú© Ø­Ø³Ø§Ø³)",
+                "feeder_mode" => "dual",
+                "has_height" => false,
+                "has_brand" => false
+            ],
+            [
+                "name" => "Ù¾Ø³Øª Ø¯Ùˆ Ø³Ùˆ ØªØºØ°ÛŒÙ‡ (Ø¨ÛŒÙ…Ø§Ø±Ø³ØªØ§Ù†ÛŒ)",
+                "feeder_mode" => "dual",
+                "has_height" => false,
+                "has_brand" => false
+            ],
+            [
+                "name" => "Ù…Ø´ØªØ±Ú© ÙˆÙ„ØªØ§Ú˜ Ø§ÙˆÙ„ÛŒÙ‡",
+                "feeder_mode" => "single",
+                "has_height" => false,
+                "has_brand" => false
+            ]
+        ];
+
+        foreach ($types as $type) {
+            DB::table("main_equipment_types")->updateOrInsert(
+                ["name" => $type["name"]],
+                $type
+            );
+        }
+    }
+}
+
+--------------------------------------------------------------------------------
+【فایل 3】: MainEquipmentTypeSeeder (4).php
+📁 مسیر: database\seeders\MainEquipmentTypeSeeder (4).php
+📅 تاریخ آخرین تغییر: 02/12/2026 23:12:50
+📏 حجم: 1846 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+
+class MainEquipmentTypeSeeder extends Seeder
+{
+    public function run(): void
+    {
+        $types = [
+            [
+                "name" => "Ø±ÛŒÚ©Ù„ÙˆØ²Ø±",
+                "feeder_mode" => "single",
+                "has_height" => true,
+                "has_brand" => true
+            ],
+            [
+                "name" => "Ø³Ú©Ø³ÛŒÙˆÙ†Ø±",
+                "feeder_mode" => "dual",
+                "has_height" => true,
+                "has_brand" => true
+            ],
+            [
+                "name" => "Ø³Ú©Ø´Ù†Ø§Ù„Ø§ÛŒØ²Ø±",
+                "feeder_mode" => "dual",
+                "has_height" => true,
+                "has_brand" => true
+            ],
+            [
+                "name" => "ÙØ§Ù„Øª Ø¯ØªÚ©ØªÙˆØ±",
+                "feeder_mode" => "single",
+                "has_height" => false,
+                "has_brand" => true
+            ],
+            [
+                "name" => "Ù¾Ø³Øª Ø¯Ùˆ Ø³Ùˆ ØªØºØ°ÛŒÙ‡ (Ù…Ø´ØªØ±Ú© Ø­Ø³Ø§Ø³)",
+                "feeder_mode" => "dual",
+                "has_height" => false,
+                "has_brand" => false
+            ],
+            [
+                "name" => "Ù¾Ø³Øª Ø¯Ùˆ Ø³Ùˆ ØªØºØ°ÛŒÙ‡ (Ø¨ÛŒÙ…Ø§Ø±Ø³ØªØ§Ù†ÛŒ)",
+                "feeder_mode" => "dual",
+                "has_height" => false,
+                "has_brand" => false
+            ],
+            [
+                "name" => "Ù…Ø´ØªØ±Ú© ÙˆÙ„ØªØ§Ú˜ Ø§ÙˆÙ„ÛŒÙ‡",
+                "feeder_mode" => "single",
+                "has_height" => false,
+                "has_brand" => false
+            ]
+        ];
+
+        foreach ($types as $type) {
+            DB::table("main_equipment_types")->updateOrInsert(
+                ["name" => $type["name"]],
+                $type
+            );
+        }
+    }
+}
+
+--------------------------------------------------------------------------------
+【فایل 4】: MainEquipmentTypeSeeder (5).php
+📁 مسیر: database\seeders\MainEquipmentTypeSeeder (5).php
+📅 تاریخ آخرین تغییر: 02/12/2026 23:08:13
+📏 حجم: 1846 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+
+class MainEquipmentTypeSeeder extends Seeder
+{
+    public function run(): void
+    {
+        $types = [
+            [
+                "name" => "Ø±ÛŒÚ©Ù„ÙˆØ²Ø±",
+                "feeder_mode" => "single",
+                "has_height" => true,
+                "has_brand" => true
+            ],
+            [
+                "name" => "Ø³Ú©Ø³ÛŒÙˆÙ†Ø±",
+                "feeder_mode" => "dual",
+                "has_height" => true,
+                "has_brand" => true
+            ],
+            [
+                "name" => "Ø³Ú©Ø´Ù†Ø§Ù„Ø§ÛŒØ²Ø±",
+                "feeder_mode" => "dual",
+                "has_height" => true,
+                "has_brand" => true
+            ],
+            [
+                "name" => "ÙØ§Ù„Øª Ø¯ØªÚ©ØªÙˆØ±",
+                "feeder_mode" => "single",
+                "has_height" => false,
+                "has_brand" => true
+            ],
+            [
+                "name" => "Ù¾Ø³Øª Ø¯Ùˆ Ø³Ùˆ ØªØºØ°ÛŒÙ‡ (Ù…Ø´ØªØ±Ú© Ø­Ø³Ø§Ø³)",
+                "feeder_mode" => "dual",
+                "has_height" => false,
+                "has_brand" => false
+            ],
+            [
+                "name" => "Ù¾Ø³Øª Ø¯Ùˆ Ø³Ùˆ ØªØºØ°ÛŒÙ‡ (Ø¨ÛŒÙ…Ø§Ø±Ø³ØªØ§Ù†ÛŒ)",
+                "feeder_mode" => "dual",
+                "has_height" => false,
+                "has_brand" => false
+            ],
+            [
+                "name" => "Ù…Ø´ØªØ±Ú© ÙˆÙ„ØªØ§Ú˜ Ø§ÙˆÙ„ÛŒÙ‡",
+                "feeder_mode" => "single",
+                "has_height" => false,
+                "has_brand" => false
+            ]
+        ];
+
+        foreach ($types as $type) {
+            DB::table("main_equipment_types")->updateOrInsert(
+                ["name" => $type["name"]],
+                $type
+            );
+        }
+    }
+}
+
+--------------------------------------------------------------------------------
+【فایل 5】: MainEquipmentTypeSeeder (6).php
+📁 مسیر: database\seeders\MainEquipmentTypeSeeder (6).php
+📅 تاریخ آخرین تغییر: 02/12/2026 23:12:50
+📏 حجم: 1846 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+
+class MainEquipmentTypeSeeder extends Seeder
+{
+    public function run(): void
+    {
+        $types = [
+            [
+                "name" => "Ø±ÛŒÚ©Ù„ÙˆØ²Ø±",
+                "feeder_mode" => "single",
+                "has_height" => true,
+                "has_brand" => true
+            ],
+            [
+                "name" => "Ø³Ú©Ø³ÛŒÙˆÙ†Ø±",
+                "feeder_mode" => "dual",
+                "has_height" => true,
+                "has_brand" => true
+            ],
+            [
+                "name" => "Ø³Ú©Ø´Ù†Ø§Ù„Ø§ÛŒØ²Ø±",
+                "feeder_mode" => "dual",
+                "has_height" => true,
+                "has_brand" => true
+            ],
+            [
+                "name" => "ÙØ§Ù„Øª Ø¯ØªÚ©ØªÙˆØ±",
+                "feeder_mode" => "single",
+                "has_height" => false,
+                "has_brand" => true
+            ],
+            [
+                "name" => "Ù¾Ø³Øª Ø¯Ùˆ Ø³Ùˆ ØªØºØ°ÛŒÙ‡ (Ù…Ø´ØªØ±Ú© Ø­Ø³Ø§Ø³)",
+                "feeder_mode" => "dual",
+                "has_height" => false,
+                "has_brand" => false
+            ],
+            [
+                "name" => "Ù¾Ø³Øª Ø¯Ùˆ Ø³Ùˆ ØªØºØ°ÛŒÙ‡ (Ø¨ÛŒÙ…Ø§Ø±Ø³ØªØ§Ù†ÛŒ)",
+                "feeder_mode" => "dual",
+                "has_height" => false,
+                "has_brand" => false
+            ],
+            [
+                "name" => "Ù…Ø´ØªØ±Ú© ÙˆÙ„ØªØ§Ú˜ Ø§ÙˆÙ„ÛŒÙ‡",
+                "feeder_mode" => "single",
+                "has_height" => false,
+                "has_brand" => false
+            ]
+        ];
+
+        foreach ($types as $type) {
+            DB::table("main_equipment_types")->updateOrInsert(
+                ["name" => $type["name"]],
+                $type
+            );
+        }
+    }
+}
+
+--------------------------------------------------------------------------------
+【فایل 6】: MainEquipmentTypeSeeder.php
+📁 مسیر: database\seeders\MainEquipmentTypeSeeder.php
+📅 تاریخ آخرین تغییر: 02/13/2026 10:37:20
+📏 حجم: 2044 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+
+class MainEquipmentTypeSeeder extends Seeder
+{
+    public function run(): void
+    {
+        $types = [
+            [
+                "name" => "Ã˜Â±Ã›Å’ÃšÂ©Ã™â€žÃ™Ë†Ã˜Â²Ã˜Â±",
+                "feeder_mode" => "single",
+                "has_height" => true,
+                "has_brand" => true
+            ],
+            [
+                "name" => "Ã˜Â³ÃšÂ©Ã˜Â³Ã›Å’Ã™Ë†Ã™â€ Ã˜Â±",
+                "feeder_mode" => "dual",
+                "has_height" => true,
+                "has_brand" => true
+            ],
+            [
+                "name" => "Ã˜Â³ÃšÂ©Ã˜Â´Ã™â€ Ã˜Â§Ã™â€žÃ˜Â§Ã›Å’Ã˜Â²Ã˜Â±",
+                "feeder_mode" => "dual",
+                "has_height" => true,
+                "has_brand" => true
+            ],
+            [
+                "name" => "Ã™ÂÃ˜Â§Ã™â€žÃ˜Âª Ã˜Â¯Ã˜ÂªÃšÂ©Ã˜ÂªÃ™Ë†Ã˜Â±",
+                "feeder_mode" => "single",
+                "has_height" => false,
+                "has_brand" => true
+            ],
+            [
+                "name" => "Ã™Â¾Ã˜Â³Ã˜Âª Ã˜Â¯Ã™Ë† Ã˜Â³Ã™Ë† Ã˜ÂªÃ˜ÂºÃ˜Â°Ã›Å’Ã™â€¡ (Ã™â€¦Ã˜Â´Ã˜ÂªÃ˜Â±ÃšÂ© Ã˜Â­Ã˜Â³Ã˜Â§Ã˜Â³)",
+                "feeder_mode" => "dual",
+                "has_height" => false,
+                "has_brand" => false
+            ],
+            [
+                "name" => "Ã™Â¾Ã˜Â³Ã˜Âª Ã˜Â¯Ã™Ë† Ã˜Â³Ã™Ë† Ã˜ÂªÃ˜ÂºÃ˜Â°Ã›Å’Ã™â€¡ (Ã˜Â¨Ã›Å’Ã™â€¦Ã˜Â§Ã˜Â±Ã˜Â³Ã˜ÂªÃ˜Â§Ã™â€ Ã›Å’)",
+                "feeder_mode" => "dual",
+                "has_height" => false,
+                "has_brand" => false
+            ],
+            [
+                "name" => "Ã™â€¦Ã˜Â´Ã˜ÂªÃ˜Â±ÃšÂ© Ã™Ë†Ã™â€žÃ˜ÂªÃ˜Â§ÃšËœ Ã˜Â§Ã™Ë†Ã™â€žÃ›Å’Ã™â€¡",
+                "feeder_mode" => "single",
+                "has_height" => false,
+                "has_brand" => false
+            ]
+        ];
+
+        foreach ($types as $type) {
+            DB::table("main_equipment_types")->updateOrInsert(
+                ["name" => $type["name"]],
+                $type
+            );
+        }
+    }
+}
+
+================================================================================
+                        پایان فایل MainEquipmentTypeSeeder.php
+================================================================================

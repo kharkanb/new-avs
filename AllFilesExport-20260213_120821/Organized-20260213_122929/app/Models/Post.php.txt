@@ -1,0 +1,128 @@
+﻿============================================================
+ فایل: Post.php (پوشه: app\Models)
+============================================================
+
+تعداد نسخه‌ها: 6
+
+----------------------------------------
+ نسخه 1 : Post (2).php
+----------------------------------------
+<?php
+namespace App\Models;
+use Illuminate\Database\Eloquent\Model;
+class Post extends Model{
+ protected \=['name'];
+ public function feeders(){return \->hasMany(Feeder::class);}
+ public function mainEquipments(){return \->hasMany(MainEquipment::class);}
+}
+
+
+----------------------------------------
+ نسخه 2 : Post (3).php
+----------------------------------------
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class Post extends Model
+{
+    use HasFactory;
+
+    protected $fillable = ["name"];
+
+    public function feeders(): HasMany
+    {
+        return $this->hasMany(Feeder::class);
+    }
+}
+
+
+----------------------------------------
+ نسخه 3 : Post (4).php
+----------------------------------------
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class Post extends Model
+{
+    use HasFactory;
+
+    protected $fillable = ["name"];
+
+    public function feeders(): HasMany
+    {
+        return $this->hasMany(Feeder::class);
+    }
+}
+
+
+----------------------------------------
+ نسخه 4 : Post (5).php
+----------------------------------------
+<?php
+namespace App\Models;
+use Illuminate\Database\Eloquent\Model;
+class Post extends Model{
+ protected \=['name'];
+ public function feeders(){return \->hasMany(Feeder::class);}
+ public function mainEquipments(){return \->hasMany(MainEquipment::class);}
+}
+
+
+----------------------------------------
+ نسخه 5 : Post (6).php
+----------------------------------------
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class Post extends Model
+{
+    use HasFactory;
+
+    protected $fillable = ["name"];
+
+    public function feeders(): HasMany
+    {
+        return $this->hasMany(Feeder::class);
+    }
+}
+
+
+----------------------------------------
+ نسخه 6 : Post.php
+----------------------------------------
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class Post extends Model
+{
+    use HasFactory;
+
+    protected $fillable = ["name"];
+
+    public function feeders(): HasMany
+    {
+        return $this->hasMany(Feeder::class);
+    }
+}
+
+

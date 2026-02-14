@@ -1,0 +1,146 @@
+﻿============================================================
+ فایل: InspectionLog.php (پوشه: app\Models)
+============================================================
+
+تعداد نسخه‌ها: 4
+
+----------------------------------------
+ نسخه 1 : InspectionLog (2).php
+----------------------------------------
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class InspectionLog extends Model
+{
+    use HasFactory;
+
+    protected $table = "inspection_logs";
+
+    protected $fillable = [
+        "inspection_id",
+        "user_action",
+        "description",
+        "log_data"
+    ];
+
+    protected $casts = [
+        "log_data" => "array"
+    ];
+
+    public function inspection(): BelongsTo
+    {
+        return $this->belongsTo(Inspection::class);
+    }
+}
+
+
+----------------------------------------
+ نسخه 2 : InspectionLog (3).php
+----------------------------------------
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class InspectionLog extends Model
+{
+    use HasFactory;
+
+    protected $table = "inspection_logs";
+
+    protected $fillable = [
+        "inspection_id",
+        "user_action",
+        "description",
+        "log_data"
+    ];
+
+    protected $casts = [
+        "log_data" => "array"
+    ];
+
+    public function inspection(): BelongsTo
+    {
+        return $this->belongsTo(Inspection::class);
+    }
+}
+
+
+----------------------------------------
+ نسخه 3 : InspectionLog (4).php
+----------------------------------------
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class InspectionLog extends Model
+{
+    use HasFactory;
+
+    protected $table = "inspection_logs";
+
+    protected $fillable = [
+        "inspection_id",
+        "user_action",
+        "description",
+        "log_data"
+    ];
+
+    protected $casts = [
+        "log_data" => "array"
+    ];
+
+    public function inspection(): BelongsTo
+    {
+        return $this->belongsTo(Inspection::class);
+    }
+}
+
+
+----------------------------------------
+ نسخه 4 : InspectionLog.php
+----------------------------------------
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class InspectionLog extends Model
+{
+    use HasFactory;
+
+    protected $table = "inspection_logs";
+
+    protected $fillable = [
+        "inspection_id",
+        "user_action",
+        "description",
+        "log_data"
+    ];
+
+    protected $casts = [
+        "log_data" => "array"
+    ];
+
+    public function inspection(): BelongsTo
+    {
+        return $this->belongsTo(Inspection::class);
+    }
+}
+
+

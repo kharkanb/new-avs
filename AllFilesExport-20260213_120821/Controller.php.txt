@@ -1,0 +1,282 @@
+﻿================================================================================
+                            Controller.php
+================================================================================
+تعداد فایل‌ها: 11
+تاریخ ایجاد: 2026/02/13 12:08:26
+مسیر پایه: C:\Users\dear-user\Desktop\complete-avs
+================================================================================
+
+--------------------------------------------------------------------------------
+【فایل 1】: Controller (2).php
+📁 مسیر: app\Http\Controllers\Api\Controller (2).php
+📅 تاریخ آخرین تغییر: 02/12/2026 15:51:23
+📏 حجم: 658 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Models\;
+use Illuminate\Http\Request;
+
+class Controller extends Controller
+{
+    public function index() {
+        return ::all();
+    }
+
+    public function store(Request) {
+        \ = \->validate([]);
+        return ::create(\);
+    }
+
+    public function show(\) {
+        return ::findOrFail(\);
+    }
+
+    public function update(Request, \) {
+        \ = ::findOrFail(\);
+        \ = \->validate([]);
+        \->update(\);
+        return \;
+    }
+
+    public function destroy(\) {
+        ::findOrFail(\)->delete();
+        return response()->noContent();
+    }
+}
+
+--------------------------------------------------------------------------------
+【فایل 2】: Controller (2).php
+📁 مسیر: app\Http\Controllers\Controller (2).php
+📅 تاریخ آخرین تغییر: 02/12/2026 15:51:23
+📏 حجم: 98 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+class Controller
+{
+    //
+}
+
+
+--------------------------------------------------------------------------------
+【فایل 3】: Controller (3).php
+📁 مسیر: app\Http\Controllers\Api\Controller (3).php
+📅 تاریخ آخرین تغییر: 02/12/2026 15:51:23
+📏 حجم: 658 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Models\;
+use Illuminate\Http\Request;
+
+class Controller extends Controller
+{
+    public function index() {
+        return ::all();
+    }
+
+    public function store(Request) {
+        \ = \->validate([]);
+        return ::create(\);
+    }
+
+    public function show(\) {
+        return ::findOrFail(\);
+    }
+
+    public function update(Request, \) {
+        \ = ::findOrFail(\);
+        \ = \->validate([]);
+        \->update(\);
+        return \;
+    }
+
+    public function destroy(\) {
+        ::findOrFail(\)->delete();
+        return response()->noContent();
+    }
+}
+
+--------------------------------------------------------------------------------
+【فایل 4】: Controller (3).php
+📁 مسیر: app\Http\Controllers\Controller (3).php
+📅 تاریخ آخرین تغییر: 02/12/2026 15:51:23
+📏 حجم: 98 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+class Controller
+{
+    //
+}
+
+
+--------------------------------------------------------------------------------
+【فایل 5】: Controller (4).php
+📁 مسیر: app\Http\Controllers\Controller (4).php
+📅 تاریخ آخرین تغییر: 02/12/2026 15:51:23
+📏 حجم: 98 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+class Controller
+{
+    //
+}
+
+
+--------------------------------------------------------------------------------
+【فایل 6】: Controller (5).php
+📁 مسیر: app\Http\Controllers\Controller (5).php
+📅 تاریخ آخرین تغییر: 01/19/2026 21:27:25
+📏 حجم: 77 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Http\Controllers;
+
+abstract class Controller
+{
+    //
+}
+
+
+--------------------------------------------------------------------------------
+【فایل 7】: Controller.php
+📁 مسیر: app\Http\Controllers\Controller.php
+📅 تاریخ آخرین تغییر: 01/19/2026 21:27:25
+📏 حجم: 77 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Http\Controllers;
+
+abstract class Controller
+{
+    //
+}
+
+
+--------------------------------------------------------------------------------
+【فایل 8】: Controller.php
+📁 مسیر: app\Http\Controllers\Api\Controller.php
+📅 تاریخ آخرین تغییر: 02/12/2026 15:51:23
+📏 حجم: 658 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Models\;
+use Illuminate\Http\Request;
+
+class Controller extends Controller
+{
+    public function index() {
+        return ::all();
+    }
+
+    public function store(Request) {
+        \ = \->validate([]);
+        return ::create(\);
+    }
+
+    public function show(\) {
+        return ::findOrFail(\);
+    }
+
+    public function update(Request, \) {
+        \ = ::findOrFail(\);
+        \ = \->validate([]);
+        \->update(\);
+        return \;
+    }
+
+    public function destroy(\) {
+        ::findOrFail(\)->delete();
+        return response()->noContent();
+    }
+}
+
+--------------------------------------------------------------------------------
+【فایل 9】: Controller.php (2).backup
+📁 مسیر: app\Http\Controllers\Controller.php (2).backup
+📅 تاریخ آخرین تغییر: 02/10/2026 12:29:39
+📏 حجم: 77 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Http\Controllers;
+
+abstract class Controller
+{
+    //
+}
+
+
+--------------------------------------------------------------------------------
+【فایل 10】: Controller.php (3).backup
+📁 مسیر: app\Http\Controllers\Controller.php (3).backup
+📅 تاریخ آخرین تغییر: 02/10/2026 12:29:39
+📏 حجم: 77 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Http\Controllers;
+
+abstract class Controller
+{
+    //
+}
+
+
+--------------------------------------------------------------------------------
+【فایل 11】: Controller.php.backup
+📁 مسیر: app\Http\Controllers\Controller.php.backup
+📅 تاریخ آخرین تغییر: 02/10/2026 12:29:39
+📏 حجم: 77 بایت
+--------------------------------------------------------------------------------
+
+<?php
+
+namespace App\Http\Controllers;
+
+abstract class Controller
+{
+    //
+}
+
+
+================================================================================
+                        پایان فایل Controller.php
+================================================================================
