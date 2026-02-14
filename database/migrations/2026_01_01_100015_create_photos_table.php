@@ -10,14 +10,13 @@ return new class extends Migration
     {
         Schema::create('photos', function (Blueprint $table) {
             $table->id();
-            $table->morphs('photoble'); // این خط خودش ایندکس را ایجاد می‌کند
+            $table->foreignId('main_equipment_id')->constrained()->cascadeOnDelete(); // ✅ این خط رو اضافه کن
             $table->string('path');
             $table->string('caption')->nullable();
             $table->integer('sort_order')->default(0);
             $table->timestamps();
             
-            // این خط را حذف کنید
-            // $table->index(['photoble_type', 'photoble_id']);
+            $table->index('main_equipment_id');
         });
     }
 

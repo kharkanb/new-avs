@@ -10,6 +10,7 @@ return new class extends Migration
     {
         Schema::create('activities', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('main_equipment_id')->constrained()->cascadeOnDelete(); // ✅ این خط رو اضافه کن
             $table->morphs('activitable'); // این خط هم activitable_type و هم activitable_id را ایجاد می‌کند و ایندکس هم می‌گذارد
             $table->string('activity_code', 20);
             $table->text('description')->nullable();

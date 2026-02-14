@@ -10,6 +10,7 @@ class Consumable extends Model
     use HasFactory;
 
     protected $fillable = [
+        'main_equipment_id',  // ✅ این خط رو اضافه کن
         "equipment_id",
         "item_name",
         "quantity",
