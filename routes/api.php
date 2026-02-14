@@ -19,6 +19,9 @@ Route::get('/ping', function() {
 
 // ========== مسیرهای محافظت شده (نیاز به توکن) ==========
 Route::middleware('auth:sanctum')->group(function () {
+
+    Route::apiResource('users', UserManagementController::class);
+    Route::post('users/{user}/change-role', [UserManagementController::class, 'changeRole']);
     
     // احراز هویت
     Route::post('/logout', [AuthController::class, 'logout']);
