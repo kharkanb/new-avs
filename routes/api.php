@@ -42,6 +42,9 @@ Route::middleware('auth:sanctum')->group(function () {
     // بازرسی‌ها
     Route::apiResource('inspections', InspectionController::class);
     
+    // ✅ مسیر دریافت تجهیزات یک بازرسی (اینو اضافه کن)
+    Route::get('/inspections/{inspection}/equipments', [InspectionController::class, 'equipments']);
+    
     // تجهیزات اصلی
     Route::apiResource('main-equipments', MainEquipmentController::class);
     Route::get('/main-equipments/{mainEquipment}/cells', [MainEquipmentController::class, 'cells']);
