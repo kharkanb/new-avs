@@ -27,7 +27,7 @@ return Application::configure(basePath: dirname(__DIR__))
             if ($request->is('api/*') || $request->expectsJson()) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Unauthenticated. Please login first.'
+                    'message' => 'Unauthenticated. Token is invalid or expired.'
                 ], 401);
             }
         });
