@@ -1,3 +1,6 @@
+<form method="POST" action="{{ route('inspections.store') }}">
+    @csrf
+
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
@@ -5096,3 +5099,17 @@ function generateWordReport() {
     </script>
 </body>
 </html>
+
+
+    <button type="submit">ثبت بازدید</button>
+</form>
+
+
+
+
+<hr>
+<h3>تست ساده</h3>
+<form method="POST" action="{{ route('test.form') }}">
+    @csrf
+    <button type="submit">تست کن</button>
+</form>
