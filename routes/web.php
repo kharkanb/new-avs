@@ -1,18 +1,38 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Tech\TechController;
+use App\Http\Controllers\User\UserController;
 
+// ========== مسیرهای عمومی ==========
 Route::get('/', function () {
-    return Inertia::render('Welcome');
-})->name('home');
+    return view('welcome');
+});
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::get('/inspection-form', function () {
-    return view('inspection-form');
-})->name('inspection.form');
-
+// ========== مسیرهای احراز هویت ==========
 require __DIR__.'/auth.php';
+
+// ========== مسیرهای محافظت شده ==========
+Route::middleware(['auth'])->group(function () {
+    
+    // ===== مسیرهای ادمین =====
+    Route::middleware(['admin'])->prefix('admin')->name('admin.')->group(function () {
+        Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+        Route::resource('users', UserManagementController::class);
+        Route::get('/reports', [AdminController::class, 'reports'])->name('reports');
+    });
+    
+    // ===== مسیرهای کارشناس فنی =====
+    Route::middleware(['tech'])->prefix('tech')->name('tech.')->group(function () {
+        Route::get('/dashboard', [TechController::class, 'dashboard'])->name('dashboard');
+        Route::resource('inspections', InspectionController::class);
+        Route::resource('equipments', MainEquipmentController::class);
+    });
+    
+    // ===== مسیرهای کاربر عادی =====
+    Route::prefix('user')->name('user.')->group(function () {
+        Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
+        Route::get('/inspections/{id}', [UserController::class, 'showInspection'])->name('inspection.show');
+    });
+});
