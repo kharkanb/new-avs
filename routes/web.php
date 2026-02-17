@@ -3,65 +3,6 @@
 use Illuminate\Support\Facades\Route;
 
 // ===============================================
-// تست‌های CSRF
-// ===============================================
-
-// تست 1: نمایش فرم تست CSRF
-Route::get('/test', function() {
-    return '
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <title>تست CSRF</title>
-        <style>
-            body { font-family: Tahoma; direction: rtl; padding: 20px; }
-            .success { color: green; }
-            .error { color: red; }
-        </style>
-    </head>
-    <body>
-        <h3>📋 تست CSRF</h3>
-        <form method="POST" action="/test">
-            <input type="hidden" name="_token" value="'.csrf_token().'">
-            <input type="text" name="test_field" value="test_value">
-            <button type="submit">ارسال تست CSRF</button>
-        </form>
-    </body>
-    </html>';
-});
-
-// تست 2: دریافت نتیجه تست CSRF
-Route::post('/test', function() {
-    return '<h3 class="success">✅ تست CSRF با موفقیت انجام شد!</h3>';
-});
-
-// تست 3: تست ساده JSON
-Route::post('/test-simple', function() {
-    return response()->json([
-        'success' => true,
-        'message' => '✅ تست ساده با موفقیت انجام شد!',
-        'data' => request()->all(),
-        'method' => request()->method(),
-        'timestamp' => now()->toDateTimeString()
-    ]);
-})->name('test.simple');
-
-// تست 4: تست با پارامتر
-Route::post('/test-with-params', function() {
-    $test = request('test', 'مقدار پیش‌فرض');
-    return response()->json([
-        'success' => true,
-        'message' => "✅ مقدار دریافتی: $test",
-        'all_data' => request()->all()
-    ]);
-})->name('test.params');
-
-// تست 5: تست GET ساده
-Route::get('/test-get', function() {
-    return view('inspection-form');
-})->name('test.get');
-
-// ===============================================
 // فرم اصلی بازدید
 // ===============================================
 
@@ -81,19 +22,38 @@ Route::post('/inspections', function() {
 })->name('inspections.store');
 
 // ===============================================
-// تست‌های کنسول (برای PowerShell)
+// تست‌های ساده
 // ===============================================
 
-// تست 6: برای PowerShell (بدون CSRF - موقت)
-Route::post('/api/test', function() {
+// تست ساده CSRF (با name)
+Route::post('/test-simple', function() {
     return response()->json([
         'success' => true,
-        'message' => '✅ تست PowerShell موفق بود',
-        'data' => request()->all()
+        'message' => '✅ تست ساده کار می‌کند!',
+        'data' => request()->all(),
+        'method' => request()->method()
     ]);
-});
+})->name('test.simple');  // این یکی کافیه
 
-// تست 7: بررسی health
+// تست با پارامتر
+Route::post('/test-with-params', function() {
+    $test = request('test', 'مقدار پیش‌فرض');
+    return response()->json([
+        'success' => true,
+        'message' => "✅ مقدار دریافتی: $test",
+        'all_data' => request()->all()
+    ]);
+})->name('test.params');
+
+// تست فرم
+Route::post('/test-form', function() {
+    return response()->json([
+        'success' => true,
+        'message' => '✅ تست فرم با موفقیت انجام شد'
+    ]);
+})->name('test.form');
+
+// تست سلامت
 Route::get('/health', function() {
     return response()->json([
         'status' => 'healthy',
@@ -102,3 +62,40 @@ Route::get('/health', function() {
         'timestamp' => now()->toDateTimeString()
     ]);
 });
+
+// ===============================================
+// تست‌های CSRF (با فرم HTML)
+// ===============================================
+
+// نمایش فرم تست CSRF
+Route::get('/test', function() {
+    return '
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>تست CSRF</title>
+        <style>
+            body { font-family: Tahoma; direction: rtl; padding: 20px; }
+            .success { color: green; }
+        </style>
+    </head>
+    <body>
+        <h3>📋 تست CSRF</h3>
+        <form method="POST" action="/test">
+            <input type="hidden" name="_token" value="'.csrf_token().'">
+            <input type="text" name="test_field" value="test_value">
+            <button type="submit">ارسال تست CSRF</button>
+        </form>
+    </body>
+    </html>';
+});
+
+// دریافت نتیجه تست CSRF
+Route::post('/test', function() {
+    return '<h3 class="success">✅ تست CSRF با موفقیت انجام شد! دریافت شد: ' . request('test_field') . '</h3>';
+});
+
+// تست GET ساده
+Route::get('/test-get', function() {
+    return view('inspection-form');
+})->name('test.get');

@@ -679,14 +679,14 @@
 <!-- فرم تست ساده در بالای صفحه -->
 <div class="container" style="background: #f0f0f0; padding: 10px; margin-bottom: 20px;">
        <form method="POST" action="/test.simple">   
-     @csrf
+     <?php echo csrf_field(); ?>
         <button type="submit" class="btn btn-info">تست ساده CSRF</button>
     </form>
 </div>
 
 
-<form method="POST" action="{{ route('inspections.store') }}">
-    @csrf
+<form method="POST" action="<?php echo e(route('inspections.store')); ?>">
+    <?php echo csrf_field(); ?>
 
 <!-- Header -->
 <!-- <div class="header" style="background: linear-gradient(135deg, #f8f9fa, #e9ecef); color: #2c3e50;"> -->
@@ -712,7 +712,7 @@
         <div class="row align-items-center">
             <!-- ستون ۱: لوگو (چپ) -->
             <div class="col-md-2 text-center">
-                <img src="{{ asset('logo.png') }}" alt="لوگو" class="img-fluid" style="max-height: 100px;">
+                <img src="<?php echo e(asset('logo.png')); ?>" alt="لوگو" class="img-fluid" style="max-height: 100px;">
                  <!-- <h5 class="mb-0"  style="font-size: 1rem;">شرکت توزیع نیروی برق استان یزد</h5> -->
             </div>
             
@@ -5126,15 +5126,15 @@ function generateWordReport() {
 
 <hr>
 <h3>تست ساده</h3>
-<form method="POST" action="{{ route('test.form') }}">
-    @csrf
+<form method="POST" action="<?php echo e(route('test.form')); ?>">
+    <?php echo csrf_field(); ?>
     <button type="submit">تست کن</button>
 </form>
 
     <hr>
     <h3>تست ساده CSRF</h3>
-    <form method="POST" action="{{ route('test.simple') }}">
-        @csrf
+    <form method="POST" action="<?php echo e(route('test.simple')); ?>">
+        <?php echo csrf_field(); ?>
         <button type="submit" class="btn btn-info">تست ساده CSRF</button>
     </form>
 
@@ -5142,16 +5142,16 @@ function generateWordReport() {
 <h3>تست‌های ساده</h3>
 
 <!-- فرم تست اول -->
-<form method="POST" action="{{ route('test.form') }}" style="display: inline-block; margin-left: 10px;">
-    @csrf
+<form method="POST" action="<?php echo e(route('test.form')); ?>" style="display: inline-block; margin-left: 10px;">
+    <?php echo csrf_field(); ?>
     <button type="submit" class="btn btn-secondary">تست قبلی</button>
 </form>
 
 <!-- فرم تست ساده جدید -->
-<form method="POST" action="{{ route('test.simple') }}" style="display: inline-block;">
-    @csrf
+<form method="POST" action="<?php echo e(route('test.simple')); ?>" style="display: inline-block;">
+    <?php echo csrf_field(); ?>
     <button type="submit" class="btn btn-info">تست ساده CSRF</button>
 </form>
 
 </body>
-</html>
+</html><?php /**PATH C:\Users\dear-user\Desktop\new-avs\resources\views/inspection-form.blade.php ENDPATH**/ ?>
