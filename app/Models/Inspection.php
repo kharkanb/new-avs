@@ -40,6 +40,27 @@ class Inspection extends Model
     /**
      * (اختیاری) متد برای گرفتن وضعیت به صورت فارسی
      */
+
+
+public function up(): void
+{
+    Schema::create('inspections', function (Blueprint $table) {
+        $table->id();
+        $table->string('inspection_date');
+        $table->time('daily_start_time')->nullable();
+        $table->time('daily_end_time')->nullable();
+        $table->string('contractor');
+        $table->decimal('contract_coefficient', 5, 2);
+        $table->string('contract_number')->nullable();
+        $table->string('whatsapp_number')->nullable();
+        $table->json('equipments_data')->nullable(); // برای ذخیره اطلاعات تجهیزات
+        $table->timestamps();
+    });
+}
+
+
+
+
     public function getStatusLabelAttribute(): string
     {
         return match($this->status) {
