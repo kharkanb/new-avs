@@ -673,7 +673,7 @@
 </head>
 <body>
 
-<form method="POST" action="{{ route('inspections.store') }}" id="main-form">
+<form method="POST" action="/api/inspections" id="main-form">
     @csrf
 <!-- Header -->
 <!-- <div class="header" style="background: linear-gradient(135deg, #f8f9fa, #e9ecef); color: #2c3e50;"> -->
@@ -1859,11 +1859,53 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
+
+
+<script>
 document.getElementById('main-form').addEventListener('submit', function(e) {
-    alert('فرم در حال ارسال است...');
-    // اگه خواستی ببینی چه داده‌هایی ارسال میشه
-    console.log(new FormData(this));
+    e.preventDefault();
+    
+    // جمع‌آوری داده‌ها با نام‌های صحیح
+    const formData = {
+        inspection_date: document.getElementById('inspection-date').value,
+        contractor: document.getElementById('contractor').value,
+        contract_coefficient: document.getElementById('contract-coefficient').value,
+        contract_number: document.getElementById('contract-number').value,
+        daily_start_time: document.getElementById('daily-start-time').value,
+        daily_end_time: document.getElementById('daily-end-time').value,
+        whatsapp_number: document.getElementById('whatsapp-number').value,
+        equipments: equipments  // آرایه تجهیزات
+    };
+    
+    console.log('داده‌های ارسالی:', formData); // برای دیباگ
+    
+    fetch('/api/inspections', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
+        },
+        body: JSON.stringify(formData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('پاسخ سرور:', data);
+        if (data.success) {
+            alert('بازدید با موفقیت ثبت شد!');
+            // می‌توانید به مرحله بعد بروید
+            // goToStep(2);
+        } else {
+            alert('خطا: ' + JSON.stringify(data.errors, null, 2));
+        }
+    })
+    .catch(error => {
+        console.error('خطا:', error);
+        alert('خطا در ارتباط با سرور: ' + error.message);
+    });
 });
+</script>
+
+
 
 
 
@@ -5115,5 +5157,43 @@ if (typeof saveAs === 'undefined') {
 }  
 
     </script>
+
+<script>
+document.getElementById('main-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const formData = {
+        inspection_date: document.getElementById('inspection-date').value,
+        contractor: document.getElementById('contractor').value,
+        contract_coefficient: document.getElementById('contract-coefficient').value,
+        contract_number: document.getElementById('contract-number').value,
+        daily_start_time: document.getElementById('daily-start-time').value,
+        daily_end_time: document.getElementById('daily-end-time').value,
+        whatsapp_number: document.getElementById('whatsapp-number').value,
+        equipments: equipments
+    };
+    
+    fetch('/api/inspections', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
+        },
+        body: JSON.stringify(formData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert(JSON.stringify(data, null, 2));
+        if (data.success) {
+            // به مرحله بعد بروید یا پیام موفقیت نمایش دهید
+        }
+    })
+    .catch(error => {
+        alert('خطا: ' + error.message);
+    });
+});
+</script>
+
+
 </body>
 </html>

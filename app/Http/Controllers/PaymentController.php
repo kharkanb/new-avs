@@ -23,14 +23,41 @@ class PaymentController extends Controller
         ]);
     }
 
-    public function inspections(Request $request)
-    {
+   public function inspections(Request $request)
+{
+    try {
+        // اعتبارسنجی داده‌های دریافتی
+        $validated = $request->validate([
+            'inspection_date' => 'required|string',
+            'contractor' => 'required|string',
+            'contract_coefficient' => 'required|numeric',
+            'daily_start_time' => 'required',
+            'daily_end_time' => 'required',
+            'whatsapp_number' => 'nullable|string',
+            'contract_number' => 'nullable|string',
+            'equipments' => 'sometimes|array'
+        ]);
+
+        // اینجا می‌توانید داده‌ها را در دیتابیس ذخیره کنید
+        // ...
+
         return response()->json([
             'success' => true,
-            'message' => 'Inspections page',
-            'data' => [
-                'inspections' => []
-            ]
+            'message' => 'بازدید با موفقیت ثبت شد',
+            'data' => $validated
         ]);
+        
+    } catch (\Illuminate\Validation\ValidationException $e) {
+        return response()->json([
+            'success' => false,
+            'message' => 'خطا در اعتبارسنجی داده‌ها',
+            'errors' => $e->errors()
+        ], 422);
+    } catch (\Exception $e) {
+        return response()->json([
+            'success' => false,
+            'message' => 'خطا در ثبت بازدید: ' . $e->getMessage()
+        ], 500);
     }
+}
 }
