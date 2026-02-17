@@ -1,6 +1,3 @@
-<form method="POST" action="{{ route('inspections.store') }}">
-    @csrf
-
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
@@ -678,6 +675,21 @@
 
 
 <body>
+
+<!-- فرم تست ساده در بالای صفحه -->
+<div class="container" style="background: #f0f0f0; padding: 10px; margin-bottom: 20px;">
+    <form method="POST" action="{{ route('test.simple') }}">
+        @csrf
+        <button type="submit" class="btn btn-info">تست ساده CSRF</button>
+    </form>
+</div>
+
+<!-- بقیه محتوای صفحه ... -->
+
+
+<form method="POST" action="{{ route('inspections.store') }}">
+    @csrf
+
 <!-- Header -->
 <!-- <div class="header" style="background: linear-gradient(135deg, #f8f9fa, #e9ecef); color: #2c3e50;"> -->
 <!-- <div class="header" style="background: #ffffff; color: #2c3e50;"> -->
@@ -5095,16 +5107,12 @@ function generateWordReport() {
         };
     } 
 
-
     </script>
-</body>
-</html>
 
-
-    <button type="submit">ثبت بازدید</button>
-</form>
-
-
+        <div class="container">
+            <button type="submit" class="btn btn-primary">ثبت بازدید</button>
+        </div>
+    </form>
 
 
 <hr>
@@ -5113,3 +5121,28 @@ function generateWordReport() {
     @csrf
     <button type="submit">تست کن</button>
 </form>
+
+    <hr>
+    <h3>تست ساده CSRF</h3>
+    <form method="POST" action="{{ route('test.simple') }}">
+        @csrf
+        <button type="submit" class="btn btn-info">تست ساده CSRF</button>
+    </form>
+
+<hr>
+<h3>تست‌های ساده</h3>
+
+<!-- فرم تست اول -->
+<form method="POST" action="{{ route('test.form') }}" style="display: inline-block; margin-left: 10px;">
+    @csrf
+    <button type="submit" class="btn btn-secondary">تست قبلی</button>
+</form>
+
+<!-- فرم تست ساده جدید -->
+<form method="POST" action="{{ route('test.simple') }}" style="display: inline-block;">
+    @csrf
+    <button type="submit" class="btn btn-info">تست ساده CSRF</button>
+</form>
+
+</body>
+</html>
