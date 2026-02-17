@@ -4,12 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\Inspection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class InspectionController extends Controller
 {
     public function store(Request $request)
     {
         try {
+            // لاگ برای دیباگ
+            Log::info('Data received:', $request->all());
+            
             // اعتبارسنجی
             $validated = $request->validate([
                 'inspection_date' => 'required',
@@ -19,9 +23,6 @@ class InspectionController extends Controller
                 'contract_coefficient' => 'required|numeric',
                 'contract_number' => 'nullable',
                 'whatsapp_number' => 'nullable',
-                'equipments' => 'nullable|array',
-                'activitiesData' => 'nullable|array',
-                'consumablesData' => 'nullable|array'
             ]);
 
             // ذخیره در دیتابیس
@@ -33,22 +34,21 @@ class InspectionController extends Controller
                 'contract_coefficient' => $request->contract_coefficient,
                 'contract_number' => $request->contract_number,
                 'whatsapp_number' => $request->whatsapp_number,
-                'equipments_data' => $request->equipments,
-                'activities_data' => $request->activitiesData,
-                'consumables_data' => $request->consumablesData
+                'equipments_data' => json_encode($request->equipments ?? [])
             ]);
 
             return response()->json([
                 'success' => true,
-                'message' => 'بازدید با موفقیت ثبت شد',
+                'message' => '✅ بازدید با موفقیت ثبت شد!',
                 'data' => $inspection
-            ], 201);
+            ]);
 
         } catch (\Exception $e) {
+            Log::error('Error saving inspection: ' . $e->getMessage());
+            
             return response()->json([
                 'success' => false,
-                'message' => 'خطا در ثبت بازدید',
-                'error' => $e->getMessage()
+                'message' => 'خطا در ثبت بازدید: ' . $e->getMessage()
             ], 500);
         }
     }

@@ -671,10 +671,10 @@
     <!-- اضافه کردن این لینک برای XLSX -->
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 </head>
-
-
-
 <body>
+
+<form method="POST" action="<?php echo e(route('inspections.store')); ?>" id="main-form">
+    <?php echo csrf_field(); ?>
 <!-- Header -->
 <!-- <div class="header" style="background: linear-gradient(135deg, #f8f9fa, #e9ecef); color: #2c3e50;"> -->
 <!-- <div class="header" style="background: #ffffff; color: #2c3e50;"> -->
@@ -1020,6 +1020,16 @@
                         <i class="bi bi-arrow-right"></i> بازگشت به ویرایش
                     </button>
                 </div>
+
+
+    <div class="col-md-2 text-center">
+        <button type="submit" class="btn btn-primary btn-icon" id="submit-inspection">
+            <i class="bi bi-check-circle"></i> ثبت نهایی بازدید
+        </button>
+    </div>
+
+
+
                 <div class="col-md-2 text-center">
                     <button class="btn btn-info btn-icon" onclick="generatePDFReport()">
                         <i class="bi bi-file-pdf"></i> تولید گزارش PDF
@@ -1109,6 +1119,9 @@
             </div>
         </div>
     </div>
+
+</form> <!-- اینجا فرم بسته میشه -->
+
 
     <!-- JavaScript Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -1843,6 +1856,16 @@ document.addEventListener('DOMContentLoaded', function() {
         ];
 
         const postsList = postsAndFeedersData.map(item => item.post);
+
+
+
+document.getElementById('main-form').addEventListener('submit', function(e) {
+    alert('فرم در حال ارسال است...');
+    // اگه خواستی ببینی چه داده‌هایی ارسال میشه
+    console.log(new FormData(this));
+});
+
+
 
         // Step navigation functions
         function goToStep(step) {
@@ -5077,21 +5100,19 @@ function generateWordReport() {
 
 
 
-    // در اینجا اضافه کنید - خارج از $(document).ready اما داخل تگ <script>
-    // در صورت عدم وجود FileSaver.js، یک polyfill ساده اضافه می‌کنیم
-    if (typeof saveAs === 'undefined') {
-        window.saveAs = function(blob, filename) {
-            const link = document.createElement('a');
-            const url = URL.createObjectURL(blob);
-            link.href = url;
-            link.download = filename;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            setTimeout(() => URL.revokeObjectURL(url), 100);
-        };
-    } 
-
+// Polyfill برای FileSaver.js
+if (typeof saveAs === 'undefined') {
+    window.saveAs = function(blob, filename) {
+        const link = document.createElement('a');
+        const url = URL.createObjectURL(blob);
+        link.href = url;
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        setTimeout(() => URL.revokeObjectURL(url), 100);
+    };
+}  
 
     </script>
 </body>
