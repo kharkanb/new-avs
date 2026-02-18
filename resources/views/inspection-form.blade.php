@@ -1132,12 +1132,12 @@
             <div class="modal-body">
                 <form id="loginForm" onsubmit="handleLogin(event)">
                     <div class="mb-3">
-                        <label class="form-label required">نام کاربری</label>
-                        <input type="text" class="form-control" id="username" required>
+                        <label class="form-label required">ایمیل</label>
+                        <input type="email" class="form-control" id="email" required placeholder="admin@example.com">
                     </div>
                     <div class="mb-3">
                         <label class="form-label required">رمز عبور</label>
-                        <input type="password" class="form-control" id="password" required>
+                        <input type="password" class="form-control" id="password" required placeholder="********">
                     </div>
                     <button type="submit" class="btn btn-primary w-100">ورود</button>
                 </form>
@@ -1145,6 +1145,10 @@
         </div>
     </div>
 </div>
+
+
+
+
     <div class="modal fade" id="equipmentModal" tabindex="-1">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
@@ -1169,35 +1173,64 @@
     <!-- Main JavaScript -->
     <script>
 
-// تابع ورود به سیستم (می‌توانید در یک فایل جداگانه یا همان صفحه قرار دهید)
-async function loginUser(username, password) {
+// تابع ورود به سیستم (نسخه اصلاح شده)
+async function loginUser(email, password) {
     try {
+        console.log('Sending login request...');
+        
         const response = await fetch('/api/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Accept': 'application/json'
+                'Accept': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest'
             },
             body: JSON.stringify({
-                username: username,
+                email: email,
                 password: password
             })
         });
 
-        const result = await response.json();
+        console.log('Response status:', response.status);
+        
+        // دریافت متن پاسخ
+        const responseText = await response.text();
+        console.log('Raw response:', responseText);
 
-        if (!response.ok) {
-            throw new Error(result.message || 'خطا در ورود');
+        // اگر پاسخ خالی است
+        if (!responseText.trim()) {
+            throw new Error('پاسخ خالی از سرور دریافت شد');
         }
 
-        // ذخیره توکن
+        // تلاش برای تبدیل به JSON
+        let result;
+        try {
+            result = JSON.parse(responseText);
+        } catch (jsonError) {
+            console.error('JSON parse error:', jsonError);
+            throw new Error('فرمت پاسخ سرور نامعتبر است: ' + responseText.substring(0, 100));
+        }
+
+        // اگر وضعیت OK نیست
+        if (!response.ok) {
+            throw new Error(result.message || result.error || 'خطا در ورود');
+        }
+
+        // بررسی وجود توکن
+        if (!result.token) {
+            throw new Error('توکن دریافتی از سرور نامعتبر است');
+        }
+
+        // ذخیره توکن و اطلاعات کاربر
         localStorage.setItem('auth_token', result.token);
-        localStorage.setItem('user', JSON.stringify(result.user));
+        if (result.user) {
+            localStorage.setItem('user', JSON.stringify(result.user));
+        }
         
         return true;
 
     } catch (error) {
-        console.error('Login error:', error);
+        console.error('Login error details:', error);
         throw error;
     }
 }
@@ -1209,11 +1242,24 @@ function showLoginModal() {
     modal.show();
 }
 
+
+
+
+// تابع handleLogin اصلاح شده
 async function handleLogin(event) {
     event.preventDefault();
     
-    const username = document.getElementById('username').value;
+    const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
+    
+    if (!email || !password) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'خطا',
+            text: 'ایمیل و رمز عبور را وارد کنید'
+        });
+        return;
+    }
     
     try {
         Swal.fire({
@@ -1224,12 +1270,19 @@ async function handleLogin(event) {
             }
         });
         
-        await loginUser(username, password);
+        await loginUser(email, password);
         
         Swal.close();
-        bootstrap.Modal.getInstance(document.getElementById('loginModal')).hide();
         
-        document.getElementById('user-name').textContent = username;
+        // بستن مودال
+        const modal = bootstrap.Modal.getInstance(document.getElementById('loginModal'));
+        if (modal) {
+            modal.hide();
+        }
+        
+        // به‌روزرسانی نمایش نام کاربری
+        document.getElementById('user-name').textContent = email.split('@')[0]; // نمایش بخش اول ایمیل
+        
         Swal.fire({
             icon: 'success',
             title: 'ورود موفق',
@@ -1239,15 +1292,15 @@ async function handleLogin(event) {
         });
         
     } catch (error) {
+        console.error('Login error:', error);
+        
         Swal.fire({
             icon: 'error',
             title: 'خطا در ورود',
-            text: error.message
+            text: error.message || 'خطایی رخ داده است. لطفا دوباره تلاش کنید.'
         });
     }
 }
-
-
 
 
 
