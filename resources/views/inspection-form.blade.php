@@ -670,7 +670,12 @@
     
     <!-- اضافه کردن این لینک برای XLSX -->
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment-jalaali@0.9.3/build/moment-jalaali.min.js"></script>
+
 </head>
 
 
@@ -5276,11 +5281,21 @@ function generateWordReport() {
 
 
 
-// تابع ثبت نهایی بازدید در دیتابیس
+// تابع ثبت نهایی بازدید در دیتابیس - نسخه نهایی با تبدیل تاریخ
 async function submitFinalInspection() {
     try {
         // نمایش confirmation
         if (!confirm('آیا از ثبت نهایی این بازدید اطمینان دارید؟ پس از ثبت، امکان ویرایش وجود نخواهد داشت.')) {
+            return;
+        }
+
+        // بررسی وجود حداقل یک تجهیز
+        if (equipments.length === 0) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'خطا',
+                text: 'حداقل یک تجهیز باید اضافه کنید'
+            });
             return;
         }
 
@@ -5294,7 +5309,7 @@ async function submitFinalInspection() {
             }
         });
 
-        // دریافت توکن از localStorage (فرض می‌کنیم بعد از لاگین ذخیره شده)
+        // دریافت توکن از localStorage
         const token = localStorage.getItem('auth_token');
         
         if (!token) {
@@ -5306,9 +5321,50 @@ async function submitFinalInspection() {
             return;
         }
 
-        // آماده‌سازی داده‌ها
+        // دریافت تاریخ شمسی
+        const jalaliDate = document.getElementById('inspection-date').value;
+        console.log('Jalali date:', jalaliDate);
+
+        // تبدیل تاریخ شمسی به میلادی با استفاده از moment-jalaali
+        function convertJalaliToGregorian(jalaliDateStr) {
+            try {
+                // اگر کتابخانه moment-jalaali وجود دارد
+                if (typeof window.moment !== 'undefined') {
+                    // حذف اعداد فارسی و تبدیل به اعداد انگلیسی
+                    const persianNumbers = {
+                        '۰': '0', '۱': '1', '۲': '2', '۳': '3', '۴': '4',
+                        '۵': '5', '۶': '6', '۷': '7', '۸': '8', '۹': '9'
+                    };
+                    
+                    let englishDate = jalaliDateStr;
+                    for (let [persian, english] of Object.entries(persianNumbers)) {
+                        englishDate = englishDate.replace(new RegExp(persian, 'g'), english);
+                    }
+                    
+                    console.log('English digits date:', englishDate);
+                    
+                    // تبدیل به میلادی
+                    const m = window.moment(englishDate, 'jYYYY/jMM/jDD');
+                    if (m.isValid()) {
+                        const gregorianDate = m.format('YYYY-MM-DD');
+                        console.log('Converted to Gregorian:', gregorianDate);
+                        return gregorianDate;
+                    }
+                }
+            } catch (e) {
+                console.error('Date conversion error:', e);
+            }
+            
+            // اگر تبدیل ناموفق بود، تاریخ را بدون تغییر برگردان
+            return jalaliDateStr;
+        }
+
+        const gregorianDate = convertJalaliToGregorian(jalaliDate);
+        console.log('Final date to send:', gregorianDate);
+
+        // آماده‌سازی داده‌ها - تاریخ میلادی ارسال می‌شود
         const inspectionData = {
-            inspection_date: document.getElementById('inspection-date').value,
+            inspection_date: gregorianDate, // تاریخ میلادی
             daily_start_time: document.getElementById('daily-start-time').value,
             daily_end_time: document.getElementById('daily-end-time').value,
             contractor: document.getElementById('contractor').value,
@@ -5366,6 +5422,8 @@ async function submitFinalInspection() {
             }))
         };
 
+        console.log('Sending inspection data:', JSON.stringify(inspectionData, null, 2));
+
         // ارسال به سرور
         const response = await fetch('/api/inspections', {
             method: 'POST',
@@ -5377,10 +5435,29 @@ async function submitFinalInspection() {
             body: JSON.stringify(inspectionData)
         });
 
-        const result = await response.json();
+        const responseText = await response.text();
+        console.log('Raw response:', responseText);
+
+        let result;
+        try {
+            result = JSON.parse(responseText);
+        } catch (e) {
+            console.error('JSON parse error:', e);
+            throw new Error('پاسخ سرور نامعتبر است: ' + responseText.substring(0, 100));
+        }
 
         if (!response.ok) {
-            throw new Error(result.message || 'خطا در ثبت اطلاعات');
+            // اگر خطای اعتبارسنجی باشد (422)
+            if (response.status === 422) {
+                const errorMessages = [];
+                if (result.errors) {
+                    Object.keys(result.errors).forEach(key => {
+                        errorMessages.push(`${key}: ${result.errors[key].join(', ')}`);
+                    });
+                }
+                throw new Error(errorMessages.join('\n') || result.message || 'خطای اعتبارسنجی');
+            }
+            throw new Error(result.message || result.error || 'خطا در ثبت اطلاعات');
         }
 
         // موفقیت
@@ -5413,7 +5490,6 @@ async function submitFinalInspection() {
         });
     }
 }
-
 // همچنین یک تابع برای نمایش وضعیت احراز هویت اضافه کنید
 function checkAuthStatus() {
     const token = localStorage.getItem('auth_token');
