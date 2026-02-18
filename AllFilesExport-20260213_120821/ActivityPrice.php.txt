@@ -1,167 +1,0 @@
-﻿================================================================================
-                            ActivityPrice.php
-================================================================================
-تعداد فایل‌ها: 6
-تاریخ ایجاد: 2026/02/13 12:08:25
-مسیر پایه: C:\Users\dear-user\Desktop\complete-avs
-================================================================================
-
---------------------------------------------------------------------------------
-【فایل 1】: ActivityPrice (2).php
-📁 مسیر: app\Models\ActivityPrice (2).php
-📅 تاریخ آخرین تغییر: 02/12/2026 22:38:23
-📏 حجم: 135 بایت
---------------------------------------------------------------------------------
-
-<?php
-namespace App\Models;
-use Illuminate\Database\Eloquent\Model;
-class ActivityPrice extends Model{
- protected \=['name','price'];
-}
-
---------------------------------------------------------------------------------
-【فایل 2】: ActivityPrice (3).php
-📁 مسیر: app\Models\ActivityPrice (3).php
-📅 تاریخ آخرین تغییر: 02/12/2026 23:48:54
-📏 حجم: 395 بایت
---------------------------------------------------------------------------------
-
-<?php
-
-namespace App\Models;
-
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-
-class ActivityPrice extends Model
-{
-    use HasFactory;
-
-    protected $table = "activity_price_list";
-
-    protected $fillable = [
-        "code",
-        "title",
-        "unit",
-        "price"
-    ];
-
-    protected $casts = [
-        "price" => "decimal:2"
-    ];
-}
-
---------------------------------------------------------------------------------
-【فایل 3】: ActivityPrice (4).php
-📁 مسیر: app\Models\ActivityPrice (4).php
-📅 تاریخ آخرین تغییر: 02/12/2026 23:48:54
-📏 حجم: 395 بایت
---------------------------------------------------------------------------------
-
-<?php
-
-namespace App\Models;
-
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-
-class ActivityPrice extends Model
-{
-    use HasFactory;
-
-    protected $table = "activity_price_list";
-
-    protected $fillable = [
-        "code",
-        "title",
-        "unit",
-        "price"
-    ];
-
-    protected $casts = [
-        "price" => "decimal:2"
-    ];
-}
-
---------------------------------------------------------------------------------
-【فایل 4】: ActivityPrice (5).php
-📁 مسیر: app\Models\ActivityPrice (5).php
-📅 تاریخ آخرین تغییر: 02/12/2026 22:38:23
-📏 حجم: 135 بایت
---------------------------------------------------------------------------------
-
-<?php
-namespace App\Models;
-use Illuminate\Database\Eloquent\Model;
-class ActivityPrice extends Model{
- protected \=['name','price'];
-}
-
---------------------------------------------------------------------------------
-【فایل 5】: ActivityPrice (6).php
-📁 مسیر: app\Models\ActivityPrice (6).php
-📅 تاریخ آخرین تغییر: 02/12/2026 23:48:54
-📏 حجم: 395 بایت
---------------------------------------------------------------------------------
-
-<?php
-
-namespace App\Models;
-
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-
-class ActivityPrice extends Model
-{
-    use HasFactory;
-
-    protected $table = "activity_price_list";
-
-    protected $fillable = [
-        "code",
-        "title",
-        "unit",
-        "price"
-    ];
-
-    protected $casts = [
-        "price" => "decimal:2"
-    ];
-}
-
---------------------------------------------------------------------------------
-【فایل 6】: ActivityPrice.php
-📁 مسیر: app\Models\ActivityPrice.php
-📅 تاریخ آخرین تغییر: 02/13/2026 10:37:21
-📏 حجم: 395 بایت
---------------------------------------------------------------------------------
-
-<?php
-
-namespace App\Models;
-
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-
-class ActivityPrice extends Model
-{
-    use HasFactory;
-
-    protected $table = "activity_price_list";
-
-    protected $fillable = [
-        "code",
-        "title",
-        "unit",
-        "price"
-    ];
-
-    protected $casts = [
-        "price" => "decimal:2"
-    ];
-}
-
-================================================================================
-                        پایان فایل ActivityPrice.php
-================================================================================

@@ -9,8 +9,9 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/vazirmatn@5.0.8/index.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.18/jquery.timepicker.min.css">
-
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     <style>
+        /* تمام استایل‌هایی که داشتی همینجا میاد */
         :root {
             --primary-color: #2c3e50;
             --secondary-color: #3498db;
@@ -28,13 +29,13 @@
             line-height: 1.6;
         }
         
-.header {
-    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-    color: #2c3e50;
-    padding: 20px 0;
-    margin-bottom: 30px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-}
+        .header {
+            background: #f8f4e9;
+            color: #2c3e50;
+            padding: 20px 0;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
         
         .form-section {
             background: white;
@@ -609,137 +610,86 @@
             font-size: 0.7rem;
         }
 
+        /* رفع مشکل z-index برای dropdownهای داخلی */
+        .tab-content .select2-container--open {
+            z-index: 1060 !important;
+        }
 
+        .tab-content .select2-dropdown {
+            z-index: 1061 !important;
+        }
 
+        /* رفع مشکل overflow در تب‌ها */
+        .tab-content {
+            position: relative;
+            z-index: 1;
+        }
 
+        /* بهبود ظاهر dropdown در تَب‌های اطلاعات فنی */
+        #tech-info-container .select2-container {
+            z-index: 1000 !important;
+        }
 
-/* رفع مشکل z-index برای dropdownهای داخلی */
-.tab-content .select2-container--open {
-    z-index: 1060 !important;
-}
+        #tech-info-container .select2-container--open {
+            z-index: 1062 !important;
+        }
 
-.tab-content .select2-dropdown {
-    z-index: 1061 !important;
-}
+        #tech-info-container .select2-dropdown {
+            z-index: 1063 !important;
+        }
 
-/* رفع مشکل overflow در تب‌ها */
-.tab-content {
-    position: relative;
-    z-index: 1;
-}
+        /* افزایش ارتفاع تب‌های محتوا برای نمایش کامل dropdown */
+        .tab-pane {
+            min-height: 300px;
+            position: relative;
+        }
 
-/* بهبود ظاهر dropdown در تَب‌های اطلاعات فنی */
-#tech-info-container .select2-container {
-    z-index: 1000 !important;
-}
+        /* رفع مشکل overflow در تَب فعالیت‌ها */
+        #activities-tab- .select2-container--open {
+            z-index: 1070 !important;
+        }
 
-#tech-info-container .select2-container--open {
-    z-index: 1062 !important;
-}
+        /* استایل مخصوص برای dropdownهای درون modal */
+        #equipmentModal .select2-container--open {
+            z-index: 1080 !important;
+        }
 
-#tech-info-container .select2-dropdown {
-    z-index: 1063 !important;
-}
-
-/* افزایش ارتفاع تب‌های محتوا برای نمایش کامل dropdown */
-.tab-pane {
-    min-height: 300px;
-    position: relative;
-}
-
-/* رفع مشکل overflow در تَب فعالیت‌ها */
-#activities-tab- .select2-container--open {
-    z-index: 1070 !important;
-}
-
-/* استایل مخصوص برای dropdownهای درون modal */
-#equipmentModal .select2-container--open {
-    z-index: 1080 !important;
-}
-
-#equipmentModal .select2-dropdown {
-    z-index: 1081 !important;
-}
-
-
-
-
+        #equipmentModal .select2-dropdown {
+            z-index: 1081 !important;
+        }
     </style>
-<head>
-    <!-- لینک‌های CSS موجود -->
-    
-    <!-- اضافه کردن این لینک برای XLSX -->
-    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/moment-jalaali@0.9.3/build/moment-jalaali.min.js"></script>
-
 </head>
-
-
-
 <body>
-<!-- Header -->
-<!-- <div class="header" style="background: linear-gradient(135deg, #f8f9fa, #e9ecef); color: #2c3e50;"> -->
-<!-- <div class="header" style="background: #ffffff; color: #2c3e50;"> -->
-<!-- <div class="header" style="background: #f0f8ff; color: #2c3e50;"> -->
-<!-- <div class="header" style="background: linear-gradient(135deg, #e6f7ff, #f0f8ff); color: #2c3e50;"> -->
-<!-- <div class="header" style="background: #f9f5f0; color: #2c3e50;"> -->
-<div class="header" style="background: #f8f4e9; color: #2c3e50;">
-<!-- <div class="header" style="background: #f9f0ff; color: #2c3e50;"> -->
-<!-- <div class="header" style="background: #f5f0ff; color: #2c3e50;"> -->
-<!-- <div class="header" style="background: #fff8f0; color: #2c3e50;"> -->
-<!-- <div class="header" style="background: #ffffff; color: #2c3e50; 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05); 
-            border-bottom: 1px solid #f0f0f0;"> -->
-
-<!-- <div class="header" style="background: #fff5e6; color: #2c3e50;"> -->
-<!-- <div class="header" style="background: #ffffff; color: #2c3e50; border-bottom: 3px solid #3498db;"> -->
-<!-- <div class="header" style="background: linear-gradient(135deg, #ffffff 0%, #f0f8ff 100%); color: #2c3e50;"> -->
-<!-- <div class="header" style="background: #e6f2ff; color: #2c3e50;"> -->
 
 
-    <div class="container">
-        <div class="row align-items-center">
-            <!-- ستون ۱: لوگو (چپ) -->
-            <div class="col-md-2 text-center">
-                <img src="{{ asset('logo.png') }}" alt="لوگو" class="img-fluid" style="max-height: 100px;">
-                 <!-- <h5 class="mb-0"  style="font-size: 1rem;">شرکت توزیع نیروی برق استان یزد</h5> -->
-            </div>
-            
-            <!-- ستون ۲: عنوان (وسط) -->
-            <div class="col-md-8 text-center">
-                <h2 class="mb-2" style="font-size: 1.7rem;">سیستم مدیریت بازدید تجهیزات اتوماسیون</h2>
-            </div>
-            
-            <!-- ستون ۳: تاریخ (چپ - هم‌تراز با لوگو) -->
-            <div class="col-md-2 text-center">
-                <div class="badge" style="background-color: #f8f4e9; color: #2c3e50; padding: 10px 15px; border: 1px solid #f8f4e9;">
-                    <i class="bi bi-calendar-check" ></i>
-                    <span id="current-date" style="font-size: 1.1rem; direction: rtl; font-family: 'Vazirmatn', sans-serif;"></span>
+
+
+<form method="POST" action="{{ route('inspections.store') }}" id="main-form">
+    @csrf
+    <div class="header">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-2 text-center">
+                    <img src="{{ asset('logo.png') }}" alt="لوگو" class="img-fluid" style="max-height: 100px;">
                 </div>
-                <div class="badge" style="background-color: #f8f4e9; color: #2c3e50; padding: 8px 12px; border: 1px solid #f8f4e9;">
-                <i class="bi bi-file-earmark-text"></i>
-                <span style="font-size: 0.9rem;"> F-20324-01</span>
+                <div class="col-md-8 text-center">
+                    <h2 class="mb-2" style="font-size: 1.7rem;">سیستم مدیریت بازدید تجهیزات اتوماسیون</h2>
+                </div>
+                <div class="col-md-2 text-center">
+                    <div class="badge" style="background-color: #f8f4e9; color: #2c3e50; padding: 10px 15px; border: 1px solid #f8f4e9;">
+                        <i class="bi bi-calendar-check"></i>
+                        <span id="current-date" style="font-size: 1.1rem; direction: rtl; font-family: 'Vazirmatn', sans-serif;"></span>
+                    </div>
+                    <div class="badge" style="background-color: #f8f4e9; color: #2c3e50; padding: 8px 12px; border: 1px solid #f8f4e9;">
+                        <i class="bi bi-file-earmark-text"></i>
+                        <span style="font-size: 0.9rem;">F-20324-01</span>
+                    </div>
                 </div>
             </div>
-
-<!-- در بخش header، بعد از ستون تاریخ اضافه کنید -->
-<div class="col-md-2 text-center">
-    <div class="user-avatar" onclick="showLoginModal()" style="cursor: pointer;" title="ورود به سیستم">
-        <i class="bi bi-person-circle"></i>
-    </div>
-    <span id="user-name" style="font-size: 0.9rem; display: block;">ورود</span>
-</div>
-
-
         </div>
     </div>
-</div>
 
-<!-- Main Container -->
+    <!-- Main Container -->
     <div class="container">
         <!-- Step Indicator -->
         <div class="step-indicator">
@@ -818,7 +768,7 @@
                 </div>
             </div>
             <div class="text-end">
-                <button class="btn btn-primary btn-icon" onclick="goToStep(2)">
+                <button type="button" class="btn btn-primary btn-icon" onclick="goToStep(2)">
                     <i class="bi bi-arrow-left"></i> ادامه به انتخاب تجهیز
                 </button>
             </div>
@@ -843,19 +793,19 @@
 
             <!-- Add Equipment Button -->
             <div class="text-center mb-4">
-                <button class="btn btn-success btn-icon" onclick="addNewEquipment()">
+                <button type="button" class="btn btn-success btn-icon" onclick="addNewEquipment()">
                     <i class="bi bi-plus-circle"></i> افزودن تجهیز جدید
                 </button>
             </div>
 
             <div class="row">
                 <div class="col-md-6">
-                    <button class="btn btn-secondary btn-icon" onclick="goToStep(1)">
+                    <button type="button" class="btn btn-secondary btn-icon" onclick="goToStep(1)">
                         <i class="bi bi-arrow-right"></i> بازگشت
                     </button>
                 </div>
                 <div class="col-md-6 text-end">
-                    <button class="btn btn-primary btn-icon" onclick="goToStep(3)">
+                    <button type="button" class="btn btn-primary btn-icon" onclick="goToStep(3)">
                         <i class="bi bi-arrow-left"></i> ادامه به اطلاعات فنی
                     </button>
                 </div>
@@ -875,12 +825,12 @@
             
             <div class="row mt-4">
                 <div class="col-md-6">
-                    <button class="btn btn-secondary btn-icon" onclick="goToStep(2)">
+                    <button type="button" class="btn btn-secondary btn-icon" onclick="goToStep(2)">
                         <i class="bi bi-arrow-right"></i> بازگشت
                     </button>
                 </div>
                 <div class="col-md-6 text-end">
-                    <button class="btn btn-primary btn-icon" onclick="goToStep(4)">
+                    <button type="button" class="btn btn-primary btn-icon" onclick="goToStep(4)">
                         <i class="bi bi-arrow-left"></i> ادامه به گزارش نهایی
                     </button>
                 </div>
@@ -1031,44 +981,35 @@
             <!-- Export Buttons -->
             <div class="row">
                 <div class="col-md-3">
-                    <button class="btn btn-secondary btn-icon" onclick="goToStep(3)">
+                    <button type="button" class="btn btn-secondary btn-icon" onclick="goToStep(3)">
                         <i class="bi bi-arrow-right"></i> بازگشت به ویرایش
                     </button>
                 </div>
                 <div class="col-md-2 text-center">
-                    <button class="btn btn-info btn-icon" onclick="generatePDFReport()">
+                    <button type="submit" class="btn btn-primary btn-icon" id="submit-inspection">
+                        <i class="bi bi-check-circle"></i> ثبت نهایی بازدید
+                    </button>
+                </div>
+                <div class="col-md-2 text-center">
+                    <button type="button" class="btn btn-info btn-icon" onclick="generatePDFReport()">
                         <i class="bi bi-file-pdf"></i> تولید گزارش PDF
                     </button>
                 </div>
                 <div class="col-md-2 text-center">
-                    <button class="btn btn-success btn-icon" onclick="generateExcelReport()">
+                    <button type="button" class="btn btn-success btn-icon" onclick="generateExcelReport()">
                         <i class="bi bi-file-excel"></i> خروجی Excel
                     </button>
                 </div>
                 <div class="col-md-2 text-center">
-                    <button class="btn btn-warning btn-icon" onclick="generateWordReport()">
+                    <button type="button" class="btn btn-warning btn-icon" onclick="generateWordReport()">
                         <i class="bi bi-file-word"></i> گزارش Word
                     </button>
                 </div>
                 <div class="col-md-3 text-end">
-                    <button class="btn whatsapp-btn btn-icon" onclick="sendToWhatsApp()">
+                    <button type="button" class="btn whatsapp-btn btn-icon" onclick="sendToWhatsApp()">
                         <i class="bi bi-whatsapp"></i> ارسال به واتساپ
                     </button>
                 </div>
-
-
-<div class="row mt-4">
-    <div class="col-md-12 text-center">
-        <button class="btn btn-lg btn-success btn-icon" onclick="submitFinalInspection()" style="padding: 15px 30px; font-size: 1.2rem;">
-            <i class="bi bi-check-circle-fill"></i> ثبت نهایی بازدید در سامانه
-        </button>
-        <p class="text-muted mt-2">
-            <i class="bi bi-info-circle"></i> با کلیک روی این دکمه، تمام اطلاعات بازدید در دیتابیس ذخیره شده و قابل بازیابی خواهد بود.
-        </p>
-    </div>
-</div>
-
-
             </div>
         </div>
     </div>
@@ -1078,27 +1019,27 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-2">
-                    <button class="btn btn-outline-secondary btn-icon" onclick="clearForm()">
+                    <button type="button" class="btn btn-outline-secondary btn-icon" onclick="clearForm()">
                         <i class="bi bi-trash"></i> پاک کردن فرم
                     </button>
                 </div>
                 <div class="col-md-3">
-                    <button class="btn btn-outline-primary btn-icon" onclick="saveDraft()">
+                    <button type="button" class="btn btn-outline-primary btn-icon" onclick="saveDraft()">
                         <i class="bi bi-save"></i> ذخیره پیش‌نویس
                     </button>
                 </div>
                 <div class="col-md-2">
-                    <button class="btn btn-outline-info btn-icon" onclick="loadDraft()">
+                    <button type="button" class="btn btn-outline-info btn-icon" onclick="loadDraft()">
                         <i class="bi bi-upload"></i> بارگذاری پیش‌نویس
                     </button>
                 </div>
                 <div class="col-md-2 text-center">
-                    <button class="btn btn-outline-warning btn-icon" id="auto-save-toggle">
+                    <button type="button" class="btn btn-outline-warning btn-icon" id="auto-save-toggle">
                         <i class="bi bi-check-circle"></i> ذخیره خودکار
                     </button>
                 </div>
                 <div class="col-md-3 text-end">
-                    <button class="btn btn-outline-success btn-icon" onclick="printForm()">
+                    <button type="button" class="btn btn-outline-success btn-icon" onclick="printForm()">
                         <i class="bi bi-printer"></i> چاپ فرم
                     </button>
                 </div>
@@ -1125,35 +1066,6 @@
     </footer>
 
     <!-- Modal for Equipment Details -->
-
-<!-- Modal برای ورود -->
-<div class="modal fade" id="loginModal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title"><i class="bi bi-box-arrow-in-right"></i> ورود به سیستم</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <form id="loginForm" onsubmit="handleLogin(event)">
-                    <div class="mb-3">
-                        <label class="form-label required">ایمیل</label>
-                        <input type="email" class="form-control" id="email" required placeholder="admin@example.com">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label required">رمز عبور</label>
-                        <input type="password" class="form-control" id="password" required placeholder="********">
-                    </div>
-                    <button type="submit" class="btn btn-primary w-100">ورود</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-
     <div class="modal fade" id="equipmentModal" tabindex="-1">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
@@ -1167,147 +1079,18 @@
             </div>
         </div>
     </div>
+</form>
 
-    <!-- JavaScript Libraries -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.18/jquery.timepicker.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
-    
-    <!-- Main JavaScript -->
-    <script>
+<!-- JavaScript Libraries -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.18/jquery.timepicker.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 
-// تابع ورود به سیستم (نسخه اصلاح شده)
-async function loginUser(email, password) {
-    try {
-        console.log('Sending login request...');
-        
-        const response = await fetch('/api/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                'X-Requested-With': 'XMLHttpRequest'
-            },
-            body: JSON.stringify({
-                email: email,
-                password: password
-            })
-        });
+<script>
 
-        console.log('Response status:', response.status);
-        
-        // دریافت متن پاسخ
-        const responseText = await response.text();
-        console.log('Raw response:', responseText);
-
-        // اگر پاسخ خالی است
-        if (!responseText.trim()) {
-            throw new Error('پاسخ خالی از سرور دریافت شد');
-        }
-
-        // تلاش برای تبدیل به JSON
-        let result;
-        try {
-            result = JSON.parse(responseText);
-        } catch (jsonError) {
-            console.error('JSON parse error:', jsonError);
-            throw new Error('فرمت پاسخ سرور نامعتبر است: ' + responseText.substring(0, 100));
-        }
-
-        // اگر وضعیت OK نیست
-        if (!response.ok) {
-            throw new Error(result.message || result.error || 'خطا در ورود');
-        }
-
-        // بررسی وجود توکن
-        if (!result.token) {
-            throw new Error('توکن دریافتی از سرور نامعتبر است');
-        }
-
-        // ذخیره توکن و اطلاعات کاربر
-        localStorage.setItem('auth_token', result.token);
-        if (result.user) {
-            localStorage.setItem('user', JSON.stringify(result.user));
-        }
-        
-        return true;
-
-    } catch (error) {
-        console.error('Login error details:', error);
-        throw error;
-    }
-}
-
-
-
-function showLoginModal() {
-    const modal = new bootstrap.Modal(document.getElementById('loginModal'));
-    modal.show();
-}
-
-
-
-
-// تابع handleLogin اصلاح شده
-async function handleLogin(event) {
-    event.preventDefault();
-    
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-    
-    if (!email || !password) {
-        Swal.fire({
-            icon: 'warning',
-            title: 'خطا',
-            text: 'ایمیل و رمز عبور را وارد کنید'
-        });
-        return;
-    }
-    
-    try {
-        Swal.fire({
-            title: 'در حال ورود...',
-            allowOutsideClick: false,
-            didOpen: () => {
-                Swal.showLoading();
-            }
-        });
-        
-        await loginUser(email, password);
-        
-        Swal.close();
-        
-        // بستن مودال
-        const modal = bootstrap.Modal.getInstance(document.getElementById('loginModal'));
-        if (modal) {
-            modal.hide();
-        }
-        
-        // به‌روزرسانی نمایش نام کاربری
-        document.getElementById('user-name').textContent = email.split('@')[0]; // نمایش بخش اول ایمیل
-        
-        Swal.fire({
-            icon: 'success',
-            title: 'ورود موفق',
-            text: 'به سیستم خوش آمدید',
-            timer: 2000,
-            showConfirmButton: false
-        });
-        
-    } catch (error) {
-        console.error('Login error:', error);
-        
-        Swal.fire({
-            icon: 'error',
-            title: 'خطا در ورود',
-            text: error.message || 'خطایی رخ داده است. لطفا دوباره تلاش کنید.'
-        });
-    }
-}
-
-
+<!-- Main JavaScript -->   
 
         function checkLibraries() {
             if (typeof XLSX === 'undefined') {
@@ -1320,9 +1103,6 @@ async function handleLogin(event) {
             }
             return true;
         }
-
-
-
 
         // Global variables
         let equipmentCount = 0;
@@ -2029,6 +1809,55 @@ document.addEventListener('DOMContentLoaded', function() {
         ];
 
         const postsList = postsAndFeedersData.map(item => item.post);
+
+
+
+document.getElementById('main-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    document.getElementById('main-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // جمع‌آوری داده‌ها
+        const formData = {
+            inspection_date: document.getElementById('inspection-date').value,
+            contractor: document.getElementById('contractor').value,
+            contract_coefficient: document.getElementById('contract-coefficient').value,
+            contract_number: document.getElementById('contract-number').value,
+            daily_start_time: document.getElementById('daily-start-time').value,
+            daily_end_time: document.getElementById('daily-end-time').value,
+            whatsapp_number: document.getElementById('whatsapp-number').value,
+            equipments: equipments
+        };
+        
+        console.log('داده‌های ارسالی:', formData);
+        
+        fetch('/api/inspections', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('پاسخ سرور:', data);
+            if (data.success) {
+                alert('بازدید با موفقیت ثبت شد!');
+                // clearForm();
+                // goToStep(1);
+            } else {
+                alert('خطا: ' + (data.message || JSON.stringify(data.errors)));
+            }
+        })
+        .catch(error => {
+            console.error('خطا:', error);
+            alert('خطا در ارتباط با سرور: ' + error.message);
+        });
+    });
+
+
 
         // Step navigation functions
         function goToStep(step) {
@@ -5263,249 +5092,19 @@ function generateWordReport() {
 
 
 
-    // در اینجا اضافه کنید - خارج از $(document).ready اما داخل تگ <script>
-    // در صورت عدم وجود FileSaver.js، یک polyfill ساده اضافه می‌کنیم
-    if (typeof saveAs === 'undefined') {
-        window.saveAs = function(blob, filename) {
-            const link = document.createElement('a');
-            const url = URL.createObjectURL(blob);
-            link.href = url;
-            link.download = filename;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            setTimeout(() => URL.revokeObjectURL(url), 100);
-        };
-    } 
-
-
-
-
-// تابع ثبت نهایی بازدید در دیتابیس - نسخه نهایی با تبدیل تاریخ
-async function submitFinalInspection() {
-    try {
-        // نمایش confirmation
-        if (!confirm('آیا از ثبت نهایی این بازدید اطمینان دارید؟ پس از ثبت، امکان ویرایش وجود نخواهد داشت.')) {
-            return;
-        }
-
-        // بررسی وجود حداقل یک تجهیز
-        if (equipments.length === 0) {
-            Swal.fire({
-                icon: 'warning',
-                title: 'خطا',
-                text: 'حداقل یک تجهیز باید اضافه کنید'
-            });
-            return;
-        }
-
-        // نمایش لودینگ
-        Swal.fire({
-            title: 'در حال ثبت اطلاعات...',
-            text: 'لطفا صبر کنید',
-            allowOutsideClick: false,
-            didOpen: () => {
-                Swal.showLoading();
-            }
-        });
-
-        // دریافت توکن از localStorage
-        const token = localStorage.getItem('auth_token');
-        
-        if (!token) {
-            Swal.fire({
-                icon: 'error',
-                title: 'خطا',
-                text: 'لطفا ابتدا وارد سیستم شوید'
-            });
-            return;
-        }
-
-        // دریافت تاریخ شمسی
-        const jalaliDate = document.getElementById('inspection-date').value;
-        console.log('Jalali date:', jalaliDate);
-
-        // تبدیل تاریخ شمسی به میلادی با استفاده از moment-jalaali
-        function convertJalaliToGregorian(jalaliDateStr) {
-            try {
-                // اگر کتابخانه moment-jalaali وجود دارد
-                if (typeof window.moment !== 'undefined') {
-                    // حذف اعداد فارسی و تبدیل به اعداد انگلیسی
-                    const persianNumbers = {
-                        '۰': '0', '۱': '1', '۲': '2', '۳': '3', '۴': '4',
-                        '۵': '5', '۶': '6', '۷': '7', '۸': '8', '۹': '9'
-                    };
-                    
-                    let englishDate = jalaliDateStr;
-                    for (let [persian, english] of Object.entries(persianNumbers)) {
-                        englishDate = englishDate.replace(new RegExp(persian, 'g'), english);
-                    }
-                    
-                    console.log('English digits date:', englishDate);
-                    
-                    // تبدیل به میلادی
-                    const m = window.moment(englishDate, 'jYYYY/jMM/jDD');
-                    if (m.isValid()) {
-                        const gregorianDate = m.format('YYYY-MM-DD');
-                        console.log('Converted to Gregorian:', gregorianDate);
-                        return gregorianDate;
-                    }
-                }
-            } catch (e) {
-                console.error('Date conversion error:', e);
-            }
-            
-            // اگر تبدیل ناموفق بود، تاریخ را بدون تغییر برگردان
-            return jalaliDateStr;
-        }
-
-        const gregorianDate = convertJalaliToGregorian(jalaliDate);
-        console.log('Final date to send:', gregorianDate);
-
-        // آماده‌سازی داده‌ها - تاریخ میلادی ارسال می‌شود
-        const inspectionData = {
-            inspection_date: gregorianDate, // تاریخ میلادی
-            daily_start_time: document.getElementById('daily-start-time').value,
-            daily_end_time: document.getElementById('daily-end-time').value,
-            contractor: document.getElementById('contractor').value,
-            contract_coefficient: parseFloat(document.getElementById('contract-coefficient').value) || 2.35,
-            contract_number: document.getElementById('contract-number').value,
-            whatsapp_number: document.getElementById('whatsapp-number').value,
-            total_equipment_count: equipments.length,
-            total_activities_count: parseInt(document.getElementById('summary-activity-count').textContent.replace(/,/g, '')) || 0,
-            total_cost_without_coefficient: parseFloat(document.getElementById('summary-total-cost').textContent.replace(/[^0-9]/g, '')) || 0,
-            total_cost_with_coefficient: parseFloat(document.getElementById('summary-final-cost').textContent.replace(/[^0-9]/g, '')) || 0,
-            
-            // اطلاعات تجهیزات
-            equipments: equipments.map(equipment => ({
-                equipment_type: equipment.equipmentType,
-                scada_code: equipment.scadaCode,
-                installation_type: equipment.installationType || '',
-                switch_brand: equipment.switchBrand || '',
-                modem_brand: equipment.modemBrand || '',
-                rtu_brand: equipment.rtuBrand || '',
-                other_switch_brand: equipment.otherSwitchBrand || '',
-                other_modem_brand: equipment.otherModemBrand || '',
-                other_rtu_brand: equipment.otherRTUBrand || '',
-                start_time: equipment.startTime || '',
-                end_time: equipment.endTime || '',
-                
-                // اطلاعات امور
-                department_data: equipment.departmentData || {},
-                
-                // فیدرها
-                feeders: equipment.feeders || [],
-                
-                // اطلاعات موقعیت
-                location_data: equipment.locationData || {},
-                
-                // اطلاعات ارتباطی
-                communication_data: equipment.communicationData || {},
-                
-                // چک‌لیست
-                checklist_data: equipment.checklistData || [],
-                
-                // فعالیت‌ها
-                activities_data: equipment.activitiesData || [],
-                
-                // مصارف
-                consumables_data: equipment.consumablesData || [],
-                
-                // سلول‌ها (برای پست‌ها)
-                cell_specs: equipment.cellSpecs || {},
-                
-                // عکس‌ها
-                photos_data: equipment.photosData || [],
-                
-                // وضعیت تب‌ها
-                tabs_validated: equipment.tabsValidated || {}
-            }))
-        };
-
-        console.log('Sending inspection data:', JSON.stringify(inspectionData, null, 2));
-
-        // ارسال به سرور
-        const response = await fetch('/api/inspections', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`,
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify(inspectionData)
-        });
-
-        const responseText = await response.text();
-        console.log('Raw response:', responseText);
-
-        let result;
-        try {
-            result = JSON.parse(responseText);
-        } catch (e) {
-            console.error('JSON parse error:', e);
-            throw new Error('پاسخ سرور نامعتبر است: ' + responseText.substring(0, 100));
-        }
-
-        if (!response.ok) {
-            // اگر خطای اعتبارسنجی باشد (422)
-            if (response.status === 422) {
-                const errorMessages = [];
-                if (result.errors) {
-                    Object.keys(result.errors).forEach(key => {
-                        errorMessages.push(`${key}: ${result.errors[key].join(', ')}`);
-                    });
-                }
-                throw new Error(errorMessages.join('\n') || result.message || 'خطای اعتبارسنجی');
-            }
-            throw new Error(result.message || result.error || 'خطا در ثبت اطلاعات');
-        }
-
-        // موفقیت
-        Swal.fire({
-            icon: 'success',
-            title: 'ثبت با موفقیت انجام شد',
-            text: `بازدید با کد پیگیری ${result.inspection_code || result.id} ثبت شد.`,
-            confirmButtonText: 'باشه'
-        }).then(() => {
-            // پاک کردن localStorage
-            localStorage.removeItem('automationInspectionDraft');
-            
-            // پرس و جو برای شروع بازدید جدید
-            if (confirm('آیا می‌خواهید یک بازدید جدید شروع کنید؟')) {
-                clearForm();
-            }
-        });
-
-        // لاگ موفقیت در کنسول
-        console.log('Inspection saved successfully:', result);
-
-    } catch (error) {
-        console.error('Error submitting inspection:', error);
-        
-        Swal.fire({
-            icon: 'error',
-            title: 'خطا در ثبت اطلاعات',
-            text: error.message || 'خطایی رخ داده است. لطفا دوباره تلاش کنید.',
-            confirmButtonText: 'باشه'
-        });
-    }
-}
-// همچنین یک تابع برای نمایش وضعیت احراز هویت اضافه کنید
-function checkAuthStatus() {
-    const token = localStorage.getItem('auth_token');
-    if (!token) {
-        Swal.fire({
-            icon: 'warning',
-            title: 'ورود به سیستم',
-            text: 'برای ثبت اطلاعات باید وارد سیستم شوید. به صفحه ورود هدایت می‌شوید.',
-            confirmButtonText: 'ورود'
-        }).then(() => {
-            window.location.href = '/login';
-        });
-        return false;
-    }
-    return true;
-}
+// Polyfill برای FileSaver.js
+if (typeof saveAs === 'undefined') {
+    window.saveAs = function(blob, filename) {
+        const link = document.createElement('a');
+        const url = URL.createObjectURL(blob);
+        link.href = url;
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        setTimeout(() => URL.revokeObjectURL(url), 100);
+    };
+}  
 
     </script>
 </body>
