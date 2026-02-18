@@ -670,6 +670,7 @@
     
     <!-- اضافه کردن این لینک برای XLSX -->
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 
@@ -718,8 +719,17 @@
                 <i class="bi bi-file-earmark-text"></i>
                 <span style="font-size: 0.9rem;"> F-20324-01</span>
                 </div>
-
             </div>
+
+<!-- در بخش header، بعد از ستون تاریخ اضافه کنید -->
+<div class="col-md-2 text-center">
+    <div class="user-avatar" onclick="showLoginModal()" style="cursor: pointer;" title="ورود به سیستم">
+        <i class="bi bi-person-circle"></i>
+    </div>
+    <span id="user-name" style="font-size: 0.9rem; display: block;">ورود</span>
+</div>
+
+
         </div>
     </div>
 </div>
@@ -1040,6 +1050,20 @@
                         <i class="bi bi-whatsapp"></i> ارسال به واتساپ
                     </button>
                 </div>
+
+
+<div class="row mt-4">
+    <div class="col-md-12 text-center">
+        <button class="btn btn-lg btn-success btn-icon" onclick="submitFinalInspection()" style="padding: 15px 30px; font-size: 1.2rem;">
+            <i class="bi bi-check-circle-fill"></i> ثبت نهایی بازدید در سامانه
+        </button>
+        <p class="text-muted mt-2">
+            <i class="bi bi-info-circle"></i> با کلیک روی این دکمه، تمام اطلاعات بازدید در دیتابیس ذخیره شده و قابل بازیابی خواهد بود.
+        </p>
+    </div>
+</div>
+
+
             </div>
         </div>
     </div>
@@ -1096,6 +1120,31 @@
     </footer>
 
     <!-- Modal for Equipment Details -->
+
+<!-- Modal برای ورود -->
+<div class="modal fade" id="loginModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="bi bi-box-arrow-in-right"></i> ورود به سیستم</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="loginForm" onsubmit="handleLogin(event)">
+                    <div class="mb-3">
+                        <label class="form-label required">نام کاربری</label>
+                        <input type="text" class="form-control" id="username" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label required">رمز عبور</label>
+                        <input type="password" class="form-control" id="password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">ورود</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
     <div class="modal fade" id="equipmentModal" tabindex="-1">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
@@ -1119,6 +1168,85 @@
     
     <!-- Main JavaScript -->
     <script>
+
+// تابع ورود به سیستم (می‌توانید در یک فایل جداگانه یا همان صفحه قرار دهید)
+async function loginUser(username, password) {
+    try {
+        const response = await fetch('/api/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                username: username,
+                password: password
+            })
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+            throw new Error(result.message || 'خطا در ورود');
+        }
+
+        // ذخیره توکن
+        localStorage.setItem('auth_token', result.token);
+        localStorage.setItem('user', JSON.stringify(result.user));
+        
+        return true;
+
+    } catch (error) {
+        console.error('Login error:', error);
+        throw error;
+    }
+}
+
+
+
+function showLoginModal() {
+    const modal = new bootstrap.Modal(document.getElementById('loginModal'));
+    modal.show();
+}
+
+async function handleLogin(event) {
+    event.preventDefault();
+    
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+    
+    try {
+        Swal.fire({
+            title: 'در حال ورود...',
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading();
+            }
+        });
+        
+        await loginUser(username, password);
+        
+        Swal.close();
+        bootstrap.Modal.getInstance(document.getElementById('loginModal')).hide();
+        
+        document.getElementById('user-name').textContent = username;
+        Swal.fire({
+            icon: 'success',
+            title: 'ورود موفق',
+            text: 'به سیستم خوش آمدید',
+            timer: 2000,
+            showConfirmButton: false
+        });
+        
+    } catch (error) {
+        Swal.fire({
+            icon: 'error',
+            title: 'خطا در ورود',
+            text: error.message
+        });
+    }
+}
+
 
 
 
@@ -5092,6 +5220,163 @@ function generateWordReport() {
         };
     } 
 
+
+
+
+// تابع ثبت نهایی بازدید در دیتابیس
+async function submitFinalInspection() {
+    try {
+        // نمایش confirmation
+        if (!confirm('آیا از ثبت نهایی این بازدید اطمینان دارید؟ پس از ثبت، امکان ویرایش وجود نخواهد داشت.')) {
+            return;
+        }
+
+        // نمایش لودینگ
+        Swal.fire({
+            title: 'در حال ثبت اطلاعات...',
+            text: 'لطفا صبر کنید',
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading();
+            }
+        });
+
+        // دریافت توکن از localStorage (فرض می‌کنیم بعد از لاگین ذخیره شده)
+        const token = localStorage.getItem('auth_token');
+        
+        if (!token) {
+            Swal.fire({
+                icon: 'error',
+                title: 'خطا',
+                text: 'لطفا ابتدا وارد سیستم شوید'
+            });
+            return;
+        }
+
+        // آماده‌سازی داده‌ها
+        const inspectionData = {
+            inspection_date: document.getElementById('inspection-date').value,
+            daily_start_time: document.getElementById('daily-start-time').value,
+            daily_end_time: document.getElementById('daily-end-time').value,
+            contractor: document.getElementById('contractor').value,
+            contract_coefficient: parseFloat(document.getElementById('contract-coefficient').value) || 2.35,
+            contract_number: document.getElementById('contract-number').value,
+            whatsapp_number: document.getElementById('whatsapp-number').value,
+            total_equipment_count: equipments.length,
+            total_activities_count: parseInt(document.getElementById('summary-activity-count').textContent.replace(/,/g, '')) || 0,
+            total_cost_without_coefficient: parseFloat(document.getElementById('summary-total-cost').textContent.replace(/[^0-9]/g, '')) || 0,
+            total_cost_with_coefficient: parseFloat(document.getElementById('summary-final-cost').textContent.replace(/[^0-9]/g, '')) || 0,
+            
+            // اطلاعات تجهیزات
+            equipments: equipments.map(equipment => ({
+                equipment_type: equipment.equipmentType,
+                scada_code: equipment.scadaCode,
+                installation_type: equipment.installationType || '',
+                switch_brand: equipment.switchBrand || '',
+                modem_brand: equipment.modemBrand || '',
+                rtu_brand: equipment.rtuBrand || '',
+                other_switch_brand: equipment.otherSwitchBrand || '',
+                other_modem_brand: equipment.otherModemBrand || '',
+                other_rtu_brand: equipment.otherRTUBrand || '',
+                start_time: equipment.startTime || '',
+                end_time: equipment.endTime || '',
+                
+                // اطلاعات امور
+                department_data: equipment.departmentData || {},
+                
+                // فیدرها
+                feeders: equipment.feeders || [],
+                
+                // اطلاعات موقعیت
+                location_data: equipment.locationData || {},
+                
+                // اطلاعات ارتباطی
+                communication_data: equipment.communicationData || {},
+                
+                // چک‌لیست
+                checklist_data: equipment.checklistData || [],
+                
+                // فعالیت‌ها
+                activities_data: equipment.activitiesData || [],
+                
+                // مصارف
+                consumables_data: equipment.consumablesData || [],
+                
+                // سلول‌ها (برای پست‌ها)
+                cell_specs: equipment.cellSpecs || {},
+                
+                // عکس‌ها
+                photos_data: equipment.photosData || [],
+                
+                // وضعیت تب‌ها
+                tabs_validated: equipment.tabsValidated || {}
+            }))
+        };
+
+        // ارسال به سرور
+        const response = await fetch('/api/inspections', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify(inspectionData)
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+            throw new Error(result.message || 'خطا در ثبت اطلاعات');
+        }
+
+        // موفقیت
+        Swal.fire({
+            icon: 'success',
+            title: 'ثبت با موفقیت انجام شد',
+            text: `بازدید با کد پیگیری ${result.inspection_code || result.id} ثبت شد.`,
+            confirmButtonText: 'باشه'
+        }).then(() => {
+            // پاک کردن localStorage
+            localStorage.removeItem('automationInspectionDraft');
+            
+            // پرس و جو برای شروع بازدید جدید
+            if (confirm('آیا می‌خواهید یک بازدید جدید شروع کنید؟')) {
+                clearForm();
+            }
+        });
+
+        // لاگ موفقیت در کنسول
+        console.log('Inspection saved successfully:', result);
+
+    } catch (error) {
+        console.error('Error submitting inspection:', error);
+        
+        Swal.fire({
+            icon: 'error',
+            title: 'خطا در ثبت اطلاعات',
+            text: error.message || 'خطایی رخ داده است. لطفا دوباره تلاش کنید.',
+            confirmButtonText: 'باشه'
+        });
+    }
+}
+
+// همچنین یک تابع برای نمایش وضعیت احراز هویت اضافه کنید
+function checkAuthStatus() {
+    const token = localStorage.getItem('auth_token');
+    if (!token) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'ورود به سیستم',
+            text: 'برای ثبت اطلاعات باید وارد سیستم شوید. به صفحه ورود هدایت می‌شوید.',
+            confirmButtonText: 'ورود'
+        }).then(() => {
+            window.location.href = '/login';
+        });
+        return false;
+    }
+    return true;
+}
 
     </script>
 </body>
