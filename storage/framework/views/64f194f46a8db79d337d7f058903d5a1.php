@@ -3048,6 +3048,8 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
 
+
+
         // Technical Tab Functions
         function updateTechnicalInfoSections() {
             const container = document.getElementById('tech-info-container');
@@ -3336,20 +3338,26 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-// برای dropdownهای ارتباطات
-setTimeout(() => {
-    $(`#simcard-type-${equipment.id}, #antenna-status-${equipment.id}, #signal-status-${equipment.id}, #modem-power-${equipment.id}`).select2({
-        placeholder: 'انتخاب کنید',
-        allowClear: true,
-        width: '100%',
-        dir: 'rtl',
-        dropdownParent: $(`#communication-tab-${equipment.id}`)
-    });
-}, 250);
+    setTimeout(() => {
+        equipments.forEach(equip => {
+            if (document.getElementById(`simcard-type-${equip.id}`)) {
+                try {
+                    $(`#simcard-type-${equip.id}, #antenna-status-${equip.id}, #signal-status-${equip.id}, #modem-power-${equip.id}`).select2({
+                        placeholder: 'انتخاب کنید',
+                        allowClear: true,
+                        width: '100%',
+                        dir: 'rtl',
+                        dropdownParent: $(`#communication-tab-${equip.id}`)
+                    });
+                    console.log(`Select2 initialized for equipment ${equip.id}`);
+                } catch (e) {
+                    console.log(`Select2 error for equipment ${equip.id}:`, e);
+                }
+            }
+        });
+    }, 500);
+}
 
-
-
-        }
 
         function loadExistingActivitiesAndConsumables(equipmentId) {
             const equipment = equipments.find(e => e.id === equipmentId);
@@ -5281,15 +5289,13 @@ function generateWordReport() {
 
 
 
-// تابع ثبت نهایی بازدید در دیتابیس - نسخه نهایی با تبدیل تاریخ
+// تابع ثبت نهایی بازدید - نسخه نهایی با JSON.stringify برای همه فیلدها
 async function submitFinalInspection() {
     try {
-        // نمایش confirmation
-        if (!confirm('آیا از ثبت نهایی این بازدید اطمینان دارید؟ پس از ثبت، امکان ویرایش وجود نخواهد داشت.')) {
+        if (!confirm('آیا از ثبت نهایی این بازدید اطمینان دارید؟')) {
             return;
         }
 
-        // بررسی وجود حداقل یک تجهیز
         if (equipments.length === 0) {
             Swal.fire({
                 icon: 'warning',
@@ -5299,7 +5305,6 @@ async function submitFinalInspection() {
             return;
         }
 
-        // نمایش لودینگ
         Swal.fire({
             title: 'در حال ثبت اطلاعات...',
             text: 'لطفا صبر کنید',
@@ -5309,7 +5314,6 @@ async function submitFinalInspection() {
             }
         });
 
-        // دریافت توکن از localStorage
         const token = localStorage.getItem('auth_token');
         
         if (!token) {
@@ -5321,16 +5325,12 @@ async function submitFinalInspection() {
             return;
         }
 
-        // دریافت تاریخ شمسی
+        // تبدیل تاریخ شمسی به میلادی
         const jalaliDate = document.getElementById('inspection-date').value;
-        console.log('Jalali date:', jalaliDate);
-
-        // تبدیل تاریخ شمسی به میلادی با استفاده از moment-jalaali
+        
         function convertJalaliToGregorian(jalaliDateStr) {
             try {
-                // اگر کتابخانه moment-jalaali وجود دارد
                 if (typeof window.moment !== 'undefined') {
-                    // حذف اعداد فارسی و تبدیل به اعداد انگلیسی
                     const persianNumbers = {
                         '۰': '0', '۱': '1', '۲': '2', '۳': '3', '۴': '4',
                         '۵': '5', '۶': '6', '۷': '7', '۸': '8', '۹': '9'
@@ -5341,90 +5341,80 @@ async function submitFinalInspection() {
                         englishDate = englishDate.replace(new RegExp(persian, 'g'), english);
                     }
                     
-                    console.log('English digits date:', englishDate);
-                    
-                    // تبدیل به میلادی
                     const m = window.moment(englishDate, 'jYYYY/jMM/jDD');
                     if (m.isValid()) {
-                        const gregorianDate = m.format('YYYY-MM-DD');
-                        console.log('Converted to Gregorian:', gregorianDate);
-                        return gregorianDate;
+                        return m.format('YYYY-MM-DD');
                     }
                 }
             } catch (e) {
                 console.error('Date conversion error:', e);
             }
-            
-            // اگر تبدیل ناموفق بود، تاریخ را بدون تغییر برگردان
             return jalaliDateStr;
         }
 
         const gregorianDate = convertJalaliToGregorian(jalaliDate);
-        console.log('Final date to send:', gregorianDate);
 
-        // آماده‌سازی داده‌ها - تاریخ میلادی ارسال می‌شود
+        // آماده‌سازی داده‌های تجهیزات با JSON.stringify برای همه فیلدهای غیراساسی
+        const processedEquipments = equipments.map(equipment => {
+            // ایجاد یک شیء جدید با فیلدهای اصلی
+            const equipmentData = {
+                // فیلدهای اسکالر (نیاز به JSON.stringify ندارند)
+                equipmentType: equipment.equipmentType || '',
+                scadaCode: equipment.scadaCode || '',
+                installationType: equipment.installationType || '',
+                switchBrand: equipment.switchBrand || '',
+                modemBrand: equipment.modemBrand || '',
+                rtuBrand: equipment.rtuBrand || '',
+                otherSwitchBrand: equipment.otherSwitchBrand || '',
+                otherModemBrand: equipment.otherModemBrand || '',
+                otherRTUBrand: equipment.otherRTUBrand || '',
+                startTime: equipment.startTime || '',
+                endTime: equipment.endTime || '',
+                
+                // فیلدهای پیچیده - باید JSON.stringify شوند
+                feeders: JSON.stringify(equipment.feeders || []),
+                departmentData: JSON.stringify(equipment.departmentData || {}),
+                locationData: JSON.stringify(equipment.locationData || {}),
+                communicationData: JSON.stringify(equipment.communicationData || {}),
+                checklistData: JSON.stringify(equipment.checklistData || []),
+                activitiesData: JSON.stringify(equipment.activitiesData || []),
+                consumablesData: JSON.stringify(equipment.consumablesData || []),
+                photosData: JSON.stringify(equipment.photosData || []),
+                cellSpecs: JSON.stringify(equipment.cellSpecs || {}),
+                tabsValidated: JSON.stringify(equipment.tabsValidated || {})
+            };
+            
+            return equipmentData;
+        });
+
+        // محاسبه آمار کل
+        let totalActivities = 0;
+        let totalCost = 0;
+        
+        equipments.forEach(equipment => {
+            if (equipment.activitiesData && equipment.activitiesData.length > 0) {
+                equipment.activitiesData.forEach(activity => {
+                    totalActivities += activity.quantity || 0;
+                    totalCost += activity.total || 0;
+                });
+            }
+        });
+
+        const coefficient = parseFloat(document.getElementById('contract-coefficient').value) || 2.35;
+
         const inspectionData = {
-            inspection_date: gregorianDate, // تاریخ میلادی
+            inspection_date: gregorianDate,
             daily_start_time: document.getElementById('daily-start-time').value,
             daily_end_time: document.getElementById('daily-end-time').value,
             contractor: document.getElementById('contractor').value,
-            contract_coefficient: parseFloat(document.getElementById('contract-coefficient').value) || 2.35,
+            contract_coefficient: coefficient,
             contract_number: document.getElementById('contract-number').value,
             whatsapp_number: document.getElementById('whatsapp-number').value,
-            total_equipment_count: equipments.length,
-            total_activities_count: parseInt(document.getElementById('summary-activity-count').textContent.replace(/,/g, '')) || 0,
-            total_cost_without_coefficient: parseFloat(document.getElementById('summary-total-cost').textContent.replace(/[^0-9]/g, '')) || 0,
-            total_cost_with_coefficient: parseFloat(document.getElementById('summary-final-cost').textContent.replace(/[^0-9]/g, '')) || 0,
-            
-            // اطلاعات تجهیزات
-            equipments: equipments.map(equipment => ({
-                equipment_type: equipment.equipmentType,
-                scada_code: equipment.scadaCode,
-                installation_type: equipment.installationType || '',
-                switch_brand: equipment.switchBrand || '',
-                modem_brand: equipment.modemBrand || '',
-                rtu_brand: equipment.rtuBrand || '',
-                other_switch_brand: equipment.otherSwitchBrand || '',
-                other_modem_brand: equipment.otherModemBrand || '',
-                other_rtu_brand: equipment.otherRTUBrand || '',
-                start_time: equipment.startTime || '',
-                end_time: equipment.endTime || '',
-                
-                // اطلاعات امور
-                department_data: equipment.departmentData || {},
-                
-                // فیدرها
-                feeders: equipment.feeders || [],
-                
-                // اطلاعات موقعیت
-                location_data: equipment.locationData || {},
-                
-                // اطلاعات ارتباطی
-                communication_data: equipment.communicationData || {},
-                
-                // چک‌لیست
-                checklist_data: equipment.checklistData || [],
-                
-                // فعالیت‌ها
-                activities_data: equipment.activitiesData || [],
-                
-                // مصارف
-                consumables_data: equipment.consumablesData || [],
-                
-                // سلول‌ها (برای پست‌ها)
-                cell_specs: equipment.cellSpecs || {},
-                
-                // عکس‌ها
-                photos_data: equipment.photosData || [],
-                
-                // وضعیت تب‌ها
-                tabs_validated: equipment.tabsValidated || {}
-            }))
+            equipments: processedEquipments
         };
 
         console.log('Sending inspection data:', JSON.stringify(inspectionData, null, 2));
 
-        // ارسال به سرور
         const response = await fetch('/api/inspections', {
             method: 'POST',
             headers: {
@@ -5443,11 +5433,10 @@ async function submitFinalInspection() {
             result = JSON.parse(responseText);
         } catch (e) {
             console.error('JSON parse error:', e);
-            throw new Error('پاسخ سرور نامعتبر است: ' + responseText.substring(0, 100));
+            throw new Error('پاسخ سرور نامعتبر است');
         }
 
         if (!response.ok) {
-            // اگر خطای اعتبارسنجی باشد (422)
             if (response.status === 422) {
                 const errorMessages = [];
                 if (result.errors) {
@@ -5461,22 +5450,28 @@ async function submitFinalInspection() {
         }
 
         // موفقیت
+        const trackingCode = result.data?.id || result.id || 'ثبت شده';
+        
         Swal.fire({
             icon: 'success',
-            title: 'ثبت با موفقیت انجام شد',
-            text: `بازدید با کد پیگیری ${result.inspection_code || result.id} ثبت شد.`,
+            title: '✅ ثبت با موفقیت انجام شد',
+            html: `
+                <div style="text-align: right;">
+                    <p>بازدید با موفقیت در سیستم ثبت شد.</p>
+                    <p><strong>کد پیگیری:</strong> ${trackingCode}</p>
+                    <p><strong>تاریخ:</strong> ${jalaliDate}</p>
+                    <p><strong>تعداد تجهیزات:</strong> ${equipments.length}</p>
+                    <p><strong>هزینه نهایی:</strong> ${formatNumber(totalCost * coefficient)} ریال</p>
+                </div>
+            `,
             confirmButtonText: 'باشه'
         }).then(() => {
-            // پاک کردن localStorage
             localStorage.removeItem('automationInspectionDraft');
-            
-            // پرس و جو برای شروع بازدید جدید
             if (confirm('آیا می‌خواهید یک بازدید جدید شروع کنید؟')) {
                 clearForm();
             }
         });
 
-        // لاگ موفقیت در کنسول
         console.log('Inspection saved successfully:', result);
 
     } catch (error) {
@@ -5484,12 +5479,15 @@ async function submitFinalInspection() {
         
         Swal.fire({
             icon: 'error',
-            title: 'خطا در ثبت اطلاعات',
-            text: error.message || 'خطایی رخ داده است. لطفا دوباره تلاش کنید.',
+            title: '❌ خطا در ثبت اطلاعات',
+            text: error.message || 'خطایی رخ داده است',
             confirmButtonText: 'باشه'
         });
     }
 }
+
+
+
 // همچنین یک تابع برای نمایش وضعیت احراز هویت اضافه کنید
 function checkAuthStatus() {
     const token = localStorage.getItem('auth_token');
