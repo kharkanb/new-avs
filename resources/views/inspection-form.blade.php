@@ -688,6 +688,7 @@
     <script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/moment-jalaali@0.9.3/build/moment-jalaali.min.js"></script>
     
+<<<<<<< HEAD
     <!-- کتابخانه‌های PDF -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
@@ -695,6 +696,15 @@
 
        <script src="https://unpkg.com/jspdf-rtl-plugin@1.0.0/dist/jspdf-rtl-plugin.min.js"></script>
       <link href="https://fonts.googleapis.com/css2?family=Vazirmatn&display=swap" rel="stylesheet">
+=======
+    <!-- اضافه کردن این لینک برای XLSX -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment-jalaali@0.9.3/build/moment-jalaali.min.js"></script>
+>>>>>>> 62fd3f93d37034b824fcce2a25a722d1470dbcc9
 
 </head>
 
@@ -5650,6 +5660,7 @@ function generateWordReport() {
 
 
 
+<<<<<<< HEAD
 // تابع ثبت نهایی بازدید - نسخه نهایی با JSON.stringify برای همه فیلدها
 async function submitFinalInspection() {
     try {
@@ -5657,6 +5668,17 @@ async function submitFinalInspection() {
             return;
         }
 
+=======
+// تابع ثبت نهایی بازدید در دیتابیس - نسخه نهایی با تبدیل تاریخ
+async function submitFinalInspection() {
+    try {
+        // نمایش confirmation
+        if (!confirm('آیا از ثبت نهایی این بازدید اطمینان دارید؟ پس از ثبت، امکان ویرایش وجود نخواهد داشت.')) {
+            return;
+        }
+
+        // بررسی وجود حداقل یک تجهیز
+>>>>>>> 62fd3f93d37034b824fcce2a25a722d1470dbcc9
         if (equipments.length === 0) {
             Swal.fire({
                 icon: 'warning',
@@ -5666,6 +5688,10 @@ async function submitFinalInspection() {
             return;
         }
 
+<<<<<<< HEAD
+=======
+        // نمایش لودینگ
+>>>>>>> 62fd3f93d37034b824fcce2a25a722d1470dbcc9
         Swal.fire({
             title: 'در حال ثبت اطلاعات...',
             text: 'لطفا صبر کنید',
@@ -5675,6 +5701,10 @@ async function submitFinalInspection() {
             }
         });
 
+<<<<<<< HEAD
+=======
+        // دریافت توکن از localStorage
+>>>>>>> 62fd3f93d37034b824fcce2a25a722d1470dbcc9
         const token = localStorage.getItem('auth_token');
         
         if (!token) {
@@ -5686,12 +5716,25 @@ async function submitFinalInspection() {
             return;
         }
 
+<<<<<<< HEAD
         // تبدیل تاریخ شمسی به میلادی
         const jalaliDate = document.getElementById('inspection-date').value;
         
         function convertJalaliToGregorian(jalaliDateStr) {
             try {
                 if (typeof window.moment !== 'undefined') {
+=======
+        // دریافت تاریخ شمسی
+        const jalaliDate = document.getElementById('inspection-date').value;
+        console.log('Jalali date:', jalaliDate);
+
+        // تبدیل تاریخ شمسی به میلادی با استفاده از moment-jalaali
+        function convertJalaliToGregorian(jalaliDateStr) {
+            try {
+                // اگر کتابخانه moment-jalaali وجود دارد
+                if (typeof window.moment !== 'undefined') {
+                    // حذف اعداد فارسی و تبدیل به اعداد انگلیسی
+>>>>>>> 62fd3f93d37034b824fcce2a25a722d1470dbcc9
                     const persianNumbers = {
                         '۰': '0', '۱': '1', '۲': '2', '۳': '3', '۴': '4',
                         '۵': '5', '۶': '6', '۷': '7', '۸': '8', '۹': '9'
@@ -5702,18 +5745,35 @@ async function submitFinalInspection() {
                         englishDate = englishDate.replace(new RegExp(persian, 'g'), english);
                     }
                     
+<<<<<<< HEAD
                     const m = window.moment(englishDate, 'jYYYY/jMM/jDD');
                     if (m.isValid()) {
                         return m.format('YYYY-MM-DD');
+=======
+                    console.log('English digits date:', englishDate);
+                    
+                    // تبدیل به میلادی
+                    const m = window.moment(englishDate, 'jYYYY/jMM/jDD');
+                    if (m.isValid()) {
+                        const gregorianDate = m.format('YYYY-MM-DD');
+                        console.log('Converted to Gregorian:', gregorianDate);
+                        return gregorianDate;
+>>>>>>> 62fd3f93d37034b824fcce2a25a722d1470dbcc9
                     }
                 }
             } catch (e) {
                 console.error('Date conversion error:', e);
             }
+<<<<<<< HEAD
+=======
+            
+            // اگر تبدیل ناموفق بود، تاریخ را بدون تغییر برگردان
+>>>>>>> 62fd3f93d37034b824fcce2a25a722d1470dbcc9
             return jalaliDateStr;
         }
 
         const gregorianDate = convertJalaliToGregorian(jalaliDate);
+<<<<<<< HEAD
 
         // آماده‌سازی داده‌های تجهیزات با JSON.stringify برای همه فیلدهای غیراساسی
         const processedEquipments = equipments.map(equipment => {
@@ -5772,10 +5832,76 @@ async function submitFinalInspection() {
             contract_number: document.getElementById('contract-number').value,
             whatsapp_number: document.getElementById('whatsapp-number').value,
             equipments: processedEquipments
+=======
+        console.log('Final date to send:', gregorianDate);
+
+        // آماده‌سازی داده‌ها - تاریخ میلادی ارسال می‌شود
+        const inspectionData = {
+            inspection_date: gregorianDate, // تاریخ میلادی
+            daily_start_time: document.getElementById('daily-start-time').value,
+            daily_end_time: document.getElementById('daily-end-time').value,
+            contractor: document.getElementById('contractor').value,
+            contract_coefficient: parseFloat(document.getElementById('contract-coefficient').value) || 2.35,
+            contract_number: document.getElementById('contract-number').value,
+            whatsapp_number: document.getElementById('whatsapp-number').value,
+            total_equipment_count: equipments.length,
+            total_activities_count: parseInt(document.getElementById('summary-activity-count').textContent.replace(/,/g, '')) || 0,
+            total_cost_without_coefficient: parseFloat(document.getElementById('summary-total-cost').textContent.replace(/[^0-9]/g, '')) || 0,
+            total_cost_with_coefficient: parseFloat(document.getElementById('summary-final-cost').textContent.replace(/[^0-9]/g, '')) || 0,
+            
+            // اطلاعات تجهیزات
+            equipments: equipments.map(equipment => ({
+                equipment_type: equipment.equipmentType,
+                scada_code: equipment.scadaCode,
+                installation_type: equipment.installationType || '',
+                switch_brand: equipment.switchBrand || '',
+                modem_brand: equipment.modemBrand || '',
+                rtu_brand: equipment.rtuBrand || '',
+                other_switch_brand: equipment.otherSwitchBrand || '',
+                other_modem_brand: equipment.otherModemBrand || '',
+                other_rtu_brand: equipment.otherRTUBrand || '',
+                start_time: equipment.startTime || '',
+                end_time: equipment.endTime || '',
+                
+                // اطلاعات امور
+                department_data: equipment.departmentData || {},
+                
+                // فیدرها
+                feeders: equipment.feeders || [],
+                
+                // اطلاعات موقعیت
+                location_data: equipment.locationData || {},
+                
+                // اطلاعات ارتباطی
+                communication_data: equipment.communicationData || {},
+                
+                // چک‌لیست
+                checklist_data: equipment.checklistData || [],
+                
+                // فعالیت‌ها
+                activities_data: equipment.activitiesData || [],
+                
+                // مصارف
+                consumables_data: equipment.consumablesData || [],
+                
+                // سلول‌ها (برای پست‌ها)
+                cell_specs: equipment.cellSpecs || {},
+                
+                // عکس‌ها
+                photos_data: equipment.photosData || [],
+                
+                // وضعیت تب‌ها
+                tabs_validated: equipment.tabsValidated || {}
+            }))
+>>>>>>> 62fd3f93d37034b824fcce2a25a722d1470dbcc9
         };
 
         console.log('Sending inspection data:', JSON.stringify(inspectionData, null, 2));
 
+<<<<<<< HEAD
+=======
+        // ارسال به سرور
+>>>>>>> 62fd3f93d37034b824fcce2a25a722d1470dbcc9
         const response = await fetch('/api/inspections', {
             method: 'POST',
             headers: {
@@ -5794,10 +5920,18 @@ async function submitFinalInspection() {
             result = JSON.parse(responseText);
         } catch (e) {
             console.error('JSON parse error:', e);
+<<<<<<< HEAD
             throw new Error('پاسخ سرور نامعتبر است');
         }
 
         if (!response.ok) {
+=======
+            throw new Error('پاسخ سرور نامعتبر است: ' + responseText.substring(0, 100));
+        }
+
+        if (!response.ok) {
+            // اگر خطای اعتبارسنجی باشد (422)
+>>>>>>> 62fd3f93d37034b824fcce2a25a722d1470dbcc9
             if (response.status === 422) {
                 const errorMessages = [];
                 if (result.errors) {
@@ -5811,6 +5945,7 @@ async function submitFinalInspection() {
         }
 
         // موفقیت
+<<<<<<< HEAD
         const trackingCode = result.data?.id || result.id || 'ثبت شده';
         
         Swal.fire({
@@ -5828,11 +5963,27 @@ async function submitFinalInspection() {
             confirmButtonText: 'باشه'
         }).then(() => {
             localStorage.removeItem('automationInspectionDraft');
+=======
+        Swal.fire({
+            icon: 'success',
+            title: 'ثبت با موفقیت انجام شد',
+            text: `بازدید با کد پیگیری ${result.inspection_code || result.id} ثبت شد.`,
+            confirmButtonText: 'باشه'
+        }).then(() => {
+            // پاک کردن localStorage
+            localStorage.removeItem('automationInspectionDraft');
+            
+            // پرس و جو برای شروع بازدید جدید
+>>>>>>> 62fd3f93d37034b824fcce2a25a722d1470dbcc9
             if (confirm('آیا می‌خواهید یک بازدید جدید شروع کنید؟')) {
                 clearForm();
             }
         });
 
+<<<<<<< HEAD
+=======
+        // لاگ موفقیت در کنسول
+>>>>>>> 62fd3f93d37034b824fcce2a25a722d1470dbcc9
         console.log('Inspection saved successfully:', result);
 
     } catch (error) {
@@ -5840,15 +5991,23 @@ async function submitFinalInspection() {
         
         Swal.fire({
             icon: 'error',
+<<<<<<< HEAD
             title: '❌ خطا در ثبت اطلاعات',
             text: error.message || 'خطایی رخ داده است',
+=======
+            title: 'خطا در ثبت اطلاعات',
+            text: error.message || 'خطایی رخ داده است. لطفا دوباره تلاش کنید.',
+>>>>>>> 62fd3f93d37034b824fcce2a25a722d1470dbcc9
             confirmButtonText: 'باشه'
         });
     }
 }
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> 62fd3f93d37034b824fcce2a25a722d1470dbcc9
 // همچنین یک تابع برای نمایش وضعیت احراز هویت اضافه کنید
 function checkAuthStatus() {
     const token = localStorage.getItem('auth_token');
