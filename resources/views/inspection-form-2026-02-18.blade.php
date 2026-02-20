@@ -9,8 +9,9 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/vazirmatn@5.0.8/index.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.18/jquery.timepicker.min.css">
-
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     <style>
+        /* تمام استایل‌هایی که داشتی همینجا میاد */
         :root {
             --primary-color: #2c3e50;
             --secondary-color: #3498db;
@@ -28,13 +29,13 @@
             line-height: 1.6;
         }
         
-.header {
-    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-    color: #2c3e50;
-    padding: 20px 0;
-    margin-bottom: 30px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-}
+        .header {
+            background: #f8f4e9;
+            color: #2c3e50;
+            padding: 20px 0;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
         
         .form-section {
             background: white;
@@ -609,155 +610,86 @@
             font-size: 0.7rem;
         }
 
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
+        /* رفع مشکل z-index برای dropdownهای داخلی */
+        .tab-content .select2-container--open {
+            z-index: 1060 !important;
+        }
 
-.spin {
-    animation: spin 1s linear infinite;
-    display: inline-block;
-}
+        .tab-content .select2-dropdown {
+            z-index: 1061 !important;
+        }
 
+        /* رفع مشکل overflow در تب‌ها */
+        .tab-content {
+            position: relative;
+            z-index: 1;
+        }
 
+        /* بهبود ظاهر dropdown در تَب‌های اطلاعات فنی */
+        #tech-info-container .select2-container {
+            z-index: 1000 !important;
+        }
 
-/* رفع مشکل z-index برای dropdownهای داخلی */
-.tab-content .select2-container--open {
-    z-index: 1060 !important;
-}
+        #tech-info-container .select2-container--open {
+            z-index: 1062 !important;
+        }
 
-.tab-content .select2-dropdown {
-    z-index: 1061 !important;
-}
+        #tech-info-container .select2-dropdown {
+            z-index: 1063 !important;
+        }
 
-/* رفع مشکل overflow در تب‌ها */
-.tab-content {
-    position: relative;
-    z-index: 1;
-}
+        /* افزایش ارتفاع تب‌های محتوا برای نمایش کامل dropdown */
+        .tab-pane {
+            min-height: 300px;
+            position: relative;
+        }
 
-/* بهبود ظاهر dropdown در تَب‌های اطلاعات فنی */
-#tech-info-container .select2-container {
-    z-index: 1000 !important;
-}
+        /* رفع مشکل overflow در تَب فعالیت‌ها */
+        #activities-tab- .select2-container--open {
+            z-index: 1070 !important;
+        }
 
-#tech-info-container .select2-container--open {
-    z-index: 1062 !important;
-}
+        /* استایل مخصوص برای dropdownهای درون modal */
+        #equipmentModal .select2-container--open {
+            z-index: 1080 !important;
+        }
 
-#tech-info-container .select2-dropdown {
-    z-index: 1063 !important;
-}
-
-/* افزایش ارتفاع تب‌های محتوا برای نمایش کامل dropdown */
-.tab-pane {
-    min-height: 300px;
-    position: relative;
-}
-
-/* رفع مشکل overflow در تَب فعالیت‌ها */
-#activities-tab- .select2-container--open {
-    z-index: 1070 !important;
-}
-
-/* استایل مخصوص برای dropdownهای درون modal */
-#equipmentModal .select2-container--open {
-    z-index: 1080 !important;
-}
-
-#equipmentModal .select2-dropdown {
-    z-index: 1081 !important;
-}
-
-
-
-
+        #equipmentModal .select2-dropdown {
+            z-index: 1081 !important;
+        }
     </style>
-
-<head>
-    <!-- لینک‌های CSS موجود -->
-      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/vazirmatn@5.0.8/index.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.18/jquery.timepicker.min.css">
-
-    <!-- کتابخانه‌های جاوااسکریپت -->
-       <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/moment-jalaali@0.9.3/build/moment-jalaali.min.js"></script>
-    
-    <!-- کتابخانه‌های PDF -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
-       <script src="https://cdn.jsdelivr.net/npm/html2pdf.js@0.10.1/dist/html2pdf.bundle.min.js"></script>
-
-       <script src="https://unpkg.com/jspdf-rtl-plugin@1.0.0/dist/jspdf-rtl-plugin.min.js"></script>
-      <link href="https://fonts.googleapis.com/css2?family=Vazirmatn&display=swap" rel="stylesheet">
-
 </head>
-
 <body>
-<!-- Header -->
-<!-- <div class="header" style="background: linear-gradient(135deg, #f8f9fa, #e9ecef); color: #2c3e50;"> -->
-<!-- <div class="header" style="background: #ffffff; color: #2c3e50;"> -->
-<!-- <div class="header" style="background: #f0f8ff; color: #2c3e50;"> -->
-<!-- <div class="header" style="background: linear-gradient(135deg, #e6f7ff, #f0f8ff); color: #2c3e50;"> -->
-<!-- <div class="header" style="background: #f9f5f0; color: #2c3e50;"> -->
-<div class="header" style="background: #f8f4e9; color: #2c3e50;">
-<!-- <div class="header" style="background: #f9f0ff; color: #2c3e50;"> -->
-<!-- <div class="header" style="background: #f5f0ff; color: #2c3e50;"> -->
-<!-- <div class="header" style="background: #fff8f0; color: #2c3e50;"> -->
-<!-- <div class="header" style="background: #ffffff; color: #2c3e50; 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05); 
-            border-bottom: 1px solid #f0f0f0;"> -->
-
-<!-- <div class="header" style="background: #fff5e6; color: #2c3e50;"> -->
-<!-- <div class="header" style="background: #ffffff; color: #2c3e50; border-bottom: 3px solid #3498db;"> -->
-<!-- <div class="header" style="background: linear-gradient(135deg, #ffffff 0%, #f0f8ff 100%); color: #2c3e50;"> -->
-<!-- <div class="header" style="background: #e6f2ff; color: #2c3e50;"> -->
 
 
-    <div class="container">
-        <div class="row align-items-center">
-            <!-- ستون ۱: لوگو (چپ) -->
-            <div class="col-md-2 text-center">
-                <img src="{{ asset('logo.png') }}" alt="لوگو" class="img-fluid" style="max-height: 100px;">
-                 <!-- <h5 class="mb-0"  style="font-size: 1rem;">شرکت توزیع نیروی برق استان یزد</h5> -->
-            </div>
-            
-            <!-- ستون ۲: عنوان (وسط) -->
-            <div class="col-md-8 text-center">
-                <h2 class="mb-2" style="font-size: 1.7rem;">سیستم مدیریت بازدید تجهیزات اتوماسیون</h2>
-            </div>
-            
-            <!-- ستون ۳: تاریخ (چپ - هم‌تراز با لوگو) -->
-            <div class="col-md-2 text-center">
-                <div class="badge" style="background-color: #f8f4e9; color: #2c3e50; padding: 10px 15px; border: 1px solid #f8f4e9;">
-                    <i class="bi bi-calendar-check" ></i>
-                    <span id="current-date" style="font-size: 1.1rem; direction: rtl; font-family: 'Vazirmatn', sans-serif;"></span>
+
+
+<form method="POST" action="{{ route('inspections.store') }}" id="main-form">
+    @csrf
+    <div class="header">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-2 text-center">
+                    <img src="{{ asset('logo.png') }}" alt="لوگو" class="img-fluid" style="max-height: 100px;">
                 </div>
-                <div class="badge" style="background-color: #f8f4e9; color: #2c3e50; padding: 8px 12px; border: 1px solid #f8f4e9;">
-                <i class="bi bi-file-earmark-text"></i>
-                <span style="font-size: 0.9rem;"> F-20324-01</span>
+                <div class="col-md-8 text-center">
+                    <h2 class="mb-2" style="font-size: 1.7rem;">سیستم مدیریت بازدید تجهیزات اتوماسیون</h2>
+                </div>
+                <div class="col-md-2 text-center">
+                    <div class="badge" style="background-color: #f8f4e9; color: #2c3e50; padding: 10px 15px; border: 1px solid #f8f4e9;">
+                        <i class="bi bi-calendar-check"></i>
+                        <span id="current-date" style="font-size: 1.1rem; direction: rtl; font-family: 'Vazirmatn', sans-serif;"></span>
+                    </div>
+                    <div class="badge" style="background-color: #f8f4e9; color: #2c3e50; padding: 8px 12px; border: 1px solid #f8f4e9;">
+                        <i class="bi bi-file-earmark-text"></i>
+                        <span style="font-size: 0.9rem;">F-20324-01</span>
+                    </div>
                 </div>
             </div>
-
-<!-- در بخش header، بعد از ستون تاریخ اضافه کنید -->
-<div class="col-md-2 text-center">
-    <div class="user-avatar" onclick="showLoginModal()" style="cursor: pointer;" title="ورود به سیستم">
-        <i class="bi bi-person-circle"></i>
-    </div>
-    <span id="user-name" style="font-size: 0.9rem; display: block;">ورود</span>
-</div>
-
-
         </div>
     </div>
-</div>
 
-<!-- Main Container -->
+    <!-- Main Container -->
     <div class="container">
         <!-- Step Indicator -->
         <div class="step-indicator">
@@ -836,7 +768,7 @@
                 </div>
             </div>
             <div class="text-end">
-                <button class="btn btn-primary btn-icon" onclick="goToStep(2)">
+                <button type="button" class="btn btn-primary btn-icon" onclick="goToStep(2)">
                     <i class="bi bi-arrow-left"></i> ادامه به انتخاب تجهیز
                 </button>
             </div>
@@ -861,19 +793,19 @@
 
             <!-- Add Equipment Button -->
             <div class="text-center mb-4">
-                <button class="btn btn-success btn-icon" onclick="addNewEquipment()">
+                <button type="button" class="btn btn-success btn-icon" onclick="addNewEquipment()">
                     <i class="bi bi-plus-circle"></i> افزودن تجهیز جدید
                 </button>
             </div>
 
             <div class="row">
                 <div class="col-md-6">
-                    <button class="btn btn-secondary btn-icon" onclick="goToStep(1)">
+                    <button type="button" class="btn btn-secondary btn-icon" onclick="goToStep(1)">
                         <i class="bi bi-arrow-right"></i> بازگشت
                     </button>
                 </div>
                 <div class="col-md-6 text-end">
-                    <button class="btn btn-primary btn-icon" onclick="goToStep(3)">
+                    <button type="button" class="btn btn-primary btn-icon" onclick="goToStep(3)">
                         <i class="bi bi-arrow-left"></i> ادامه به اطلاعات فنی
                     </button>
                 </div>
@@ -893,12 +825,12 @@
             
             <div class="row mt-4">
                 <div class="col-md-6">
-                    <button class="btn btn-secondary btn-icon" onclick="goToStep(2)">
+                    <button type="button" class="btn btn-secondary btn-icon" onclick="goToStep(2)">
                         <i class="bi bi-arrow-right"></i> بازگشت
                     </button>
                 </div>
                 <div class="col-md-6 text-end">
-                    <button class="btn btn-primary btn-icon" onclick="goToStep(4)">
+                    <button type="button" class="btn btn-primary btn-icon" onclick="goToStep(4)">
                         <i class="bi bi-arrow-left"></i> ادامه به گزارش نهایی
                     </button>
                 </div>
@@ -1049,44 +981,35 @@
             <!-- Export Buttons -->
             <div class="row">
                 <div class="col-md-3">
-                    <button class="btn btn-secondary btn-icon" onclick="goToStep(3)">
+                    <button type="button" class="btn btn-secondary btn-icon" onclick="goToStep(3)">
                         <i class="bi bi-arrow-right"></i> بازگشت به ویرایش
                     </button>
                 </div>
                 <div class="col-md-2 text-center">
-                    <button class="btn btn-info btn-icon" onclick="generatePDFReport()">
+                    <button type="submit" class="btn btn-primary btn-icon" id="submit-inspection">
+                        <i class="bi bi-check-circle"></i> ثبت نهایی بازدید
+                    </button>
+                </div>
+                <div class="col-md-2 text-center">
+                    <button type="button" class="btn btn-info btn-icon" onclick="generatePDFReport()">
                         <i class="bi bi-file-pdf"></i> تولید گزارش PDF
                     </button>
                 </div>
                 <div class="col-md-2 text-center">
-                    <button class="btn btn-success btn-icon" onclick="generateExcelReport()">
+                    <button type="button" class="btn btn-success btn-icon" onclick="generateExcelReport()">
                         <i class="bi bi-file-excel"></i> خروجی Excel
                     </button>
                 </div>
                 <div class="col-md-2 text-center">
-                    <button class="btn btn-warning btn-icon" onclick="generateWordReport()">
+                    <button type="button" class="btn btn-warning btn-icon" onclick="generateWordReport()">
                         <i class="bi bi-file-word"></i> گزارش Word
                     </button>
                 </div>
                 <div class="col-md-3 text-end">
-                    <button class="btn whatsapp-btn btn-icon" onclick="sendToWhatsApp()">
+                    <button type="button" class="btn whatsapp-btn btn-icon" onclick="sendToWhatsApp()">
                         <i class="bi bi-whatsapp"></i> ارسال به واتساپ
                     </button>
                 </div>
-
-
-<div class="row mt-4">
-    <div class="col-md-12 text-center">
-        <button class="btn btn-lg btn-success btn-icon" onclick="submitFinalInspection()" style="padding: 15px 30px; font-size: 1.2rem;">
-            <i class="bi bi-check-circle-fill"></i> ثبت نهایی بازدید در سامانه
-        </button>
-        <p class="text-muted mt-2">
-            <i class="bi bi-info-circle"></i> با کلیک روی این دکمه، تمام اطلاعات بازدید در دیتابیس ذخیره شده و قابل بازیابی خواهد بود.
-        </p>
-    </div>
-</div>
-
-
             </div>
         </div>
     </div>
@@ -1096,27 +1019,27 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-2">
-                    <button class="btn btn-outline-secondary btn-icon" onclick="clearForm()">
+                    <button type="button" class="btn btn-outline-secondary btn-icon" onclick="clearForm()">
                         <i class="bi bi-trash"></i> پاک کردن فرم
                     </button>
                 </div>
                 <div class="col-md-3">
-                    <button class="btn btn-outline-primary btn-icon" onclick="saveDraft()">
+                    <button type="button" class="btn btn-outline-primary btn-icon" onclick="saveDraft()">
                         <i class="bi bi-save"></i> ذخیره پیش‌نویس
                     </button>
                 </div>
                 <div class="col-md-2">
-                    <button class="btn btn-outline-info btn-icon" onclick="loadDraft()">
+                    <button type="button" class="btn btn-outline-info btn-icon" onclick="loadDraft()">
                         <i class="bi bi-upload"></i> بارگذاری پیش‌نویس
                     </button>
                 </div>
                 <div class="col-md-2 text-center">
-                    <button class="btn btn-outline-warning btn-icon" id="auto-save-toggle">
+                    <button type="button" class="btn btn-outline-warning btn-icon" id="auto-save-toggle">
                         <i class="bi bi-check-circle"></i> ذخیره خودکار
                     </button>
                 </div>
                 <div class="col-md-3 text-end">
-                    <button class="btn btn-outline-success btn-icon" onclick="printForm()">
+                    <button type="button" class="btn btn-outline-success btn-icon" onclick="printForm()">
                         <i class="bi bi-printer"></i> چاپ فرم
                     </button>
                 </div>
@@ -1142,42 +1065,7 @@
         </div>
     </footer>
 
-    <!-- Loading Overlay -->
-    <div id="loadingOverlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:9999; text-align:center; padding-top:20%; color:white; font-size:20px;">
-        <i class="bi bi-arrow-repeat spin" style="font-size:40px;"></i><br>
-        در حال ایجاد گزارش...
-    </div>
-
     <!-- Modal for Equipment Details -->
-
-<!-- Modal برای ورود -->
-<div class="modal fade" id="loginModal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title"><i class="bi bi-box-arrow-in-right"></i> ورود به سیستم</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <form id="loginForm" onsubmit="handleLogin(event)">
-                    <div class="mb-3">
-                        <label class="form-label required">ایمیل</label>
-                        <input type="email" class="form-control" id="email" required placeholder="admin@example.com">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label required">رمز عبور</label>
-                        <input type="password" class="form-control" id="password" required placeholder="********">
-                    </div>
-                    <button type="submit" class="btn btn-primary w-100">ورود</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-
     <div class="modal fade" id="equipmentModal" tabindex="-1">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
@@ -1191,147 +1079,18 @@
             </div>
         </div>
     </div>
+</form>
 
-    <!-- JavaScript Libraries -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.18/jquery.timepicker.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
-    
-    <!-- Main JavaScript -->
-    <script>
+<!-- JavaScript Libraries -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.18/jquery.timepicker.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 
-// تابع ورود به سیستم (نسخه اصلاح شده)
-async function loginUser(email, password) {
-    try {
-        console.log('Sending login request...');
-        
-        const response = await fetch('/api/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                'X-Requested-With': 'XMLHttpRequest'
-            },
-            body: JSON.stringify({
-                email: email,
-                password: password
-            })
-        });
+<script>
 
-        console.log('Response status:', response.status);
-        
-        // دریافت متن پاسخ
-        const responseText = await response.text();
-        console.log('Raw response:', responseText);
-
-        // اگر پاسخ خالی است
-        if (!responseText.trim()) {
-            throw new Error('پاسخ خالی از سرور دریافت شد');
-        }
-
-        // تلاش برای تبدیل به JSON
-        let result;
-        try {
-            result = JSON.parse(responseText);
-        } catch (jsonError) {
-            console.error('JSON parse error:', jsonError);
-            throw new Error('فرمت پاسخ سرور نامعتبر است: ' + responseText.substring(0, 100));
-        }
-
-        // اگر وضعیت OK نیست
-        if (!response.ok) {
-            throw new Error(result.message || result.error || 'خطا در ورود');
-        }
-
-        // بررسی وجود توکن
-        if (!result.token) {
-            throw new Error('توکن دریافتی از سرور نامعتبر است');
-        }
-
-        // ذخیره توکن و اطلاعات کاربر
-        localStorage.setItem('auth_token', result.token);
-        if (result.user) {
-            localStorage.setItem('user', JSON.stringify(result.user));
-        }
-        
-        return true;
-
-    } catch (error) {
-        console.error('Login error details:', error);
-        throw error;
-    }
-}
-
-
-
-function showLoginModal() {
-    const modal = new bootstrap.Modal(document.getElementById('loginModal'));
-    modal.show();
-}
-
-
-
-
-// تابع handleLogin اصلاح شده
-async function handleLogin(event) {
-    event.preventDefault();
-    
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-    
-    if (!email || !password) {
-        Swal.fire({
-            icon: 'warning',
-            title: 'خطا',
-            text: 'ایمیل و رمز عبور را وارد کنید'
-        });
-        return;
-    }
-    
-    try {
-        Swal.fire({
-            title: 'در حال ورود...',
-            allowOutsideClick: false,
-            didOpen: () => {
-                Swal.showLoading();
-            }
-        });
-        
-        await loginUser(email, password);
-        
-        Swal.close();
-        
-        // بستن مودال
-        const modal = bootstrap.Modal.getInstance(document.getElementById('loginModal'));
-        if (modal) {
-            modal.hide();
-        }
-        
-        // به‌روزرسانی نمایش نام کاربری
-        document.getElementById('user-name').textContent = email.split('@')[0]; // نمایش بخش اول ایمیل
-        
-        Swal.fire({
-            icon: 'success',
-            title: 'ورود موفق',
-            text: 'به سیستم خوش آمدید',
-            timer: 2000,
-            showConfirmButton: false
-        });
-        
-    } catch (error) {
-        console.error('Login error:', error);
-        
-        Swal.fire({
-            icon: 'error',
-            title: 'خطا در ورود',
-            text: error.message || 'خطایی رخ داده است. لطفا دوباره تلاش کنید.'
-        });
-    }
-}
-
-
+<!-- Main JavaScript -->   
 
         function checkLibraries() {
             if (typeof XLSX === 'undefined') {
@@ -1344,9 +1103,6 @@ async function handleLogin(event) {
             }
             return true;
         }
-
-
-
 
         // Global variables
         let equipmentCount = 0;
@@ -2053,6 +1809,55 @@ document.addEventListener('DOMContentLoaded', function() {
         ];
 
         const postsList = postsAndFeedersData.map(item => item.post);
+
+
+
+document.getElementById('main-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    document.getElementById('main-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // جمع‌آوری داده‌ها
+        const formData = {
+            inspection_date: document.getElementById('inspection-date').value,
+            contractor: document.getElementById('contractor').value,
+            contract_coefficient: document.getElementById('contract-coefficient').value,
+            contract_number: document.getElementById('contract-number').value,
+            daily_start_time: document.getElementById('daily-start-time').value,
+            daily_end_time: document.getElementById('daily-end-time').value,
+            whatsapp_number: document.getElementById('whatsapp-number').value,
+            equipments: equipments
+        };
+        
+        console.log('داده‌های ارسالی:', formData);
+        
+        fetch('/api/inspections', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('پاسخ سرور:', data);
+            if (data.success) {
+                alert('بازدید با موفقیت ثبت شد!');
+                // clearForm();
+                // goToStep(1);
+            } else {
+                alert('خطا: ' + (data.message || JSON.stringify(data.errors)));
+            }
+        })
+        .catch(error => {
+            console.error('خطا:', error);
+            alert('خطا در ارتباط با سرور: ' + error.message);
+        });
+    });
+
+
 
         // Step navigation functions
         function goToStep(step) {
@@ -3072,8 +2877,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
 
-
-
         // Technical Tab Functions
         function updateTechnicalInfoSections() {
             const container = document.getElementById('tech-info-container');
@@ -3362,26 +3165,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-    setTimeout(() => {
-        equipments.forEach(equip => {
-            if (document.getElementById(`simcard-type-${equip.id}`)) {
-                try {
-                    $(`#simcard-type-${equip.id}, #antenna-status-${equip.id}, #signal-status-${equip.id}, #modem-power-${equip.id}`).select2({
-                        placeholder: 'انتخاب کنید',
-                        allowClear: true,
-                        width: '100%',
-                        dir: 'rtl',
-                        dropdownParent: $(`#communication-tab-${equip.id}`)
-                    });
-                    console.log(`Select2 initialized for equipment ${equip.id}`);
-                } catch (e) {
-                    console.log(`Select2 error for equipment ${equip.id}:`, e);
-                }
-            }
-        });
-    }, 500);
-}
+// برای dropdownهای ارتباطات
+setTimeout(() => {
+    $(`#simcard-type-${equipment.id}, #antenna-status-${equipment.id}, #signal-status-${equipment.id}, #modem-power-${equipment.id}`).select2({
+        placeholder: 'انتخاب کنید',
+        allowClear: true,
+        width: '100%',
+        dir: 'rtl',
+        dropdownParent: $(`#communication-tab-${equipment.id}`)
+    });
+}, 250);
 
+
+
+        }
 
         function loadExistingActivitiesAndConsumables(equipmentId) {
             const equipment = equipments.find(e => e.id === equipmentId);
@@ -4332,458 +4129,121 @@ function generateExcelReport() {
 }
 
 
-// تابع کمکی برای تبدیل متن به یونیکد
-function fixPersianText(text) {
-    if (!text) return '';
-    return text;
-}
+
 
 function generatePDFReport() {
     try {
-        // ایجاد یک پنجره جدید
-        const printWindow = window.open('', '_blank');
+        // Show loading
+        $('#loadingOverlay').fadeIn();
         
-        // جمع‌آوری اطلاعات
-        const inspectionDate = document.getElementById('inspection-date').value;
-        const contractor = document.getElementById('contractor').value;
-        const coefficient = parseFloat(document.getElementById('contract-coefficient').value) || 2.35;
-        const contractNumber = document.getElementById('contract-number').value;
-        const dailyStartTime = document.getElementById('daily-start-time').value;
-        const dailyEndTime = document.getElementById('daily-end-time').value;
-        const cityDepartment = equipments.length > 0 ? equipments[0].departmentData?.department || 'ثبت نشده' : 'ثبت نشده';
-        
-        // محاسبه آمار کل
-        let totalActivities = 0;
-        let totalCost = 0;
-        
-        equipments.forEach(equipment => {
-            if (equipment.activitiesData && equipment.activitiesData.length > 0) {
-                equipment.activitiesData.forEach(activity => {
-                    totalActivities += activity.quantity || 0;
-                    totalCost += activity.total || 0;
-                });
-            }
-        });
-        
-        const finalCost = totalCost * coefficient;
-        
-        // ساخت HTML تجهیزات با جزئیات کامل
-        let equipmentHTML = '';
-        
-        equipments.forEach((equipment, index) => {
-            const hasBrands = equipmentWithBrands.includes(equipment.equipmentType);
-            const switchBrandDisplay = hasBrands ? 
-                (equipment.switchBrand === 'سایر' ? equipment.otherSwitchBrand : equipment.switchBrand) : 
-                'بدون برند';
+        setTimeout(() => {
+            try {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF('p', 'mm', 'a4');
                 
-            const feedersText = equipment.feeders && equipment.feeders.length > 0 
-                ? equipment.feeders.map(f => `${f.post} (${f.feeder})`).join('، ')
-                : 'ثبت نشده';
-            
-            // اطلاعات چک‌لیست
-            let checklistHTML = '';
-            if (equipment.checklistData && equipment.checklistData.length > 0) {
-                checklistHTML = `
-                    <div style="margin-top: 15px;">
-                        <h4 style="color: #2c3e50; border-bottom: 1px solid #3498db; padding-bottom: 5px;">چک‌لیست بازدید</h4>
-                        <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
-                            <thead>
-                                <tr style="background-color: #2c3e50; color: white;">
-                                    <th style="padding: 8px; border: 1px solid #ddd;">ردیف</th>
-                                    <th style="padding: 8px; border: 1px solid #ddd;">آیتم</th>
-                                    <th style="padding: 8px; border: 1px solid #ddd;">وضعیت</th>
-                                    <th style="padding: 8px; border: 1px solid #ddd;">توضیحات</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                `;
+                // Get data
+                const inspectionDate = document.getElementById('inspection-date').value;
+                const contractor = document.getElementById('contractor').value;
+                const coefficient = parseFloat(document.getElementById('contract-coefficient').value) || 2.35;
+                const cityDepartment = equipments.length > 0 ? equipments[0].departmentData?.department || 'ثبت نشده' : 'ثبت نشده';
                 
-                equipment.checklistData.forEach((item, idx) => {
-                    const statusColor = item.status === 'OK' ? '#27ae60' : '#e74c3c';
-                    checklistHTML += `
-                        <tr>
-                            <td style="padding: 8px; border: 1px solid #ddd; text-align: center;">${idx + 1}</td>
-                            <td style="padding: 8px; border: 1px solid #ddd;">${item.item || ''}</td>
-                            <td style="padding: 8px; border: 1px solid #ddd; color: ${statusColor}; font-weight: bold;">${item.status || ''}</td>
-                            <td style="padding: 8px; border: 1px solid #ddd;">${item.description || '-'}</td>
-                        </tr>
-                    `;
+                // Header
+                doc.setFontSize(16);
+                doc.setFont('helvetica', 'bold');
+                doc.text('شرکت توزیع نیروی برق استان یزد', 105, 20, { align: 'center' });
+                
+                doc.setFontSize(14);
+                doc.text('گزارش بازدید تجهیزات اتوماسیون', 105, 30, { align: 'center' });
+                
+                doc.setFontSize(12);
+                doc.text(`تاریخ بازدید: ${inspectionDate}`, 105, 40, { align: 'center' });
+                doc.text(`پیمانکار: ${contractor}`, 105, 47, { align: 'center' });
+                doc.text(`امور شهرستان: ${cityDepartment}`, 105, 54, { align: 'center' });
+                
+                // Summary table
+                doc.autoTable({
+                    startY: 60,
+                    head: [['آیتم', 'مقدار']],
+                    body: [
+                        ['تعداد تجهیزات', equipments.length],
+                        ['کل فعالیت‌ها', document.getElementById('summary-activity-count').textContent],
+                        ['هزینه بدون ضریب', document.getElementById('summary-total-cost').textContent],
+                        ['هزینه نهایی', document.getElementById('summary-final-cost').textContent],
+                        ['ضریب قرارداد', coefficient]
+                    ],
+                    theme: 'grid',
+                    headStyles: { fillColor: [44, 62, 80] },
+                    styles: { halign: 'center' }
                 });
                 
-                checklistHTML += `
-                            </tbody>
-                        </table>
-                    </div>
-                `;
-            }
-            
-            // اطلاعات فعالیت‌ها
-            let activitiesHTML = '';
-            if (equipment.activitiesData && equipment.activitiesData.length > 0) {
-                let activityTotal = 0;
-                activitiesHTML = `
-                    <div style="margin-top: 15px;">
-                        <h4 style="color: #2c3e50; border-bottom: 1px solid #3498db; padding-bottom: 5px;">فعالیت‌های انجام شده</h4>
-                        <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
-                            <thead>
-                                <tr style="background-color: #2c3e50; color: white;">
-                                    <th style="padding: 8px; border: 1px solid #ddd;">ردیف</th>
-                                    <th style="padding: 8px; border: 1px solid #ddd;">کد</th>
-                                    <th style="padding: 8px; border: 1px solid #ddd;">عنوان</th>
-                                    <th style="padding: 8px; border: 1px solid #ddd;">تعداد</th>
-                                    <th style="padding: 8px; border: 1px solid #ddd;">فی واحد</th>
-                                    <th style="padding: 8px; border: 1px solid #ddd;">مبلغ</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                `;
+                let yPos = doc.lastAutoTable.finalY + 10;
                 
-                equipment.activitiesData.forEach((activity, idx) => {
-                    activityTotal += activity.total || 0;
-                    activitiesHTML += `
-                        <tr>
-                            <td style="padding: 8px; border: 1px solid #ddd; text-align: center;">${idx + 1}</td>
-                            <td style="padding: 8px; border: 1px solid #ddd;">${activity.code || ''}</td>
-                            <td style="padding: 8px; border: 1px solid #ddd;">${activity.title || ''}</td>
-                            <td style="padding: 8px; border: 1px solid #ddd; text-align: center;">${activity.quantity || 0}</td>
-                            <td style="padding: 8px; border: 1px solid #ddd; text-align: left;">${(activity.unitPrice || 0).toLocaleString()} ریال</td>
-                            <td style="padding: 8px; border: 1px solid #ddd; text-align: left;">${(activity.total || 0).toLocaleString()} ریال</td>
-                        </tr>
-                    `;
-                });
-                
-                activitiesHTML += `
-                            </tbody>
-                            <tfoot>
-                                <tr style="background-color: #f2f2f2; font-weight: bold;">
-                                    <td colspan="5" style="padding: 8px; border: 1px solid #ddd; text-align: left;">جمع کل:</td>
-                                    <td style="padding: 8px; border: 1px solid #ddd; text-align: left;">${activityTotal.toLocaleString()} ریال</td>
-                                </tr>
-                            </tfoot>
-                        </table>
-                    </div>
-                `;
-            }
-            
-            // اطلاعات اقلام مصرفی
-            let consumablesHTML = '';
-            if (equipment.consumablesData && equipment.consumablesData.length > 0) {
-                consumablesHTML = `
-                    <div style="margin-top: 15px;">
-                        <h4 style="color: #2c3e50; border-bottom: 1px solid #3498db; padding-bottom: 5px;">اقلام مصرفی</h4>
-                        <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
-                            <thead>
-                                <tr style="background-color: #2c3e50; color: white;">
-                                    <th style="padding: 8px; border: 1px solid #ddd;">ردیف</th>
-                                    <th style="padding: 8px; border: 1px solid #ddd;">نام قلم</th>
-                                    <th style="padding: 8px; border: 1px solid #ddd;">تعداد</th>
-                                    <th style="padding: 8px; border: 1px solid #ddd;">واحد</th>
-                                    <th style="padding: 8px; border: 1px solid #ddd;">توضیحات</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                `;
-                
-                equipment.consumablesData.forEach((consumable, idx) => {
-                    consumablesHTML += `
-                        <tr>
-                            <td style="padding: 8px; border: 1px solid #ddd; text-align: center;">${idx + 1}</td>
-                            <td style="padding: 8px; border: 1px solid #ddd;">${consumable.name || ''}</td>
-                            <td style="padding: 8px; border: 1px solid #ddd; text-align: center;">${consumable.quantity || 0}</td>
-                            <td style="padding: 8px; border: 1px solid #ddd;">${consumable.unit || 'عدد'}</td>
-                            <td style="padding: 8px; border: 1px solid #ddd;">${consumable.description || '-'}</td>
-                        </tr>
-                    `;
-                });
-                
-                consumablesHTML += `
-                            </tbody>
-                        </table>
-                    </div>
-                `;
-            }
-            
-            // اطلاعات عکس‌ها
-            let photosHTML = '';
-            if (equipment.photosData && equipment.photosData.length > 0) {
-                photosHTML = `
-                    <div style="margin-top: 15px;">
-                        <h4 style="color: #2c3e50; border-bottom: 1px solid #3498db; padding-bottom: 5px;">مستندات تصویری</h4>
-                        <p>تعداد عکس‌ها: ${equipment.photosData.length}</p>
-                        <div style="display: flex; flex-wrap: wrap; gap: 10px;">
-                `;
-                
-                equipment.photosData.forEach((photo, idx) => {
-                    photosHTML += `
-                        <div style="border: 1px solid #ddd; padding: 10px; border-radius: 5px; width: 200px;">
-                            <p><strong>عکس ${idx + 1}</strong></p>
-                            <p>کد اسکن: ${photo.scanCode || '-'}</p>
-                            <p>توضیحات: ${photo.description || '-'}</p>
-                        </div>
-                    `;
-                });
-                
-                photosHTML += `</div></div>`;
-            }
-            
-            // اطلاعات اصلی تجهیز
-            equipmentHTML += `
-                <div style="margin-bottom: 30px; padding: 20px; border: 2px solid #ddd; border-radius: 10px; background-color: #fff; page-break-inside: avoid;">
-                    <h3 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; margin-top: 0;">
-                        تجهیز ${index + 1}: ${equipment.equipmentType || 'ثبت نشده'}
-                    </h3>
+                // Equipment details
+                equipments.forEach((equipment, index) => {
+                    if (yPos > 250) {
+                        doc.addPage();
+                        yPos = 20;
+                    }
                     
-                    <table style="width: 100%; border-collapse: collapse; margin-bottom: 15px;">
-                        <tr>
-                            <th style="padding: 10px; border: 1px solid #ddd; background-color: #f2f2f2; width: 25%;">کد اسکادا:</th>
-                            <td style="padding: 10px; border: 1px solid #ddd;">${equipment.scadaCode || 'ثبت نشده'}</td>
-                            <th style="padding: 10px; border: 1px solid #ddd; background-color: #f2f2f2; width: 25%;">زمان فعالیت:</th>
-                            <td style="padding: 10px; border: 1px solid #ddd;">${equipment.startTime || '---'} - ${equipment.endTime || '---'}</td>
-                        </tr>
-                        ${hasBrands ? `
-                        <tr>
-                            <th style="padding: 10px; border: 1px solid #ddd; background-color: #f2f2f2;">برند کلید:</th>
-                            <td style="padding: 10px; border: 1px solid #ddd;">${switchBrandDisplay}</td>
-                            <th style="padding: 10px; border: 1px solid #ddd; background-color: #f2f2f2;">برند مودم:</th>
-                            <td style="padding: 10px; border: 1px solid #ddd;">${equipment.modemBrand === 'سایر' ? equipment.otherModemBrand : equipment.modemBrand}</td>
-                        </tr>
-                        <tr>
-                            <th style="padding: 10px; border: 1px solid #ddd; background-color: #f2f2f2;">برند RTU:</th>
-                            <td style="padding: 10px; border: 1px solid #ddd;">${equipment.rtuBrand === 'سایر' ? equipment.otherRTUBrand : equipment.rtuBrand}</td>
-                            <th style="padding: 10px; border: 1px solid #ddd; background-color: #f2f2f2;">نوع نصب:</th>
-                            <td style="padding: 10px; border: 1px solid #ddd;">${equipment.installationType || '---'}</td>
-                        </tr>
-                        ` : ''}
-                        <tr>
-                            <th style="padding: 10px; border: 1px solid #ddd; background-color: #f2f2f2;">امور شهرستان:</th>
-                            <td style="padding: 10px; border: 1px solid #ddd;">${equipment.departmentData?.department || 'ثبت نشده'}</td>
-                            <th style="padding: 10px; border: 1px solid #ddd; background-color: #f2f2f2;">GIS Code:</th>
-                            <td style="padding: 10px; border: 1px solid #ddd;">${equipment.departmentData?.city || 'ثبت نشده'}</td>
-                        </tr>
-                        <tr>
-                            <th style="padding: 10px; border: 1px solid #ddd; background-color: #f2f2f2;">فیدرها:</th>
-                            <td style="padding: 10px; border: 1px solid #ddd;" colspan="3">${feedersText}</td>
-                        </tr>
-                        <tr>
-                            <th style="padding: 10px; border: 1px solid #ddd; background-color: #f2f2f2;">موقعیت جغرافیایی:</th>
-                            <td style="padding: 10px; border: 1px solid #ddd;" colspan="3">
-                                عرض: ${equipment.locationData?.latitude || 'ثبت نشده'} - طول: ${equipment.locationData?.longitude || 'ثبت نشده'}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th style="padding: 10px; border: 1px solid #ddd; background-color: #f2f2f2;">آدرس:</th>
-                            <td style="padding: 10px; border: 1px solid #ddd;" colspan="3">${equipment.locationData?.address || 'ثبت نشده'}</td>
-                        </tr>
-                        ${equipment.locationData?.cabinetInitialHeight ? `
-                        <tr>
-                            <th style="padding: 10px; border: 1px solid #ddd; background-color: #f2f2f2;">ارتفاع اولیه:</th>
-                            <td style="padding: 10px; border: 1px solid #ddd;">${equipment.locationData.cabinetInitialHeight} متر</td>
-                            <th style="padding: 10px; border: 1px solid #ddd; background-color: #f2f2f2;">ارتفاع نهایی:</th>
-                            <td style="padding: 10px; border: 1px solid #ddd;">${equipment.locationData.cabinetFinalHeight || 'ثبت نشده'} متر</td>
-                        </tr>
-                        ` : ''}
-                        <tr>
-                            <th style="padding: 10px; border: 1px solid #ddd; background-color: #f2f2f2;">اطلاعات ارتباطی:</th>
-                            <td style="padding: 10px; border: 1px solid #ddd;" colspan="3">
-                                سیم‌کارت: ${equipment.communicationData?.simcardType || 'ثبت نشده'} - 
-                                شماره: ${equipment.communicationData?.simcardNumber || 'ثبت نشده'} - 
-                                IP: ${equipment.communicationData?.simcardIp || 'ثبت نشده'}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th style="padding: 10px; border: 1px solid #ddd; background-color: #f2f2f2;">وضعیت آنتن:</th>
-                            <td style="padding: 10px; border: 1px solid #ddd;">${equipment.communicationData?.antennaStatus || 'ثبت نشده'}</td>
-                            <th style="padding: 10px; border: 1px solid #ddd; background-color: #f2f2f2;">وضعیت سیگنال:</th>
-                            <td style="padding: 10px; border: 1px solid #ddd;">${equipment.communicationData?.signalStatus || 'ثبت نشده'}</td>
-                        </tr>
-                        <tr>
-                            <th style="padding: 10px; border: 1px solid #ddd; background-color: #f2f2f2;">تغذیه مودم:</th>
-                            <td style="padding: 10px; border: 1px solid #ddd;">${equipment.communicationData?.modemPower || 'ثبت نشده'}</td>
-                            <th style="padding: 10px; border: 1px solid #ddd; background-color: #f2f2f2;">قابلیت ریست:</th>
-                            <td style="padding: 10px; border: 1px solid #ddd;">${equipment.communicationData?.resetPossible ? 'دارد' : 'ندارد'}</td>
-                        </tr>
-                    </table>
+                    doc.setFontSize(12);
+                    doc.setFont('helvetica', 'bold');
+                    doc.text(`تجهیز ${index + 1}: ${equipment.equipmentType || 'ثبت نشده'}`, 20, yPos);
+                    yPos += 10;
                     
-                    ${checklistHTML}
-                    ${activitiesHTML}
-                    ${consumablesHTML}
-                    ${photosHTML}
-                </div>
-            `;
-        });
-        
-        // ایجاد HTML کامل
-        const htmlContent = `
-            <!DOCTYPE html>
-            <html dir="rtl" lang="fa">
-            <head>
-                <meta charset="UTF-8">
-                <title>گزارش بازدید تجهیزات اتوماسیون</title>
-                <style>
-                    body {
-                        font-family: 'Vazirmatn', Tahoma, Arial, sans-serif;
-                        direction: rtl;
-                        text-align: right;
-                        margin: 2cm;
-                        line-height: 1.6;
-                        color: #333;
+                    doc.setFontSize(10);
+                    doc.setFont('helvetica', 'normal');
+                    doc.text(`کد اسکادا: ${equipment.scadaCode || 'ثبت نشده'}`, 20, yPos);
+                    yPos += 7;
+                    
+                    if (equipment.departmentData?.department) {
+                        doc.text(`امور شهرستان: ${equipment.departmentData.department}`, 20, yPos);
+                        yPos += 7;
                     }
-                    .header {
-                        text-align: center;
-                        margin-bottom: 30px;
-                        border-bottom: 3px solid #2c3e50;
-                        padding-bottom: 20px;
+                    
+                    if (equipment.feeders && equipment.feeders.length > 0) {
+                        const feedersText = equipment.feeders.map(f => `${f.post || 'ثبت نشده'} (${f.feeder || 'ثبت نشده'})`).join('، ');
+                        doc.text(`فیدرها: ${feedersText}`, 20, yPos);
+                        yPos += 7;
                     }
-                    .header h1 {
-                        color: #2c3e50;
-                        margin: 0;
-                        font-size: 24px;
+                    
+                    if (equipment.locationData?.address) {
+                        const address = equipment.locationData.address.length > 50 ? 
+                            equipment.locationData.address.substring(0, 50) + '...' : 
+                            equipment.locationData.address;
+                        doc.text(`آدرس: ${address}`, 20, yPos);
+                        yPos += 10;
                     }
-                    .header h2 {
-                        color: #3498db;
-                        margin: 10px 0;
-                        font-size: 20px;
-                    }
-                    .section {
-                        margin-bottom: 25px;
-                    }
-                    .section-title {
-                        background-color: #2c3e50;
-                        color: white;
-                        padding: 10px 15px;
-                        border-radius: 5px;
-                        margin-bottom: 15px;
-                        font-size: 18px;
-                    }
-                    table {
-                        width: 100%;
-                        border-collapse: collapse;
-                        margin-bottom: 20px;
-                    }
-                    table, th, td {
-                        border: 1px solid #ddd;
-                    }
-                    th, td {
-                        padding: 10px;
-                        text-align: right;
-                    }
-                    th {
-                        background-color: #f2f2f2;
-                        font-weight: bold;
-                    }
-                    .financial-summary {
-                        background-color: #f8f9fa;
-                        padding: 15px;
-                        border-radius: 5px;
-                    }
-                    .footer {
-                        margin-top: 50px;
-                        border-top: 1px solid #ddd;
-                        padding-top: 20px;
-                        text-align: center;
-                        font-size: 11px;
-                        color: #666;
-                    }
-                    @media print {
-                        body {
-                            margin: 1cm;
-                        }
-                        .no-print {
-                            display: none;
-                        }
-                    }
-                </style>
-            </head>
-            <body>
-                <div class="header">
-                    <h1>شرکت توزیع نیروی برق استان یزد</h1>
-                    <h2>گزارش بازدید تجهیزات اتوماسیون</h2>
-                    <p>فرم شماره: F-20324-01</p>
-                    <p>تاریخ بازدید: ${inspectionDate}</p>
-                </div>
+                });
                 
-                <div class="section">
-                    <div class="section-title">اطلاعات روزانه بازدید</div>
-                    <table>
-                        <tr>
-                            <th style="width: 20%;">امور شهرستان:</th>
-                            <td style="width: 30%;">${cityDepartment}</td>
-                            <th style="width: 20%;">پیمانکار:</th>
-                            <td style="width: 30%;">${contractor}</td>
-                        </tr>
-                        <tr>
-                            <th>شماره قرارداد:</th>
-                            <td>${contractNumber}</td>
-                            <th>ضریب قرارداد:</th>
-                            <td>${coefficient}</td>
-                        </tr>
-                        <tr>
-                            <th>تاریخ بازدید:</th>
-                            <td>${inspectionDate}</td>
-                            <th>تعداد تجهیزات:</th>
-                            <td>${equipments.length}</td>
-                        </tr>
-                        <tr>
-                            <th>زمان شروع:</th>
-                            <td>${dailyStartTime || '---'}</td>
-                            <th>زمان پایان:</th>
-                            <td>${dailyEndTime || '---'}</td>
-                        </tr>
-                    </table>
-                </div>
+                // Save PDF
+                const filename = `گزارش_بازدید_${inspectionDate.replace(/\//g, '-')}.pdf`;
+                doc.save(filename);
                 
-                <div class="section">
-                    <div class="section-title">خلاصه مالی</div>
-                    <div class="financial-summary">
-                        <table>
-                            <tr>
-                                <th style="width: 30%;">کل فعالیت‌ها:</th>
-                                <td style="width: 20%;">${totalActivities}</td>
-                                <th style="width: 30%;">هزینه بدون ضریب:</th>
-                                <td style="width: 20%;">${totalCost.toLocaleString()} ریال</td>
-                            </tr>
-                            <tr>
-                                <th>هزینه نهایی (با ضریب ${coefficient}):</th>
-                                <td colspan="3"><strong>${finalCost.toLocaleString()} ریال</strong></td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
+                // Hide loading
+                $('#loadingOverlay').fadeOut();
                 
-                <div class="section">
-                    <div class="section-title">جزئیات تجهیزات بازدید شده</div>
-                    ${equipmentHTML}
-                </div>
+                alert('گزارش PDF با موفقیت ایجاد شد.');
                 
-                <div class="footer">
-                    <p>سیستم مدیریت بازدید تجهیزات اتوماسیون - شرکت توزیع نیروی برق استان یزد</p>
-                    <p>فرم شماره: F-20324-01 - تاریخ تولید: ${new Date().toLocaleDateString('fa-IR')}</p>
-                </div>
-                
-                <div class="no-print" style="text-align: center; margin-top: 20px;">
-                    <button onclick="window.print()" style="padding: 10px 20px; background-color: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 14px;">
-                        <i class="bi bi-printer"></i> چاپ / ذخیره PDF
-                    </button>
-                    <button onclick="window.close()" style="padding: 10px 20px; background-color: #e74c3c; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 14px; margin-right: 10px;">
-                        <i class="bi bi-x"></i> بستن
-                    </button>
-                </div>
-            </body>
-            </html>
-        `;
-        
-        // نوشتن محتوا در پنجره جدید
-        printWindow.document.write(htmlContent);
-        printWindow.document.close();
-        
-        // تمرکز روی پنجره جدید
-        printWindow.focus();
+            } catch (error) {
+
+                console.error('Error generating PDF:', error);
+                $('#loadingOverlay').fadeOut();
+                alert('خطا در ایجاد گزارش PDF: ' + error.message);
+            }
+        }, 100);
         
     } catch (error) {
-        console.error('Error generating PDF report:', error);
-        alert('خطا در ایجاد گزارش: ' + error.message);
+        console.error('Error generating PDF:', error);
+        $('#loadingOverlay').fadeOut();
+        alert('خطا در ایجاد گزارش PDF: ' + error.message);
     }
 }
+
+
+
+
+
+
 
 
 function generateWordReport() {
@@ -5632,239 +5092,19 @@ function generateWordReport() {
 
 
 
-    // در اینجا اضافه کنید - خارج از $(document).ready اما داخل تگ <script>
-    // در صورت عدم وجود FileSaver.js، یک polyfill ساده اضافه می‌کنیم
-    if (typeof saveAs === 'undefined') {
-        window.saveAs = function(blob, filename) {
-            const link = document.createElement('a');
-            const url = URL.createObjectURL(blob);
-            link.href = url;
-            link.download = filename;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            setTimeout(() => URL.revokeObjectURL(url), 100);
-        };
-    } 
-
-
-
-
-// تابع ثبت نهایی بازدید - نسخه نهایی با JSON.stringify برای همه فیلدها
-async function submitFinalInspection() {
-    try {
-        if (!confirm('آیا از ثبت نهایی این بازدید اطمینان دارید؟')) {
-            return;
-        }
-
-        if (equipments.length === 0) {
-            Swal.fire({
-                icon: 'warning',
-                title: 'خطا',
-                text: 'حداقل یک تجهیز باید اضافه کنید'
-            });
-            return;
-        }
-
-        Swal.fire({
-            title: 'در حال ثبت اطلاعات...',
-            text: 'لطفا صبر کنید',
-            allowOutsideClick: false,
-            didOpen: () => {
-                Swal.showLoading();
-            }
-        });
-
-        const token = localStorage.getItem('auth_token');
-        
-        if (!token) {
-            Swal.fire({
-                icon: 'error',
-                title: 'خطا',
-                text: 'لطفا ابتدا وارد سیستم شوید'
-            });
-            return;
-        }
-
-        // تبدیل تاریخ شمسی به میلادی
-        const jalaliDate = document.getElementById('inspection-date').value;
-        
-        function convertJalaliToGregorian(jalaliDateStr) {
-            try {
-                if (typeof window.moment !== 'undefined') {
-                    const persianNumbers = {
-                        '۰': '0', '۱': '1', '۲': '2', '۳': '3', '۴': '4',
-                        '۵': '5', '۶': '6', '۷': '7', '۸': '8', '۹': '9'
-                    };
-                    
-                    let englishDate = jalaliDateStr;
-                    for (let [persian, english] of Object.entries(persianNumbers)) {
-                        englishDate = englishDate.replace(new RegExp(persian, 'g'), english);
-                    }
-                    
-                    const m = window.moment(englishDate, 'jYYYY/jMM/jDD');
-                    if (m.isValid()) {
-                        return m.format('YYYY-MM-DD');
-                    }
-                }
-            } catch (e) {
-                console.error('Date conversion error:', e);
-            }
-            return jalaliDateStr;
-        }
-
-        const gregorianDate = convertJalaliToGregorian(jalaliDate);
-
-        // آماده‌سازی داده‌های تجهیزات با JSON.stringify برای همه فیلدهای غیراساسی
-        const processedEquipments = equipments.map(equipment => {
-            // ایجاد یک شیء جدید با فیلدهای اصلی
-            const equipmentData = {
-                // فیلدهای اسکالر (نیاز به JSON.stringify ندارند)
-                equipmentType: equipment.equipmentType || '',
-                scadaCode: equipment.scadaCode || '',
-                installationType: equipment.installationType || '',
-                switchBrand: equipment.switchBrand || '',
-                modemBrand: equipment.modemBrand || '',
-                rtuBrand: equipment.rtuBrand || '',
-                otherSwitchBrand: equipment.otherSwitchBrand || '',
-                otherModemBrand: equipment.otherModemBrand || '',
-                otherRTUBrand: equipment.otherRTUBrand || '',
-                startTime: equipment.startTime || '',
-                endTime: equipment.endTime || '',
-                
-                // فیلدهای پیچیده - باید JSON.stringify شوند
-                feeders: JSON.stringify(equipment.feeders || []),
-                departmentData: JSON.stringify(equipment.departmentData || {}),
-                locationData: JSON.stringify(equipment.locationData || {}),
-                communicationData: JSON.stringify(equipment.communicationData || {}),
-                checklistData: JSON.stringify(equipment.checklistData || []),
-                activitiesData: JSON.stringify(equipment.activitiesData || []),
-                consumablesData: JSON.stringify(equipment.consumablesData || []),
-                photosData: JSON.stringify(equipment.photosData || []),
-                cellSpecs: JSON.stringify(equipment.cellSpecs || {}),
-                tabsValidated: JSON.stringify(equipment.tabsValidated || {})
-            };
-            
-            return equipmentData;
-        });
-
-        // محاسبه آمار کل
-        let totalActivities = 0;
-        let totalCost = 0;
-        
-        equipments.forEach(equipment => {
-            if (equipment.activitiesData && equipment.activitiesData.length > 0) {
-                equipment.activitiesData.forEach(activity => {
-                    totalActivities += activity.quantity || 0;
-                    totalCost += activity.total || 0;
-                });
-            }
-        });
-
-        const coefficient = parseFloat(document.getElementById('contract-coefficient').value) || 2.35;
-
-        const inspectionData = {
-            inspection_date: gregorianDate,
-            daily_start_time: document.getElementById('daily-start-time').value,
-            daily_end_time: document.getElementById('daily-end-time').value,
-            contractor: document.getElementById('contractor').value,
-            contract_coefficient: coefficient,
-            contract_number: document.getElementById('contract-number').value,
-            whatsapp_number: document.getElementById('whatsapp-number').value,
-            equipments: processedEquipments
-        };
-
-        console.log('Sending inspection data:', JSON.stringify(inspectionData, null, 2));
-
-        const response = await fetch('/api/inspections', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`,
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify(inspectionData)
-        });
-
-        const responseText = await response.text();
-        console.log('Raw response:', responseText);
-
-        let result;
-        try {
-            result = JSON.parse(responseText);
-        } catch (e) {
-            console.error('JSON parse error:', e);
-            throw new Error('پاسخ سرور نامعتبر است');
-        }
-
-        if (!response.ok) {
-            if (response.status === 422) {
-                const errorMessages = [];
-                if (result.errors) {
-                    Object.keys(result.errors).forEach(key => {
-                        errorMessages.push(`${key}: ${result.errors[key].join(', ')}`);
-                    });
-                }
-                throw new Error(errorMessages.join('\n') || result.message || 'خطای اعتبارسنجی');
-            }
-            throw new Error(result.message || result.error || 'خطا در ثبت اطلاعات');
-        }
-
-        // موفقیت
-        const trackingCode = result.data?.id || result.id || 'ثبت شده';
-        
-        Swal.fire({
-            icon: 'success',
-            title: '✅ ثبت با موفقیت انجام شد',
-            html: `
-                <div style="text-align: right;">
-                    <p>بازدید با موفقیت در سیستم ثبت شد.</p>
-                    <p><strong>کد پیگیری:</strong> ${trackingCode}</p>
-                    <p><strong>تاریخ:</strong> ${jalaliDate}</p>
-                    <p><strong>تعداد تجهیزات:</strong> ${equipments.length}</p>
-                    <p><strong>هزینه نهایی:</strong> ${formatNumber(totalCost * coefficient)} ریال</p>
-                </div>
-            `,
-            confirmButtonText: 'باشه'
-        }).then(() => {
-            localStorage.removeItem('automationInspectionDraft');
-            if (confirm('آیا می‌خواهید یک بازدید جدید شروع کنید؟')) {
-                clearForm();
-            }
-        });
-
-        console.log('Inspection saved successfully:', result);
-
-    } catch (error) {
-        console.error('Error submitting inspection:', error);
-        
-        Swal.fire({
-            icon: 'error',
-            title: '❌ خطا در ثبت اطلاعات',
-            text: error.message || 'خطایی رخ داده است',
-            confirmButtonText: 'باشه'
-        });
-    }
-}
-
-
-
-// همچنین یک تابع برای نمایش وضعیت احراز هویت اضافه کنید
-function checkAuthStatus() {
-    const token = localStorage.getItem('auth_token');
-    if (!token) {
-        Swal.fire({
-            icon: 'warning',
-            title: 'ورود به سیستم',
-            text: 'برای ثبت اطلاعات باید وارد سیستم شوید. به صفحه ورود هدایت می‌شوید.',
-            confirmButtonText: 'ورود'
-        }).then(() => {
-            window.location.href = '/login';
-        });
-        return false;
-    }
-    return true;
-}
+// Polyfill برای FileSaver.js
+if (typeof saveAs === 'undefined') {
+    window.saveAs = function(blob, filename) {
+        const link = document.createElement('a');
+        const url = URL.createObjectURL(blob);
+        link.href = url;
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        setTimeout(() => URL.revokeObjectURL(url), 100);
+    };
+}  
 
     </script>
 </body>

@@ -1,127 +1,145 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api;  // اینجا باید Api باشه
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Controller;  // اینو بدون تغییر نگه دار
 use App\Models\Inspection;
-use App\Http\Requests\StoreInspectionRequest;
-use App\Http\Requests\UpdateInspectionRequest;
-use App\Http\Resources\InspectionResource;
+use App\Models\MainEquipment;
+use App\Models\MainEquipmentType;
+use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
-class InspectionController extends Controller
+class InspectionController extends Controller  // اینم همونطور بمونه
 {
-    /**
-     * لیست تمام بازرسی‌ها
-     */
-    public function index(Request $request)
+    public function store(Request $request)
     {
-        $query = Inspection::with('mainEquipments');
-        
-        // فیلتر بر اساس تاریخ
-        if ($request->has('from_date')) {
-            $query->whereDate('inspection_date', '>=', $request->from_date);
+        $validator = Validator::make($request->all(), [
+            'inspection_date' => 'required|string',
+            'contractor' => 'required|string',
+            'contract_coefficient' => 'required|numeric',
+            'daily_start_time' => 'nullable|string',
+            'daily_end_time' => 'nullable|string',
+            'whatsapp_number' => 'nullable|string',
+            'equipments' => 'required|array'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'errors' => $validator->errors()
+            ], 422);
         }
-        if ($request->has('to_date')) {
-            $query->whereDate('inspection_date', '<=', $request->to_date);
+
+        try {
+            DB::beginTransaction();
+
+            // ذخیره اطلاعات اصلی بازدید
+            $inspection = Inspection::create([
+                'inspection_date' => $request->inspection_date,
+                'contractor' => $request->contractor,
+                'contract_coefficient' => $request->contract_coefficient,
+                'contract_number' => $request->contract_number ?? '.../.../.../...',
+                'daily_start_time' => $request->daily_start_time,
+                'daily_end_time' => $request->daily_end_time,
+                'whatsapp_number' => $request->whatsapp_number,
+                'status' => 'completed'
+            ]);
+
+            // ذخیره تجهیزات
+            foreach ($request->equipments as $equipmentData) {
+                // پیدا کردن یا ایجاد نوع تجهیز
+                $equipmentType = MainEquipmentType::firstOrCreate(
+                    ['name' => $equipmentData['equipmentType']],
+                    [
+                        'feeder_mode' => in_array($equipmentData['equipmentType'], [
+                            'پست دو سو تغذیه (مشترک حساس)',
+                            'پست دو سو تغذیه (بیمارستانی)'
+                        ]) ? 'dual' : 'single',
+                        'has_cells' => in_array($equipmentData['equipmentType'], [
+                            'پست دو سو تغذیه (مشترک حساس)',
+                            'پست دو سو تغذیه (بیمارستانی)',
+                            'مشترک ولتاژ اولیه'
+                        ]),
+                        'has_brand' => in_array($equipmentData['equipmentType'], [
+                            'ریکلوزر', 'سکسیونر', 'سکشنالایزر', 'فالت دتکتور'
+                        ]),
+                        'has_height' => !in_array($equipmentData['equipmentType'], [
+                            'پست دو سو تغذیه (مشترک حساس)',
+                            'پست دو سو تغذیه (بیمارستانی)',
+                            'مشترک ولتاژ اولیه'
+                        ])
+                    ]
+                );
+
+                // آماده‌سازی داده‌های موقعیت
+                $locationArray = $equipmentData['locationData'] ? json_decode($equipmentData['locationData'], true) : [];
+
+                // پیدا کردن post از اولین feeder
+                $postId = null;
+                if (!empty($equipmentData['feeders'])) {
+                    $feedersArray = json_decode($equipmentData['feeders'], true);
+                    if (!empty($feedersArray) && isset($feedersArray[0]['post'])) {
+                        $post = Post::where('name', $feedersArray[0]['post'])->first();
+                        $postId = $post ? $post->id : null;
+                    }
+                }
+
+
+                // ایجاد تجهیز جدید
+                $equipment = new MainEquipment([
+                    'main_equipment_type_id' => $equipmentType->id,
+                    'post_id' => $postId,
+                    'scada_code' => $equipmentData['scadaCode'] ?? null,
+                    'installation_type' => $equipmentData['installationType'] ?? null,
+                    'latitude' => $locationArray['latitude'] ?? null,
+                    'longitude' => $locationArray['longitude'] ?? null,
+                    'height' => $locationArray['cabinetFinalHeight'] ?? null,
+                    'feeders' => $equipmentData['feeders'] ?? null,
+                    'department_data' => $equipmentData['departmentData'] ?? null,
+                    'location_data' => $equipmentData['locationData'] ?? null,
+                    'communication_data' => $equipmentData['communicationData'] ?? null,
+                    'checklist_data' => $equipmentData['checklistData'] ?? null,
+                    'activities_data' => $equipmentData['activitiesData'] ?? null,
+                    'consumables_data' => $equipmentData['consumablesData'] ?? null,
+                    'photos_data' => $equipmentData['photosData'] ?? null,
+                    'cell_specs' => $equipmentData['cellSpecs'] ?? null,
+                    'tabs_validated' => $equipmentData['tabsValidated'] ?? null
+                ]);
+
+                $inspection->mainEquipments()->save($equipment);
+            }
+
+            DB::commit();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'بازرسی با موفقیت ثبت شد',
+                'data' => $inspection->load('mainEquipments')
+            ], 201);
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json([
+                'success' => false,
+                'message' => 'خطا در ثبت اطلاعات: ' . $e->getMessage()
+            ], 500);
         }
-        
-        // فیلتر بر اساس وضعیت
-        if ($request->has('status')) {
-            $query->where('status', $request->status);
+    }
+
+    public function index()
+    {
+        $inspections = Inspection::with('mainEquipments')->orderBy('created_at', 'desc')->get();
+        return response()->json($inspections);
+    }
+
+    public function show($id)
+    {
+        $inspection = Inspection::with('mainEquipments')->find($id);
+        if (!$inspection) {
+            return response()->json(['message' => 'یافت نشد'], 404);
         }
-        
-        $inspections = $query->paginate($request->get('per_page', 15));
-        
-        return response()->json([
-            'success' => true,
-            'data' => $inspections
-        ]);
-    }
-
-    /**
-     * ثبت بازرسی جدید
-     */
-    public function store(StoreInspectionRequest $request)
-    {
-        $inspection = Inspection::create($request->validated());
-        
-        return response()->json([
-            'success' => true,
-            'message' => 'بازرسی با موفقیت ثبت شد',
-            'data' => new InspectionResource($inspection)
-        ], 201);
-    }
-
-    /**
-     * نمایش یک بازرسی
-     */
-    public function show(Inspection $inspection)
-    {
-        $inspection->load('mainEquipments');
-        
-        return response()->json([
-            'success' => true,
-            'data' => new InspectionResource($inspection)
-        ]);
-    }
-
-    /**
-     * بروزرسانی بازرسی
-     */
-    public function update(UpdateInspectionRequest $request, Inspection $inspection)
-    {
-        $inspection->update($request->validated());
-        
-        return response()->json([
-            'success' => true,
-            'message' => 'بازرسی با موفقیت بروزرسانی شد',
-            'data' => new InspectionResource($inspection)
-        ]);
-    }
-
-    /**
-     * حذف بازرسی
-     */
-    public function destroy(Inspection $inspection)
-    {
-        $inspection->delete();
-        
-        return response()->json([
-            'success' => true,
-            'message' => 'بازرسی با موفقیت حذف شد'
-        ]);
-    }
-
-    /**
-     * دریافت تجهیزات یک بازرسی
-     */
-    public function equipments(Inspection $inspection)
-    {
-        $equipments = $inspection->mainEquipments()->with('type', 'post', 'feeders')->get();
-        
-        return response()->json([
-            'success' => true,
-            'data' => $equipments
-        ]);
-    }
-
-    /**
-     * آمار بازرسی‌ها
-     */
-    public function stats()
-    {
-        $stats = [
-            'total' => Inspection::count(),
-            'draft' => Inspection::where('status', 'draft')->count(),
-            'completed' => Inspection::where('status', 'completed')->count(),
-            'archived' => Inspection::where('status', 'archived')->count(),
-            'this_month' => Inspection::whereMonth('inspection_date', now()->month)->count(),
-        ];
-        
-        return response()->json([
-            'success' => true,
-            'data' => $stats
-        ]);
+        return response()->json($inspection);
     }
 }

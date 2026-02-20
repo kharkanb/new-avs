@@ -1,11 +1,12 @@
 <?php
-
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ReferenceController;
 use App\Http\Controllers\Api\InspectionController;
 use App\Http\Controllers\Api\MainEquipmentController;
 use App\Http\Controllers\Api\DashboardController;
+use App\Http\Controllers\Api\UserManagementController; // اینو اضافه کن
 
 // ========== مسیرهای عمومی (بدون نیاز به توکن) ==========
 Route::post('/login', [AuthController::class, 'login']);
@@ -19,7 +20,8 @@ Route::get('/ping', function() {
 
 // ========== مسیرهای محافظت شده (نیاز به توکن) ==========
 Route::middleware('auth:sanctum')->group(function () {
-
+    
+    // مدیریت کاربران
     Route::apiResource('users', UserManagementController::class);
     Route::post('users/{user}/change-role', [UserManagementController::class, 'changeRole']);
     
@@ -42,10 +44,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/reference/checklist-templates', [ReferenceController::class, 'checklistTemplates']);
     Route::get('/reference/all', [ReferenceController::class, 'all']);
     
-    // بازرسی‌ها
+    // بازرسی‌ها - فقط یکبار تعریف کن
     Route::apiResource('inspections', InspectionController::class);
     
-    // ✅ مسیر دریافت تجهیزات یک بازرسی (اینو اضافه کن)
+    // مسیر دریافت تجهیزات یک بازرسی
     Route::get('/inspections/{inspection}/equipments', [InspectionController::class, 'equipments']);
     
     // تجهیزات اصلی

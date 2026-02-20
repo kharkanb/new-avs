@@ -58,3 +58,4 @@ class MainEquipment extends Model
         return $this->belongsTo(Post::class);
     }
 }
+// ❌ اینجا نباید کلاس دیگری تعریف شود

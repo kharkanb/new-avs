@@ -2,14 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Inspection extends Model
 {
-    use HasFactory;
-
     protected $fillable = [
         'inspection_date',
         'daily_start_time',
@@ -20,33 +16,16 @@ class Inspection extends Model
         'whatsapp_number',
         'status'
     ];
-
+    
     protected $casts = [
         'inspection_date' => 'date',
-        'daily_start_time' => 'datetime:H:i',
-        'daily_end_time' => 'datetime:H:i',
-        'contract_coefficient' => 'decimal:2'
+        'daily_start_time' => 'datetime',
+        'daily_end_time' => 'datetime',
+        'contract_coefficient' => 'float'
     ];
-
-    /**
-     * رابطه با تجهیزات اصلی
-     * هر بازرسی می‌تونه چندین تجهیز اصلی داشته باشه
-     */
-    public function mainEquipments(): HasMany
+    
+    public function mainEquipments()
     {
         return $this->hasMany(MainEquipment::class);
-    }
-
-    /**
-     * (اختیاری) متد برای گرفتن وضعیت به صورت فارسی
-     */
-    public function getStatusLabelAttribute(): string
-    {
-        return match($this->status) {
-            'draft' => 'پیش‌نویس',
-            'completed' => 'تکمیل شده',
-            'archived' => 'بایگانی شده',
-            default => 'نامشخص'
-        };
     }
 }
