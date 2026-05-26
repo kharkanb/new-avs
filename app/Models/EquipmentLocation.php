@@ -4,27 +4,24 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class EquipmentLocation extends Model
 {
     use HasFactory;
 
-    protected $table = "equipment_location";
-
+    protected $table = 'equipment_locations';
+    
     protected $fillable = [
-        "equipment_id",
-        "latitude",
-        "longitude",
-        "installation_address",
-        "cabinet_initial_height",
-        "cabinet_final_height"
+        'main_equipment_id',
+        'latitude',
+        'longitude',
+        'address',
+        'cabinet_initial_height',
+        'cabinet_final_height'
     ];
 
-    public function equipment(): BelongsTo
+    public function mainEquipment()
     {
-        return $this->belongsTo(Equipment::class);
+        return $this->belongsTo(MainEquipment::class);
     }
 }
-
-

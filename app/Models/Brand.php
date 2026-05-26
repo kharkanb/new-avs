@@ -2,27 +2,26 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Brand extends Model
 {
-    use HasFactory;
-
+    use SoftDeletes;
+    
     protected $fillable = [
-        "name",
-        "category",
-        "equipment_type"
+        'name',
+        'equipment_type_id',
+        'cell_equipment_type_id'
     ];
-
-    public function mainEquipments(): HasMany
+    
+    public function mainEquipmentType()
     {
-        return $this->hasMany(Equipment::class);
+        return $this->belongsTo(MainEquipmentType::class, 'equipment_type_id');
     }
-
-    public function cellEquipments(): HasMany
+    
+    public function cellEquipmentType()
     {
-        return $this->hasMany(CellEquipment::class);
+        return $this->belongsTo(CellEquipmentType::class, 'cell_equipment_type_id');
     }
 }

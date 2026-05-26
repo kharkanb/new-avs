@@ -2,28 +2,24 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ChecklistItem extends Model
 {
-    use HasFactory;
-
+    use SoftDeletes;
+    
+    protected $table = 'checklist_items';
+    
     protected $fillable = [
-        "equipment_id",
-        "item_index",
-        "item_text",
-        "status",
-        "description"
+        'checklist_template_id',
+        'item_text',
+        'sort_order'
     ];
-
-    protected $casts = [
-        "status" => "string"
-    ];
-
-    public function equipment(): BelongsTo
+    
+    public function template(): BelongsTo
     {
-        return $this->belongsTo(Equipment::class);
+        return $this->belongsTo(ChecklistTemplate::class, 'checklist_template_id');
     }
 }

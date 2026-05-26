@@ -3,6 +3,7 @@
 return [
     "name" => env("APP_NAME", "AVS2"),
     "env" => env("APP_ENV", "local"),
+'charset' => 'utf-8',
     "debug" => (bool) env("APP_DEBUG", true),
     "url" => env("APP_URL", "http://localhost"),
     "timezone" => "Asia/Tehran",

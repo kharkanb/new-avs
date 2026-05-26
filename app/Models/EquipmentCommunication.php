@@ -4,33 +4,30 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class EquipmentCommunication extends Model
 {
     use HasFactory;
 
-    protected $table = "equipment_communication";
-
+    protected $table = 'equipment_communications';
+    
     protected $fillable = [
-        "equipment_id",
-        "simcard_type",
-        "simcard_number",
-        "simcard_ip",
-        "antenna_status",
-        "signal_status",
-        "modem_power",
-        "reset_possible"
+        'main_equipment_id',
+        'simcard_type',
+        'simcard_number',
+        'simcard_ip',
+        'antenna_status',
+        'signal_status',
+        'modem_power',
+        'reset_possible'
     ];
 
     protected $casts = [
-        "reset_possible" => "boolean"
+        'reset_possible' => 'boolean'
     ];
 
-    public function equipment(): BelongsTo
+    public function mainEquipment()
     {
-        return $this->belongsTo(Equipment::class);
+        return $this->belongsTo(MainEquipment::class);
     }
 }
-
-

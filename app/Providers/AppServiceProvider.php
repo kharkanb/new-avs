@@ -2,24 +2,38 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Blade; use Illuminate\Pagination\Paginator;
+use App\Models\Inspection;
+use Hekmatinasser\Verta\Verta;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any application services.
-     */
     public function register(): void
     {
         //
     }
 
-    /**
-     * Bootstrap any application services.
-     */
     public function boot(): void
     {
-        Vite::prefetch(concurrency: 3);
+
+        // Blade directives برای بررسی نقش و دسترسی
+        Blade::if('role', function ($role) {
+            return auth()->check() && auth()->user()->hasRole($role);
+        });
+        
+        Blade::if('permission', function ($permission) {
+            return auth()->check() && auth()->user()->hasPermission($permission);
+        });
+
+        // تنظیم پیجینیشن با Bootstrap 5
+        Paginator::useBootstrapFive();
+        
+        // اضافه کردن متد toJalali به مدل Inspection
+        Inspection::retrieved(function($inspection) {
+            if ($inspection->inspection_date) {
+                $inspection->jalali_date = verta($inspection->inspection_date)->format('Y/m/d');
+            }
+        });
     }
 }

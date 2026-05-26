@@ -1,3 +1,365 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* Login Page Styles - رنگ‌های سبزآبی، فیروزه‌ای، سبز سلطنتی */
+* {
+    font-family: 'Vazirmatn', 'Tahoma', 'Segoe UI', sans-serif;
+}
+
+.login-wrapper {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0f5c5f 0%, #1a8f8f 30%, #2cb5a2 60%, #0f5c5f 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    position: relative;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* شکلک‌های پس‌زمینه */
+.bg-emoji-1, .bg-emoji-2, .bg-emoji-3, .bg-emoji-4,
+.bg-emoji-5, .bg-emoji-6, .bg-emoji-7, .bg-emoji-8,
+.bg-emoji-9, .bg-emoji-10, .bg-emoji-11, .bg-emoji-16,
+.bg-emoji-17, .bg-emoji-18, .bg-emoji-19, .bg-emoji-20,
+.bg-emoji-21, .bg-emoji-22, .bg-emoji-23, .bg-emoji-24,
+.bg-emoji-25, .bg-emoji-26, .bg-emoji-27, .bg-emoji-29,
+.bg-emoji-30, .bg-emoji-31, .bg-emoji-32, .bg-emoji-33,
+.bg-emoji-34 {
+    position: absolute;
+    font-size: 90px;
+    opacity: 0.4;
+    z-index: 0;
+    animation: float 8s ease-in-out infinite;
+    pointer-events: auto;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    filter: drop-shadow(0 0 3px rgba(0,0,0,0.3));
+}
+
+/* Hover - همه شکلک‌ها بزرگ و پررنگ و چرخان می‌شوند */
+[class*="bg-emoji-"]:hover {
+    transform: scale(1.8) rotate(20deg) !important;
+    opacity: 1 !important;
+    filter: drop-shadow(0 0 15px rgba(255,215,0,0.6)) !important;
+    transition: all 0.3s ease-out !important;
+    z-index: 100 !important;
+}
+
+/* موقعیت شکلک‌ها */
+.bg-emoji-1 { top: 5%; left: 3%; animation-delay: 0s; }
+.bg-emoji-2 { top: 12%; right: 5%; animation-delay: 0.5s; }
+.bg-emoji-3 { top: 25%; left: 8%; animation-delay: 1s; }
+.bg-emoji-4 { top: 40%; right: 10%; animation-delay: 1.5s; }
+.bg-emoji-5 { top: 55%; left: 5%; animation-delay: 2s; }
+.bg-emoji-6 { top: 70%; right: 8%; animation-delay: 2.5s; }
+.bg-emoji-7 { top: 85%; left: 10%; animation-delay: 3s; }
+.bg-emoji-8 { top: 15%; left: 20%; animation-delay: 3.5s; }
+.bg-emoji-9 { top: 30%; right: 18%; animation-delay: 4s; }
+.bg-emoji-10 { top: 50%; left: 15%; animation-delay: 4.5s; }
+.bg-emoji-11 { top: 65%; right: 20%; animation-delay: 5s; }
+.bg-emoji-16 { top: 8%; right: 28%; animation-delay: 5.5s; }
+.bg-emoji-17 { top: 20%; left: 25%; animation-delay: 6s; }
+.bg-emoji-18 { top: 45%; right: 25%; animation-delay: 6.5s; }
+.bg-emoji-19 { top: 60%; left: 12%; animation-delay: 7s; }
+.bg-emoji-20 { top: 75%; right: 15%; animation-delay: 7.5s; }
+.bg-emoji-21 { top: 10%; left: 35%; animation-delay: 8s; }
+.bg-emoji-22 { top: 35%; left: 40%; animation-delay: 8.5s; }
+.bg-emoji-23 { top: 50%; right: 35%; animation-delay: 9s; }
+.bg-emoji-24 { top: 80%; left: 30%; animation-delay: 9.5s; }
+.bg-emoji-25 { top: 18%; right: 40%; animation-delay: 10s; }
+.bg-emoji-26 { top: 42%; left: 8%; animation-delay: 10.5s; }
+.bg-emoji-27 { top: 68%; right: 30%; animation-delay: 11s; }
+.bg-emoji-29 { top: 28%; left: 18%; animation-delay: 11.5s; }
+.bg-emoji-30 { top: 55%; right: 12%; animation-delay: 12s; }
+.bg-emoji-31 { top: 15%; right: 15%; animation-delay: 12.5s; }
+.bg-emoji-32 { top: 38%; left: 28%; animation-delay: 13s; }
+.bg-emoji-33 { top: 72%; left: 8%; animation-delay: 13.5s; }
+.bg-emoji-34 { top: 88%; right: 22%; animation-delay: 14s; }
+
+@keyframes float {
+    0% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-25px) rotate(10deg); }
+    100% { transform: translateY(0px) rotate(0deg); }
+}
+
+.login-card {
+    background: white;
+    border-radius: 50px;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+    width: 100%;
+    max-width: 1100px;
+    overflow: hidden;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: row;
+}
+
+.login-left {
+    flex: 1;
+    padding: 50px 45px;
+    background: white;
+}
+
+.login-right {
+    flex: 1;
+    background: linear-gradient(135deg, #0f5c5f, #1a8f8f, #2cb5a2);
+    padding: 50px 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.logo-icon {
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(135deg, #2cb5a2, #0f5c5f);
+    border-radius: 50px 20px 50px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    animation: rotateShape 4s ease-in-out infinite;
+}
+
+@keyframes rotateShape {
+    0% { border-radius: 50px 20px 50px 20px; }
+    50% { border-radius: 20px 50px 20px 50px; }
+    100% { border-radius: 50px 20px 50px 20px; }
+}
+
+.logo-icon i {
+    font-size: 55px;
+    color: white;
+}
+
+.login-header h2 {
+    font-size: 2.2rem;
+    margin-bottom: 8px;
+    font-weight: 800;
+    color: #0f5c5f;
+}
+
+.login-header p {
+    font-size: 0.95rem;
+    color: #0f5c5f;
+    font-weight: 500;
+}
+
+.form-group {
+    margin-bottom: 30px;
+    text-align: right;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 700;
+    color: #1a8f8f;
+    margin-bottom: 12px;
+    font-size: 1.2rem;
+    text-align: right;
+}
+
+.form-control {
+    width: 100%;
+    padding: 18px 25px;
+    border: 2px solid #c9e5e0;
+    border-radius: 60px;
+    font-size: 1.2rem !important;
+    transition: all 0.3s;
+    text-align: right;
+    background: #f8faf7;
+}
+
+.form-control:focus {
+    border-color: #2cb5a2;
+    outline: none;
+    background: white;
+    box-shadow: 0 0 0 4px rgba(44,181,162,0.15);
+}
+
+.form-control::placeholder {
+    text-align: right;
+    color: #a8c4be;
+    font-size: 1rem;
+}
+
+.checkbox-group {
+    margin-top: 15px;
+}
+
+.checkbox {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 1rem;
+    text-align: right;
+    justify-content: flex-end;
+}
+
+.checkbox input {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    margin: 0;
+    accent-color: #2cb5a2;
+}
+
+.checkbox span {
+    color: #495057;
+}
+
+.btn-login {
+    width: 100%;
+    padding: 18px;
+    background: linear-gradient(135deg, #2cb5a2, #1a8f8f);
+    border: none;
+    border-radius: 60px;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 25px;
+}
+
+.btn-login:hover:not(:disabled) {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(44,181,162,0.4);
+    background: linear-gradient(135deg, #0f5c5f, #2cb5a2);
+}
+
+.btn-login:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.form-footer {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 2px solid #c9e5e0;
+}
+
+.form-footer a {
+    color: #2cb5a2;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.form-footer a:hover {
+    color: #0f5c5f;
+}
+
+.alert {
+    padding: 14px 18px;
+    border-radius: 40px;
+    margin-bottom: 25px;
+    text-align: center;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.alert-success {
+    background: #d4edda;
+    color: #0f5c5f;
+    border: 2px solid #2cb5a2;
+}
+
+.alert-danger {
+    background: #fee2e2;
+    color: #dc3545;
+    border: 2px solid #dc3545;
+}
+
+.animated-title {
+    margin-top: 20px;
+    margin-bottom: 0;
+    text-align: center;
+}
+
+.animated-title span {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+
+.animated-title span:first-child {
+    animation: slideInRight 0.6s ease-out;
+    color: #0f5c5f;
+}
+
+.animated-title span:last-child {
+    animation: slideInLeft 0.6s ease-out 0.2s both;
+    color: #ffffff;
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.company-footer {
+    text-align: center;
+    margin-top: 30px;
+    color: #0f5c5f;
+    font-size: 0.9rem;
+    position: relative;
+    z-index: 2;
+    font-weight: 500;
+    width: 100%;
+}
+
+@media (max-width: 700px) {
+    .login-card {
+        flex-direction: column;
+        max-width: 500px;
+    }
+    
+    .login-right {
+        padding: 40px 30px;
+    }
+    
+    .animated-title span {
+        font-size: 1.2rem;
+    }
+    
+    .form-control {
+        padding: 14px 20px;
+        font-size: 1rem !important;
+    }
+    
+    [class*="bg-emoji-"] {
+        font-size: 55px !important;
+        opacity: 0.4 !important;
+    }
+}

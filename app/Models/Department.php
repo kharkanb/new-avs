@@ -2,12 +2,36 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Department extends Model
 {
-    use HasFactory;
+    protected $fillable = [
+        'name',
+        'code',
+        'city',
+        'description',
+        'is_active'
+    ];
 
-    protected $fillable = ["name"];
+    protected $casts = [
+        'is_active' => 'boolean'
+    ];
+
+    public function mainEquipments()
+    {
+        return $this->hasMany(MainEquipment::class);
+    }
+
+    public function inspections()
+    {
+        return $this->hasManyThrough(
+            Inspection::class,
+            MainEquipment::class,
+            'department_id',
+            'id',
+            'id',
+            'inspection_id'
+        )->distinct();
+    }
 }

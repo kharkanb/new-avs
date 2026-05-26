@@ -1,0 +1,496 @@
+/* ============================================
+   سیستم مدیریت بازدید تجهیزات اتوماسیون
+   فایل استایل سفارشی
+   ============================================ */
+
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #3498db;
+    --success-color: #27ae60;
+    --danger-color: #e74c3c;
+    --warning-color: #f39c12;
+    --light-bg: #f8f9fa;
+    --border-color: #dee2e6;
+}
+
+body {
+    font-family: 'Vazirmatn', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f7fa;
+    color: #333;
+    line-height: 1.6;
+}
+
+.header {
+    background: linear-gradient(135deg, #0d3b4f 0%, #1a5f7a 50%, #0d3b4f 100%);
+    color: white;
+    padding: 20px 0;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.form-section {
+    background: white;
+    border-radius: 10px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    border: 1px solid var(--border-color);
+}
+
+.form-section h4 {
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--secondary-color);
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.required::after {
+    content: " *";
+    color: var(--danger-color);
+}
+
+.equipment-card {
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    margin-bottom: 20px;
+    background: var(--light-bg);
+    transition: all 0.3s ease;
+}
+
+.equipment-card:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.equipment-header {
+    background: var(--primary-color);
+    color: white;
+    padding: 15px;
+    border-radius: 8px 8px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.checklist-item {
+    padding: 10px;
+    border-bottom: 1px solid var(--border-color);
+    transition: background-color 0.3s;
+}
+
+.checklist-item:hover {
+    background-color: #f8f9fa;
+}
+
+.ok-btn {
+    background-color: var(--success-color) !important;
+    border-color: var(--success-color) !important;
+    color: white !important;
+}
+
+.not-ok-btn {
+    background-color: var(--danger-color) !important;
+    border-color: var(--danger-color) !important;
+    color: white !important;
+}
+
+.form-control:disabled,
+.form-select:disabled {
+    background-color: #e9ecef;
+    cursor: not-allowed;
+}
+
+.tab-content {
+    padding: 20px;
+    border: 1px solid var(--border-color);
+    border-top: none;
+    border-radius: 0 0 5px 5px;
+}
+
+.nav-tabs .nav-link {
+    color: var(--primary-color);
+    font-weight: 500;
+}
+
+.nav-tabs .nav-link.active {
+    background-color: var(--secondary-color);
+    color: white;
+    border-color: var(--secondary-color);
+}
+
+.summary-table {
+    font-size: 0.9rem;
+}
+
+.summary-table th {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.action-buttons {
+    position: sticky;
+    bottom: 0;
+    background: white;
+    padding: 15px 0;
+    border-top: 2px solid var(--border-color);
+    margin-top: 30px;
+    z-index: 100;
+}
+
+.step-indicator {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.step-indicator::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 50px;
+    right: 50px;
+    height: 2px;
+    background-color: var(--border-color);
+    z-index: 1;
+}
+
+.step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+    flex: 1;
+}
+
+.step-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--border-color);
+    color: #666;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-bottom: 10px;
+    border: 3px solid white;
+}
+
+.step.active .step-circle {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.step.completed .step-circle {
+    background-color: var(--success-color);
+    color: white;
+}
+
+.step-label {
+    color: #666;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.step.active .step-label {
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+.form-step {
+    display: none;
+}
+
+.form-step.active {
+    display: block;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.tab-validated::after {
+    content: " ✓";
+    color: var(--success-color);
+    font-weight: bold;
+}
+
+.equipment-summary-row {
+    border-left: 4px solid var(--secondary-color);
+    margin-bottom: 10px;
+}
+
+.whatsapp-btn {
+    background-color: #25D366 !important;
+    border-color: #25D366 !important;
+    color: white !important;
+}
+
+.equipment-tech-section {
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 25px;
+    border: 1px solid var(--border-color);
+}
+
+.brand-other-container {
+    display: none;
+}
+
+.brand-other-container.show {
+    display: block;
+}
+
+.department-container {
+    background-color: #f0f8ff;
+    border: 1px solid #cce5ff;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.cell-spec-row {
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    border: 1px solid var(--border-color);
+}
+
+.photo-preview {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.photo-preview img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.photo-remove {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+}
+
+.btn-icon {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.icon-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.icon-title i {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+}
+
+.stat-card {
+    transition: transform 0.3s ease;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+}
+
+.feature-icon {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, var(--secondary-color), #2980b9);
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.feature-icon i {
+    font-size: 1.5rem;
+    color: white;
+}
+
+.persian-numbers {
+    font-family: 'Vazirmatn', sans-serif;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.spin {
+    animation: spin 1s linear infinite;
+    display: inline-block;
+}
+
+/* Select2 RTL Fix */
+.select2-container--open {
+    z-index: 1051 !important;
+}
+
+.select2-dropdown {
+    z-index: 1052 !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    direction: rtl;
+    text-align: right;
+}
+
+.select2-container .select2-selection--single {
+    height: 38px;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    left: 5px;
+    right: auto;
+}
+
+/* استایل pagination برای نمایش بهتر */
+.pagination {
+    direction: ltr;
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+.pagination .page-item .page-link {
+    padding: 8px 12px;
+    border-radius: 8px;
+    color: #2c3e50;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+}
+.pagination .page-item.active .page-link {
+    background-color: #f39c12;
+    border-color: #f39c12;
+    color: white;
+}
+.pagination .page-item.disabled .page-link {
+    color: #6c757d;
+}
+
+
+/* Modal Styles */
+.modal {
+    overflow-y: auto;
+}
+
+.modal-content {
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+#equipmentModal .modal-body {
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+#equipmentModal .modal-dialog {
+    max-width: 95%;
+    margin: 1rem auto;
+}
+
+/* Timepicker Styles */
+.ui-timepicker-wrapper {
+    z-index: 1055 !important;
+    width: 150px !important;
+}
+
+.ui-timepicker-list {
+    display: block !important;
+}
+
+.ui-timepicker-list li {
+    padding: 5px 10px !important;
+    text-align: right !important;
+}
+
+/* Print Styles */
+@media print {
+    .action-buttons,
+    .step-indicator,
+    .btn,
+    .whatsapp-btn,
+    footer,
+    .no-print {
+        display: none !important;
+    }
+    
+    body {
+        margin: 0;
+        padding: 0;
+    }
+    
+    .form-section {
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .step-label {
+        font-size: 0.7rem;
+    }
+    
+    .step-circle {
+        width: 30px;
+        height: 30px;
+        font-size: 0.8rem;
+    }
+    
+    .form-section {
+        padding: 15px;
+    }
+    
+    .equipment-header {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .action-buttons .row > div {
+        margin-bottom: 10px;
+    }
+    
+    .action-buttons .btn {
+        width: 100%;
+    }
+}

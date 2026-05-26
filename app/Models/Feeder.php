@@ -13,14 +13,38 @@ class Feeder extends Model
 
     protected $fillable = ["name", "post_id"];
 
+    // رابطه با پست
     public function post(): BelongsTo
     {
         return $this->belongsTo(Post::class);
     }
 
+    // رابطه با تجهیزات
     public function equipments(): BelongsToMany
     {
-        return $this->belongsToMany(Equipment::class, "equipment_feeders")
+        return $this->belongsToMany(MainEquipment::class, "equipment_feeders", "feeder_id", "main_equipment_id")
                     ->withTimestamps();
+    }
+    
+    // به‌روزرسانی خودکار تعداد فیدرها در پست
+    protected static function booted()
+    {
+        static::saved(function ($feeder) {
+            if ($feeder->post_id) {
+                $post = Post::find($feeder->post_id);
+                if ($post && !$post->trashed()) {
+                    $post->update(['feeders_count' => $post->feeders()->count()]);
+                }
+            }
+        });
+        
+        static::deleted(function ($feeder) {
+            if ($feeder->post_id) {
+                $post = Post::find($feeder->post_id);
+                if ($post && !$post->trashed()) {
+                    $post->update(['feeders_count' => $post->feeders()->count()]);
+                }
+            }
+        });
     }
 }

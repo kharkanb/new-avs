@@ -16,4 +16,11 @@ class CellEquipmentType extends Model
     {
         return $this->hasMany(CellEquipment::class);
     }
+
+public function brands()
+{
+    return $this->hasMany(Brand::class, 'cell_equipment_type_id');
+}
+
+
 }

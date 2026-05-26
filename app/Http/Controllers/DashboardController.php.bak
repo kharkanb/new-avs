@@ -1,0 +1,233 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Inspection;
+use App\Models\MainEquipment;
+use App\Models\User;
+use App\Models\Activity;
+use App\Models\Consumable;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
+class DashboardController extends Controller
+{
+    /**
+     * نمایش داشبورد اصلی
+     */
+    public function index()
+    {
+        // محاسبه آمار
+        $stats = [
+            'total_inspections' => Inspection::count(),
+            'total_equipments' => MainEquipment::count(),
+            'total_activities' => Activity::count(),
+            'total_consumables' => Consumable::count(),
+            'total_users' => User::count(),
+            'pending_inspections' => Inspection::where('status', 'draft')->count(),
+           //'my_inspections' => Inspection::where('user_id', auth()->id())->count(),
+                         'my_inspections' => auth()->check() ? auth()->user()->inspections()->count() : 0,        ];
+
+        // آخرین بازدیدها
+        $recentInspections = Inspection::with('mainEquipments')
+            ->latest()
+            ->take(5)
+            ->get();
+
+        // ارسال به ویو
+        return view('dashboard', compact('stats', 'recentInspections'));
+    }
+
+    /**
+     * API برای آمار (برای فراخوانی با Ajax)
+     */
+    public function stats()
+    {
+        $stats = [
+            'total_inspections' => Inspection::count(),
+            'total_equipments' => MainEquipment::count(),
+            'total_activities' => Activity::count(),
+            'total_consumables' => Consumable::count(),
+            'total_users' => User::count(),
+
+            // بازرسی‌های امروز
+            'today_inspections' => Inspection::whereDate('inspection_date', today())->count(),
+            
+            // بازرسی‌های این هفته
+            'week_inspections' => Inspection::whereBetween('inspection_date', [
+                now()->startOfWeek(),
+                now()->endOfWeek()
+            ])->count(),
+            
+            // بازرسی‌های این ماه
+            'month_inspections' => Inspection::whereMonth('inspection_date', now()->month)->count(),
+            
+            // وضعیت بازرسی‌ها
+            'inspections_by_status' => [
+                'draft' => Inspection::where('status', 'draft')->count(),
+                'completed' => Inspection::where('status', 'completed')->count(),
+                'archived' => Inspection::where('status', 'archived')->count(),
+            ],
+        ];
+
+        // ۱۰ بازرسی آخر
+        $latest_inspections = Inspection::with('mainEquipments')
+            ->latest()
+            ->limit(10)
+            ->get();
+
+        return response()->json([
+            'success' => true,
+            'data' => [
+                'stats' => $stats,
+                'latest_inspections' => $latest_inspections
+            ]
+        ]);
+    }
+
+    /**
+     * صفحه لیست بازدیدها
+     */
+    public function inspections()
+    {
+        $inspections = Inspection::with('mainEquipments', 'user')
+            ->latest()
+            ->paginate(15);
+
+        return view('dashboard.inspections', compact('inspections'));
+    }
+
+    /**
+     * صفحه گزارش‌گیری
+     */
+    public function reports()
+    {
+        return view('dashboard.reports');
+    }
+
+    /**
+     * صفحه مدیریت کاربران (فقط ادمین)
+     */
+    public function users()
+    {
+        // بررسی دسترسی ادمین
+        if (auth()->user()->role !== 'admin') {
+            abort(403, 'دسترسی غیرمجاز');
+        }
+
+        $users = User::latest()->paginate(15);
+        return view('dashboard.users', compact('users'));
+    }
+
+    /**
+     * نمودار بازرسی‌های ماهانه
+     */
+    public function monthlyChart(Request $request)
+    {
+        $year = $request->get('year', now()->year);
+        
+        $monthlyStats = Inspection::select(
+            DB::raw('MONTH(inspection_date) as month'),
+            DB::raw('COUNT(*) as total')
+        )
+        ->whereYear('inspection_date', $year)
+        ->groupBy('month')
+        ->orderBy('month')
+        ->get();
+
+        // تبدیل اعداد ماه به نام ماه‌های فارسی
+        $persianMonths = [
+            1 => 'فروردین', 2 => 'اردیبهشت', 3 => 'خرداد', 4 => 'تیر',
+            5 => 'مرداد', 6 => 'شهریور', 7 => 'مهر', 8 => 'آبان',
+            9 => 'آذر', 10 => 'دی', 11 => 'بهمن', 12 => 'اسفند'
+        ];
+
+        $chartData = [
+            'labels' => [],
+            'data' => []
+        ];
+
+        foreach ($monthlyStats as $stat) {
+            $chartData['labels'][] = $persianMonths[$stat->month];
+            $chartData['data'][] = $stat->total;
+        }
+
+        return response()->json([
+            'success' => true,
+            'data' => $chartData
+        ]);
+    }
+
+    /**
+     * نمودار تجهیزات بر اساس نوع
+     */
+    public function equipmentTypeChart()
+    {
+        $equipmentByType = MainEquipment::select(
+            'main_equipment_types.name as type_name',
+            DB::raw('COUNT(*) as total')
+        )
+        ->join('main_equipment_types', 'main_equipments.main_equipment_type_id', '=', 'main_equipment_types.id')
+        ->groupBy('main_equipment_types.name')
+        ->orderByDesc('total')
+        ->get();
+
+        return response()->json([
+            'success' => true,
+            'data' => [
+                'labels' => $equipmentByType->pluck('type_name'),
+                'data' => $equipmentByType->pluck('total')
+            ]
+        ]);
+    }
+
+    /**
+     * نمودار فعالیت‌ها بر اساس نوع
+     */
+    public function activityChart()
+    {
+        $topActivities = Activity::select(
+            'activity_code',
+            DB::raw('COUNT(*) as total'),
+            DB::raw('SUM(quantity) as total_quantity')
+        )
+        ->groupBy('activity_code')
+        ->orderByDesc('total')
+        ->limit(10)
+        ->get();
+
+        return response()->json([
+            'success' => true,
+            'data' => $topActivities
+        ]);
+    }
+
+    /**
+     * جستجو در بازدیدها (برای API)
+     */
+    public function searchInspections(Request $request)
+    {
+        $query = Inspection::query();
+
+        if ($request->has('date')) {
+            $query->whereDate('inspection_date', $request->date);
+        }
+
+        if ($request->has('contractor')) {
+            $query->where('contractor', 'like', '%' . $request->contractor . '%');
+        }
+
+        if ($request->has('status')) {
+            $query->where('status', $request->status);
+        }
+
+        $inspections = $query->with('mainEquipments')
+            ->latest()
+            ->paginate(15);
+
+        return response()->json([
+            'success' => true,
+            'data' => $inspections
+        ]);
+    }
+}
