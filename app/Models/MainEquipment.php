@@ -2,21 +2,30 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+<<<<<<< HEAD
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class MainEquipment extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $table = 'main_equipments';
+=======
 
+class MainEquipment extends Model
+{
+>>>>>>> 524cace2901cfcda4f022b89d64c22cc653187c1
+    protected $table = 'main_equipments';
+    
     protected $fillable = [
         'inspection_id',
         'main_equipment_type_id',
+<<<<<<< HEAD
         'cell_equipment_type_id',
         'brand_id',
+=======
+        'scada_code',
+>>>>>>> 524cace2901cfcda4f022b89d64c22cc653187c1
         'post_id',
         'scada_code',
         'communication_id',
@@ -36,12 +45,26 @@ class MainEquipment extends Model
         'longitude',
         'height',
         'installation_type',
+<<<<<<< HEAD
         'other_brand',
     	'brand_id',           // ✅ باید باشد
    	'installation_type',  // ✅ باید باشد
+=======
+        'feeders',
+        'department_data',
+        'location_data',
+        'communication_data',
+        'checklist_data',
+        'activities_data',
+        'consumables_data',
+        'photos_data',
+        'cell_specs',
+        'tabs_validated'
+>>>>>>> 524cace2901cfcda4f022b89d64c22cc653187c1
     ];
-
+    
     protected $casts = [
+<<<<<<< HEAD
         'installation_date' => 'date',
         'last_maintenance_date' => 'date',
         'warranty_expiry' => 'date',
@@ -55,26 +78,50 @@ class MainEquipment extends Model
     /**
      * رابطه با بازدید (هر تجهیز متعلق به یک بازدید است)
      */
+=======
+        'feeders' => 'array',
+        'department_data' => 'array',
+        'location_data' => 'array',
+        'communication_data' => 'array',
+        'checklist_data' => 'array',
+        'activities_data' => 'array',
+        'consumables_data' => 'array',
+        'photos_data' => 'array',
+        'cell_specs' => 'array',
+        'tabs_validated' => 'array'
+    ];
+
+    // روابط
+>>>>>>> 524cace2901cfcda4f022b89d64c22cc653187c1
     public function inspection()
     {
         return $this->belongsTo(Inspection::class);
     }
 
+<<<<<<< HEAD
     /**
      * رابطه با نوع تجهیزات اصلی (MainEquipmentType)
      */
     public function mainEquipmentType()
+=======
+    public function type()
+>>>>>>> 524cace2901cfcda4f022b89d64c22cc653187c1
     {
         return $this->belongsTo(MainEquipmentType::class, 'main_equipment_type_id');
     }
 
+<<<<<<< HEAD
     /**
      * نام مستعار برای mainEquipmentType (برای سازگاری با کدهای قدیمی)
      */
     public function type()
+=======
+    public function post()
+>>>>>>> 524cace2901cfcda4f022b89d64c22cc653187c1
     {
         return $this->belongsTo(MainEquipmentType::class, 'main_equipment_type_id');
     }
+<<<<<<< HEAD
 
     /**
      * رابطه با نوع تجهیزات سلولی (CellEquipmentType)
@@ -326,4 +373,6 @@ class MainEquipment extends Model
         $location = $this->location?->name ?? '';
         return trim($type . $code . ($location ? " - {$location}" : ''));
     }
+=======
+>>>>>>> 524cace2901cfcda4f022b89d64c22cc653187c1
 }

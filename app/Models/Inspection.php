@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+<<<<<<< HEAD
 use Hekmatinasser\Verta\Verta;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
@@ -14,6 +15,11 @@ class Inspection extends Model
     protected $table = 'inspections';
     
     // ✅ فقط یک بار $fillable تعریف شود
+=======
+
+class Inspection extends Model
+{
+>>>>>>> 524cace2901cfcda4f022b89d64c22cc653187c1
     protected $fillable = [
         'user_id',
         'contractor_id',
@@ -35,9 +41,10 @@ class Inspection extends Model
         'travel_cost',
         //  'equipments_data', // اگر فیلد JSON دارید
     ];
-
+    
     protected $casts = [
         'inspection_date' => 'date',
+<<<<<<< HEAD
     ];
     
     // ============================================
@@ -59,10 +66,18 @@ class Inspection extends Model
         return $this->belongsTo(User::class);
     }
 
+=======
+        'daily_start_time' => 'datetime',
+        'daily_end_time' => 'datetime',
+        'contract_coefficient' => 'float'
+    ];
+    
+>>>>>>> 524cace2901cfcda4f022b89d64c22cc653187c1
     public function mainEquipments()
     {
         return $this->hasMany(MainEquipment::class);
     }
+<<<<<<< HEAD
     
     // متد کمکی برای دسترسی به تجهیزات
     public function getEquipmentsAttribute()
@@ -112,4 +127,6 @@ class Inspection extends Model
             'user_agent' => request()->userAgent(),
         ]);
     }
+=======
+>>>>>>> 524cace2901cfcda4f022b89d64c22cc653187c1
 }
