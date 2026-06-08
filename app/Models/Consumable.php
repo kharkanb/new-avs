@@ -10,18 +10,24 @@ class Consumable extends Model
     use HasFactory;
 
     protected $fillable = [
-        'main_equipment_id',  // ✅ این خط رو اضافه کن
-        "equipment_id",
-        "item_name",
+        'main_equipment_id',
+        'consumableable_type',
+        'consumableable_id',
+        "name",
+        "other_name",
         "quantity",
         "unit",
         "description",
-        "other_name"
+        "price"
     ];
 
-    public function equipment(): BelongsTo
+    protected $casts = [
+        "price" => "decimal:2"
+    ];
+
+    public function mainEquipment(): BelongsTo
     {
-        return $this->belongsTo(Equipment::class);
+        return $this->belongsTo(MainEquipment::class);
     }
 }
 

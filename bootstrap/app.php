@@ -12,12 +12,16 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
+        $middleware->web(append: [
+            \App\Http\Middleware\HandleInertiaRequests::class,
+        ]);
+
+        $middleware->alias([
+            'admin' => \App\Http\Middleware\AdminMiddleware::class,
+            'role' => \App\Http\Middleware\RoleMiddleware::class,
+        ]);
+
         $middleware->validateCsrfTokens(except: [
-            'test-simple',
-            'test/*',
-            'inspections',
-            'inspections/*',
-            'api/*',
             'health'
         ]);
     })

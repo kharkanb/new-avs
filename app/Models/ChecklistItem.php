@@ -11,9 +11,8 @@ class ChecklistItem extends Model
     use HasFactory;
 
     protected $fillable = [
-        "equipment_id",
-        "item_index",
-        "item_text",
+        "main_equipment_id",
+        "checklist_template_item_id",
         "status",
         "description"
     ];
@@ -22,8 +21,13 @@ class ChecklistItem extends Model
         "status" => "string"
     ];
 
-    public function equipment(): BelongsTo
+    public function mainEquipment(): BelongsTo
     {
-        return $this->belongsTo(Equipment::class);
+        return $this->belongsTo(MainEquipment::class);
+    }
+
+    public function templateItem(): BelongsTo
+    {
+        return $this->belongsTo(ChecklistTemplateItem::class, 'checklist_template_item_id');
     }
 }

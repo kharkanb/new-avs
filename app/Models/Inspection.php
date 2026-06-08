@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Inspection extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'inspection_date',
         'daily_start_time',
@@ -19,8 +22,8 @@ class Inspection extends Model
     
     protected $casts = [
         'inspection_date' => 'date',
-        'daily_start_time' => 'datetime',
-        'daily_end_time' => 'datetime',
+        'daily_start_time' => 'string',
+        'daily_end_time' => 'string',
         'contract_coefficient' => 'float'
     ];
     

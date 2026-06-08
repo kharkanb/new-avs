@@ -11,9 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('inspections', function (Blueprint $table) {
-            $table->dropColumn(['equipments_data', 'activities_data', 'consumables_data']);
-        });
+        $columns = array_values(array_filter(
+            ['equipments_data', 'activities_data', 'consumables_data'],
+            fn (string $column): bool => Schema::hasColumn('inspections', $column)
+        ));
+
+        if ($columns !== []) {
+            Schema::table('inspections', function (Blueprint $table) use ($columns) {
+                $table->dropColumn($columns);
+            });
+        }
     }
 
     /**
@@ -22,9 +29,15 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('inspections', function (Blueprint $table) {
-            $table->json('equipments_data')->nullable()->after('status');
-            $table->json('activities_data')->nullable()->after('equipments_data');
-            $table->json('consumables_data')->nullable()->after('activities_data');
+            if (!Schema::hasColumn('inspections', 'equipments_data')) {
+                $table->json('equipments_data')->nullable()->after('status');
+            }
+            if (!Schema::hasColumn('inspections', 'activities_data')) {
+                $table->json('activities_data')->nullable()->after('equipments_data');
+            }
+            if (!Schema::hasColumn('inspections', 'consumables_data')) {
+                $table->json('consumables_data')->nullable()->after('activities_data');
+            }
         });
     }
 };

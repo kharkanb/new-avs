@@ -14,9 +14,9 @@ class MainEquipmentFactory extends Factory
 
     public function definition(): array
     {
-   return [
-            'inspection_id' => Inspection::factory(),  // ✅ این خط رو اضافه کن
-            'main_equipment_type_id' => MainEquipmentType::factory(),  // ✅ این خط رو اضافه کن
+        return [
+            'inspection_id' => Inspection::factory(),
+            'main_equipment_type_id' => MainEquipmentType::factory(),
             'scada_code' => $this->faker->unique()->numerify('####'),
             'post_id' => Post::factory(),
             'latitude' => $this->faker->latitude(30, 32),

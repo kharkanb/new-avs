@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Laravel specific
 /vendor/
 node_modules/
@@ -36,11 +35,8 @@ Thumbs.db
 
 # Composer
 composer.phar
-/composer.lock
 
 # NPM
-package-lock.json
-yarn.lock
 
 # Laravel Horizon
 .horizon
@@ -75,19 +71,3 @@ public/images/*
 *.sqlite
 *.sqlite3
 *.db
-=======
-/node_modules
-/vendor
-.env
-.DS_Store
-Thumbs.db
-*.log
-storage/*.key
-/.idea
-/.vscode
-Homestead.json
-Homestead.yaml
-npm-debug.log
-yarn-error.log
-/.phpunit.result.cache
->>>>>>> 62fd3f93d37034b824fcce2a25a722d1470dbcc9

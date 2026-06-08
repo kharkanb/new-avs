@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\ProfileController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome');
@@ -11,19 +12,18 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/inspections', function() {
-    return view('inspection-form');
-})->name('inspections.create');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/inspections', function () {
+        return view('inspection-form');
+    })->name('inspections.create');
 
+    Route::get('/inspection-form', function () {
+        return view('inspection-form');
+    })->name('inspection.form');
 
-Route::get('/test-page', function() {
-    return '<h1>کار میکنه</h1>';
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-
-
-
-Route::get('/inspection-form', function () {
-    return view('inspection-form');
-})->name('inspection.form');
 
 require __DIR__.'/auth.php';

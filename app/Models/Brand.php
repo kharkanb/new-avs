@@ -16,11 +16,6 @@ class Brand extends Model
         "equipment_type"
     ];
 
-    public function mainEquipments(): HasMany
-    {
-        return $this->hasMany(Equipment::class);
-    }
-
     public function cellEquipments(): HasMany
     {
         return $this->hasMany(CellEquipment::class);

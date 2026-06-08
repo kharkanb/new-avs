@@ -1,61 +1,51 @@
 <?php
 
-namespace App\Models;
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-use Illuminate\Database\Eloquent\Model;
-
-class MainEquipment extends Model
+return new class extends Migration
 {
-    protected $table = 'main_equipments';
-    
-    protected $fillable = [
-        'inspection_id',
-        'main_equipment_type_id',
-        'scada_code',
-        'post_id',
-        'latitude',
-        'longitude',
-        'height',
-        'installation_type',
-        'feeders',
-        'department_data',
-        'location_data',
-        'communication_data',
-        'checklist_data',
-        'activities_data',
-        'consumables_data',
-        'photos_data',
-        'cell_specs',
-        'tabs_validated'
-    ];
-    
-    protected $casts = [
-        'feeders' => 'array',
-        'department_data' => 'array',
-        'location_data' => 'array',
-        'communication_data' => 'array',
-        'checklist_data' => 'array',
-        'activities_data' => 'array',
-        'consumables_data' => 'array',
-        'photos_data' => 'array',
-        'cell_specs' => 'array',
-        'tabs_validated' => 'array'
-    ];
-
-    // روابط
-    public function inspection()
+    public function up(): void
     {
-        return $this->belongsTo(Inspection::class);
+        Schema::table('main_equipments', function (Blueprint $table) {
+            foreach ($this->jsonColumns() as $column) {
+                if (!Schema::hasColumn('main_equipments', $column)) {
+                    $table->json($column)->nullable();
+                }
+            }
+        });
     }
 
-    public function type()
+    public function down(): void
     {
-        return $this->belongsTo(MainEquipmentType::class, 'main_equipment_type_id');
+        $columns = array_values(array_filter(
+            $this->jsonColumns(),
+            fn (string $column): bool => Schema::hasColumn('main_equipments', $column)
+        ));
+
+        if ($columns === []) {
+            return;
+        }
+
+        Schema::table('main_equipments', function (Blueprint $table) use ($columns) {
+            $table->dropColumn($columns);
+        });
     }
 
-    public function post()
+    private function jsonColumns(): array
     {
-        return $this->belongsTo(Post::class);
+        return [
+            'feeders',
+            'department_data',
+            'location_data',
+            'communication_data',
+            'checklist_data',
+            'activities_data',
+            'consumables_data',
+            'photos_data',
+            'cell_specs',
+            'tabs_validated',
+        ];
     }
-}
-// ❌ اینجا نباید کلاس دیگری تعریف شود
+};
