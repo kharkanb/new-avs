@@ -13,7 +13,7 @@ return new class extends Migration
             $table->foreignId('inspection_id')->constrained('inspections')->onDelete('cascade');
             $table->foreignId('main_equipment_type_id')->constrained('main_equipment_types')->cascadeOnDelete();
             $table->string('scada_code', 4)->nullable()->unique();
-            $table->foreignId('post_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('post_id')->nullable()->constrained()->nullOnDelete();
             
             // موقعیت جغرافیایی (یک موقعیت)
                         $table->decimal('latitude', 10, 7)->nullable();

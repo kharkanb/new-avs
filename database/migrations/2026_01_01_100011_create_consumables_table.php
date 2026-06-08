@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('consumables', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('main_equipment_id')->constrained()->cascadeOnDelete(); // ✅ این خط رو اضافه کن
+            $table->foreignId('main_equipment_id')->constrained()->cascadeOnDelete();
 
             $table->morphs('consumableable'); // این خط خودش ایندکس را ایجاد می‌کند
             $table->string('name', 200);

@@ -9,16 +9,16 @@ class ActivityPrice extends Model
 {
     use HasFactory;
 
-    protected $table = "activity_price_list";
+    protected $table = "activity_prices";
 
     protected $fillable = [
         "code",
         "title",
         "unit",
-        "price"
+        "unit_price"
     ];
 
     protected $casts = [
-        "price" => "decimal:2"
+        "unit_price" => "integer"
     ];
 }

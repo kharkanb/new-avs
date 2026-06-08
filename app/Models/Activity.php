@@ -11,10 +11,11 @@ class Activity extends Model
     use HasFactory;
 
     protected $fillable = [
-        'main_equipment_id',  // ✅ این خط رو اضافه کن
-        "equipment_id",
+        'main_equipment_id',
+        'activitable_type',
+        'activitable_id',
         "activity_code",
-        "activity_title",
+        "description",
         "unit",
         "unit_price",
         "quantity",
@@ -26,9 +27,9 @@ class Activity extends Model
         "total_price" => "decimal:2"
     ];
 
-    public function equipment(): BelongsTo
+    public function mainEquipment(): BelongsTo
     {
-        return $this->belongsTo(Equipment::class);
+        return $this->belongsTo(MainEquipment::class);
     }
 }
 

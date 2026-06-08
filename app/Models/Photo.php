@@ -11,24 +11,19 @@ class Photo extends Model
     use HasFactory;
 
     protected $fillable = [
-        'main_equipment_id',  // ✅ این خط رو اضافه کن
-
-        "equipment_id",
-        "photo_data",
-        "photo_type",
-        "photo_path",
-        "scan_code",
-        "description",
-        "uploaded_at"
+        'main_equipment_id',
+        "path",
+        "caption",
+        "sort_order"
     ];
 
     protected $casts = [
-        "uploaded_at" => "datetime"
+        "sort_order" => "integer"
     ];
 
-    public function equipment(): BelongsTo
+    public function mainEquipment(): BelongsTo
     {
-        return $this->belongsTo(Equipment::class);
+        return $this->belongsTo(MainEquipment::class);
     }
 }
 

@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class MainEquipmentType extends Model
 {
+    use HasFactory;
+
     protected $table = 'main_equipment_types';
     
     protected $fillable = [

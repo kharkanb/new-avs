@@ -18,9 +18,14 @@ class Feeder extends Model
         return $this->belongsTo(Post::class);
     }
 
+    public function mainEquipments(): BelongsToMany
+    {
+        return $this->belongsToMany(MainEquipment::class, 'main_equipment_feeder')
+                    ->withTimestamps();
+    }
+
     public function equipments(): BelongsToMany
     {
-        return $this->belongsToMany(Equipment::class, "equipment_feeders")
-                    ->withTimestamps();
+        return $this->mainEquipments();
     }
 }
