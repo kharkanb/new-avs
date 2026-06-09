@@ -1,24 +1,16 @@
 <?php
-<<<<<<< HEAD
 
-=======
->>>>>>> 524cace2901cfcda4f022b89d64c22cc653187c1
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ReferenceController;
 use App\Http\Controllers\Api\InspectionController;
 use App\Http\Controllers\Api\MainEquipmentController;
-<<<<<<< HEAD
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Api\UserManagementController;
 use App\Http\Controllers\Api\FormDataController;
 use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\AdvancedDashboardController;
-=======
-use App\Http\Controllers\Api\DashboardController;
-use App\Http\Controllers\Api\UserManagementController; // اینو اضافه کن
->>>>>>> 524cace2901cfcda4f022b89d64c22cc653187c1
 
 // ========== مسیرهای عمومی (بدون نیاز به توکن) ==========
 Route::post('/login', [AuthController::class, 'login']);
@@ -40,11 +32,8 @@ Route::get('/test', function() {
 // ========== مسیرهای محافظت شده (نیاز به توکن) ==========
 Route::middleware('auth:sanctum')->group(function () {
     
-<<<<<<< HEAD
     Route::get('/form-data', [FormDataController::class, 'getFormData']);
 
-=======
->>>>>>> 524cace2901cfcda4f022b89d64c22cc653187c1
     // مدیریت کاربران
     Route::apiResource('users', UserManagementController::class);
     Route::post('users/{user}/change-role', [UserManagementController::class, 'changeRole']);
@@ -72,7 +61,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/reference/checklist-templates', [ReferenceController::class, 'checklistTemplates']);
     Route::get('/reference/form-data', [ReferenceController::class, 'formData']);
     
-<<<<<<< HEAD
     // بازرسی‌ها
     Route::get('/inspections', [InspectionController::class, 'index'])->name('inspections.index');
     Route::post('/inspections', [InspectionController::class, 'store'])->name('inspections.store');
@@ -80,12 +68,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/inspections/{inspection}', [InspectionController::class, 'update'])->name('inspections.update');
     Route::delete('/inspections/{id}', [InspectionController::class, 'destroy'])->name('inspections.destroy');
     Route::get('/inspections/{inspection}/edit', [InspectionController::class, 'edit'])->name('inspections.edit');
-=======
-    // بازرسی‌ها - فقط یکبار تعریف کن
-    Route::apiResource('inspections', InspectionController::class);
-    
-    // مسیر دریافت تجهیزات یک بازرسی
->>>>>>> 524cace2901cfcda4f022b89d64c22cc653187c1
     Route::get('/inspections/{inspection}/equipments', [InspectionController::class, 'equipments']);
     
     // تجهیزات اصلی

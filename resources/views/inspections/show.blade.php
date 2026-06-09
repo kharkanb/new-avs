@@ -29,17 +29,17 @@
                             <th>تاریخ بازدید:</th>
                             <td>{{ $inspection->jalali_date ?? $inspection->inspection_date }}</td>
                         </tr>
-                        <tr>
-                            <th>پیمانکار:</th>
-                            <td>{{ $inspection->contractor_name ?? $inspection->contractor ?? '-' }}</td>
-                        </tr>
+			<tr>
+			        <th>پیمانکار:</th>
+			        <td>{{ $inspection->contractor_display_name }}</td>
+			</tr>
                         <tr>
                             <th>ضریب قرارداد:</th>
                             <td>{{ $inspection->contract_coefficient ?? '-' }}</td>
                         </tr>
         		<tr>
             		         <th>امور/شهرستان:</th>
-            		         <td>{{ $inspection->department->name ?? '-' }}</td>  <!-- اضافه شده -->
+            		         <td>{{ $inspection->department->name ?? $inspection->department_name ?? '-' }}</td>
         			</tr>
                     </table>
                 </div>

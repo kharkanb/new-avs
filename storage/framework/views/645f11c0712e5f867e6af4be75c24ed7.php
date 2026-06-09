@@ -29,17 +29,17 @@
                             <th>تاریخ بازدید:</th>
                             <td><?php echo e($inspection->jalali_date ?? $inspection->inspection_date); ?></td>
                         </tr>
-                        <tr>
-                            <th>پیمانکار:</th>
-                            <td><?php echo e($inspection->contractor_name ?? $inspection->contractor ?? '-'); ?></td>
-                        </tr>
+			<tr>
+			        <th>پیمانکار:</th>
+			        <td><?php echo e($inspection->contractor_display_name); ?></td>
+			</tr>
                         <tr>
                             <th>ضریب قرارداد:</th>
                             <td><?php echo e($inspection->contract_coefficient ?? '-'); ?></td>
                         </tr>
         		<tr>
             		         <th>امور/شهرستان:</th>
-            		         <td><?php echo e($inspection->department->name ?? '-'); ?></td>  <!-- اضافه شده -->
+            		         <td><?php echo e($inspection->department->name ?? $inspection->department_name ?? '-'); ?></td>
         			</tr>
                     </table>
                 </div>

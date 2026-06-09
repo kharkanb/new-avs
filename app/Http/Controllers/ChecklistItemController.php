@@ -66,14 +66,17 @@ class ChecklistItemController extends Controller
         return redirect()->route('dashboard.checklist-items.index')->with('success', 'چک‌لیست با موفقیت اضافه شد');
     }
 
-    public function edit(ChecklistTemplate $checklist_item)
-    {
-        if (auth()->user()->role !== 'admin') abort(403);
-        $equipmentTypes = MainEquipmentType::orderBy('name')->get();
-        $item = $checklist_item;
-        $item->load('items');
-        return view('dashboard.settings.checklist-items-form', compact('item', 'equipmentTypes'));
-    }
+public function edit(ChecklistTemplate $checklist_item)
+{
+    if (auth()->user()->role !== 'admin') abort(403);
+    
+
+    
+    $equipmentTypes = MainEquipmentType::orderBy('name')->get();
+    $item = $checklist_item;
+    $item->load('items');
+    return view('dashboard.settings.checklist-items-form', compact('item', 'equipmentTypes'));
+}
 
 public function update(Request $request, ChecklistTemplate $checklist_item)
 {

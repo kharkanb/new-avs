@@ -48,6 +48,10 @@ class MainEquipmentController extends Controller
      */
     public function store(Request $request)
     {
+
+\Log::info('BRAND DEBUG', [
+    'brand_id' => $equipmentData['brand_id'] ?? 'NOT_FOUND'
+]);
         $validated = $request->validate([
             'inspection_id' => 'required|exists:inspections,id',
             'main_equipment_type_id' => 'required|exists:main_equipment_types,id',

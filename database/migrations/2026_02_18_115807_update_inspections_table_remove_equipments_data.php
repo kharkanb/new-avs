@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-<<<<<<< HEAD
+
     /**
      * Run the migrations.
      */
@@ -29,7 +29,7 @@ return new class extends Migration
     /**
      * Reverse the migrations.
      */
-=======
+
     public function up(): void
     {
         Schema::table('inspections', function (Blueprint $table) {
@@ -37,7 +37,7 @@ return new class extends Migration
         });
     }
 
->>>>>>> 524cace2901cfcda4f022b89d64c22cc653187c1
+
     public function down(): void
     {
         Schema::table('inspections', function (Blueprint $table) {

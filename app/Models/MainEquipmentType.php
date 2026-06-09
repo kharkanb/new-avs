@@ -4,78 +4,115 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use App\Models\ChecklistTemplate;
 
 class MainEquipmentType extends Model
 {
-<<<<<<< HEAD
     use SoftDeletes;
     
-=======
->>>>>>> 524cace2901cfcda4f022b89d64c22cc653187c1
     protected $table = 'main_equipment_types';
     
     protected $fillable = [
         'name',
-<<<<<<< HEAD
         'code',
         'description',
-=======
->>>>>>> 524cace2901cfcda4f022b89d64c22cc653187c1
         'feeder_mode',
         'has_cells',
         'has_brand',
         'has_height',
-<<<<<<< HEAD
         'default_coefficient',
         'is_active'
     ];
-
+    
+    protected $casts = [
+        'has_cells' => 'boolean',
+        'has_brand' => 'boolean',
+        'has_height' => 'boolean',
+        'is_active' => 'boolean',
+        'default_coefficient' => 'float'
+    ];
     
     // ============================================
-    // رابطه با MainEquipment (تجهیزات اصلی)
+    // Model Events
     // ============================================
-    public function mainEquipments()
+    protected static function booted()
+    {
+        static::created(function ($mainEquipmentType) {
+            if (!\App\Models\ChecklistTemplate::where('main_equipment_type_id', $mainEquipmentType->id)->exists()) {
+                \App\Models\ChecklistTemplate::create([
+                    'main_equipment_type_id' => $mainEquipmentType->id,
+                    'title' => 'چک‌لیست ' . $mainEquipmentType->name,
+                    'description' => 'چک‌لیست مربوط به ' . $mainEquipmentType->name
+                ]);
+            }
+        });
+        
+        static::deleting(function ($mainEquipmentType) {
+            if ($mainEquipmentType->checklistTemplate) {
+                $mainEquipmentType->checklistTemplate->items()->delete();
+                $mainEquipmentType->checklistTemplate->delete();
+            }
+        });
+    }
+    
+    // ============================================
+    // روابط
+    // ============================================
+    public function mainEquipments(): HasMany
     {
         return $this->hasMany(MainEquipment::class, 'main_equipment_type_id');
     }
-
     
-    // ============================================
-    // رابطه با CellEquipment (تجهیزات سلولی)
-    // ============================================
-    public function cellEquipments()
+    public function cellEquipments(): HasMany
     {
         return $this->hasMany(CellEquipment::class, 'cell_equipment_type_id');
     }
     
+    public function checklistTemplate(): HasOne
+    {
+        return $this->hasOne(ChecklistTemplate::class, 'main_equipment_type_id');
+    }
+    
+    public function brands(): HasMany
+    {
+        return $this->hasMany(Brand::class, 'equipment_type_id');
+    }
+    
     // ============================================
-    // سایر متدها
+    // اسکوپ‌ها
     // ============================================
     public function scopeActive($query)
     {
         return $query->where('is_active', true);
     }
-=======
-        'description'
-    ];
     
->>>>>>> 524cace2901cfcda4f022b89d64c22cc653187c1
-    protected $casts = [
-        'has_cells' => 'boolean',
-        'has_brand' => 'boolean',
-        'has_height' => 'boolean',
-    ];
-<<<<<<< HEAD
-
-public function brands()
-{
-    return $this->hasMany(Brand::class, 'equipment_type_id');
-} 
-=======
-    
-    public function mainEquipments()
+    public function scopeHasChecklist($query)
     {
-        return $this->hasMany(MainEquipment::class, 'main_equipment_type_id');
+        return $query->has('checklistTemplate');
     }
->>>>>>> 524cace2901cfcda4f022b89d64c22cc653187c1
+    
+    public function scopeWithoutChecklist($query)
+    {
+        return $query->doesntHave('checklistTemplate');
+    }
+    
+    // ============================================
+    // متدهای کمکی (Helper Methods)
+    // ============================================
+    
+    /**
+     * بررسی یکتا بودن نام با در نظر گرفتن Soft Delete
+     */
+    public static function isNameUnique($name, $excludeId = null)
+    {
+        $query = static::where('name', $name)->whereNull('deleted_at');
+        
+        if ($excludeId) {
+            $query->where('id', '!=', $excludeId);
+        }
+        
+        return !$query->exists();
+    }
 }

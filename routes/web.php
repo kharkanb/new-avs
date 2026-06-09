@@ -102,6 +102,7 @@ Route::get('/advanced-dashboard', function(Request $request) {
     Route::get('/api/advanced-dashboard/monthly', [AdvancedDashboardController::class, 'getMonthlyChartData']);
     Route::get('/api/advanced-dashboard/stats', [AdvancedDashboardController::class, 'getStats']);
     Route::get('/api/contractors/{name}/details', [AdvancedDashboardController::class, 'getContractorDetails']);
+Route::get('/advanced-dashboard/export-data', [AdvancedDashboardController::class, 'exportData'])->name('advanced.dashboard.export');
     // ============================================
     // داده‌های نمودار داشبورد
     // ============================================

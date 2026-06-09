@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-<<<<<<< HEAD
 use Hekmatinasser\Verta\Verta;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
@@ -15,11 +14,6 @@ class Inspection extends Model
     protected $table = 'inspections';
     
     // ✅ فقط یک بار $fillable تعریف شود
-=======
-
-class Inspection extends Model
-{
->>>>>>> 524cace2901cfcda4f022b89d64c22cc653187c1
     protected $fillable = [
         'user_id',
         'contractor_id',
@@ -41,15 +35,49 @@ class Inspection extends Model
         'travel_cost',
         //  'equipments_data', // اگر فیلد JSON دارید
     ];
-    
+
     protected $casts = [
         'inspection_date' => 'date',
-<<<<<<< HEAD
     ];
     
     // ============================================
     // روابط (Relationships)
     // ============================================
+
+// Accessor برای دریافت نام پیمانکار
+public function getContractorDisplayNameAttribute()
+{
+    // اگر contractor_name مستقیم وجود دارد
+    if (!empty($this->contractor_name)) {
+        return $this->contractor_name;
+    }
+    
+    // اگر contractor به صورت آبجکت است
+    if (is_object($this->contractor) && isset($this->contractor->name)) {
+        return $this->contractor->name;
+    }
+    
+    // اگر contractor به صورت JSON string است
+    if (is_string($this->contractor) && !empty($this->contractor)) {
+        try {
+            $data = json_decode($this->contractor, true);
+            if (isset($data['name'])) {
+                return $data['name'];
+            }
+            if (isset($data[0]['name'])) {
+                return $data[0]['name'];
+            }
+        } catch (\Exception $e) {}
+    }
+    
+    // اگر از طریق رابطه است
+    if ($this->contractor_id && $this->contractor) {
+        return $this->contractor->name;
+    }
+    
+    return '-';
+}
+
     
     public function department()
     {
@@ -66,18 +94,10 @@ class Inspection extends Model
         return $this->belongsTo(User::class);
     }
 
-=======
-        'daily_start_time' => 'datetime',
-        'daily_end_time' => 'datetime',
-        'contract_coefficient' => 'float'
-    ];
-    
->>>>>>> 524cace2901cfcda4f022b89d64c22cc653187c1
     public function mainEquipments()
     {
         return $this->hasMany(MainEquipment::class);
     }
-<<<<<<< HEAD
     
     // متد کمکی برای دسترسی به تجهیزات
     public function getEquipmentsAttribute()
@@ -127,6 +147,4 @@ class Inspection extends Model
             'user_agent' => request()->userAgent(),
         ]);
     }
-=======
->>>>>>> 524cace2901cfcda4f022b89d64c22cc653187c1
 }

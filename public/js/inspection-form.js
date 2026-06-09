@@ -561,24 +561,31 @@ function editEquipment(equipmentId) {
     
     currentEquipmentIndex = equipment.index;
     
-    // ساخت گزینه‌های برند با ID از دیتابیس
-    let brandOptions = '<option value="">انتخاب کنید...</option>';
-    if (window.brandsList && window.brandsList.length) {
-        window.brandsList.forEach(b => {
-            brandOptions += `<option value="${b.id}">${b.name}</option>`;
-        });
-        console.log('✅ گزینه‌های برند ساخته شد، تعداد:', window.brandsList.length);
-    } else {
-        console.warn('⚠️ window.brandsList خالی است، استفاده از fallback');
-        brandOptions += `
-            <option value="1">ABB</option>
-            <option value="2">Schneider</option>
-            <option value="3">Siemens</option>
-            <option value="4">NOJA</option>
-            <option value="5">Tavrida</option>
-            <option value="6">Eaton</option>
-            <option value="7">سایر</option>
-        `;
+    // ========== بررسی اینکه آیا این تجهیز باید برند داشته باشد یا نه ==========
+    const isWithoutBrand = equipmentWithoutBrands.includes(equipment.equipmentType);
+    
+    // ساخت گزینه‌های برند با ID از دیتابیس (فقط برای تجهیزات دارای برند)
+    let brandOptions = '';
+    
+    if (!isWithoutBrand) {
+        brandOptions = '<option value="">انتخاب کنید...</option>';
+        if (window.brandsList && window.brandsList.length) {
+            window.brandsList.forEach(b => {
+                brandOptions += `<option value="${b.id}">${b.name}</option>`;
+            });
+            console.log('✅ گزینه‌های برند ساخته شد، تعداد:', window.brandsList.length);
+        } else {
+            console.warn('⚠️ window.brandsList خالی است، استفاده از fallback');
+            brandOptions += `
+                <option value="1">ABB</option>
+                <option value="2">Schneider</option>
+                <option value="3">Siemens</option>
+                <option value="4">NOJA</option>
+                <option value="5">Tavrida</option>
+                <option value="6">Eaton</option>
+                <option value="7">سایر</option>
+            `;
+        }
     }
     
     const modalContent = `
@@ -606,20 +613,12 @@ function editEquipment(equipmentId) {
 
             <div class="row mb-3">
                 <div class="col-md-6">
-                    <label class="form-label">نوع نصب:</label>
-                    <select class="form-control" id="modal-installation-type-${equipmentId}">
-                        <option value="">انتخاب کنید...</option>
-                        <option value="مانوری">مانوری</option>
-                        <option value="بین فیدری">بین فیدری</option>
-                        <option value="دکل">دکل</option>
-                        <option value="زمینی">زمینی</option>
-                    </select>
-                </div>
-                <div class="col-md-6">
+                    ${!isWithoutBrand ? `
                     <label class="form-label">برند:</label>
                     <select class="form-control" id="modal-brand-id-${equipmentId}">
                         ${brandOptions}
                     </select>
+                    ` : '<div style="display: none;"></div>'}
                 </div>
             </div>
             
@@ -697,21 +696,23 @@ function editEquipment(equipmentId) {
                 });
             }
             
-            // ========== لود مقدار برند ذخیره شده ==========
-            const brandSelect = document.getElementById(`modal-brand-id-${equipmentId}`);
-            if (brandSelect) {
-                console.log('سلیکت برند پیدا شد، تعداد گزینه‌ها:', brandSelect.options.length);
-                if (equipment.brand_id) {
-                    brandSelect.value = equipment.brand_id;
-                    console.log('✅ مقدار برند تنظیم شد:', equipment.brand_id);
-                    if (typeof $ !== 'undefined' && $(brandSelect).hasClass('select2-hidden-accessible')) {
-                        $(brandSelect).trigger('change');
+            // ========== لود مقدار برند ذخیره شده (فقط برای تجهیزات دارای برند) ==========
+            if (!isWithoutBrand) {
+                const brandSelect = document.getElementById(`modal-brand-id-${equipmentId}`);
+                if (brandSelect) {
+                    console.log('سلیکت برند پیدا شد، تعداد گزینه‌ها:', brandSelect.options.length);
+                    if (equipment.brand_id) {
+                        brandSelect.value = equipment.brand_id;
+                        console.log('✅ مقدار برند تنظیم شد:', equipment.brand_id);
+                        if (typeof $ !== 'undefined' && $(brandSelect).hasClass('select2-hidden-accessible')) {
+                            $(brandSelect).trigger('change');
+                        }
+                    } else {
+                        console.log('⚠️ equipment.brand_id ندارد، مقدار پیش‌فرض انتخاب نشد');
                     }
                 } else {
-                    console.log('⚠️ equipment.brand_id ندارد، مقدار پیش‌فرض انتخاب نشد');
+                    console.error('❌ سلیکت برند پیدا نشد!');
                 }
-            } else {
-                console.error('❌ سلیکت برند پیدا نشد!');
             }
             // ============================================
         }
@@ -731,13 +732,22 @@ function editEquipment(equipmentId) {
     }
 }
 
-
 function updateEquipmentFields(equipmentId) {
+
     const form = document.getElementById(`equipment-form-${equipmentId}`);
     if (!form) return;
     
     const typeSelect = form.querySelector('.equipment-type-select');
     const equipmentType = typeSelect ? (typeof $ !== 'undefined' ? $(typeSelect).val() : typeSelect.value) : '';
+
+    const isWithoutBrand = equipmentWithoutBrands.includes(equipmentType);
+    
+    // بررسی برای نمایش مشخصات سلول‌ها
+    const shouldShowCellSpecs = [
+        'پست دو سو تغذیه (مشترک حساس)',
+        'پست دو سو تغذیه (بیمارستانی)',
+        'مشترک ولتاژ اولیه'
+    ].includes(equipmentType);
     
     const brandSection = document.getElementById(`brand-section-${equipmentId}`);
     const installationSection = document.getElementById(`installation-type-section-${equipmentId}`);
@@ -750,40 +760,43 @@ function updateEquipmentFields(equipmentId) {
     
     const equipment = equipments.find(e => e.id === equipmentId);
     
-    // ========== آپدیت لیست برندها در select با ID عددی ==========
+    // ========== مدیریت برند سلکت (مخفی یا نمایش) ==========
     const brandSelect = document.getElementById(`modal-brand-id-${equipmentId}`);
-    if (brandSelect && window.brandsList) {
-        let options = '<option value="">انتخاب کنید...</option>';
-        window.brandsList.forEach(b => {
-            options += `<option value="${b.id}">${b.name}</option>`;
-        });
-        brandSelect.innerHTML = options;
-        
-        // اگر برندی قبلاً ذخیره شده بود، آن را انتخاب کن
-        if (equipment && equipment.brand_id) {
-            brandSelect.value = equipment.brand_id;
+    
+    if (isWithoutBrand) {
+        // اگر تجهیز بدون برند است، برند سلکت را مخفی کن
+        if (brandSelect) {
+            const parentCol = brandSelect.closest('.col-md-6');
+            if (parentCol) parentCol.style.display = 'none';
         }
-        
-        // ریفرش select2 اگر وجود دارد
-        if (typeof $ !== 'undefined' && $(brandSelect).hasClass('select2-hidden-accessible')) {
-            $(brandSelect).trigger('change');
+    } else {
+        // اگر تجهیز دارای برند است، برند سلکت را نشان بده و آپدیت کن
+        if (brandSelect && window.brandsList) {
+            const parentCol = brandSelect.closest('.col-md-6');
+            if (parentCol) parentCol.style.display = 'block';
+            
+            let options = '<option value="">انتخاب کنید...</option>';
+            window.brandsList.forEach(b => {
+                options += `<option value="${b.id}">${b.name}</option>`;
+            });
+            brandSelect.innerHTML = options;
+            
+            if (equipment && equipment.brand_id) {
+                brandSelect.value = equipment.brand_id;
+            }
+            
+            if (typeof $ !== 'undefined' && $(brandSelect).hasClass('select2-hidden-accessible')) {
+                $(brandSelect).trigger('change');
+            }
         }
     }
-    // ============================================
     
+    // ========== نمایش بخش‌های مختلف بر اساس نوع تجهیز ==========
     if (equipmentWithBrands.includes(equipmentType)) {
+        // تجهیزات دارای برند (ریکلوزر، سکسیونر، سکشنالایزر، فالت دتکتور)
         if (brandSection && equipment) {
             brandSection.innerHTML = `
                 <div class="row mb-3">
-                    <div class="col-md-4">
-                        <label class="form-label required"><i class="bi bi-tag"></i> برند کلید</label>
-                        <select class="form-select switch-brand-select" required onchange="toggleBrandOther(this, '${equipmentId}', 'switch')">
-                            <option value="">انتخاب کنید</option>
-                            ${switchBrands.map(brand => 
-                                `<option value="${brand}" ${equipment.switchBrand === brand ? 'selected' : ''}>${brand}</option>`
-                            ).join('')}
-                        </select>
-                    </div>
                     <div class="col-md-4">
                         <label class="form-label required"><i class="bi bi-wifi"></i> برند مودم</label>
                         <select class="form-select modem-brand-select" required onchange="toggleBrandOther(this, '${equipmentId}', 'modem')">
@@ -802,33 +815,23 @@ function updateEquipmentFields(equipmentId) {
                             ).join('')}
                         </select>
                     </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-md-4" id="switch-other-container-${equipmentId}"></div>
-                    <div class="col-md-4" id="modem-other-container-${equipmentId}"></div>
-                    <div class="col-md-4" id="rtu-other-container-${equipmentId}"></div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <label class="form-label required"><i class="bi bi-clock"></i> زمان شروع فعالیت</label>
                         <input type="time" class="form-control start-time" required value="${equipment.startTime || ''}">
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <label class="form-label required"><i class="bi bi-clock-fill"></i> زمان پایان فعالیت</label>
                         <input type="time" class="form-control end-time" required value="${equipment.endTime || ''}">
                     </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-4" id="modem-other-container-${equipmentId}"></div>
+                    <div class="col-md-4" id="rtu-other-container-${equipmentId}"></div>
                 </div>
             `;
             
             setTimeout(() => {
                 if (typeof $ !== 'undefined') {
-                    $(`#equipment-form-${equipmentId} .switch-brand-select`).select2({
-                        placeholder: 'انتخاب کنید',
-                        allowClear: true,
-                        width: '100%',
-                        dropdownParent: $('#equipmentModal'),
-                        dir: 'rtl'
-                    });
                     $(`#equipment-form-${equipmentId} .modem-brand-select`).select2({
                         placeholder: 'انتخاب کنید',
                         allowClear: true,
@@ -846,7 +849,15 @@ function updateEquipmentFields(equipmentId) {
                 }
             }, 100);
         }
-    } else if (equipmentWithoutBrands.includes(equipmentType)) {
+        
+        // مخفی کردن سلول‌ها برای تجهیزات دارای برند
+        if (cellSpecsDiv) {
+            cellSpecsDiv.style.display = 'none';
+            cellSpecsDiv.innerHTML = '';
+        }
+    } 
+    else if (isWithoutBrand) {
+        // تجهیزات بدون برند (پست دو سو تغذیه و مشترک ولتاژ اولیه)
         if (brandSection && equipment) {
             brandSection.innerHTML = `
                 <div class="row mb-3">
@@ -862,26 +873,34 @@ function updateEquipmentFields(equipmentId) {
             `;
         }
         
-        if (cellSpecsDiv) {
-            cellSpecsDiv.style.display = 'block';
-            cellSpecsDiv.innerHTML = getCellSpecificationsHTML(equipmentId, equipmentType);
-            
-            if (equipment && equipment.cellSpecs) {
-                setTimeout(() => {
-                    loadCellSpecifications(equipmentId, equipment.cellSpecs);
-                }, 300);
+        // نمایش مشخصات سلول‌ها فقط برای این سه نوع تجهیز
+        if (shouldShowCellSpecs) {
+            if (cellSpecsDiv) {
+                cellSpecsDiv.style.display = 'block';
+                cellSpecsDiv.innerHTML = getCellSpecificationsHTML(equipmentId, equipmentType);
+                
+                if (equipment && equipment.cellSpecs) {
+                    setTimeout(() => {
+                        loadCellSpecifications(equipmentId, equipment.cellSpecs);
+                    }, 300);
+                }
+            }
+        } else {
+            if (cellSpecsDiv) {
+                cellSpecsDiv.style.display = 'none';
+                cellSpecsDiv.innerHTML = '';
             }
         }
     }
     
+    // ========== منطق نوع نصب (فقط برای سکسیونر و سکشنالایزر) ==========
     if (equipmentType === 'سکسیونر' || equipmentType === 'سکشنالایزر') {
         if (installationSection && equipment) {
             installationSection.innerHTML = `
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label class="form-label required"><i class="bi bi-lightning"></i> نوع نصب</label>
-                        <select class="form-select installation-type-select" required 
-                                onchange="updateFeederFields('${equipmentId}')">
+                        <select class="form-select installation-type-select" required onchange="updateFeederFields('${equipmentId}')">
                             <option value="">انتخاب کنید</option>
                             <option value="بین‌فیدری" ${equipment.installationType === 'بین‌فیدری' ? 'selected' : ''}>بین‌فیدری</option>
                             <option value="مانوری" ${equipment.installationType === 'مانوری' ? 'selected' : ''}>مانوری</option>
@@ -911,8 +930,6 @@ function updateEquipmentFields(equipmentId) {
         }, 100);
     }
 }
-
-
 
 function toggleBrandOther(select, equipmentId, brandType) {
     const container = document.getElementById(`${brandType}-other-container-${equipmentId}`);
@@ -945,7 +962,7 @@ function updateFeederFields(equipmentId) {
     
     if (equipmentType === 'سکسیونر' || equipmentType === 'سکشنالایزر') {
         feederCount = installationType === 'مانوری' ? 2 : 1;
-    } else if (['پست دو سو تغذیه (مشترک حساس)', 'پست دو سو تغذیه (بیمارستانی)'].includes(equipmentType)) {
+    } else if (['پست دو سو تغذیه (مشترک حساس)','پست دو سو تغذیه (بیمارستانی)'].includes(equipmentType)) {
         feederCount = 2;
     }
     
@@ -1433,29 +1450,43 @@ function saveEquipment(equipmentId) {
     // =====================================================
     // ========== دریافت ID برند از دیتابیس ==========
     // =====================================================
-    const brandDbSelect = document.getElementById(`modal-brand-id-${equipmentId}`);
-    console.log('=== دیباگ برند در saveEquipment ===');
-    console.log('سلیکت برند:', brandDbSelect);
-    console.log('مقدار انتخاب شده:', brandDbSelect?.value);
-    console.log('نوع مقدار:', typeof brandDbSelect?.value);
-    
-    if (brandDbSelect && brandDbSelect.value) {
-        const brandId = parseInt(brandDbSelect.value);
-        console.log('بعد از parseInt:', brandId);
-        console.log('isNaN?', isNaN(brandId));
-        
-        if (!isNaN(brandId) && brandId > 0) {
-            equipment.brand_id = brandId;
-            console.log('✅ برند ID در saveEquipment ذخیره شد:', brandId);
-            console.log('✅ مقدار equipment.brand_id بعد از ذخیره:', equipment.brand_id);
-        } else {
-            equipment.brand_id = null;
-            console.warn('⚠️ مقدار برند معتبر نیست (parseInt ناموفق):', brandDbSelect.value);
-        }
+const noBrandEquipmentTypes = [
+'پست دو سو تغذیه (مشترک حساس)',
+'پست دو سو تغذیه (بیمارستانی)',
+'مشترک ولتاژ اولیه'
+];
+
+// این تجهیزات برند ندارند
+if (noBrandEquipmentTypes.includes(equipment.equipmentType)) {
+
+    equipment.brand_id = null;
+
+    equipment.modemBrand = '';
+    equipment.rtuBrand = '';
+
+    equipment.otherModemBrand = '';
+    equipment.otherRTUBrand = '';
+
+} else {
+
+    const brandDbSelect = document.getElementById(
+        `modal-brand-id-${equipmentId}`
+    );
+
+    if (brandDbSelect?.value) {
+
+        const brandId = parseInt(brandDbSelect.value, 10);
+
+        equipment.brand_id =
+            !isNaN(brandId) && brandId > 0
+                ? brandId
+                : null;
+
     } else {
+
         equipment.brand_id = null;
-        console.warn('⚠️ برندی انتخاب نشده است یا سلیکت وجود ندارد');
     }
+}    
     // =====================================================
     
     // دریافت دپارتمان از مدال (در صورت وجود)
@@ -1481,26 +1512,21 @@ function saveEquipment(equipmentId) {
     
     // ذخیره برندهای کلید، مودم، RTU برای تجهیزات دارای برند
     if (equipmentWithBrands.includes(equipment.equipmentType)) {
-        const switchSelect = form.querySelector('.switch-brand-select');
         const modemSelect = form.querySelector('.modem-brand-select');
         const rtuSelect = form.querySelector('.rtu-brand-select');
         
-        equipment.switchBrand = switchSelect ? (typeof $ !== 'undefined' ? $(switchSelect).val() : switchSelect.value) || '' : '';
         equipment.modemBrand = modemSelect ? (typeof $ !== 'undefined' ? $(modemSelect).val() : modemSelect.value) || '' : '';
         equipment.rtuBrand = rtuSelect ? (typeof $ !== 'undefined' ? $(rtuSelect).val() : rtuSelect.value) || '' : '';
         
-        const switchOtherInput = document.getElementById(`switch-other-input-${equipmentId}`);
         const modemOtherInput = document.getElementById(`modem-other-input-${equipmentId}`);
         const rtuOtherInput = document.getElementById(`rtu-other-input-${equipmentId}`);
         
-        equipment.otherSwitchBrand = switchOtherInput ? switchOtherInput.value || '' : '';
         equipment.otherModemBrand = modemOtherInput ? modemOtherInput.value || '' : '';
         equipment.otherRTUBrand = rtuOtherInput ? rtuOtherInput.value || '' : '';
     } else {
-        equipment.switchBrand = '';
         equipment.modemBrand = '';
         equipment.rtuBrand = '';
-        equipment.otherSwitchBrand = '';
+
         equipment.otherModemBrand = '';
         equipment.otherRTUBrand = '';
     }
@@ -1631,12 +1657,23 @@ function updateEquipmentCard(equipmentId) {
     if (typeSpan) typeSpan.textContent = equipment.equipmentType || '---';
     if (scadaSpan) scadaSpan.textContent = equipment.scadaCode || '---';
     
-    if (equipmentWithBrands.includes(equipment.equipmentType)) {
-        const switchBrandDisplay = equipment.switchBrand === 'سایر' ? equipment.otherSwitchBrand : equipment.switchBrand;
-        if (brandSpan) brandSpan.textContent = switchBrandDisplay || '---';
-    } else {
-        if (brandSpan) brandSpan.textContent = 'بدون برند';
+if (equipment.brand_id) {
+
+    const brand = window.brandsList?.find(
+        b => b.id == equipment.brand_id
+    );
+
+    if (brandSpan) {
+        brandSpan.textContent = brand ? brand.name : '---';
     }
+
+} else {
+
+    if (brandSpan) {
+        brandSpan.textContent = 'بدون برند';
+    }
+
+}
     
     const feedersText = equipment.feeders && equipment.feeders.length > 0 
         ? equipment.feeders.map(f => `${f.post} (${f.feeder})`).join('، ')
@@ -2750,10 +2787,14 @@ function updateEquipmentDetailsSummary() {
     let html = '<div class="row">';
     
     equipments.forEach((equipment, index) => {
-        const hasBrands = equipmentWithBrands.includes(equipment.equipmentType);
-        const switchBrandDisplay = hasBrands ? 
-            (equipment.switchBrand === 'سایر' ? equipment.otherSwitchBrand : equipment.switchBrand) : 
-            'بدون برند';
+const brandObj = window.brandsList?.find(
+    b => b.id == equipment.brand_id
+);
+
+const switchBrandDisplay =
+    brandObj
+        ? brandObj.name
+        : 'بدون برند';
             
         const feedersText = equipment.feeders && equipment.feeders.length > 0 
             ? equipment.feeders.map(f => `${f.post} (${f.feeder})`).join('، ')
@@ -2766,7 +2807,6 @@ function updateEquipmentDetailsSummary() {
                         <h6 class="card-title"><i class="bi bi-hdd"></i> تجهیز ${index + 1}: ${equipment.equipmentType}</h6>
                         <p class="mb-1"><i class="bi bi-code-slash"></i> <strong>کد اسکادا:</strong> ${equipment.scadaCode || 'ثبت نشده'}</p>
                         ${hasBrands ? `
-                        <p class="mb-1"><i class="bi bi-tag"></i> <strong>برند کلید:</strong> ${switchBrandDisplay}</p>
                         <p class="mb-1"><i class="bi bi-wifi"></i> <strong>برند مودم:</strong> ${equipment.modemBrand === 'سایر' ? equipment.otherModemBrand : equipment.modemBrand || 'ثبت نشده'}</p>
                         <p class="mb-1"><i class="bi bi-cpu"></i> <strong>برند RTU:</strong> ${equipment.rtuBrand === 'سایر' ? equipment.otherRTUBrand : equipment.rtuBrand || 'ثبت نشده'}</p>
                         ` : ''}
@@ -2936,10 +2976,13 @@ function generatePDFReport() {
         let equipmentHTML = '';
         
         equipments.forEach((equipment, index) => {
-            const hasBrands = equipmentWithBrands.includes(equipment.equipmentType);
-            const switchBrandDisplay = hasBrands ? 
-                (equipment.switchBrand === 'سایر' ? equipment.otherSwitchBrand : equipment.switchBrand) : 
-                'بدون برند';
+const brandObj = window.brandsList?.find(
+    b => b.id == equipment.brand_id
+);
+
+const switchBrandDisplay = brandObj
+    ? brandObj.name
+    : 'بدون برند';
                 
             const feedersText = equipment.feeders && equipment.feeders.length > 0 
                 ? equipment.feeders.map(f => `${f.post} (${f.feeder})`).join('، ')
@@ -2959,7 +3002,6 @@ function generatePDFReport() {
                         </tr>
                         ${hasBrands ? `
                         <tr>
-                            <th style="padding: 10px; border: 1px solid #ddd; background-color: #f2f2f2;">برند کلید:</th>
                             <td style="padding: 10px; border: 1px solid #ddd;">${switchBrandDisplay}</td>
                             <th style="padding: 10px; border: 1px solid #ddd; background-color: #f2f2f2;">برند مودم:</th>
                             <td style="padding: 10px; border: 1px solid #ddd;">${equipment.modemBrand === 'سایر' ? equipment.otherModemBrand : equipment.modemBrand}</td>
@@ -3344,7 +3386,6 @@ function loadDraft() {
                                 <div class="row">
                                     <div class="col-md-4"><p><strong>نوع تجهیز:</strong> <span id="${equipment.id}-type">${equipment.equipmentType || '---'}</span></p></div>
                                     <div class="col-md-4"><p><strong>کد اسکادا:</strong> <span id="${equipment.id}-scada">${equipment.scadaCode || '---'}</span></p></div>
-                                    <div class="col-md-4"><p><strong>برند کلید:</strong> <span id="${equipment.id}-switch-brand">${equipment.switchBrand || '---'}</span></p></div>
                                     <div class="col-md-12"><p><strong>فیدرها:</strong> <span id="${equipment.id}-feeders">${equipment.feeders && equipment.feeders.length > 0 ? equipment.feeders.map(f => `${f.post} (${f.feeder})`).join('، ') : '---'}</span></p></div>
                                 </div>
                             </div>
@@ -3517,48 +3558,62 @@ async function submitFinalInspection() {
         const gregorianDate = convertJalaliToGregorian(jalaliDate);
 
         // ========== اصلاح مهم: ساخت processedEquipments با brand_id صحیح ==========
-        const processedEquipments = equipments.map(equipment => {
-            // اطمینان از اینکه brand_id عدد است
-            let finalBrandId = null;
-            if (equipment.brand_id && !isNaN(parseInt(equipment.brand_id))) {
-                finalBrandId = parseInt(equipment.brand_id);
-            } else if (equipment.switchBrand && window.brandsList) {
-                // اگر brand_id نداشت ولی switchBrand داشت، از روی نام پیدا کن
-                const foundBrand = window.brandsList.find(b => b.name === equipment.switchBrand);
-                if (foundBrand) {
-                    finalBrandId = foundBrand.id;
-                    console.log(`✅ برند "${equipment.switchBrand}" تبدیل شد به ID: ${finalBrandId}`);
-                }
-            }
-            
-            return {
-                equipmentType: equipment.equipmentType || '',
-                scadaCode: equipment.scadaCode || '',
-                installationType: equipment.installationType || '',
-                switchBrand: equipment.switchBrand || '',
-                modemBrand: equipment.modemBrand || '',
-                rtuBrand: equipment.rtuBrand || '',
-                otherSwitchBrand: equipment.otherSwitchBrand || '',
-                otherModemBrand: equipment.otherModemBrand || '',
-                otherRTUBrand: equipment.otherRTUBrand || '',
-                startTime: equipment.startTime || '',
-                endTime: equipment.endTime || '',
-                feeders: equipment.feeders || [],
-                departmentData: equipment.departmentData || {},
-                locationData: equipment.locationData || {},
-                communicationData: equipment.communicationData || {},
-                checklistData: equipment.checklistData || [],
-                activitiesData: equipment.activitiesData || [],
-                consumablesData: equipment.consumablesData || [],
-                photosData: equipment.photosData || [],
-                cellSpecs: equipment.cellSpecs || {},
-                tabsValidated: equipment.tabsValidated || {},
-                department_id: (equipment.departmentData && equipment.departmentData.department_id) ? equipment.departmentData.department_id : null,
-                brand_id: finalBrandId,  // ✅ اینجا از finalBrandId استفاده می‌شود
-                department_name: equipment.departmentData?.department || null
-            };
-        });
-        
+const processedEquipments = equipments.map(equipment => {
+
+    let finalBrandId = null;
+
+    // این سه تجهیز نباید برند داشته باشند
+    if (
+        !['پست دو سو تغذیه (مشترک حساس)',
+'پست دو سو تغذیه (بیمارستانی)',
+'مشترک ولتاژ اولیه']
+            .includes(equipment.equipmentType)
+    ) {
+
+        if (
+            equipment.brand_id &&
+            !isNaN(parseInt(equipment.brand_id))
+        ) {
+            finalBrandId = parseInt(equipment.brand_id);
+        }
+
+    }
+
+    return {
+        equipmentType: equipment.equipmentType || '',
+        scadaCode: equipment.scadaCode || '',
+        installationType: equipment.installationType || '',
+
+        brand_id: finalBrandId,
+
+        modemBrand: equipment.modemBrand || '',
+        rtuBrand: equipment.rtuBrand || '',
+
+        otherModemBrand: equipment.otherModemBrand || '',
+        otherRTUBrand: equipment.otherRTUBrand || '',
+
+        startTime: equipment.startTime || '',
+        endTime: equipment.endTime || '',
+
+        feeders: equipment.feeders || [],
+        departmentData: equipment.departmentData || {},
+        locationData: equipment.locationData || {},
+        communicationData: equipment.communicationData || {},
+        checklistData: equipment.checklistData || [],
+        activitiesData: equipment.activitiesData || [],
+        consumablesData: equipment.consumablesData || [],
+        photosData: equipment.photosData || [],
+        cellSpecs: equipment.cellSpecs || {},
+        tabsValidated: equipment.tabsValidated || {},
+
+        department_id:
+            equipment.departmentData?.department_id || null,
+
+        department_name:
+            equipment.departmentData?.department || null
+    };
+
+});
         console.log('=== processedEquipments ساخته شد ===');
         processedEquipments.forEach((eq, idx) => {
             console.log(`تجهیز ${idx + 1}: brand_id = ${eq.brand_id}, type = ${typeof eq.brand_id}`);
@@ -3625,6 +3680,25 @@ async function submitFinalInspection() {
             final_status: 'approved',
             equipments: processedEquipments
         };
+
+console.log('=== INSPECTION DATA ===');
+console.log(JSON.stringify(inspectionData, null, 2));
+inspectionData.equipments.forEach(eq => {
+    console.log(
+        'TYPE:',
+        eq.equipmentType,
+        'BRAND:',
+        eq.brand_id
+    );
+});
+
+console.log('=== processedEquipments ===');
+processedEquipments.forEach(eq => {
+    console.log({
+        type: eq.equipmentType,
+        brand_id: eq.brand_id
+    });
+});
 
         const response = await fetch('/api/inspections', {
             method: 'POST',
@@ -4019,31 +4093,45 @@ if (data.brands && data.brands.length) {
             console.log('✅ پست‌ها و فیدرها:', window.postsAndFeedersData.length);
         }
         
-        if (data.contractors && data.contractors.length) {
-            const contractorEl = document.getElementById('contractor');
-            if (contractorEl) {
-                window.contractorsData = data.contractors;
-                
-                const select = document.createElement('select');
-                select.id = 'contractor';
-                select.className = contractorEl.className;
-                select.innerHTML = '<option value="">انتخاب کنید</option>' + 
-                    data.contractors.map(c => `<option value="${c.id}" data-coefficient="${c.coefficient}" data-contract-number="${c.contract_number || ''}">${c.name}</option>`).join('');
-                
-                select.addEventListener('change', function() {
-                    updateContractorDetails(this);
-                });
-                
-                if (data.contractors.length > 0) {
-                    select.value = data.contractors[0].id;
-                    updateContractorDetails(select);
-                }
-                
-                contractorEl.parentNode.replaceChild(select, contractorEl);
-            }
-            console.log('✅ پیمانکاران:', data.contractors.length);
+if (data.contractors && data.contractors.length) {
+    const contractorEl = document.getElementById('contractor');
+    if (contractorEl) {
+        window.contractorsData = data.contractors;
+        // دیباگ: ببینیم contractors چه مقادیری دارند
+        console.log('📋 لیست پیمانکاران از دیتابیس:', data.contractors.map(c => ({
+            id: c.id,
+            name: c.name,
+            coefficient: c.coefficient,
+            contract_number: c.contract_number
+        })));
+        
+        const select = document.createElement('select');
+        select.id = 'contractor';
+        select.className = contractorEl.className;
+        select.innerHTML = '<option value="">انتخاب کنید</option>' + 
+            data.contractors.map(c => {
+                // ذخیره coefficient و contract_number در data attributes
+                const coeff = c.coefficient || 2.35;
+                const contractNum = c.contract_number || '';
+                return `<option value="${c.id}" data-coefficient="${coeff}" data-contract-number="${contractNum}">${c.name}</option>`;
+            }).join('');
+        
+        select.addEventListener('change', function() {
+            updateContractorDetails(this);
+        });
+        
+        // انتخاب اولین پیمانکار به صورت پیش‌فرض
+        if (data.contractors.length > 0) {
+            select.value = data.contractors[0].id;
+            updateContractorDetails(select);
         }
         
+        contractorEl.parentNode.replaceChild(select, contractorEl);
+    }
+    console.log('✅ پیمانکاران:', data.contractors.length);
+}      
+
+  
         console.log('🎉 همه دیتاها با موفقیت از دیتابیس بارگذاری شدند!');
         
     } catch (error) {
@@ -4058,20 +4146,42 @@ function updateContractorDetails(selectElement) {
     const selectedOption = selectElement.options[selectElement.selectedIndex];
     if (!selectedOption || !selectedOption.value) return;
     
-    const coefficient = selectedOption.getAttribute('data-coefficient') || 2.35;
-    const contractNumber = selectedOption.getAttribute('data-contract-number') || '';
+    // روش اول: خواندن از data attributes
+    let coefficient = selectedOption.getAttribute('data-coefficient');
+    let contractNumber = selectedOption.getAttribute('data-contract-number');
+    
+    // روش دوم: اگر از طریق data attributes نیامد، از selectedOption مستقیماً بخوان
+    if (!coefficient && selectedOption.dataset) {
+        coefficient = selectedOption.dataset.coefficient;
+        contractNumber = selectedOption.dataset.contractNumber;
+    }
+    
+    // روش سوم: اگر باز هم نداشت، از array اصلی پیدا کن
+    if ((!coefficient || coefficient === 'null') && window.contractorsData) {
+        const contractorId = parseInt(selectedOption.value);
+        const foundContractor = window.contractorsData.find(c => c.id === contractorId);
+        if (foundContractor) {
+            coefficient = foundContractor.coefficient || 2.35;
+            contractNumber = foundContractor.contract_number || '';
+            console.log('✅ از array پیدا شد:', { coefficient, contractNumber });
+        }
+    }
+    
+    // مقدار پیش‌فرض
+    coefficient = coefficient && coefficient !== 'null' ? coefficient : 2.35;
+    contractNumber = contractNumber || '';
     
     const coefficientInput = document.getElementById('contract-coefficient');
     const contractNumberInput = document.getElementById('contract-number');
     
     if (coefficientInput) {
         coefficientInput.value = coefficient;
+        console.log('✅ ضریب تنظیم شد:', coefficient);
     }
     if (contractNumberInput) {
         contractNumberInput.value = contractNumber;
+        console.log('✅ شماره قرارداد تنظیم شد:', contractNumber);
     }
-    
-    console.log(`پیمانکار: ${selectedOption.text}, ضریب: ${coefficient}, شماره قرارداد: ${contractNumber}`);
 }
 
-console.log('✅ inspection-form.js loaded successfully');
+console.log('✅ inspection-form.js loaded successfully'); 

@@ -8,12 +8,17 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class EquipmentType extends Model
 {
+
+    protected $table = 'main_equipment_types';
+
     use HasFactory;
 
     protected $fillable = [
-        "name",
-        "has_height",
-        "has_brand"
+        'name', 
+        'category',
+        'has_brand', 
+        'has_height',
+        'feeder_mode'
     ];
 
     protected $casts = [

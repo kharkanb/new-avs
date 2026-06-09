@@ -79,7 +79,8 @@
             </div>
         </div>
     </div>
-</form>            <div class="table-responsive">
+</form>  
+          <div class="table-responsive">
                 <table class="table table-bordered table-hover" style="min-width: 800px;">
                     <thead class="table-light">
                         <tr>
@@ -95,50 +96,73 @@
                     </thead>
                     <tbody>
                         <?php $__empty_1 = true; $__currentLoopData = $inspections ?? []; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $inspection): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
-                        <?php
-                            // تبدیل تاریخ به شمسی
-                            try {
-                                if (class_exists(\Hekmatinasser\Verta\Verta::class)) {
-                                    $v = new \Hekmatinasser\Verta\Verta($inspection->inspection_date);
-                                    $jalaliDate = $v->format('Y/m/d');
-                                } else {
-                                    $jalaliDate = $inspection->inspection_date ?? '-';
-                                }
-                            } catch (\Exception $e) {
-                                $jalaliDate = $inspection->inspection_date ?? '-';
-                            }
-                            
-                            // نام پیمانکار
-                            $contractorName = $inspection->contractor_name ?? $inspection->contractor ?? '-';
-                            if ($contractorName == '-' && $inspection->contractor_id) {
-                                $contractorName = $inspection->contractor->name ?? '-';
-                            }
-                            
-                            // نام امور/شهرستان
-                            $departmentName = '-';
-                            if ($inspection->department_id && $inspection->department) {
-                                $departmentName = $inspection->department->name;
-                            } elseif ($inspection->mainEquipments && $inspection->mainEquipments->isNotEmpty()) {
-                                $firstEquipment = $inspection->mainEquipments->first();
-                                if ($firstEquipment && $firstEquipment->department) {
-                                    $departmentName = $firstEquipment->department->name;
-                                }
-                            }
-                            
-                            // تعیین رنگ و متن وضعیت
-                            $statusClass = 'secondary';
-                            $statusText = 'نامشخص';
-                            if ($inspection->status == 'completed') {
-                                $statusClass = 'success';
-                                $statusText = 'تکمیل شده';
-                            } elseif ($inspection->status == 'draft') {
-                                $statusClass = 'warning';
-                                $statusText = 'پیش‌نویس';
-                            } elseif ($inspection->status == 'archived') {
-                                $statusClass = 'secondary';
-                                $statusText = 'بایگانی';
-                            }
-                        ?>
+<?php
+    // تبدیل تاریخ به شمسی
+    try {
+        if (class_exists(\Hekmatinasser\Verta\Verta::class)) {
+            $v = new \Hekmatinasser\Verta\Verta($inspection->inspection_date);
+            $jalaliDate = $v->format('Y/m/d');
+        } else {
+            $jalaliDate = $inspection->inspection_date ?? '-';
+        }
+    } catch (\Exception $e) {
+        $jalaliDate = $inspection->inspection_date ?? '-';
+    }
+    
+    // نام پیمانکار - اصلاح شده کامل
+    $contractorName = '-';
+    
+    // روش 1: contractor_name مستقیم
+    if (!empty($inspection->contractor_name)) {
+        $contractorName = $inspection->contractor_name;
+    }
+    // روش 2: contractor به صورت آبجکت
+    elseif (is_object($inspection->contractor) && isset($inspection->contractor->name)) {
+        $contractorName = $inspection->contractor->name;
+    }
+    // روش 3: contractor به صورت JSON string
+    elseif (is_string($inspection->contractor) && !empty($inspection->contractor)) {
+        try {
+            $data = json_decode($inspection->contractor, true);
+            if (isset($data['name'])) {
+                $contractorName = $data['name'];
+            } elseif (isset($data[0]['name'])) {
+                $contractorName = $data[0]['name'];
+            }
+        } catch (\Exception $e) {}
+    }
+    // روش 4: از طریق رابطه contractor_id
+    elseif ($inspection->contractor_id && isset($inspection->contractor) && is_object($inspection->contractor)) {
+        $contractorName = $inspection->contractor->name ?? '-';
+    }
+    
+    // نام امور/شهرستان
+    $departmentName = '-';
+    if ($inspection->department_id && $inspection->department) {
+        $departmentName = $inspection->department->name;
+    } elseif ($inspection->mainEquipments && $inspection->mainEquipments->isNotEmpty()) {
+        $firstEquipment = $inspection->mainEquipments->first();
+        if ($firstEquipment && $firstEquipment->department) {
+            $departmentName = $firstEquipment->department->name;
+        }
+    }
+    
+    // تعیین رنگ و متن وضعیت
+    $statusClass = 'secondary';
+    $statusText = 'نامشخص';
+    if ($inspection->status == 'completed') {
+        $statusClass = 'success';
+        $statusText = 'تکمیل شده';
+    } elseif ($inspection->status == 'draft') {
+        $statusClass = 'warning';
+        $statusText = 'پیش‌نویس';
+    } elseif ($inspection->status == 'archived') {
+        $statusClass = 'secondary';
+        $statusText = 'بایگانی';
+    }
+?>
+
+
                         <tr>
                             <td class="text-center"><?php echo e(($inspections->currentPage() - 1) * $inspections->perPage() + $loop->iteration); ?></td>
                             <td class="text-nowrap"><?php echo e($jalaliDate); ?></td>

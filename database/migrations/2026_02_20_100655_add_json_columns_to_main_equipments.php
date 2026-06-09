@@ -1,6 +1,6 @@
 <?php
 
-<<<<<<< HEAD
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -42,7 +42,7 @@ return new class extends Migration
         });
     }
 };
-=======
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -102,4 +102,4 @@ class MainEquipment extends Model
     }
 }
 // ❌ اینجا نباید کلاس دیگری تعریف شود
->>>>>>> 524cace2901cfcda4f022b89d64c22cc653187c1
+

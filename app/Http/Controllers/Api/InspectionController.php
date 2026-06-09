@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Api;  // اینجا باید Api باشه
+namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;  // اینو بدون تغییر نگه دار
+use App\Http\Controllers\Controller;
 use App\Models\Inspection;
 use App\Models\MainEquipment;
 use App\Models\MainEquipmentType;
 use App\Models\Post;
-<<<<<<< HEAD
 use App\Models\Department;
 use App\Models\EquipmentFeeder;
 use App\Models\EquipmentLocation;
@@ -16,20 +15,18 @@ use App\Models\EquipmentChecklist;
 use App\Models\EquipmentActivity;
 use App\Models\EquipmentConsumable;
 use App\Models\EquipmentPhoto;
-=======
->>>>>>> 524cace2901cfcda4f022b89d64c22cc653187c1
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 
-class InspectionController extends Controller  // اینم همونطور بمونه
+class InspectionController extends Controller
 {
     public function store(Request $request)
     {
-<<<<<<< HEAD
 \Log::info('Inspection store request:', $request->all());
-=======
->>>>>>> 524cace2901cfcda4f022b89d64c22cc653187c1
+\Log::info('BRAND DEBUG', [
+    'brand_id' => $equipmentData['brand_id'] ?? 'NOT_FOUND'
+]);
         $validator = Validator::make($request->all(), [
             'inspection_date' => 'required|string',
             'contractor' => 'required|string',
@@ -50,7 +47,6 @@ class InspectionController extends Controller  // اینم همونطور بمو
         try {
             DB::beginTransaction();
 
-<<<<<<< HEAD
             // دریافت department_id از اولین تجهیز
             $departmentId = null;
             if (!empty($request->equipments[0]['departmentData']['department'])) {
@@ -76,47 +72,35 @@ class InspectionController extends Controller  // اینم همونطور بمو
                 'whatsapp_number' => $request->whatsapp_number,
                 'status' => 'completed',
                 'final_status' => 'approved',
-=======
-            // ذخیره اطلاعات اصلی بازدید
-            $inspection = Inspection::create([
-                'inspection_date' => $request->inspection_date,
-                'contractor' => $request->contractor,
-                'contract_coefficient' => $request->contract_coefficient,
-                'contract_number' => $request->contract_number ?? '.../.../.../...',
-                'daily_start_time' => $request->daily_start_time,
-                'daily_end_time' => $request->daily_end_time,
-                'whatsapp_number' => $request->whatsapp_number,
-                'status' => 'completed'
->>>>>>> 524cace2901cfcda4f022b89d64c22cc653187c1
             ]);
 
             // ذخیره تجهیزات
             foreach ($request->equipments as $equipmentData) {
+
                 // پیدا کردن یا ایجاد نوع تجهیز
                 $equipmentType = MainEquipmentType::firstOrCreate(
                     ['name' => $equipmentData['equipmentType']],
                     [
                         'feeder_mode' => in_array($equipmentData['equipmentType'], [
-                            'پست دو سو تغذیه (مشترک حساس)',
-                            'پست دو سو تغذیه (بیمارستانی)'
+'پست دو سو تغذیه (مشترک حساس)',
+'پست دو سو تغذیه (بیمارستانی)'
                         ]) ? 'dual' : 'single',
                         'has_cells' => in_array($equipmentData['equipmentType'], [
-                            'پست دو سو تغذیه (مشترک حساس)',
-                            'پست دو سو تغذیه (بیمارستانی)',
-                            'مشترک ولتاژ اولیه'
+'پست دو سو تغذیه (مشترک حساس)',
+'پست دو سو تغذیه (بیمارستانی)',
+'مشترک ولتاژ اولیه'
                         ]),
                         'has_brand' => in_array($equipmentData['equipmentType'], [
                             'ریکلوزر', 'سکسیونر', 'سکشنالایزر', 'فالت دتکتور'
                         ]),
                         'has_height' => !in_array($equipmentData['equipmentType'], [
-                            'پست دو سو تغذیه (مشترک حساس)',
-                            'پست دو سو تغذیه (بیمارستانی)',
-                            'مشترک ولتاژ اولیه'
+'پست دو سو تغذیه (مشترک حساس)',
+'پست دو سو تغذیه (بیمارستانی)',
+'مشترک ولتاژ اولیه'
                         ])
                     ]
                 );
 
-<<<<<<< HEAD
                 // پیدا کردن post از اولین feeder
                 $postId = null;
                 if (!empty($equipmentData['feeders']) && is_array($equipmentData['feeders'])) {
@@ -138,6 +122,29 @@ class InspectionController extends Controller  // اینم همونطور بمو
                 }
 
                 // ایجاد تجهیز اصلی
+
+
+
+$brandId = $equipmentData['brand_id'] ?? null;
+
+if (
+    in_array($equipmentData['equipmentType'], [
+'پست دو سو تغذیه (مشترک حساس)',
+'پست دو سو تغذیه (بیمارستانی)',
+'مشترک ولتاژ اولیه'
+    ])
+) {
+    $brandId = null;
+}
+
+
+\Log::info('Equipment Brand Debug', [
+    'equipment_type' => $equipmentData['equipmentType'] ?? null,
+    'request_brand_id' => $equipmentData['brand_id'] ?? null,
+    'final_brand_id' => $brandId
+]);
+
+
                 $equipment = new MainEquipment([
                     'inspection_id' => $inspection->id,
                     'main_equipment_type_id' => $equipmentType->id,
@@ -145,11 +152,12 @@ class InspectionController extends Controller  // اینم همونطور بمو
                     'installation_type' => $equipmentData['installationType'] ?? null,
                     'post_id' => $postId,
                     'department_id' => $equipmentData['departmentData']['department_id'] ?? null,
-                    'brand_id' => $equipmentData['brand_id'] ?? null,
+                                        'brand_id' => $brandId,
                     'latitude' => $equipmentData['locationData']['latitude'] ?? null,
                     'longitude' => $equipmentData['locationData']['longitude'] ?? null,
                     'height' => $equipmentData['locationData']['cabinetFinalHeight'] ?? null,
                 ]);
+
 
                 $equipment->save();
 
@@ -291,6 +299,10 @@ class InspectionController extends Controller  // اینم همونطور بمو
 // محاسبه total_cost
 $totalCost = 0;
 foreach ($request->equipments as $equipmentData) {
+
+\Log::info('Equipment Data Received', $equipmentData);
+dd($request->equipments);
+
     $activities = [];
     if (!empty($equipmentData['activitiesData'])) {
         $activities = is_string($equipmentData['activitiesData']) 
@@ -326,48 +338,6 @@ if (auth()->check()) {
         ]
     );
 }
-=======
-                // آماده‌سازی داده‌های موقعیت
-                $locationArray = $equipmentData['locationData'] ? json_decode($equipmentData['locationData'], true) : [];
-
-                // پیدا کردن post از اولین feeder
-                $postId = null;
-                if (!empty($equipmentData['feeders'])) {
-                    $feedersArray = json_decode($equipmentData['feeders'], true);
-                    if (!empty($feedersArray) && isset($feedersArray[0]['post'])) {
-                        $post = Post::where('name', $feedersArray[0]['post'])->first();
-                        $postId = $post ? $post->id : null;
-                    }
-                }
-
-
-                // ایجاد تجهیز جدید
-                $equipment = new MainEquipment([
-                    'main_equipment_type_id' => $equipmentType->id,
-                    'post_id' => $postId,
-                    'scada_code' => $equipmentData['scadaCode'] ?? null,
-                    'installation_type' => $equipmentData['installationType'] ?? null,
-                    'latitude' => $locationArray['latitude'] ?? null,
-                    'longitude' => $locationArray['longitude'] ?? null,
-                    'height' => $locationArray['cabinetFinalHeight'] ?? null,
-                    'feeders' => $equipmentData['feeders'] ?? null,
-                    'department_data' => $equipmentData['departmentData'] ?? null,
-                    'location_data' => $equipmentData['locationData'] ?? null,
-                    'communication_data' => $equipmentData['communicationData'] ?? null,
-                    'checklist_data' => $equipmentData['checklistData'] ?? null,
-                    'activities_data' => $equipmentData['activitiesData'] ?? null,
-                    'consumables_data' => $equipmentData['consumablesData'] ?? null,
-                    'photos_data' => $equipmentData['photosData'] ?? null,
-                    'cell_specs' => $equipmentData['cellSpecs'] ?? null,
-                    'tabs_validated' => $equipmentData['tabsValidated'] ?? null
-                ]);
-
-                $inspection->mainEquipments()->save($equipment);
-            }
-
-            DB::commit();
-
->>>>>>> 524cace2901cfcda4f022b89d64c22cc653187c1
             return response()->json([
                 'success' => true,
                 'message' => 'بازرسی با موفقیت ثبت شد',
@@ -380,18 +350,16 @@ if (auth()->check()) {
                 'success' => false,
                 'message' => 'خطا در ثبت اطلاعات: ' . $e->getMessage()
             ], 500);
-<<<<<<< HEAD
         }
     }
 
     public function index()
-    {
-        $inspections = Inspection::with('contractor', 'user')
-            ->orderBy('inspection_date', 'desc')
-            ->paginate(15);
-        
-        return view('dashboard.inspections.index', compact('inspections'));
-    }
+public function index()
+{
+    $inspections = Inspection::with('contractor')->get(); // eager loading
+    
+    return view('dashboard.inspections.index', compact('inspections'));
+}
 
     public function show($id)
     {
@@ -499,23 +467,5 @@ if (auth()->check()) {
                 'message' => 'خطا: ' . $e->getMessage()
             ], 500);
         }
-=======
-        }
-    }
-
-    public function index()
-    {
-        $inspections = Inspection::with('mainEquipments')->orderBy('created_at', 'desc')->get();
-        return response()->json($inspections);
-    }
-
-    public function show($id)
-    {
-        $inspection = Inspection::with('mainEquipments')->find($id);
-        if (!$inspection) {
-            return response()->json(['message' => 'یافت نشد'], 404);
-        }
-        return response()->json($inspection);
->>>>>>> 524cace2901cfcda4f022b89d64c22cc653187c1
     }
 }

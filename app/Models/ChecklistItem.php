@@ -9,8 +9,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class ChecklistItem extends Model
 {
     use SoftDeletes;
-    
-    protected $table = 'checklist_items';
+
+ protected $table = 'checklist_items';
     
     protected $fillable = [
         'checklist_template_id',
@@ -18,7 +18,11 @@ class ChecklistItem extends Model
         'sort_order'
     ];
     
-    public function template(): BelongsTo
+    protected $casts = [
+        'sort_order' => 'integer'
+    ];
+    
+    public function checklistTemplate(): BelongsTo
     {
         return $this->belongsTo(ChecklistTemplate::class, 'checklist_template_id');
     }

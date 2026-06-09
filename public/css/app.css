@@ -465,6 +465,104 @@ body {
     }
 }
 
+.dashboard-card{
+    position: relative;
+    overflow: hidden;
+
+    display:flex;
+    align-items:center;
+    gap:20px;
+
+    padding:25px;
+    border-radius:20px;
+
+    min-height:140px;
+
+    color:#fff;
+
+    box-shadow:0 8px 25px rgba(0,0,0,0.12);
+
+    transition:all .3s ease;
+}
+
+.dashboard-card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 15px 35px rgba(0,0,0,0.18);
+}
+
+.card-icon{
+    width:70px;
+    height:70px;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,0.18);
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:32px;
+
+    flex-shrink:0;
+}
+
+.card-info h2{
+    margin:0;
+    font-size:34px;
+    font-weight:800;
+    line-height:1.2;
+}
+
+.card-info p{
+    margin-top:8px;
+    margin-bottom:0;
+
+    font-size:15px;
+
+    opacity:.92;
+}
+
+/* رنگ‌ها */
+
+.card-blue{
+    background:linear-gradient(135deg,#3b82f6,#2563eb);
+}
+
+.card-orange{
+    background:linear-gradient(135deg,#f59e0b,#d97706);
+}
+
+.card-green{
+    background:linear-gradient(135deg,#10b981,#059669);
+}
+
+.card-red{
+    background:linear-gradient(135deg,#ef4444,#dc2626);
+}
+
+/* موبایل */
+
+@media(max-width:768px){
+
+    .dashboard-card{
+        min-height:120px;
+        padding:20px;
+    }
+
+    .card-icon{
+        width:55px;
+        height:55px;
+        font-size:24px;
+    }
+
+    .card-info h2{
+        font-size:26px;
+    }
+
+}
+
+
 /* Responsive Styles */
 @media (max-width: 768px) {
     .step-label {
