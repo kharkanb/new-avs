@@ -14,23 +14,14 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->web(append: [
             \App\Http\Middleware\HandleInertiaRequests::class,
-<<<<<<< HEAD
             \Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets::class,
-        ]);
-
-            $middleware->alias([
-                'permission' => \App\Http\Middleware\CheckPermission::class,
-             'role' => \App\Http\Middleware\CheckRole::class,  // در صورت نیاز
-            ]);
-
-=======
         ]);
 
         $middleware->alias([
             'admin' => \App\Http\Middleware\AdminMiddleware::class,
             'role' => \App\Http\Middleware\RoleMiddleware::class,
+            'permission' => \App\Http\Middleware\CheckPermission::class,
         ]);
->>>>>>> e82339cac376f551a8a66da0035c095e88a5df9d
 
         $middleware->validateCsrfTokens(except: [
             'health'
