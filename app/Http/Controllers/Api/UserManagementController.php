@@ -15,7 +15,10 @@ class UserManagementController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $users = User::query()
+            ->select(['id', 'name', 'email', 'role', 'email_verified_at', 'created_at', 'updated_at'])
+            ->orderBy('name')
+            ->paginate(25);
         
         return response()->json([
             'success' => true,
@@ -76,6 +79,10 @@ class UserManagementController extends Controller
             $validated['password'] = Hash::make($validated['password']);
         }
 
+        if (isset($validated['role'])) {
+            $this->ensureLastAdminIsNotRemoved($user, $validated['role']);
+        }
+
         $user->update($validated);
 
         return response()->json([
@@ -90,6 +97,15 @@ class UserManagementController extends Controller
      */
     public function destroy(User $user)
     {
+        if (request()->user()?->is($user)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'مدیر نمی‌تواند حساب خودش را حذف کند'
+            ], 422);
+        }
+
+        $this->ensureLastAdminIsNotRemoved($user, null);
+
         $user->delete();
 
         return response()->json([
@@ -107,6 +123,8 @@ class UserManagementController extends Controller
             'role' => 'required|in:admin,tech,user'
         ]);
 
+        $this->ensureLastAdminIsNotRemoved($user, $validated['role']);
+
         $user->update(['role' => $validated['role']]);
 
         return response()->json([
@@ -114,5 +132,16 @@ class UserManagementController extends Controller
             'message' => 'نقش کاربر با موفقیت تغییر کرد',
             'data' => $user
         ]);
+    }
+
+    private function ensureLastAdminIsNotRemoved(User $user, ?string $newRole): void
+    {
+        if ($user->role !== 'admin' || $newRole === 'admin') {
+            return;
+        }
+
+        $adminCount = User::where('role', 'admin')->count();
+
+        abort_if($adminCount <= 1, 422, 'حداقل یک مدیر سیستم باید باقی بماند');
     }
 }

@@ -10,6 +10,7 @@ use App\Models\Consumable;
 use App\Models\ChecklistItem;
 use App\Models\Photo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class MainEquipmentController extends Controller
 {
@@ -55,7 +56,7 @@ class MainEquipmentController extends Controller
         $validated = $request->validate([
             'inspection_id' => 'required|exists:inspections,id',
             'main_equipment_type_id' => 'required|exists:main_equipment_types,id',
-            'scada_code' => 'nullable|string|size:4|unique:main_equipments',
+            'scada_code' => 'nullable|string|size:4',
             'post_id' => 'required|exists:posts,id',
             'latitude' => 'nullable|numeric',
             'longitude' => 'nullable|numeric',
@@ -65,7 +66,7 @@ class MainEquipmentController extends Controller
             'feeder_ids.*' => 'exists:feeders,id'
         ]);
 
-        $equipment = MainEquipment::create($validated);
+        $equipment = MainEquipment::create(Arr::except($validated, ['feeder_ids']));
         
         // اتصال فیدرها
         if ($request->has('feeder_ids')) {
@@ -84,7 +85,16 @@ class MainEquipmentController extends Controller
      */
     public function show(MainEquipment $mainEquipment)
     {
-        $mainEquipment->load(['type', 'post', 'feeders', 'cells', 'activities', 'consumables', 'checklistItems', 'photos']);
+        $mainEquipment->load([
+            'type',
+            'post',
+            'feeders',
+            'cells.cellEquipments',
+            'activities',
+            'consumables',
+            'checklistItems.templateItem',
+            'photos'
+        ]);
         
         return response()->json([
             'success' => true,
@@ -98,7 +108,7 @@ class MainEquipmentController extends Controller
     public function update(Request $request, MainEquipment $mainEquipment)
     {
         $validated = $request->validate([
-            'scada_code' => 'nullable|string|size:4|unique:main_equipments,scada_code,' . $mainEquipment->id,
+            'scada_code' => 'nullable|string|size:4',
             'post_id' => 'sometimes|exists:posts,id',
             'latitude' => 'nullable|numeric',
             'longitude' => 'nullable|numeric',
@@ -108,7 +118,7 @@ class MainEquipmentController extends Controller
             'feeder_ids.*' => 'exists:feeders,id'
         ]);
 
-        $mainEquipment->update($validated);
+        $mainEquipment->update(Arr::except($validated, ['feeder_ids']));
         
         // بروزرسانی فیدرها
         if ($request->has('feeder_ids')) {
@@ -140,7 +150,7 @@ class MainEquipmentController extends Controller
      */
     public function cells(MainEquipment $mainEquipment)
     {
-        $cells = $mainEquipment->cells()->with('equipments')->get();
+        $cells = $mainEquipment->cells()->with('cellEquipments')->get();
         
         return response()->json([
             'success' => true,

@@ -15,6 +15,13 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
+        if (!$request->user() || $request->user()->role !== 'admin') {
+            return response()->json([
+                'success' => false,
+                'message' => 'دسترسی فقط برای مدیر سیستم مجاز است',
+            ], 403);
+        }
+
         return $next($request);
     }
 }

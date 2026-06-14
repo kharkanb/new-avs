@@ -4,11 +4,21 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+<<<<<<< HEAD
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class MainEquipment extends Model
 {
     use HasFactory, SoftDeletes;
+=======
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class MainEquipment extends Model
+{
+    use HasFactory;
+>>>>>>> e82339cac376f551a8a66da0035c095e88a5df9d
 
     protected $table = 'main_equipments';
 
@@ -39,6 +49,7 @@ class MainEquipment extends Model
         'other_brand',
     ];
 
+<<<<<<< HEAD
     protected $casts = [
         'installation_date' => 'date',
         'last_maintenance_date' => 'date',
@@ -54,10 +65,15 @@ class MainEquipment extends Model
      * رابطه با بازدید (هر تجهیز متعلق به یک بازدید است)
      */
     public function inspection()
+=======
+    // روابط
+    public function inspection(): BelongsTo
+>>>>>>> e82339cac376f551a8a66da0035c095e88a5df9d
     {
         return $this->belongsTo(Inspection::class);
     }
 
+<<<<<<< HEAD
     /**
      * رابطه با نوع تجهیزات اصلی (MainEquipmentType)
      */
@@ -70,10 +86,14 @@ class MainEquipment extends Model
      * نام مستعار برای mainEquipmentType (برای سازگاری با کدهای قدیمی)
      */
     public function type()
+=======
+    public function type(): BelongsTo
+>>>>>>> e82339cac376f551a8a66da0035c095e88a5df9d
     {
         return $this->belongsTo(MainEquipmentType::class, 'main_equipment_type_id');
     }
 
+<<<<<<< HEAD
     /**
      * رابطه با نوع تجهیزات سلولی (CellEquipmentType)
      */
@@ -102,6 +122,9 @@ class MainEquipment extends Model
      * نام مستعار برای location
      */
     public function post()
+=======
+    public function post(): BelongsTo
+>>>>>>> e82339cac376f551a8a66da0035c095e88a5df9d
     {
         return $this->belongsTo(Post::class, 'post_id');
     }
@@ -323,5 +346,36 @@ class MainEquipment extends Model
         $code = $this->scada_code ? " ({$this->scada_code})" : '';
         $location = $this->location?->name ?? '';
         return trim($type . $code . ($location ? " - {$location}" : ''));
+    }
+
+    public function feeders(): BelongsToMany
+    {
+        return $this->belongsToMany(Feeder::class, 'main_equipment_feeder')
+            ->withTimestamps();
+    }
+
+    public function cells(): HasMany
+    {
+        return $this->hasMany(CellSpecification::class);
+    }
+
+    public function activities(): HasMany
+    {
+        return $this->hasMany(Activity::class);
+    }
+
+    public function consumables(): HasMany
+    {
+        return $this->hasMany(Consumable::class);
+    }
+
+    public function checklistItems(): HasMany
+    {
+        return $this->hasMany(ChecklistItem::class);
+    }
+
+    public function photos(): HasMany
+    {
+        return $this->hasMany(Photo::class);
     }
 }

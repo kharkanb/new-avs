@@ -12,10 +12,14 @@ class CellEquipment extends Model
 
     protected $fillable = [
         "cell_id",
-        "equipment_type",
-        "brand",
+        "cell_equipment_type_id",
+        "brand_id",
         "other_brand",
-        "manual_name"
+        "model",
+        "serial_number",
+        "manufacture_year",
+        "manual_name",
+        "description"
     ];
 
     public function cell(): BelongsTo
@@ -25,6 +29,11 @@ class CellEquipment extends Model
 
     public function brand(): BelongsTo
     {
-        return $this->belongsTo(Brand::class, "brand", "name");
+        return $this->belongsTo(Brand::class);
+    }
+
+    public function type(): BelongsTo
+    {
+        return $this->belongsTo(CellEquipmentType::class, 'cell_equipment_type_id');
     }
 }

@@ -6,14 +6,19 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ReferenceController;
 use App\Http\Controllers\Api\InspectionController;
 use App\Http\Controllers\Api\MainEquipmentController;
+<<<<<<< HEAD
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Api\UserManagementController;
 use App\Http\Controllers\Api\FormDataController;
 use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\AdvancedDashboardController;
+=======
+use App\Http\Controllers\Api\DashboardController;
+use App\Http\Controllers\Api\UserManagementController;
+>>>>>>> e82339cac376f551a8a66da0035c095e88a5df9d
 
 // ========== مسیرهای عمومی (بدون نیاز به توکن) ==========
-Route::post('/login', [AuthController::class, 'login']);
+Route::post('/login', [AuthController::class, 'login'])->middleware('throttle:5,1');
 Route::get('/ping', function() {
     return response()->json([
         'success' => true,
@@ -35,8 +40,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/form-data', [FormDataController::class, 'getFormData']);
 
     // مدیریت کاربران
-    Route::apiResource('users', UserManagementController::class);
-    Route::post('users/{user}/change-role', [UserManagementController::class, 'changeRole']);
+    Route::middleware('admin')->group(function () {
+        Route::apiResource('users', UserManagementController::class);
+        Route::post('users/{user}/change-role', [UserManagementController::class, 'changeRole']);
+    });
     
     // احراز هویت
     Route::post('/logout', [AuthController::class, 'logout']);

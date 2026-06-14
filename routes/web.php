@@ -5,6 +5,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+<<<<<<< HEAD
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UserController;
@@ -24,6 +25,9 @@ use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\AdvancedDashboardController;
 use App\Http\Controllers\Reports\FinancialReportController;
+=======
+use App\Http\Controllers\ProfileController;
+>>>>>>> e82339cac376f551a8a66da0035c095e88a5df9d
 
 
 
@@ -39,6 +43,7 @@ use App\Http\Controllers\Reports\FinancialReportController;
 
 // صفحه اصلی
 Route::get('/', function () {
+<<<<<<< HEAD
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
@@ -201,4 +206,27 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name
 // ============================================
 // فایل احراز هویت (login, register, etc)
 // ============================================
+=======
+    return Inertia::render('Welcome');
+})->name('home');
+
+Route::get('/dashboard', function () {
+    return Inertia::render('Dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/inspections', function () {
+        return view('inspection-form');
+    })->name('inspections.create');
+
+    Route::get('/inspection-form', function () {
+        return view('inspection-form');
+    })->name('inspection.form');
+
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+>>>>>>> e82339cac376f551a8a66da0035c095e88a5df9d
 require __DIR__.'/auth.php';

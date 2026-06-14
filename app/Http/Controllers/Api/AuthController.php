@@ -36,8 +36,8 @@ class AuthController extends Controller
      *         required=true,
      *         @OA\JsonContent(
      *             required={"email","password"},
-     *             @OA\Property(property="email", type="string", format="email", example="admin@avs.com"),
-     *             @OA\Property(property="password", type="string", format="password", example="123456")
+     *             @OA\Property(property="email", type="string", format="email", example="user@example.com"),
+     *             @OA\Property(property="password", type="string", format="password", example="your-secure-password")
      *         )
      *     ),
      *     @OA\Response(
@@ -65,10 +65,9 @@ class AuthController extends Controller
 
         // بررسی وجود کاربر و صحت رمز عبور
         if (!$user || !Hash::check($request->password, $user->password)) {
-            return response()->json([
-                'success' => false,
-                'message' => 'ایمیل یا رمز عبور اشتباه است'
-            ], 401);
+            throw ValidationException::withMessages([
+                'email' => ['ایمیل یا رمز عبور اشتباه است'],
+            ]);
         }
 
         // ایجاد توکن

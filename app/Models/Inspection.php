@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Hekmatinasser\Verta\Verta;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -9,11 +10,16 @@ use Spatie\Activitylog\LogOptions;
 
 class Inspection extends Model
 {
+<<<<<<< HEAD
     use LogsActivity;  // ✅ اینجا باید باشد (بعد از class declaration)
     
     protected $table = 'inspections';
     
     // ✅ فقط یک بار $fillable تعریف شود
+=======
+    use HasFactory;
+
+>>>>>>> e82339cac376f551a8a66da0035c095e88a5df9d
     protected $fillable = [
         'user_id',
         'contractor_id',
@@ -38,6 +44,12 @@ class Inspection extends Model
 
     protected $casts = [
         'inspection_date' => 'date',
+<<<<<<< HEAD
+=======
+        'daily_start_time' => 'string',
+        'daily_end_time' => 'string',
+        'contract_coefficient' => 'float'
+>>>>>>> e82339cac376f551a8a66da0035c095e88a5df9d
     ];
     
     // ============================================

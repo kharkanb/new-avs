@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> e82339cac376f551a8a66da0035c095e88a5df9d
 # Laravel specific
 /vendor/
 node_modules/
@@ -36,11 +39,8 @@ Thumbs.db
 
 # Composer
 composer.phar
-/composer.lock
 
 # NPM
-package-lock.json
-yarn.lock
 
 # Laravel Horizon
 .horizon
@@ -75,6 +75,7 @@ public/images/*
 *.sqlite
 *.sqlite3
 *.db
+<<<<<<< HEAD
 
 /node_modules
 /vendor
@@ -107,3 +108,5 @@ composer.lock
 package-lock.json
 yarn.lock
 
+=======
+>>>>>>> e82339cac376f551a8a66da0035c095e88a5df9d

@@ -14,6 +14,7 @@ class Brand extends Model
         'equipment_type_id',
         'cell_equipment_type_id'
     ];
+<<<<<<< HEAD
     
     public function mainEquipmentType()
     {
@@ -21,6 +22,10 @@ class Brand extends Model
     }
     
     public function cellEquipmentType()
+=======
+
+    public function cellEquipments(): HasMany
+>>>>>>> e82339cac376f551a8a66da0035c095e88a5df9d
     {
         return $this->belongsTo(CellEquipmentType::class, 'cell_equipment_type_id');
     }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -10,8 +11,13 @@ use App\Models\ChecklistTemplate;
 
 class MainEquipmentType extends Model
 {
+<<<<<<< HEAD
     use SoftDeletes;
     
+=======
+    use HasFactory;
+
+>>>>>>> e82339cac376f551a8a66da0035c095e88a5df9d
     protected $table = 'main_equipment_types';
     
     protected $fillable = [

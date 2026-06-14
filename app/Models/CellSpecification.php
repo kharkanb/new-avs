@@ -14,15 +14,14 @@ class CellSpecification extends Model
     protected $table = "cell_specifications";
 
     protected $fillable = [
-        "equipment_id",
-        "cell_type",
-        "cell_number",
-        "cell_notes"
+        "main_equipment_id",
+        "cell_name",
+        "description"
     ];
 
-    public function equipment(): BelongsTo
+    public function mainEquipment(): BelongsTo
     {
-        return $this->belongsTo(Equipment::class);
+        return $this->belongsTo(MainEquipment::class);
     }
 
     public function cellEquipments(): HasMany

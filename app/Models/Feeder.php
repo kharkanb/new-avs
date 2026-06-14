@@ -19,6 +19,7 @@ class Feeder extends Model
         return $this->belongsTo(Post::class);
     }
 
+<<<<<<< HEAD
     // رابطه با تجهیزات
     public function equipments(): BelongsToMany
     {
@@ -46,5 +47,16 @@ class Feeder extends Model
                 }
             }
         });
+=======
+    public function mainEquipments(): BelongsToMany
+    {
+        return $this->belongsToMany(MainEquipment::class, 'main_equipment_feeder')
+                    ->withTimestamps();
+    }
+
+    public function equipments(): BelongsToMany
+    {
+        return $this->mainEquipments();
+>>>>>>> e82339cac376f551a8a66da0035c095e88a5df9d
     }
 }
