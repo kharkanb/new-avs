@@ -18,15 +18,14 @@ use App\Models\EquipmentPhoto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class InspectionController extends Controller
 {
     public function store(Request $request)
     {
-\Log::info('Inspection store request:', $request->all());
-\Log::info('BRAND DEBUG', [
-    'brand_id' => $equipmentData['brand_id'] ?? 'NOT_FOUND'
-]);
+        Log::info('Inspection store request received');
+
         $validator = Validator::make($request->all(), [
             'inspection_date' => 'required|string',
             'contractor' => 'required|string',
@@ -56,6 +55,19 @@ class InspectionController extends Controller
                 $departmentId = $department->id;
             }
 
+            // محاسبه total_cost
+            $totalCost = 0;
+            foreach ($request->equipments as $eq) {
+                if (!empty($eq['activitiesData'])) {
+                    $activities = is_string($eq['activitiesData']) 
+                        ? json_decode($eq['activitiesData'], true) 
+                        : $eq['activitiesData'];
+                    foreach ($activities as $activity) {
+                        $totalCost += ($activity['total'] ?? 0);
+                    }
+                }
+            }
+
             // ذخیره اطلاعات اصلی بازدید
             $inspection = Inspection::create([
                 'user_id' => auth()->id() ?? $request->user_id,
@@ -70,33 +82,39 @@ class InspectionController extends Controller
                 'contract_coefficient' => $request->contract_coefficient,
                 'contract_number' => $request->contract_number,
                 'whatsapp_number' => $request->whatsapp_number,
+                'total_cost' => $totalCost,
                 'status' => 'completed',
                 'final_status' => 'approved',
             ]);
 
             // ذخیره تجهیزات
             foreach ($request->equipments as $equipmentData) {
+                
+                Log::info('Equipment Brand Debug', [
+                    'equipment_type' => $equipmentData['equipmentType'] ?? null,
+                    'request_brand_id' => $equipmentData['brand_id'] ?? null,
+                ]);
 
                 // پیدا کردن یا ایجاد نوع تجهیز
                 $equipmentType = MainEquipmentType::firstOrCreate(
                     ['name' => $equipmentData['equipmentType']],
                     [
                         'feeder_mode' => in_array($equipmentData['equipmentType'], [
-'پست دو سو تغذیه (مشترک حساس)',
-'پست دو سو تغذیه (بیمارستانی)'
+                            'پست دو سو تغذیه (مشترک حساس)',
+                            'پست دو سو تغذیه (بیمارستانی)'
                         ]) ? 'dual' : 'single',
                         'has_cells' => in_array($equipmentData['equipmentType'], [
-'پست دو سو تغذیه (مشترک حساس)',
-'پست دو سو تغذیه (بیمارستانی)',
-'مشترک ولتاژ اولیه'
+                            'پست دو سو تغذیه (مشترک حساس)',
+                            'پست دو سو تغذیه (بیمارستانی)',
+                            'مشترک ولتاژ اولیه'
                         ]),
                         'has_brand' => in_array($equipmentData['equipmentType'], [
                             'ریکلوزر', 'سکسیونر', 'سکشنالایزر', 'فالت دتکتور'
                         ]),
                         'has_height' => !in_array($equipmentData['equipmentType'], [
-'پست دو سو تغذیه (مشترک حساس)',
-'پست دو سو تغذیه (بیمارستانی)',
-'مشترک ولتاژ اولیه'
+                            'پست دو سو تغذیه (مشترک حساس)',
+                            'پست دو سو تغذیه (بیمارستانی)',
+                            'مشترک ولتاژ اولیه'
                         ])
                     ]
                 );
@@ -121,30 +139,17 @@ class InspectionController extends Controller
                     $equipDepartmentId = $dept->id;
                 }
 
+                // تعیین brand_id
+                $brandId = $equipmentData['brand_id'] ?? null;
+                if (in_array($equipmentData['equipmentType'], [
+                    'پست دو سو تغذیه (مشترک حساس)',
+                    'پست دو سو تغذیه (بیمارستانی)',
+                    'مشترک ولتاژ اولیه'
+                ])) {
+                    $brandId = null;
+                }
+
                 // ایجاد تجهیز اصلی
-
-
-
-$brandId = $equipmentData['brand_id'] ?? null;
-
-if (
-    in_array($equipmentData['equipmentType'], [
-'پست دو سو تغذیه (مشترک حساس)',
-'پست دو سو تغذیه (بیمارستانی)',
-'مشترک ولتاژ اولیه'
-    ])
-) {
-    $brandId = null;
-}
-
-
-\Log::info('Equipment Brand Debug', [
-    'equipment_type' => $equipmentData['equipmentType'] ?? null,
-    'request_brand_id' => $equipmentData['brand_id'] ?? null,
-    'final_brand_id' => $brandId
-]);
-
-
                 $equipment = new MainEquipment([
                     'inspection_id' => $inspection->id,
                     'main_equipment_type_id' => $equipmentType->id,
@@ -152,19 +157,16 @@ if (
                     'installation_type' => $equipmentData['installationType'] ?? null,
                     'post_id' => $postId,
                     'department_id' => $equipmentData['departmentData']['department_id'] ?? null,
-                                        'brand_id' => $brandId,
+                    'brand_id' => $brandId,
                     'latitude' => $equipmentData['locationData']['latitude'] ?? null,
                     'longitude' => $equipmentData['locationData']['longitude'] ?? null,
                     'height' => $equipmentData['locationData']['cabinetFinalHeight'] ?? null,
                 ]);
-
-
                 $equipment->save();
 
                 // ذخیره موقعیت مکانی
                 if (!empty($equipmentData['locationData'])) {
                     $location = $equipmentData['locationData'];
-                    
                     $equipment->update([
                         'latitude' => $location['latitude'] ?? null,
                         'longitude' => $location['longitude'] ?? null,
@@ -292,52 +294,25 @@ if (
                         ]);
                     }
                 }
-
             }
 
-
-// محاسبه total_cost
-$totalCost = 0;
-foreach ($request->equipments as $equipmentData) {
-
-\Log::info('Equipment Data Received', $equipmentData);
-dd($request->equipments);
-
-    $activities = [];
-    if (!empty($equipmentData['activitiesData'])) {
-        $activities = is_string($equipmentData['activitiesData']) 
-            ? json_decode($equipmentData['activitiesData'], true) 
-            : $equipmentData['activitiesData'];
-        
-        foreach ($activities as $activity) {
-            $totalCost += ($activity['total'] ?? 0);
-        }
-    }
-}
-
-
-// به‌روزرسانی جدول inspections
-$inspection->update([
-    'total_cost' => $totalCost,
-]);
-
-
-
-
             DB::commit();
-if (auth()->check()) {
-    auth()->user()->logActivity(
-        'ثبت بازدید جدید',
-        'App\Models\Inspection',
-        $inspection->id,
-        null,
-        [
-            'inspection_date' => $request->inspection_date,
-            'contractor' => $request->contractor,
-            'equipments_count' => count($request->equipments)
-        ]
-    );
-}
+
+            // ثبت لاگ (اختیاری - اگر متد logActivity وجود دارد)
+            if (auth()->check() && method_exists(auth()->user(), 'logActivity')) {
+                auth()->user()->logActivity(
+                    'ثبت بازدید جدید',
+                    'App\Models\Inspection',
+                    $inspection->id,
+                    null,
+                    [
+                        'inspection_date' => $request->inspection_date,
+                        'contractor' => $request->contractor,
+                        'equipments_count' => count($request->equipments)
+                    ]
+                );
+            }
+
             return response()->json([
                 'success' => true,
                 'message' => 'بازرسی با موفقیت ثبت شد',
@@ -346,6 +321,9 @@ if (auth()->check()) {
 
         } catch (\Exception $e) {
             DB::rollBack();
+            Log::error('Error in store inspection: ' . $e->getMessage());
+            Log::error('Stack trace: ' . $e->getTraceAsString());
+            
             return response()->json([
                 'success' => false,
                 'message' => 'خطا در ثبت اطلاعات: ' . $e->getMessage()
@@ -354,12 +332,10 @@ if (auth()->check()) {
     }
 
     public function index()
-public function index()
-{
-    $inspections = Inspection::with('contractor')->get(); // eager loading
-    
-    return view('dashboard.inspections.index', compact('inspections'));
-}
+    {
+        $inspections = Inspection::with('contractor')->get();
+        return response()->json($inspections);
+    }
 
     public function show($id)
     {
@@ -375,7 +351,7 @@ public function index()
         ])->find($id);
         
         if (!$inspection) {
-            return response()->json(['message' => 'یافت نشد'], 404);
+            return response()->json(['success' => false, 'message' => 'یافت نشد'], 404);
         }
         
         return response()->json($inspection);
@@ -396,18 +372,10 @@ public function index()
         ])->find($id);
         
         if (!$inspection) {
-            return response()->json(['message' => 'یافت نشد'], 404);
+            return response()->json(['success' => false, 'message' => 'یافت نشد'], 404);
         }
         
         return response()->json($inspection);
-    auth()->user()->logActivity(
-        'ویرایش بازدید',
-        'App\Models\Inspection',
-        $inspection->id,
-        $oldData,
-        $inspection->toArray()
-    );
-
     }
 
     public function destroy($id)
@@ -421,12 +389,6 @@ public function index()
                     'message' => 'بازدید یافت نشد'
                 ], 404);
             }
-        // لاگ قبل از حذف
-        $inspectionData = [
-            'id' => $inspection->id,
-            'date' => $inspection->inspection_date,
-            'contractor' => $inspection->contractor
-        ];
             
             foreach ($inspection->mainEquipments as $equipment) {
                 if ($equipment->location) {
@@ -445,23 +407,13 @@ public function index()
             $inspection->mainEquipments()->delete();
             $inspection->delete();
 
-        // لاگ فعالیت
-        if (auth()->check()) {
-            auth()->user()->logActivity(
-                'حذف بازدید',
-                'App\Models\Inspection',
-                $id,
-                $inspectionData,
-                null
-            );
-        }
-            
             return response()->json([
                 'success' => true,
                 'message' => 'بازدید و تمام اطلاعات مرتبط با موفقیت حذف شد'
             ]);
             
         } catch (\Exception $e) {
+            Log::error('Error in destroy inspection: ' . $e->getMessage());
             return response()->json([
                 'success' => false,
                 'message' => 'خطا: ' . $e->getMessage()

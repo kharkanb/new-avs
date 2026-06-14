@@ -2748,6 +2748,13 @@ function updateActivitiesSummaryTable(activitiesSummary, coefficient) {
         totalAmount += data.totalAmount;
     });
     
+    // اگر هیچ فعالیتی وجود نداشت، یک ردیف خالی نشان بده
+    if (Object.keys(activitiesSummary).length === 0) {
+        const emptyRow = document.createElement('tr');
+        emptyRow.innerHTML = `<td colspan="6" class="text-center py-4 text-muted">هیچ فعالیتی ثبت نشده است</td>`;
+        tbody.appendChild(emptyRow);
+    }
+    
     const totalElement = document.getElementById('final-activities-total');
     const totalCoefficientElement = document.getElementById('final-activities-total-coefficient');
     
@@ -2770,11 +2777,18 @@ function updateConsumablesSummaryTable(consumablesSummary) {
             <td>${name}</td>
             <td class="persian-numbers">${formatNumber(data.totalQuantity)}</td>
             <td>${data.unit}</td>
-            <td>${description}</td>
+            <td>${description || '-'}</td>
         `;
         tbody.appendChild(row);
         totalQuantity += data.totalQuantity;
     });
+    
+    // اگر هیچ قلم مصرفی وجود نداشت
+    if (Object.keys(consumablesSummary).length === 0) {
+        const emptyRow = document.createElement('tr');
+        emptyRow.innerHTML = `<td colspan="4" class="text-center py-4 text-muted">هیچ قلم مصرفی ثبت نشده است</td>`;
+        tbody.appendChild(emptyRow);
+    }
     
     const totalElement = document.getElementById('final-consumables-total');
     if (totalElement) totalElement.textContent = formatNumber(totalQuantity);
@@ -2784,38 +2798,191 @@ function updateEquipmentDetailsSummary() {
     const container = document.getElementById('equipment-details-summary');
     if (!container) return;
     
+    if (equipments.length === 0) {
+        container.innerHTML = '<div class="alert alert-warning text-center">هیچ تجهیزی اضافه نشده است</div>';
+        return;
+    }
+    
     let html = '<div class="row">';
     
     equipments.forEach((equipment, index) => {
-const brandObj = window.brandsList?.find(
-    b => b.id == equipment.brand_id
-);
-
-const switchBrandDisplay =
-    brandObj
-        ? brandObj.name
-        : 'بدون برند';
-            
+        // پیدا کردن برند از لیست برندها
+        let brandName = 'ثبت نشده';
+        if (equipment.brand_id && window.brandsList) {
+            const brandObj = window.brandsList.find(b => b.id == equipment.brand_id);
+            if (brandObj) brandName = brandObj.name;
+        }
+        
+        const hasBrands = equipmentWithBrands.includes(equipment.equipmentType);
+        
+        // برند مودم
+        let modemBrandDisplay = 'ثبت نشده';
+        if (hasBrands) {
+            if (equipment.modemBrand === 'سایر') {
+                modemBrandDisplay = equipment.otherModemBrand || 'سایر';
+            } else if (equipment.modemBrand) {
+                modemBrandDisplay = equipment.modemBrand;
+            }
+        }
+        
+        // برند RTU
+        let rtuBrandDisplay = 'ثبت نشده';
+        if (hasBrands) {
+            if (equipment.rtuBrand === 'سایر') {
+                rtuBrandDisplay = equipment.otherRTUBrand || 'سایر';
+            } else if (equipment.rtuBrand) {
+                rtuBrandDisplay = equipment.rtuBrand;
+            }
+        }
+        
         const feedersText = equipment.feeders && equipment.feeders.length > 0 
             ? equipment.feeders.map(f => `${f.post} (${f.feeder})`).join('، ')
             : 'ثبت نشده';
-            
+        
+        // جمع‌آوری فعالیت‌های این تجهیز
+        let equipmentActivities = [];
+        if (equipment.activitiesData && equipment.activitiesData.length > 0) {
+            equipmentActivities = equipment.activitiesData;
+        }
+        
+        // جمع‌آوری اقلام مصرفی این تجهیز
+        let equipmentConsumables = [];
+        if (equipment.consumablesData && equipment.consumablesData.length > 0) {
+            equipmentConsumables = equipment.consumablesData;
+        }
+        
+        // جمع‌آوری آیتم‌های Not OK چک‌لیست
+        let notOkItems = [];
+        if (equipment.checklistData && equipment.checklistData.length > 0) {
+            notOkItems = equipment.checklistData.filter(item => item.status === 'Not OK');
+        }
+        
         html += `
-            <div class="col-md-6 mb-3">
-                <div class="card equipment-summary-row">
+            <div class="col-md-6 mb-4">
+                <div class="card equipment-summary-card h-100 shadow-sm">
+                    <div class="card-header bg-primary text-white">
+                        <h6 class="card-title mb-0">
+                            <i class="bi bi-hdd-stack"></i> تجهیز ${index + 1}: ${equipment.equipmentType || 'ثبت نشده'}
+                            <span class="badge bg-light text-dark ms-2">کد: ${equipment.scadaCode || '---'}</span>
+                        </h6>
+                    </div>
                     <div class="card-body">
-                        <h6 class="card-title"><i class="bi bi-hdd"></i> تجهیز ${index + 1}: ${equipment.equipmentType}</h6>
-                        <p class="mb-1"><i class="bi bi-code-slash"></i> <strong>کد اسکادا:</strong> ${equipment.scadaCode || 'ثبت نشده'}</p>
-                        ${hasBrands ? `
-                        <p class="mb-1"><i class="bi bi-wifi"></i> <strong>برند مودم:</strong> ${equipment.modemBrand === 'سایر' ? equipment.otherModemBrand : equipment.modemBrand || 'ثبت نشده'}</p>
-                        <p class="mb-1"><i class="bi bi-cpu"></i> <strong>برند RTU:</strong> ${equipment.rtuBrand === 'سایر' ? equipment.otherRTUBrand : equipment.rtuBrand || 'ثبت نشده'}</p>
+                        <!-- اطلاعات پایه -->
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <p class="mb-1"><i class="bi bi-code-slash text-primary"></i> <strong>کد اسکادا:</strong> ${equipment.scadaCode || 'ثبت نشده'}</p>
+                                <p class="mb-1"><i class="bi bi-building text-primary"></i> <strong>امور شهرستان:</strong> ${equipment.departmentData?.department || 'ثبت نشده'}</p>
+                                <p class="mb-1"><i class="bi bi-geo-alt text-primary"></i> <strong>GIS Code:</strong> ${equipment.departmentData?.city || 'ثبت نشده'}</p>
+                                <p class="mb-1"><i class="bi bi-clock text-primary"></i> <strong>زمان فعالیت:</strong> ${equipment.startTime || 'ثبت نشده'} - ${equipment.endTime || 'ثبت نشده'}</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p class="mb-1"><i class="bi bi-tag text-primary"></i> <strong>برند تجهیزات:</strong> ${brandName}</p>
+                                <p class="mb-1"><i class="bi bi-wifi text-primary"></i> <strong>برند مودم:</strong> ${modemBrandDisplay}</p>
+                                <p class="mb-1"><i class="bi bi-cpu text-primary"></i> <strong>برند RTU:</strong> ${rtuBrandDisplay}</p>
+                                <p class="mb-1"><i class="bi bi-lightning-charge text-primary"></i> <strong>نوع نصب:</strong> ${equipment.installationType || 'ثبت نشده'}</p>
+                            </div>
+                        </div>
+                        
+                        <!-- موقعیت جغرافیایی -->
+                        <div class="border-top pt-2 mb-2">
+                            <p class="mb-1"><i class="bi bi-geo-alt-fill text-success"></i> <strong>موقعیت جغرافیایی:</strong> 
+                                عرض: ${equipment.locationData?.latitude || 'ثبت نشده'} - 
+                                طول: ${equipment.locationData?.longitude || 'ثبت نشده'}
+                            </p>
+                            <p class="mb-1"><i class="bi bi-pin-map-fill text-success"></i> <strong>آدرس:</strong> ${equipment.locationData?.address || 'ثبت نشده'}</p>
+                            <p class="mb-1"><i class="bi bi-rulers text-success"></i> <strong>ارتفاع تابلو:</strong> 
+                                اولیه: ${equipment.locationData?.cabinetInitialHeight || 'ثبت نشده'} متر - 
+                                نهایی: ${equipment.locationData?.cabinetFinalHeight || 'ثبت نشده'} متر
+                            </p>
+                        </div>
+                        
+                        <!-- اطلاعات ارتباطی -->
+                        <div class="border-top pt-2 mb-2">
+                            <p class="mb-1"><i class="bi bi-sim-fill text-info"></i> <strong>سیم‌کارت:</strong> ${equipment.communicationData?.simcardType || 'ثبت نشده'} - 
+                                شماره: ${equipment.communicationData?.simcardNumber || 'ثبت نشده'} - 
+                                IP: ${equipment.communicationData?.simcardIp || 'ثبت نشده'}
+                            </p>
+                            <p class="mb-1"><i class="bi bi-antenna text-info"></i> <strong>وضعیت آنتن:</strong> ${equipment.communicationData?.antennaStatus || 'ثبت نشده'} - 
+                                وضعیت سیگنال: ${equipment.communicationData?.signalStatus || 'ثبت نشده'} - 
+                                تغذیه مودم: ${equipment.communicationData?.modemPower || 'ثبت نشده'}
+                            </p>
+                            <p class="mb-1"><i class="bi bi-arrow-repeat text-info"></i> <strong>قابلیت ریست:</strong> ${equipment.communicationData?.resetPossible ? 'دارد' : 'ندارد'}</p>
+                        </div>
+                        
+                        <!-- فیدرها -->
+                        <div class="border-top pt-2 mb-2">
+                            <p class="mb-1"><i class="bi bi-diagram-3-fill text-warning"></i> <strong>فیدرها:</strong> ${feedersText}</p>
+                        </div>
+                        
+                        <!-- فعالیت‌ها -->
+                        ${equipmentActivities.length > 0 ? `
+                        <div class="border-top pt-2 mb-2">
+                            <p class="mb-2"><i class="bi bi-list-check text-success"></i> <strong>فعالیت‌های انجام شده (${equipmentActivities.length} قلم):</strong></p>
+                            <div class="table-responsive">
+                                <table class="table table-sm table-bordered">
+                                    <thead class="table-light">
+                                        <tr><th>کد</th><th>عنوان فعالیت</th><th>تعداد</th><th>مبلغ (ریال)</th></tr>
+                                    </thead>
+                                    <tbody>
+                                        ${equipmentActivities.map(act => `
+                                            <tr>
+                                                <td>${act.code || '-'}</td>
+                                                <td>${act.title || '-'}</td>
+                                                <td class="persian-numbers">${(act.quantity || 0).toLocaleString()}</td>
+                                                <td class="persian-numbers">${(act.total || 0).toLocaleString()}</td>
+                                            </tr>
+                                        `).join('')}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                         ` : ''}
-                        <p class="mb-1"><i class="bi bi-building"></i> <strong>امور شهرستان:</strong> ${equipment.departmentData?.department || 'ثبت نشده'}</p>
-                        <p class="mb-1"><i class="bi bi-geo-alt"></i> <strong>GIS Code:</strong> ${equipment.departmentData?.city || 'ثبت نشده'}</p>
-                        <p class="mb-1"><i class="bi bi-lightning-charge"></i> <strong>فیدرها:</strong> ${feedersText}</p>
-                        <p class="mb-1"><i class="bi bi-geo-alt"></i> <strong>آدرس:</strong> ${equipment.locationData?.address || 'ثبت نشده'}</p>
-                        <p class="mb-1"><i class="bi bi-bar-chart"></i> <strong>وضعیت سیگنال:</strong> ${equipment.communicationData?.signalStatus || 'ثبت نشده'}</p>
-                        <p class="mb-0"><i class="bi bi-clock"></i> <strong>زمان فعالیت:</strong> ${equipment.startTime || 'ثبت نشده'} - ${equipment.endTime || 'ثبت نشده'}</p>
+                        
+                        <!-- اقلام مصرفی -->
+                        ${equipmentConsumables.length > 0 ? `
+                        <div class="border-top pt-2 mb-2">
+                            <p class="mb-2"><i class="bi bi-box-seam text-info"></i> <strong>اقلام مصرفی (${equipmentConsumables.length} قلم):</strong></p>
+                            <div class="table-responsive">
+                                <table class="table table-sm table-bordered">
+                                    <thead class="table-light">
+                                        <tr><th>نام قلم</th><th>تعداد</th><th>واحد</th><th>توضیحات</th></tr>
+                                    </thead>
+                                    <tbody>
+                                        ${equipmentConsumables.map(con => `
+                                            <tr>
+                                                <td>${con.name || '-'}</td>
+                                                <td class="persian-numbers">${(con.quantity || 0).toLocaleString()}</td>
+                                                <td>${con.unit || 'عدد'}</td>
+                                                <td>${con.description || '-'}</td>
+                                            </tr>
+                                        `).join('')}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        ` : ''}
+                        
+                        <!-- آیتم‌های Not OK چک‌لیست -->
+                        ${notOkItems.length > 0 ? `
+                        <div class="border-top pt-2">
+                            <p class="mb-2"><i class="bi bi-exclamation-triangle-fill text-danger"></i> <strong>آیتم‌های خراب (Not OK) (${notOkItems.length} قلم):</strong></p>
+                            <div class="table-responsive">
+                                <table class="table table-sm table-bordered">
+                                    <thead class="table-light">
+                                        <tr><th>آیتم</th><th>توضیحات</th></tr>
+                                    </thead>
+                                    <tbody>
+                                        ${notOkItems.map(item => `
+                                            <tr>
+                                                <td>${item.item || '-'}</td>
+                                                <td>${item.description || '-'}</td>
+                                            </tr>
+                                        `).join('')}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        ` : ''}
                     </div>
                 </div>
             </div>
@@ -2825,7 +2992,6 @@ const switchBrandDisplay =
     html += '</div>';
     container.innerHTML = html;
 }
-
 // =====================================================
 // Report Generation Functions
 // =====================================================
@@ -2845,8 +3011,87 @@ function generateExcelReport() {
         const inspectionDate = document.getElementById('inspection-date')?.value || '';
         const contractor = document.getElementById('contractor')?.value || '';
         const coefficient = parseFloat(document.getElementById('contract-coefficient')?.value) || 2.35;
+        const contractNumber = document.getElementById('contract-number')?.value || '';
+        const dailyStartTime = document.getElementById('daily-start-time')?.value || '';
+        const dailyEndTime = document.getElementById('daily-end-time')?.value || '';
         const cityDepartment = equipments.length > 0 ? equipments[0].departmentData?.department || 'ثبت نشده' : 'ثبت نشده';
         
+        // =============================================
+        // محاسبه آمار
+        // =============================================
+        let totalActivitiesCount = 0;
+        let totalCost = 0;
+        let allActivities = [];
+        let allConsumables = [];
+        
+        equipments.forEach(equipment => {
+            if (equipment.activitiesData) {
+                equipment.activitiesData.forEach(activity => {
+                    totalActivitiesCount += activity.quantity || 0;
+                    totalCost += activity.total || 0;
+                    allActivities.push({
+                        equipmentName: equipment.equipmentType,
+                        equipmentScada: equipment.scadaCode,
+                        code: activity.code,
+                        title: activity.title,
+                        unit: activity.unit,
+                        unitPrice: activity.unitPrice,
+                        quantity: activity.quantity || 0,
+                        total: activity.total || 0
+                    });
+                });
+            }
+            
+            if (equipment.consumablesData) {
+                equipment.consumablesData.forEach(consumable => {
+                    allConsumables.push({
+                        equipmentName: equipment.equipmentType,
+                        equipmentScada: equipment.scadaCode,
+                        name: consumable.name,
+                        quantity: consumable.quantity || 0,
+                        unit: consumable.unit || 'عدد',
+                        description: consumable.description || ''
+                    });
+                });
+            }
+        });
+        
+        const finalCost = totalCost * coefficient;
+        
+        // گروه‌بندی فعالیت‌ها برای خلاصه
+        const activitiesSummary = {};
+        allActivities.forEach(activity => {
+            if (!activitiesSummary[activity.code]) {
+                activitiesSummary[activity.code] = {
+                    title: activity.title,
+                    unitPrice: activity.unitPrice,
+                    totalQuantity: 0,
+                    totalAmount: 0
+                };
+            }
+            activitiesSummary[activity.code].totalQuantity += activity.quantity;
+            activitiesSummary[activity.code].totalAmount += activity.total;
+        });
+        
+        // گروه‌بندی اقلام مصرفی برای خلاصه
+        const consumablesSummary = {};
+        allConsumables.forEach(consumable => {
+            if (!consumablesSummary[consumable.name]) {
+                consumablesSummary[consumable.name] = {
+                    unit: consumable.unit,
+                    totalQuantity: 0,
+                    descriptions: []
+                };
+            }
+            consumablesSummary[consumable.name].totalQuantity += consumable.quantity;
+            if (consumable.description && !consumablesSummary[consumable.name].descriptions.includes(consumable.description)) {
+                consumablesSummary[consumable.name].descriptions.push(consumable.description);
+            }
+        });
+        
+        // =============================================
+        // شیت 1: خلاصه روزانه
+        // =============================================
         const dailyData = [
             ['شرکت توزیع نیروی برق استان یزد', '', '', '', '', '', ''],
             ['سیستم مدیریت بازدید تجهیزات اتوماسیون', '', '', '', '', '', ''],
@@ -2856,50 +3101,39 @@ function generateExcelReport() {
             ['تاریخ بازدید', inspectionDate, '', '', '', '', ''],
             ['امور شهرستان', cityDepartment, '', '', '', '', ''],
             ['پیمانکار', contractor, '', '', '', '', ''],
+            ['شماره قرارداد', contractNumber, '', '', '', '', ''],
+            ['ساعت فعالیت', `${dailyStartTime} - ${dailyEndTime}`, '', '', '', '', ''],
             ['ضریب قرارداد', coefficient, '', '', '', '', ''],
             ['', '', '', '', '', '', ''],
             ['آمار کلی', '', '', '', '', '', ''],
             ['تعداد تجهیزات', equipments.length, '', '', '', '', ''],
-            ['کل فعالیت‌ها', document.getElementById('summary-activity-count')?.textContent || '۰', '', '', '', '', ''],
-            ['هزینه بدون ضریب', document.getElementById('summary-total-cost')?.textContent || '۰', '', '', '', '', ''],
-            ['هزینه نهایی', document.getElementById('summary-final-cost')?.textContent || '۰', '', '', '', '', '']
+            ['کل فعالیت‌ها', totalActivitiesCount.toLocaleString(), '', '', '', '', ''],
+            ['هزینه بدون ضریب', totalCost.toLocaleString() + ' ریال', '', '', '', '', ''],
+            ['هزینه نهایی', finalCost.toLocaleString() + ' ریال', '', '', '', '', '']
         ];
         
         const ws1 = XLSX.utils.aoa_to_sheet(dailyData);
+        ws1['!cols'] = [{wch:25}, {wch:20}, {wch:10}, {wch:10}, {wch:10}, {wch:10}, {wch:10}];
         XLSX.utils.book_append_sheet(wb, ws1, "خلاصه روزانه");
         
-        const activitiesSummary = {};
-        equipments.forEach(equipment => {
-            if (equipment.activitiesData) {
-                equipment.activitiesData.forEach(activity => {
-                    if (!activitiesSummary[activity.code]) {
-                        activitiesSummary[activity.code] = {
-                            title: activity.title,
-                            unitPrice: activity.unitPrice,
-                            totalQuantity: 0,
-                            totalAmount: 0
-                        };
-                    }
-                    activitiesSummary[activity.code].totalQuantity += (activity.quantity || 0);
-                    activitiesSummary[activity.code].totalAmount += (activity.total || 0);
-                });
-            }
-        });
-        
+        // =============================================
+        // شیت 2: صورت وضعیت مالی
+        // =============================================
         const financialData = [
-            ['صورت وضعیت کلی روز'],
-            ['تاریخ', inspectionDate],
-            ['امور شهرستان', cityDepartment],
-            ['پیمانکار', contractor],
-            ['ضریب قرارداد', coefficient],
-            ['', '', '', '', '', '', ''],
-            ['خلاصه مالی روز', '', '', '', '', '', ''],
-            ['تعداد تجهیزات', equipments.length],
-            ['کل فعالیت‌ها', document.getElementById('summary-activity-count')?.textContent || '۰'],
-            ['هزینه بدون ضریب', document.getElementById('summary-total-cost')?.textContent || '۰'],
-            ['هزینه نهایی', document.getElementById('summary-final-cost')?.textContent || '۰'],
-            ['', '', '', '', '', '', ''],
-            ['جمع‌بندی فعالیت‌های فهرست بها', '', '', '', '', '', ''],
+            ['صورت وضعیت کلی روز', '', '', '', '', ''],
+            ['تاریخ', inspectionDate, '', '', '', ''],
+            ['امور شهرستان', cityDepartment, '', '', '', ''],
+            ['پیمانکار', contractor, '', '', '', ''],
+            ['شماره قرارداد', contractNumber, '', '', '', ''],
+            ['ضریب قرارداد', coefficient, '', '', '', ''],
+            ['', '', '', '', '', ''],
+            ['خلاصه مالی روز', '', '', '', '', ''],
+            ['تعداد تجهیزات', equipments.length, '', '', '', ''],
+            ['کل فعالیت‌ها', totalActivitiesCount.toLocaleString(), '', '', '', ''],
+            ['هزینه بدون ضریب', totalCost.toLocaleString() + ' ریال', '', '', '', ''],
+            ['هزینه نهایی', finalCost.toLocaleString() + ' ریال', '', '', '', ''],
+            ['', '', '', '', '', ''],
+            ['جمع‌بندی فعالیت‌های فهرست بها', '', '', '', '', ''],
             ['کد فهرست بها', 'عنوان فعالیت', 'تعداد کل', 'فی واحد (ریال)', 'مبلغ کل (بدون ضریب)', 'مبلغ با ضریب']
         ];
         
@@ -2908,22 +3142,189 @@ function generateExcelReport() {
             financialData.push([
                 code,
                 data.title || '',
-                data.totalQuantity || 0,
-                formatNumber(data.unitPrice || 0),
-                formatNumber(data.totalAmount || 0) + ' ریال',
-                formatNumber((data.totalAmount || 0) * coefficient) + ' ریال'
+                data.totalQuantity.toLocaleString(),
+                data.unitPrice.toLocaleString(),
+                data.totalAmount.toLocaleString() + ' ریال',
+                (data.totalAmount * coefficient).toLocaleString() + ' ریال'
             ]);
-            totalDailyAmount += (data.totalAmount || 0);
+            totalDailyAmount += data.totalAmount;
         });
         
         financialData.push(['', '', '', '', '', '']);
         financialData.push(['جمع کل فعالیت‌ها', '', '', '', 
-            formatNumber(totalDailyAmount) + ' ریال', 
-            formatNumber(totalDailyAmount * coefficient) + ' ریال']);
+            totalDailyAmount.toLocaleString() + ' ریال', 
+            (totalDailyAmount * coefficient).toLocaleString() + ' ریال']);
         
         const wsFinancial = XLSX.utils.aoa_to_sheet(financialData);
-        XLSX.utils.book_append_sheet(wb, wsFinancial, "صورت وضعیت روز");
+        wsFinancial['!cols'] = [{wch:20}, {wch:40}, {wch:15}, {wch:20}, {wch:25}, {wch:25}];
+        XLSX.utils.book_append_sheet(wb, wsFinancial, "صورت وضعیت مالی");
         
+        // =============================================
+        // شیت 3: خلاصه اقلام مصرفی
+        // =============================================
+        const consumableSummaryData = [
+            ['خلاصه اقلام مصرفی', '', '', ''],
+            ['نام قلم مصرفی', 'تعداد کل', 'واحد', 'توضیحات']
+        ];
+        
+        Object.entries(consumablesSummary).forEach(([name, data]) => {
+            consumableSummaryData.push([
+                name,
+                data.totalQuantity.toLocaleString(),
+                data.unit,
+                data.descriptions.join('، ') || '-'
+            ]);
+        });
+        
+        if (Object.keys(consumablesSummary).length === 0) {
+            consumableSummaryData.push(['هیچ قلم مصرفی ثبت نشده است', '', '', '']);
+        }
+        
+        const wsConsumableSummary = XLSX.utils.aoa_to_sheet(consumableSummaryData);
+        wsConsumableSummary['!cols'] = [{wch:35}, {wch:15}, {wch:15}, {wch:40}];
+        XLSX.utils.book_append_sheet(wb, wsConsumableSummary, "خلاصه اقلام مصرفی");
+        
+        // =============================================
+        // شیت 4: جزئیات کامل تجهیزات
+        // =============================================
+        const equipmentDetailsData = [
+            ['جزئیات کامل تجهیزات بازدید شده', '', '', '', '', '', '', '', ''],
+            ['ردیف', 'نوع تجهیز', 'کد اسکادا', 'برند کلید', 'مودم', 'RTU', 'امور شهرستان', 'GIS Code', 'فیدرها', 'موقعیت جغرافیایی', 'آدرس', 'زمان فعالیت', 'نوع نصب', 'وضعیت سیگنال']
+        ];
+        
+        equipments.forEach((equipment, index) => {
+            const hasBrands = equipmentWithBrands.includes(equipment.equipmentType);
+            const switchBrandDisplay = hasBrands ? 
+                (equipment.switchBrand === 'سایر' ? equipment.otherSwitchBrand : equipment.switchBrand) : 
+                'بدون برند';
+            const modemBrandDisplay = hasBrands ? 
+                (equipment.modemBrand === 'سایر' ? equipment.otherModemBrand : equipment.modemBrand || '---') : 
+                '---';
+            const rtuBrandDisplay = hasBrands ? 
+                (equipment.rtuBrand === 'سایر' ? equipment.otherRTUBrand : equipment.rtuBrand || '---') : 
+                '---';
+            
+            const feedersText = equipment.feeders && equipment.feeders.length > 0 
+                ? equipment.feeders.map(f => `${f.post} (${f.feeder})`).join('، ')
+                : 'ثبت نشده';
+            
+            equipmentDetailsData.push([
+                index + 1,
+                equipment.equipmentType || '---',
+                equipment.scadaCode || '---',
+                switchBrandDisplay,
+                modemBrandDisplay,
+                rtuBrandDisplay,
+                equipment.departmentData?.department || 'ثبت نشده',
+                equipment.departmentData?.city || 'ثبت نشده',
+                feedersText,
+                `عرض: ${equipment.locationData?.latitude || '---'} - طول: ${equipment.locationData?.longitude || '---'}`,
+                equipment.locationData?.address || 'ثبت نشده',
+                `${equipment.startTime || '---'} - ${equipment.endTime || '---'}`,
+                equipment.installationType || '---',
+                equipment.communicationData?.signalStatus || '---'
+            ]);
+        });
+        
+        const wsEquipment = XLSX.utils.aoa_to_sheet(equipmentDetailsData);
+        wsEquipment['!cols'] = [{wch:6}, {wch:20}, {wch:15}, {wch:15}, {wch:15}, {wch:15}, {wch:20}, {wch:15}, {wch:30}, {wch:35}, {wch:40}, {wch:20}, {wch:15}, {wch:15}];
+        XLSX.utils.book_append_sheet(wb, wsEquipment, "جزئیات تجهیزات");
+        
+        // =============================================
+        // شیت 5: جزئیات فعالیت‌ها
+        // =============================================
+        const activitiesDetailsData = [
+            ['جزئیات کامل فعالیت‌های انجام شده', '', '', '', '', '', ''],
+            ['ردیف', 'تجهیز', 'کد اسکادا', 'کد فهرست بها', 'عنوان فعالیت', 'واحد', 'تعداد', 'قیمت واحد (ریال)', 'مبلغ کل (ریال)']
+        ];
+        
+        let activityRowIndex = 1;
+        allActivities.forEach(activity => {
+            activitiesDetailsData.push([
+                activityRowIndex++,
+                activity.equipmentName,
+                activity.equipmentScada,
+                activity.code,
+                activity.title,
+                activity.unit,
+                activity.quantity.toLocaleString(),
+                activity.unitPrice.toLocaleString(),
+                activity.total.toLocaleString()
+            ]);
+        });
+        
+        if (allActivities.length === 0) {
+            activitiesDetailsData.push(['', 'هیچ فعالیتی ثبت نشده است', '', '', '', '', '', '', '']);
+        }
+        
+        const wsActivities = XLSX.utils.aoa_to_sheet(activitiesDetailsData);
+        wsActivities['!cols'] = [{wch:6}, {wch:20}, {wch:15}, {wch:15}, {wch:45}, {wch:10}, {wch:10}, {wch:20}, {wch:20}];
+        XLSX.utils.book_append_sheet(wb, wsActivities, "جزئیات فعالیت‌ها");
+        
+        // =============================================
+        // شیت 6: جزئیات اقلام مصرفی
+        // =============================================
+        const consumablesDetailsData = [
+            ['جزئیات کامل اقلام مصرفی', '', '', '', ''],
+            ['ردیف', 'تجهیز', 'کد اسکادا', 'نام قلم مصرفی', 'تعداد', 'واحد', 'توضیحات']
+        ];
+        
+        let consumableRowIndex = 1;
+        allConsumables.forEach(consumable => {
+            consumablesDetailsData.push([
+                consumableRowIndex++,
+                consumable.equipmentName,
+                consumable.equipmentScada,
+                consumable.name,
+                consumable.quantity.toLocaleString(),
+                consumable.unit,
+                consumable.description || '-'
+            ]);
+        });
+        
+        if (allConsumables.length === 0) {
+            consumablesDetailsData.push(['', 'هیچ قلم مصرفی ثبت نشده است', '', '', '', '', '']);
+        }
+        
+        const wsConsumables = XLSX.utils.aoa_to_sheet(consumablesDetailsData);
+        wsConsumables['!cols'] = [{wch:6}, {wch:20}, {wch:15}, {wch:30}, {wch:10}, {wch:10}, {wch:40}];
+        XLSX.utils.book_append_sheet(wb, wsConsumables, "جزئیات اقلام مصرفی");
+        
+        // =============================================
+        // شیت 7: چک‌لیست‌های Not OK
+        // =============================================
+        const notOkChecklistData = [
+            ['گزارش آیتم‌های Not OK در چک‌لیست‌ها', '', '', '', ''],
+            ['ردیف', 'تجهیز', 'کد اسکادا', 'آیتم چک‌لیست', 'وضعیت', 'توضیحات']
+        ];
+        
+        let notOkRowIndex = 1;
+        equipments.forEach(equipment => {
+            if (equipment.checklistData && equipment.checklistData.length > 0) {
+                equipment.checklistData.forEach(item => {
+                    if (item.status === 'Not OK') {
+                        notOkChecklistData.push([
+                            notOkRowIndex++,
+                            equipment.equipmentType,
+                            equipment.scadaCode || '---',
+                            item.item,
+                            'Not OK',
+                            item.description || '-'
+                        ]);
+                    }
+                });
+            }
+        });
+        
+        if (notOkChecklistData.length === 2) {
+            notOkChecklistData.push(['', 'هیچ آیتم Not OK ثبت نشده است', '', '', '', '']);
+        }
+        
+        const wsNotOk = XLSX.utils.aoa_to_sheet(notOkChecklistData);
+        wsNotOk['!cols'] = [{wch:6}, {wch:20}, {wch:15}, {wch:50}, {wch:10}, {wch:40}];
+        XLSX.utils.book_append_sheet(wb, wsNotOk, "آیتم‌های Not OK");
+        
+        // ذخیره فایل
         const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
         const blob = new Blob([wbout], { type: 'application/octet-stream' });
         const filename = `بازدید_اتوماسیون_${inspectionDate}_${Date.now()}.xlsx`;
@@ -2933,7 +3334,7 @@ function generateExcelReport() {
             icon: 'success',
             title: 'موفق',
             text: 'فایل Excel با موفقیت ایجاد شد.',
-            timer: 1500,
+            timer: 2000,
             showConfirmButton: false
         });
         
@@ -2962,55 +3363,180 @@ function generatePDFReport() {
         let totalActivities = 0;
         let totalCost = 0;
         
+        // جمع‌آوری فعالیت‌ها برای جدول
+        let allActivities = [];
+        
         equipments.forEach(equipment => {
             if (equipment.activitiesData && equipment.activitiesData.length > 0) {
                 equipment.activitiesData.forEach(activity => {
                     totalActivities += activity.quantity || 0;
                     totalCost += activity.total || 0;
+                    allActivities.push({
+                        code: activity.code,
+                        title: activity.title,
+                        unit: activity.unit,
+                        unitPrice: activity.unitPrice,
+                        quantity: activity.quantity || 0,
+                        total: activity.total || 0,
+                        equipmentName: equipment.equipmentType,
+                        equipmentScada: equipment.scadaCode
+                    });
+                });
+            }
+        });
+        
+        // جمع‌آوری اقلام مصرفی برای جدول
+        let allConsumables = [];
+        
+        equipments.forEach(equipment => {
+            if (equipment.consumablesData && equipment.consumablesData.length > 0) {
+                equipment.consumablesData.forEach(consumable => {
+                    allConsumables.push({
+                        name: consumable.name,
+                        quantity: consumable.quantity || 0,
+                        unit: consumable.unit || 'عدد',
+                        description: consumable.description || '',
+                        equipmentName: equipment.equipmentType,
+                        equipmentScada: equipment.scadaCode
+                    });
                 });
             }
         });
         
         const finalCost = totalCost * coefficient;
         
+        // گروه‌بندی فعالیت‌ها بر اساس کد
+        const groupedActivities = {};
+        allActivities.forEach(activity => {
+            if (!groupedActivities[activity.code]) {
+                groupedActivities[activity.code] = {
+                    code: activity.code,
+                    title: activity.title,
+                    unit: activity.unit,
+                    unitPrice: activity.unitPrice,
+                    totalQuantity: 0,
+                    totalAmount: 0
+                };
+            }
+            groupedActivities[activity.code].totalQuantity += activity.quantity;
+            groupedActivities[activity.code].totalAmount += activity.total;
+        });
+        
+        // گروه‌بندی اقلام مصرفی بر اساس نام
+        const groupedConsumables = {};
+        allConsumables.forEach(consumable => {
+            if (!groupedConsumables[consumable.name]) {
+                groupedConsumables[consumable.name] = {
+                    name: consumable.name,
+                    unit: consumable.unit,
+                    totalQuantity: 0,
+                    descriptions: []
+                };
+            }
+            groupedConsumables[consumable.name].totalQuantity += consumable.quantity;
+            if (consumable.description && !groupedConsumables[consumable.name].descriptions.includes(consumable.description)) {
+                groupedConsumables[consumable.name].descriptions.push(consumable.description);
+            }
+        });
+        
         let equipmentHTML = '';
         
         equipments.forEach((equipment, index) => {
-const brandObj = window.brandsList?.find(
-    b => b.id == equipment.brand_id
-);
-
-const switchBrandDisplay = brandObj
-    ? brandObj.name
-    : 'بدون برند';
+            const hasBrands = equipmentWithBrands.includes(equipment.equipmentType);
+            const switchBrandDisplay = hasBrands ? 
+                (equipment.switchBrand === 'سایر' ? equipment.otherSwitchBrand : equipment.switchBrand) : 
+                'بدون برند';
                 
             const feedersText = equipment.feeders && equipment.feeders.length > 0 
                 ? equipment.feeders.map(f => `${f.post} (${f.feeder})`).join('، ')
                 : 'ثبت نشده';
             
+            // فعالیت‌های این تجهیز
+            let equipmentActivitiesHTML = '';
+            const eqActivities = allActivities.filter(a => a.equipmentScada === equipment.scadaCode);
+            if (eqActivities.length > 0) {
+                equipmentActivitiesHTML = `
+                    <h4 style="margin-top: 15px; margin-bottom: 10px; color: #3498db;">فعالیت‌های انجام شده</h4>
+                    <table style="width: 100%; border-collapse: collapse; margin-bottom: 15px;">
+                        <thead>
+                            <tr>
+                                <th style="padding: 8px; border: 1px solid #ddd; background-color: #f2f2f2;">کد</th>
+                                <th style="padding: 8px; border: 1px solid #ddd; background-color: #f2f2f2;">عنوان فعالیت</th>
+                                <th style="padding: 8px; border: 1px solid #ddd; background-color: #f2f2f2;">واحد</th>
+                                <th style="padding: 8px; border: 1px solid #ddd; background-color: #f2f2f2;">تعداد</th>
+                                <th style="padding: 8px; border: 1px solid #ddd; background-color: #f2f2f2;">مبلغ (ریال)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${eqActivities.map(act => `
+                                <tr>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">${act.code}</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">${act.title}</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">${act.unit}</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;" class="persian-numbers">${act.quantity.toLocaleString()}</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;" class="persian-numbers">${act.total.toLocaleString()}</td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                `;
+            }
+            
+            // اقلام مصرفی این تجهیز
+            let equipmentConsumablesHTML = '';
+            const eqConsumables = allConsumables.filter(c => c.equipmentScada === equipment.scadaCode);
+            if (eqConsumables.length > 0) {
+                equipmentConsumablesHTML = `
+                    <h4 style="margin-top: 15px; margin-bottom: 10px; color: #27ae60;">اقلام مصرفی</h4>
+                    <table style="width: 100%; border-collapse: collapse; margin-bottom: 15px;">
+                        <thead>
+                            <tr>
+                                <th style="padding: 8px; border: 1px solid #ddd; background-color: #f2f2f2;">نام قلم مصرفی</th>
+                                <th style="padding: 8px; border: 1px solid #ddd; background-color: #f2f2f2;">تعداد</th>
+                                <th style="padding: 8px; border: 1px solid #ddd; background-color: #f2f2f2;">واحد</th>
+                                <th style="padding: 8px; border: 1px solid #ddd; background-color: #f2f2f2;">توضیحات</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${eqConsumables.map(con => `
+                                <tr>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">${con.name}</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;" class="persian-numbers">${con.quantity.toLocaleString()}</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">${con.unit}</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">${con.description || '-'}</td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                `;
+            }
+            
             equipmentHTML += `
                 <div style="margin-bottom: 30px; padding: 20px; border: 2px solid #ddd; border-radius: 10px; background-color: #fff; page-break-inside: avoid;">
                     <h3 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; margin-top: 0;">
                         تجهیز ${index + 1}: ${equipment.equipmentType || 'ثبت نشده'}
+                        <span style="font-size: 14px; color: #666;">(کد اسکادا: ${equipment.scadaCode || 'ثبت نشده'})</span>
                     </h3>
                     
                     <table style="width: 100%; border-collapse: collapse; margin-bottom: 15px;">
-                        <tr><th style="padding: 10px; border: 1px solid #ddd; background-color: #f2f2f2;">کد اسکادا:</th>
-                            <td style="padding: 10px; border: 1px solid #ddd;">${equipment.scadaCode || 'ثبت نشده'}</td>
-                            <th style="padding: 10px; border: 1px solid #ddd; background-color: #f2f2f2;">زمان فعالیت:</th>
-                            <td style="padding: 10px; border: 1px solid #ddd;">${equipment.startTime || '---'} - ${equipment.endTime || '---'}</td>
+                        <tr>
+                            <th style="padding: 10px; border: 1px solid #ddd; background-color: #f2f2f2; width: 25%;">زمان فعالیت:</th>
+                            <td style="padding: 10px; border: 1px solid #ddd; width: 25%;">${equipment.startTime || '---'} - ${equipment.endTime || '---'}</td>
+                            <th style="padding: 10px; border: 1px solid #ddd; background-color: #f2f2f2; width: 25%;">نوع نصب:</th>
+                            <td style="padding: 10px; border: 1px solid #ddd; width: 25%;">${equipment.installationType || '---'}</td>
                         </tr>
                         ${hasBrands ? `
                         <tr>
+                            <th style="padding: 10px; border: 1px solid #ddd; background-color: #f2f2f2;">برند کلید:</th>
                             <td style="padding: 10px; border: 1px solid #ddd;">${switchBrandDisplay}</td>
                             <th style="padding: 10px; border: 1px solid #ddd; background-color: #f2f2f2;">برند مودم:</th>
-                            <td style="padding: 10px; border: 1px solid #ddd;">${equipment.modemBrand === 'سایر' ? equipment.otherModemBrand : equipment.modemBrand}</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">${equipment.modemBrand === 'سایر' ? equipment.otherModemBrand : equipment.modemBrand || '---'}</td>
                         </tr>
                         <tr>
                             <th style="padding: 10px; border: 1px solid #ddd; background-color: #f2f2f2;">برند RTU:</th>
-                            <td style="padding: 10px; border: 1px solid #ddd;">${equipment.rtuBrand === 'سایر' ? equipment.otherRTUBrand : equipment.rtuBrand}</td>
-                            <th style="padding: 10px; border: 1px solid #ddd; background-color: #f2f2f2;">نوع نصب:</th>
-                            <td style="padding: 10px; border: 1px solid #ddd;">${equipment.installationType || '---'}</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">${equipment.rtuBrand === 'سایر' ? equipment.otherRTUBrand : equipment.rtuBrand || '---'}</td>
+                            <th style="padding: 10px; border: 1px solid #ddd; background-color: #f2f2f2;">وضعیت سیگنال:</th>
+                            <td style="padding: 10px; border: 1px solid #ddd;">${equipment.communicationData?.signalStatus || '---'}</td>
                         </tr>
                         ` : ''}
                         <tr>
@@ -3044,13 +3570,80 @@ const switchBrandDisplay = brandObj
                         <tr>
                             <th style="padding: 10px; border: 1px solid #ddd; background-color: #f2f2f2;">وضعیت آنتن:</th>
                             <td style="padding: 10px; border: 1px solid #ddd;">${equipment.communicationData?.antennaStatus || 'ثبت نشده'}</td>
-                            <th style="padding: 10px; border: 1px solid #ddd; background-color: #f2f2f2;">وضعیت سیگنال:</th>
-                            <td style="padding: 10px; border: 1px solid #ddd;">${equipment.communicationData?.signalStatus || 'ثبت نشده'}</td>
+                            <th style="padding: 10px; border: 1px solid #ddd; background-color: #f2f2f2;">تغذیه مودم:</th>
+                            <td style="padding: 10px; border: 1px solid #ddd;">${equipment.communicationData?.modemPower || 'ثبت نشده'}</td>
                         </tr>
                     </table>
+                    
+                    ${equipmentActivitiesHTML}
+                    ${equipmentConsumablesHTML}
                 </div>
             `;
         });
+        
+        // ساخت جدول خلاصه فعالیت‌ها
+        let activitiesSummaryHTML = '';
+        if (Object.keys(groupedActivities).length > 0) {
+            activitiesSummaryHTML = `
+                <div class="section-title">خلاصه فعالیت‌های فهرست بها</div>
+                <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+                    <thead>
+                        <tr>
+                            <th style="padding: 10px; border: 1px solid #ddd; background-color: #f2f2f2;">کد</th>
+                            <th style="padding: 10px; border: 1px solid #ddd; background-color: #f2f2f2;">عنوان فعالیت</th>
+                            <th style="padding: 10px; border: 1px solid #ddd; background-color: #f2f2f2;">تعداد کل</th>
+                            <th style="padding: 10px; border: 1px solid #ddd; background-color: #f2f2f2;">فی واحد (ریال)</th>
+                            <th style="padding: 10px; border: 1px solid #ddd; background-color: #f2f2f2;">مبلغ کل (ریال)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${Object.values(groupedActivities).map(act => `
+                            <tr>
+                                <td style="padding: 8px; border: 1px solid #ddd;">${act.code}</td>
+                                <td style="padding: 8px; border: 1px solid #ddd;">${act.title}</td>
+                                <td style="padding: 8px; border: 1px solid #ddd;" class="persian-numbers">${act.totalQuantity.toLocaleString()}</td>
+                                <td style="padding: 8px; border: 1px solid #ddd;" class="persian-numbers">${act.unitPrice.toLocaleString()}</td>
+                                <td style="padding: 8px; border: 1px solid #ddd;" class="persian-numbers">${act.totalAmount.toLocaleString()}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                    <tfoot>
+                        <tr style="background-color: #f2f2f2; font-weight: bold;">
+                            <td colspan="4" class="text-end">جمع کل:</td>
+                            <td class="persian-numbers">${totalCost.toLocaleString()} ریال</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            `;
+        }
+        
+        // ساخت جدول خلاصه اقلام مصرفی
+        let consumablesSummaryHTML = '';
+        if (Object.keys(groupedConsumables).length > 0) {
+            consumablesSummaryHTML = `
+                <div class="section-title">خلاصه اقلام مصرفی</div>
+                <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+                    <thead>
+                        <tr>
+                            <th style="padding: 10px; border: 1px solid #ddd; background-color: #f2f2f2;">نام قلم مصرفی</th>
+                            <th style="padding: 10px; border: 1px solid #ddd; background-color: #f2f2f2;">تعداد کل</th>
+                            <th style="padding: 10px; border: 1px solid #ddd; background-color: #f2f2f2;">واحد</th>
+                            <th style="padding: 10px; border: 1px solid #ddd; background-color: #f2f2f2;">توضیحات</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${Object.values(groupedConsumables).map(con => `
+                            <tr>
+                                <td style="padding: 8px; border: 1px solid #ddd;">${con.name}</td>
+                                <td style="padding: 8px; border: 1px solid #ddd;" class="persian-numbers">${con.totalQuantity.toLocaleString()}</td>
+                                <td style="padding: 8px; border: 1px solid #ddd;">${con.unit}</td>
+                                <td style="padding: 8px; border: 1px solid #ddd;">${con.descriptions.join('، ') || '-'}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+        }
         
         const htmlContent = `
             <!DOCTYPE html>
@@ -3062,10 +3655,14 @@ const switchBrandDisplay = brandObj
                     body { font-family: 'Vazirmatn', Tahoma, Arial, sans-serif; direction: rtl; margin: 2cm; line-height: 1.6; }
                     .header { text-align: center; margin-bottom: 30px; border-bottom: 3px solid #2c3e50; padding-bottom: 20px; }
                     .header h1 { color: #2c3e50; margin: 0; font-size: 24px; }
-                    .section-title { background-color: #2c3e50; color: white; padding: 10px 15px; border-radius: 5px; margin-bottom: 15px; }
+                    .header h2 { color: #34495e; margin: 10px 0; font-size: 18px; }
+                    .section-title { background-color: #2c3e50; color: white; padding: 10px 15px; border-radius: 5px; margin: 20px 0 15px 0; }
                     table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
                     th, td { padding: 10px; border: 1px solid #ddd; text-align: right; }
                     th { background-color: #f2f2f2; }
+                    .footer { margin-top: 50px; border-top: 1px solid #ddd; padding-top: 20px; text-align: center; font-size: 12px; color: #666; }
+                    .persian-numbers { font-family: 'Vazirmatn', monospace; }
+                    .text-end { text-align: left; }
                     @media print { body { margin: 1cm; } }
                 </style>
             </head>
@@ -3074,19 +3671,39 @@ const switchBrandDisplay = brandObj
                     <h1>شرکت توزیع نیروی برق استان یزد</h1>
                     <h2>گزارش بازدید تجهیزات اتوماسیون</h2>
                     <p>فرم شماره: F-20324-01 | تاریخ بازدید: ${inspectionDate}</p>
+                    <p>پیمانکار: ${contractor} | شماره قرارداد: ${contractNumber}</p>
+                    <p>امور شهرستان: ${cityDepartment} | ساعت فعالیت: ${dailyStartTime} - ${dailyEndTime}</p>
                 </div>
                 
                 <div class="section-title">خلاصه مالی</div>
-                <table>
-                    <tr><th>کل فعالیت‌ها:</th><td>${totalActivities}</td><th>هزینه بدون ضریب:</th><td>${totalCost.toLocaleString()} ریال</td></tr>
-                    <tr><th>هزینه نهایی (با ضریب ${coefficient}):</th><td colspan="3"><strong>${finalCost.toLocaleString()} ریال</strong><\/td></tr>
+                <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+                    <tr>
+                        <th style="padding: 10px; border: 1px solid #ddd; background-color: #f2f2f2; width: 25%;">تعداد تجهیزات:</th>
+                        <td style="padding: 10px; border: 1px solid #ddd; width: 25%;" class="persian-numbers">${equipments.length}</td>
+                        <th style="padding: 10px; border: 1px solid #ddd; background-color: #f2f2f2; width: 25%;">کل فعالیت‌ها:</th>
+                        <td style="padding: 10px; border: 1px solid #ddd; width: 25%;" class="persian-numbers">${totalActivities.toLocaleString()}</td>
+                    </tr>
+                    <tr>
+                        <th style="padding: 10px; border: 1px solid #ddd; background-color: #f2f2f2;">هزینه بدون ضریب:</th>
+                        <td style="padding: 10px; border: 1px solid #ddd;" class="persian-numbers">${totalCost.toLocaleString()} ریال</td>
+                        <th style="padding: 10px; border: 1px solid #ddd; background-color: #f2f2f2;">ضریب قرارداد:</th>
+                        <td style="padding: 10px; border: 1px solid #ddd;" class="persian-numbers">${coefficient}</td>
+                    </tr>
+                    <tr style="background-color: #d4edda;">
+                        <th style="padding: 10px; border: 1px solid #ddd; background-color: #28a745; color: white;">هزینه نهایی:</th>
+                        <td colspan="3" style="padding: 10px; border: 1px solid #ddd; font-size: 18px; font-weight: bold;" class="persian-numbers">${finalCost.toLocaleString()} ریال</td>
+                    </tr>
                 </table>
+                
+                ${activitiesSummaryHTML}
+                ${consumablesSummaryHTML}
                 
                 <div class="section-title">جزئیات تجهیزات بازدید شده</div>
                 ${equipmentHTML}
                 
-                <div class="footer" style="margin-top: 50px; border-top: 1px solid #ddd; padding-top: 20px; text-align: center;">
+                <div class="footer">
                     <p>سیستم مدیریت بازدید تجهیزات اتوماسیون - شرکت توزیع نیروی برق استان یزد</p>
+                    <p>تاریخ چاپ: ${new Date().toLocaleDateString('fa-IR')}</p>
                 </div>
             </body>
             </html>
@@ -3096,6 +3713,7 @@ const switchBrandDisplay = brandObj
             printWindow.document.write(htmlContent);
             printWindow.document.close();
             printWindow.focus();
+            printWindow.print();
         }
         
     } catch (error) {
@@ -3108,36 +3726,338 @@ const switchBrandDisplay = brandObj
     }
 }
 
+
+
+
+// =====================================================
+// Word Report Functions
+// =====================================================
+
 function generateWordReport() {
     try {
         const inspectionDate = document.getElementById('inspection-date')?.value || '';
         const contractor = document.getElementById('contractor')?.value || '';
         const coefficient = parseFloat(document.getElementById('contract-coefficient')?.value) || 2.35;
+        const contractNumber = document.getElementById('contract-number')?.value || '';
+        const dailyStartTime = document.getElementById('daily-start-time')?.value || '';
+        const dailyEndTime = document.getElementById('daily-end-time')?.value || '';
         const cityDepartment = equipments.length > 0 ? equipments[0].departmentData?.department || 'ثبت نشده' : 'ثبت نشده';
         
-        let wordContent = `
+        let totalActivities = 0;
+        let totalCost = 0;
+        
+        // جمع‌آوری فعالیت‌ها
+        let allActivities = [];
+        equipments.forEach(equipment => {
+            if (equipment.activitiesData && equipment.activitiesData.length > 0) {
+                equipment.activitiesData.forEach(activity => {
+                    totalActivities += activity.quantity || 0;
+                    totalCost += activity.total || 0;
+                    allActivities.push({
+                        code: activity.code,
+                        title: activity.title,
+                        unit: activity.unit,
+                        unitPrice: activity.unitPrice,
+                        quantity: activity.quantity || 0,
+                        total: activity.total || 0,
+                        equipmentName: equipment.equipmentType,
+                        equipmentScada: equipment.scadaCode
+                    });
+                });
+            }
+        });
+        
+        // جمع‌آوری اقلام مصرفی
+        let allConsumables = [];
+        equipments.forEach(equipment => {
+            if (equipment.consumablesData && equipment.consumablesData.length > 0) {
+                equipment.consumablesData.forEach(consumable => {
+                    allConsumables.push({
+                        name: consumable.name,
+                        quantity: consumable.quantity || 0,
+                        unit: consumable.unit || 'عدد',
+                        description: consumable.description || '',
+                        equipmentName: equipment.equipmentType,
+                        equipmentScada: equipment.scadaCode
+                    });
+                });
+            }
+        });
+        
+        const finalCost = totalCost * coefficient;
+        
+        // گروه‌بندی فعالیت‌ها
+        const groupedActivities = {};
+        allActivities.forEach(activity => {
+            if (!groupedActivities[activity.code]) {
+                groupedActivities[activity.code] = {
+                    code: activity.code,
+                    title: activity.title,
+                    unit: activity.unit,
+                    unitPrice: activity.unitPrice,
+                    totalQuantity: 0,
+                    totalAmount: 0
+                };
+            }
+            groupedActivities[activity.code].totalQuantity += activity.quantity;
+            groupedActivities[activity.code].totalAmount += activity.total;
+        });
+        
+        // گروه‌بندی اقلام مصرفی
+        const groupedConsumables = {};
+        allConsumables.forEach(consumable => {
+            if (!groupedConsumables[consumable.name]) {
+                groupedConsumables[consumable.name] = {
+                    name: consumable.name,
+                    unit: consumable.unit,
+                    totalQuantity: 0,
+                    descriptions: []
+                };
+            }
+            groupedConsumables[consumable.name].totalQuantity += consumable.quantity;
+            if (consumable.description && !groupedConsumables[consumable.name].descriptions.includes(consumable.description)) {
+                groupedConsumables[consumable.name].descriptions.push(consumable.description);
+            }
+        });
+        
+        // ساخت HTML تجهیزات
+        let equipmentHTML = '';
+        equipments.forEach((equipment, index) => {
+            const hasBrands = equipmentWithBrands.includes(equipment.equipmentType);
+            const switchBrandDisplay = hasBrands ? 
+                (equipment.switchBrand === 'سایر' ? equipment.otherSwitchBrand : equipment.switchBrand) : 
+                'بدون برند';
+            
+            const feedersText = equipment.feeders && equipment.feeders.length > 0 
+                ? equipment.feeders.map(f => `${f.post} (${f.feeder})`).join('، ')
+                : 'ثبت نشده';
+            
+            // فعالیت‌های این تجهیز
+            let equipmentActivitiesHTML = '';
+            const eqActivities = allActivities.filter(a => a.equipmentScada === equipment.scadaCode);
+            if (eqActivities.length > 0) {
+                equipmentActivitiesHTML = `
+                    <h4 style="margin-top: 15px; margin-bottom: 10px; color: #3498db;">فعالیت‌های انجام شده</h4>
+                    <table style="width: 100%; border-collapse: collapse; margin-bottom: 15px;">
+                        <thead>
+                            <tr>
+                                <th style="padding: 8px; border: 1px solid #ddd; background-color: #f2f2f2;">کد</th>
+                                <th style="padding: 8px; border: 1px solid #ddd; background-color: #f2f2f2;">عنوان فعالیت</th>
+                                <th style="padding: 8px; border: 1px solid #ddd; background-color: #f2f2f2;">تعداد</th>
+                                <th style="padding: 8px; border: 1px solid #ddd; background-color: #f2f2f2;">مبلغ (ریال)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${eqActivities.map(act => `
+                                <tr>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">${act.code}</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">${act.title}</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">${act.quantity.toLocaleString()}</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">${act.total.toLocaleString()}</td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                `;
+            }
+            
+            // اقلام مصرفی این تجهیز
+            let equipmentConsumablesHTML = '';
+            const eqConsumables = allConsumables.filter(c => c.equipmentScada === equipment.scadaCode);
+            if (eqConsumables.length > 0) {
+                equipmentConsumablesHTML = `
+                    <h4 style="margin-top: 15px; margin-bottom: 10px; color: #27ae60;">اقلام مصرفی</h4>
+                    <table style="width: 100%; border-collapse: collapse; margin-bottom: 15px;">
+                        <thead>
+                            <tr>
+                                <th style="padding: 8px; border: 1px solid #ddd; background-color: #f2f2f2;">نام قلم مصرفی</th>
+                                <th style="padding: 8px; border: 1px solid #ddd; background-color: #f2f2f2;">تعداد</th>
+                                <th style="padding: 8px; border: 1px solid #ddd; background-color: #f2f2f2;">واحد</th>
+                                <th style="padding: 8px; border: 1px solid #ddd; background-color: #f2f2f2;">توضیحات</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${eqConsumables.map(con => `
+                                <tr>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">${con.name}</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">${con.quantity.toLocaleString()}</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">${con.unit}</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">${con.description || '-'}</td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                `;
+            }
+            
+            equipmentHTML += `
+                <div style="margin-bottom: 30px; padding: 20px; border: 2px solid #ddd; border-radius: 10px; page-break-inside: avoid;">
+                    <h3 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px;">
+                        تجهیز ${index + 1}: ${equipment.equipmentType || 'ثبت نشده'}
+                        <span style="font-size: 14px; color: #666;">(کد: ${equipment.scadaCode || 'ثبت نشده'})</span>
+                    </h3>
+                    
+                    <table style="width: 100%; border-collapse: collapse; margin-bottom: 15px;">
+                        <tr>
+                            <th style="padding: 8px; border: 1px solid #ddd; background-color: #f2f2f2; width: 25%;">زمان فعالیت:</th>
+                            <td style="padding: 8px; border: 1px solid #ddd; width: 25%;">${equipment.startTime || '---'} - ${equipment.endTime || '---'}</td>
+                            <th style="padding: 8px; border: 1px solid #ddd; background-color: #f2f2f2; width: 25%;">نوع نصب:</th>
+                            <td style="padding: 8px; border: 1px solid #ddd; width: 25%;">${equipment.installationType || '---'}</td>
+                        </tr>
+                        ${hasBrands ? `
+                        <tr>
+                            <th style="padding: 8px; border: 1px solid #ddd; background-color: #f2f2f2;">برند کلید:</th>
+                            <td style="padding: 8px; border: 1px solid #ddd;">${switchBrandDisplay}</td>
+                            <th style="padding: 8px; border: 1px solid #ddd; background-color: #f2f2f2;">وضعیت سیگنال:</th>
+                            <td style="padding: 8px; border: 1px solid #ddd;">${equipment.communicationData?.signalStatus || '---'}</td>
+                        </tr>
+                        ` : ''}
+                        <tr>
+                            <th style="padding: 8px; border: 1px solid #ddd; background-color: #f2f2f2;">امور شهرستان:</th>
+                            <td style="padding: 8px; border: 1px solid #ddd;">${equipment.departmentData?.department || 'ثبت نشده'}</td>
+                            <th style="padding: 8px; border: 1px solid #ddd; background-color: #f2f2f2;">فیدرها:</th>
+                            <td style="padding: 8px; border: 1px solid #ddd;">${feedersText}</td>
+                        </tr>
+                        <tr>
+                            <th style="padding: 8px; border: 1px solid #ddd; background-color: #f2f2f2;">موقعیت جغرافیایی:</th>
+                            <td colspan="3" style="padding: 8px; border: 1px solid #ddd;">
+                                عرض: ${equipment.locationData?.latitude || 'ثبت نشده'} - طول: ${equipment.locationData?.longitude || 'ثبت نشده'}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th style="padding: 8px; border: 1px solid #ddd; background-color: #f2f2f2;">آدرس:</th>
+                            <td colspan="3" style="padding: 8px; border: 1px solid #ddd;">${equipment.locationData?.address || 'ثبت نشده'}</td>
+                        </tr>
+                    </table>
+                    
+                    ${equipmentActivitiesHTML}
+                    ${equipmentConsumablesHTML}
+                </div>
+            `;
+        });
+        
+        // ساخت جدول خلاصه فعالیت‌ها
+        let activitiesSummaryHTML = '';
+        if (Object.keys(groupedActivities).length > 0) {
+            activitiesSummaryHTML = `
+                <div class="section-title">📋 خلاصه فعالیت‌های فهرست بها</div>
+                <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+                    <thead>
+                        <tr>
+                            <th style="padding: 8px; border: 1px solid #ddd; background-color: #f2f2f2;">کد</th>
+                            <th style="padding: 8px; border: 1px solid #ddd; background-color: #f2f2f2;">عنوان فعالیت</th>
+                            <th style="padding: 8px; border: 1px solid #ddd; background-color: #f2f2f2;">تعداد کل</th>
+                            <th style="padding: 8px; border: 1px solid #ddd; background-color: #f2f2f2;">فی واحد (ریال)</th>
+                            <th style="padding: 8px; border: 1px solid #ddd; background-color: #f2f2f2;">مبلغ کل (ریال)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${Object.values(groupedActivities).map(act => `
+                            <tr>
+                                <td style="padding: 8px; border: 1px solid #ddd;">${act.code}</td>
+                                <td style="padding: 8px; border: 1px solid #ddd;">${act.title}</td>
+                                <td style="padding: 8px; border: 1px solid #ddd;">${act.totalQuantity.toLocaleString()}</td>
+                                <td style="padding: 8px; border: 1px solid #ddd;">${act.unitPrice.toLocaleString()}</td>
+                                <td style="padding: 8px; border: 1px solid #ddd;">${act.totalAmount.toLocaleString()}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                    <tfoot>
+                        <tr style="background-color: #f2f2f2; font-weight: bold;">
+                            <td colspan="4" style="text-align: left;">جمع کل:</td>
+                            <td>${totalCost.toLocaleString()} ریال</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            `;
+        }
+        
+        // ساخت جدول خلاصه اقلام مصرفی
+        let consumablesSummaryHTML = '';
+        if (Object.keys(groupedConsumables).length > 0) {
+            consumablesSummaryHTML = `
+                <div class="section-title">📦 خلاصه اقلام مصرفی</div>
+                <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+                    <thead>
+                        <tr>
+                            <th style="padding: 8px; border: 1px solid #ddd; background-color: #f2f2f2;">نام قلم مصرفی</th>
+                            <th style="padding: 8px; border: 1px solid #ddd; background-color: #f2f2f2;">تعداد کل</th>
+                            <th style="padding: 8px; border: 1px solid #ddd; background-color: #f2f2f2;">واحد</th>
+                            <th style="padding: 8px; border: 1px solid #ddd; background-color: #f2f2f2;">توضیحات</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${Object.values(groupedConsumables).map(con => `
+                            <tr>
+                                <td style="padding: 8px; border: 1px solid #ddd;">${con.name}</td>
+                                <td style="padding: 8px; border: 1px solid #ddd;">${con.totalQuantity.toLocaleString()}</td>
+                                <td style="padding: 8px; border: 1px solid #ddd;">${con.unit}</td>
+                                <td style="padding: 8px; border: 1px solid #ddd;">${con.descriptions.join('، ') || '-'}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+        }
+        
+        const wordContent = `
             <!DOCTYPE html>
             <html dir="rtl" lang="fa">
-            <head><meta charset="UTF-8">
-            <style>
-                body { font-family: 'B Nazanin', Tahoma, sans-serif; direction: rtl; margin: 2cm; }
-                .header { text-align: center; margin-bottom: 30px; border-bottom: 3px solid #2c3e50; }
-                .section-title { background-color: #2c3e50; color: white; padding: 10px 15px; margin-bottom: 15px; }
-                table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
-                th, td { padding: 8px; border: 1px solid #ddd; text-align: center; }
-            </style>
+            <head>
+                <meta charset="UTF-8">
+                <title>گزارش بازدید تجهیزات اتوماسیون</title>
+                <style>
+                    body { font-family: 'B Nazanin', 'Vazirmatn', Tahoma, sans-serif; direction: rtl; margin: 2cm; line-height: 1.5; }
+                    .header { text-align: center; margin-bottom: 30px; border-bottom: 3px solid #2c3e50; padding-bottom: 20px; }
+                    .header h1 { color: #2c3e50; margin: 0; font-size: 24px; }
+                    .header h2 { color: #34495e; margin: 10px 0; font-size: 18px; }
+                    .section-title { background-color: #2c3e50; color: white; padding: 10px 15px; border-radius: 5px; margin: 20px 0 15px 0; font-size: 16px; }
+                    table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+                    th, td { padding: 8px; border: 1px solid #ddd; text-align: right; vertical-align: top; }
+                    th { background-color: #f2f2f2; }
+                    .footer { margin-top: 50px; border-top: 1px solid #ddd; padding-top: 20px; text-align: center; font-size: 12px; color: #666; }
+                    @media print { body { margin: 1cm; } }
+                </style>
             </head>
             <body>
                 <div class="header">
                     <h1>شرکت توزیع نیروی برق استان یزد</h1>
                     <h2>گزارش بازدید تجهیزات اتوماسیون</h2>
                     <p>فرم شماره: F-20324-01 | تاریخ بازدید: ${inspectionDate}</p>
+                    <p>پیمانکار: ${contractor} | شماره قرارداد: ${contractNumber}</p>
+                    <p>امور شهرستان: ${cityDepartment} | ساعت فعالیت: ${dailyStartTime} - ${dailyEndTime}</p>
                 </div>
-                <div class="section-title">اطلاعات روزانه بازدید</div>
+                
+                <div class="section-title">💰 خلاصه مالی</div>
+                <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+                    <tr>
+                        <th style="padding: 10px; width: 25%;">تعداد تجهیزات:</th>
+                        <td style="padding: 10px; width: 25%;">${equipments.length}</td>
+                        <th style="padding: 10px; width: 25%;">کل فعالیت‌ها:</th>
+                        <td style="padding: 10px; width: 25%;">${totalActivities.toLocaleString()}</td>
+                    </tr>
+                    <tr>
+                        <th style="padding: 10px;">هزینه بدون ضریب:</th>
+                        <td style="padding: 10px;">${totalCost.toLocaleString()} ریال</td>
+                        <th style="padding: 10px;">ضریب قرارداد:</th>
+                        <td style="padding: 10px;">${coefficient}</td>
+                    </tr>
+                    <tr style="background-color: #d4edda;">
+                        <th style="padding: 10px; background-color: #28a745; color: white;">هزینه نهایی:</th>
+                        <td colspan="3" style="padding: 10px; font-size: 18px; font-weight: bold;">${finalCost.toLocaleString()} ریال</td>
+                    </tr>
                 </table>
-                    <tr><th>امور شهرستان</th><td>${cityDepartment}</td><th>پیمانکار</th><td>${contractor}</td></tr>
-                    <tr><th>ضریب قرارداد</th><td>${coefficient}</td><th>تعداد تجهیزات</th><td>${equipments.length}</td></tr>
-                </table>
+                
+                ${activitiesSummaryHTML}
+                ${consumablesSummaryHTML}
+                
+                <div class="section-title">🔧 جزئیات تجهیزات بازدید شده</div>
+                ${equipmentHTML}
+                
+                <div class="footer">
+                    <p>سیستم مدیریت بازدید تجهیزات اتوماسیون - شرکت توزیع نیروی برق استان یزد</p>
+                    <p>تاریخ چاپ: ${new Date().toLocaleDateString('fa-IR')}</p>
+                </div>
             </body>
             </html>
         `;
@@ -3191,26 +4111,79 @@ function generateWhatsAppReport() {
     const inspectionDate = document.getElementById('inspection-date')?.value || '';
     const contractor = document.getElementById('contractor')?.value || '';
     const coefficient = document.getElementById('contract-coefficient')?.value || '2.35';
-    const number = document.getElementById('contract-number')?.value || '';
+    const contractNumber = document.getElementById('contract-number')?.value || '';
+    const dailyStartTime = document.getElementById('daily-start-time')?.value || '';
+    const dailyEndTime = document.getElementById('daily-end-time')?.value || '';
     const equipmentCount = equipments.length;
     const activityCount = document.getElementById('summary-activity-count')?.textContent || '۰';
     const totalCost = document.getElementById('summary-total-cost')?.textContent || '۰';
     const finalCost = document.getElementById('summary-final-cost')?.textContent || '۰';
     
+    // جمع‌آوری خلاصه فعالیت‌ها برای واتساپ
+    let activitiesSummary = '';
+    let totalActivitiesCount = 0;
+    let allActivitiesList = [];
+    
+    equipments.forEach(equipment => {
+        if (equipment.activitiesData && equipment.activitiesData.length > 0) {
+            equipment.activitiesData.forEach(activity => {
+                totalActivitiesCount += activity.quantity || 0;
+                allActivitiesList.push({
+                    title: activity.title,
+                    quantity: activity.quantity || 0,
+                    total: activity.total || 0
+                });
+            });
+        }
+    });
+    
+    // گرفتن 5 فعالیت اول برای خلاصه
+    const topActivities = allActivitiesList.slice(0, 5);
+    if (topActivities.length > 0) {
+        activitiesSummary = `\n📊 *خلاصه فعالیت‌ها:*\n`;
+        topActivities.forEach(act => {
+            activitiesSummary += `▫️ ${act.title.substring(0, 40)}: ${act.quantity.toLocaleString()} عدد - ${act.total.toLocaleString()} ریال\n`;
+        });
+        if (allActivitiesList.length > 5) {
+            activitiesSummary += `\n... و ${allActivitiesList.length - 5} فعالیت دیگر\n`;
+        }
+    }
+    
+    // جمع‌آوری خلاصه تجهیزات
+    let equipmentsSummary = '';
+    equipments.forEach((equipment, idx) => {
+        equipmentsSummary += `\n${idx + 1}. ${equipment.equipmentType} (${equipment.scadaCode || 'بدون کد'})`;
+        if (equipment.feeders && equipment.feeders.length > 0) {
+            equipmentsSummary += ` - فیدر: ${equipment.feeders[0].feeder || ''}`;
+        }
+    });
+    
     let message = `📋 *گزارش بازدید تجهیزات اتوماسیون*\n`;
-    message += `📅 تاریخ: ${inspectionDate}\n`;
-    message += `👷 پیمانکار: ${contractor}\n`;
-    message += `💰 ضریب قرارداد: ${coefficient}\n`;
-    message += `📄 شماره قرارداد: ${number}\n`;
-    message += `⚙️ تعداد تجهیزات: ${equipmentCount}\n`;
-    message += `📊 کل فعالیت‌ها: ${activityCount}\n`;
-    message += `💵 هزینه بدون ضریب: ${totalCost}\n`;
-    message += `🏆 هزینه نهایی: ${finalCost}\n`;
-    message += `\nشرکت توزیع نیروی برق استان یزد`;
+    message += `━━━━━━━━━━━━━━━━━━━━━\n`;
+    message += `📅 *تاریخ:* ${inspectionDate}\n`;
+    message += `👷 *پیمانکار:* ${contractor}\n`;
+    message += `📄 *شماره قرارداد:* ${contractNumber}\n`;
+    message += `⏰ *ساعت فعالیت:* ${dailyStartTime} - ${dailyEndTime}\n`;
+    message += `━━━━━━━━━━━━━━━━━━━━━\n`;
+    message += `💰 *ضریب قرارداد:* ${coefficient}\n`;
+    message += `⚙️ *تعداد تجهیزات:* ${equipmentCount}\n`;
+    message += `📊 *کل فعالیت‌ها:* ${totalActivitiesCount.toLocaleString()}\n`;
+    message += `💵 *هزینه بدون ضریب:* ${totalCost}\n`;
+    message += `🏆 *هزینه نهایی:* ${finalCost}\n`;
+    message += `━━━━━━━━━━━━━━━━━━━━━\n`;
+    
+    if (activitiesSummary) {
+        message += activitiesSummary;
+        message += `━━━━━━━━━━━━━━━━━━━━━\n`;
+    }
+    
+    message += `🔧 *تجهیزات بازدید شده:*${equipmentsSummary}\n`;
+    message += `━━━━━━━━━━━━━━━━━━━━━\n`;
+    message += `🏢 شرکت توزیع نیروی برق استان یزد\n`;
+    message += `📱 *این گزارش به صورت خودکار ارسال شده است*`;
     
     return message;
 }
-
 // =====================================================
 // Auto-save and Draft Functions
 // =====================================================

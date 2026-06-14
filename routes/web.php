@@ -23,6 +23,7 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\AdvancedDashboardController;
+use App\Http\Controllers\Reports\FinancialReportController;
 
 
 
@@ -164,23 +165,30 @@ Route::get('/advanced-dashboard/export-data', [AdvancedDashboardController::clas
     // ============================================
     // مسیرهای گزارشات
     // ============================================
-    Route::prefix('reports')->name('reports.')->group(function () {
-        Route::get('/', [ReportController::class, 'index'])->name('index');
-        Route::get('/export/{type}', [ReportController::class, 'export'])->name('export');
-        Route::get('/checklist-items', [ReportController::class, 'getChecklistItems'])->name('checklist-items');
-        Route::get('/details', [ReportController::class, 'getDetails'])->name('details');
-        Route::get('/comprehensive', [ReportController::class, 'comprehensive'])->name('comprehensive');
-        Route::get('/contractors-report', [ReportController::class, 'contractorsReport'])->name('contractors-report');
-        Route::get('/departments-report', [ReportController::class, 'departmentsReport'])->name('departments-report');
-        Route::get('/equipment-report', [ReportController::class, 'equipmentReport'])->name('equipment-report');
-        Route::get('/failures', [ReportController::class, 'failures'])->name('failures');
-        Route::get('/financial', [ReportController::class, 'financial'])->name('financial');
-        Route::get('/checklist-results', [ReportController::class, 'checklistResults'])->name('checklist-results');
-        Route::get('/charts', [ReportController::class, 'charts'])->name('charts');
-        Route::get('/advanced', [ReportController::class, 'advanced'])->name('advanced');
-        Route::get('/daily', [ReportController::class, 'daily'])->name('daily');
-        Route::get('/monthly', [ReportController::class, 'monthly'])->name('monthly');
-    });
+Route::prefix('reports')->name('reports.')->group(function () {
+    // گزارش اصلی
+    Route::get('/', [ReportController::class, 'index'])->name('index');
+    Route::get('/export/{type}', [ReportController::class, 'export'])->name('export');
+    Route::get('/checklist-items', [ReportController::class, 'getChecklistItems'])->name('checklist-items');
+    Route::get('/details', [ReportController::class, 'getDetails'])->name('details');
+    
+    // گزارش‌های تحلیلی
+    Route::get('/comprehensive', [ReportController::class, 'comprehensive'])->name('comprehensive');
+    Route::get('/contractors-report', [ReportController::class, 'contractorsReport'])->name('contractors-report');
+    Route::get('/departments-report', [ReportController::class, 'departmentsReport'])->name('departments-report');
+    Route::get('/equipment-report', [ReportController::class, 'equipmentReport'])->name('equipment-report');
+    Route::get('/failures', [ReportController::class, 'failures'])->name('failures');
+    Route::get('/checklist-results', [ReportController::class, 'checklistResults'])->name('checklist-results');
+    Route::get('/charts', [ReportController::class, 'charts'])->name('charts');
+    Route::get('/advanced', [ReportController::class, 'advanced'])->name('advanced');
+    Route::get('/daily', [ReportController::class, 'daily'])->name('daily');
+    Route::get('/monthly', [ReportController::class, 'monthly'])->name('monthly');
+    
+    // گزارش مالی صورت وضعیت (با متدهای صحیح)
+    Route::get('/financial', [ReportController::class, 'financial'])->name('financial');
+    Route::get('/financial/export', [ReportController::class, 'exportFinancial'])->name('financial.export');
+});
+
 });
 
 // ============================================
